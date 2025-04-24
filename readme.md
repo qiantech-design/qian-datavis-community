@@ -59,11 +59,11 @@ npm run dev
 
 微信：QianHangService
 
-<img src="./readme/qrcode_vx2.jpg" width=240 />
+<img src="/readme/qrcode_vx2.jpg" width=240 />
 
 QQ：3766696365
 
-<img src="./readme/qrcode_qq.png" width=240 />
+<img src="/readme/qrcode_qq.png" width=240 />
 
 ## 6. 企业版 部分功能展示
 ![编辑器](./readme/screen_background.jpg)
