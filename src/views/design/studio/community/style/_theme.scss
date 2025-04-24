@@ -1,0 +1,406 @@
+.datavis-editor-theme {
+  position: fixed;
+  transition: all 0.3s;
+  width: var(--datavis-editor-right-width);
+  height: calc(100% - var(--datavis-editor-header-height, 60px));
+  top: var(--datavis-editor-header-height, 60px);
+  right: var(--datavis-editor-right-width-opposite);
+  background-color: var(--theme-bar-background);
+  z-index: 11;
+
+  &.show {
+    right: 0;
+  }
+
+  .datavis-editor-theme__header {
+    height: 40px;
+    position: relative;
+    display: flex;
+
+    .tab-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      height: 100%;
+      font-size: 14px;
+      color: #b5b5b5;
+      background: #27282c;
+      cursor: pointer;
+
+      &.active {
+        color: #ffffff;
+        font-weight: 600;
+        background: #35373d;
+      }
+
+      .item-name {
+        margin-left: 4px;
+      }
+    }
+
+    .bottom-bar {
+      width: 46px;
+      height: 2px;
+      background: #246dff;
+      position: absolute;
+      bottom: 0;
+      transition: all 0.3s;
+    }
+  }
+
+  .datavis-editor-theme__body {
+    height: calc(100% - 40px);
+  }
+}
+
+
+
+.datavis-theme-color-card {
+  width: 100%;
+  position: relative;
+
+  .theme-color-card__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px;
+    padding: 8px 15px;
+    transition: all 0.3s;
+    cursor: pointer;
+
+    &.active {
+      border: 2px solid #0b8cf0 !important;
+      box-shadow: 0px 0px 9px 0px rgba(11, 140, 240, 0.45);
+    }
+
+    &:hover {
+      border: 2px solid #0b8cf0 !important;
+    }
+  }
+
+  .theme-color-card__cricel {
+    width: 24px;
+    height: 24px;
+
+    .theme-color-card__cricel--mini {
+      height: 18px;
+      width: 18px;
+    }
+
+    border-radius: 50%;
+    overflow: hidden;
+
+    .el-color-picker {
+      margin: -10px;
+      opacity: 0;
+    }
+  }
+}
+
+
+.datavis-filter-config {
+  height: 100%;
+  padding: 12px 18px 18px;
+
+  .visui-Item__content {
+    justify-content: space-between;
+  }
+
+  .refresh-text-btn {
+    float: right;
+  }
+
+  .el-slider .el-slider__bar {
+    background: transparent !important;
+  }
+
+  .hue-rotate .el-slider .el-slider__runway {
+    background: linear-gradient(270deg,
+        #ff0129 0%,
+        #ff00c4 21%,
+        #0b02ff 41%,
+        rgba(0, 0, 0, 0) 52%,
+        #02ffc7 62%,
+        #fdff00 77%,
+        #ff2203 100%) !important;
+  }
+
+  .saturate .el-slider .el-slider__runway {
+    background: linear-gradient(270deg, #fd0402 0%, #6e6e6d 100%) !important;
+  }
+
+  .brightness .el-slider .el-slider__runway {
+    background: linear-gradient(270deg, #f8f8f8 0%, #030303 100%) !important;
+  }
+
+  .contrast .el-slider .el-slider__runway {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .opacity .el-slider .el-slider__runway {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.4) 0%, #000000 100%) !important;
+  }
+
+  .grayscale .el-slider .el-slider__runway {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+.datavis-theme-config {
+  height: 100%;
+
+  &.object-setting {
+    height: 100%;
+    position: fixed;
+    top: var(--datavis-editor-header-height);
+    bottom: 0;
+    width: var(--datavis-editor-right-width);
+  }
+
+  .datavis-theme-config__header {
+    display: flex;
+    height: 32px;
+    margin: 20px 18px 18px;
+    border-radius: 2px;
+    overflow: hidden;
+
+    .sub-tab-item {
+      flex: 1;
+      height: 100%;
+      line-height: 32px;
+      text-align: center;
+      font-size: 14px;
+      color: #b5b5b5;
+      background: #35373d;
+      cursor: pointer;
+
+      &.active {
+        font-weight: 600;
+        color: #ffffff;
+        background: #246dff;
+      }
+    }
+  }
+
+  .add-theme-btn {
+    width: 100%;
+    height: 32px;
+    background: #474a51;
+    border-radius: 2px !important;
+    border: none;
+    color: #ffffff;
+    margin-top: 20px;
+  }
+
+  .datavis-theme-config__body {
+    padding: 0 16px;
+
+    &.no-padding {
+      padding: 0;
+    }
+
+    &.el-scrollbar {
+      height: calc(100% - 60px - 68px);
+    }
+
+    &.custom {
+      height: calc(100% - 60px - 100px - 12px);
+    }
+
+    .theme-item {
+      &+.theme-item {
+        margin-top: 16px;
+      }
+
+      &:hover {
+        .action-icon-btn {
+          opacity: 1 !important;
+          transition: all 0.2s;
+
+          .icon {
+            color: #acb0b4;
+          }
+        }
+      }
+
+      .item-name {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 26px;
+
+        .theme-title {
+          font-size: 12px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.85);
+        }
+
+        .action-icon-btn {
+          opacity: 0;
+          font-size: 12px;
+          cursor: pointer;
+
+          span:hover {
+            color: #0b8cf0;
+          }
+
+          span:first-child {
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+  }
+
+  .datavis-theme-config__fixed {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 100%;
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #27282c;
+
+    .back-button {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      font-size: 20px;
+      font-weight: 600;
+      color: #dddfe0;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+  }
+
+  .datavis-theme-form {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: var(--theme-bar-background);
+
+    .datavis-theme-form__header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 100%;
+      height: 40px;
+      padding: 0 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      background: #27282c;
+
+      .back-button {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        font-size: 20px;
+        font-weight: 600;
+        color: #dddfe0;
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+    }
+
+    .datavis-theme-form__body {
+      flex: 1;
+      padding: 20px 16px 0;
+
+      .config-title {
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+        margin-bottom: 6px;
+
+        .require-color {
+          margin-left: 2px;
+          color: rgba(255, 93, 93, 0.85);
+        }
+      }
+
+      .title-input {
+        margin-bottom: 4px;
+      }
+
+      .theme-item {
+        &+.theme-item {
+          margin-top: 16px;
+        }
+
+        &:hover {
+          .action-icon-btn {
+            opacity: 1 !important;
+            transition: all 0.2s;
+
+            .icon {
+              color: #acb0b4;
+            }
+          }
+        }
+
+        .item-name {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 26px;
+
+          .theme-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+          }
+
+          .action-icon-btn {
+            opacity: 0;
+            font-size: 12px;
+            cursor: pointer;
+
+            span:hover {
+              color: #0b8cf0;
+            }
+
+            span:first-child {
+              margin-right: 12px;
+            }
+          }
+        }
+      }
+    }
+
+    .edit-button-box {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 20px 0;
+    }
+  }
+
+  .datavis-theme-config__action {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 16px 16px;
+    z-index: 2;
+
+    .action-button-box {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 12px;
+    }
+  }
+}

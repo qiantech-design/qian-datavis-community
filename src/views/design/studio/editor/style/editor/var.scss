@@ -1,0 +1,210 @@
+:root {
+  /**
+  layout
+  */
+  --datavis-editor-background: #1F2024;
+  // header
+  --datavis-editor-header-background: #191A1C;
+  --datavis-editor-header-height: 60px;
+  --datavis-editor-header-z-index: 11;
+  // body
+  --datavis-editor-left-width: 200px;
+  --datavis-editor-right-width: 330px;
+  --datavis-editor-right-width-opposite: -330px;
+  --datavis-editor-content-width: calc(100% - var(--datavis-editor-left-width) - var(--datavis-editor-right-width));
+  // bottom
+  --datavis-editor-bottom-color: #1F2024;
+  // ruler
+  --datavis-ruler-bar-color: #ffffff;
+
+  /**
+    *toolbar
+  */
+  --toolbar-input-color: var(--ui-font-color);
+  --toolbar-input-hover-color: var(--ui-reset-border);
+  --toolbar-input-focus-color: var(--el-color-primary);
+
+  // action
+  --toolbar-action-color: #b5b5b5;
+  --toolbar-action-disable-color: var(--ui-disabled-color);
+
+  --toolbar-action-active-color: var(--ui-font-color);
+  --toolbar-action-active-background: var(--el-color-primary);
+  --toolbar-action-no-hover-background: var(--ui-icon-outline-bg-color);
+
+  // icon
+  --toolbar-icon-color: var(--ui-secondary-font-color);
+  --toolbar-icon-border: var(--ui-icon-outline-border-color);
+  --toolbar-icon-background: var(--ui-icon-outline-bg-color);
+
+  --toolbar-icon-hover-background: var(--ui-icon-outline-hover-bg-color);
+
+  --toolbar-icon-active-color: var(--ui-font-color);
+  --toolbar-icon-active-background: var(--el-color-primary);
+
+  --toolbar-svgicon-color: #E9EDF2;
+  --toolbar-svgicon-active-color: #ffffff;
+
+  // toolbar-contentmenu
+  --toolbar-contentmenu-color: var(--ui-secondary-font-color);
+  --toolbar-contentmenu-item-background: var(--ui-icon-hover-background);
+  --toolbar-contentmenu-divider-background: #2D394A;
+
+  /**
+    *右键菜单背景颜色
+  */
+  --contentmenu-width: 150px;
+  --contentmenu-background: #242932;
+  --contentmenu-border-color: #2d394a;
+  --contentmenu-shadow-color: rgba(0, 0, 0, 0.45);
+  // contentmenu-item
+  --contentmenu-item-height: 32px;
+  --contentmenu-item-color: var(--ui-secondary-font-color);
+  --contentmenu-item-hover-background: var(--ui-icon-hover-background);
+
+  /**
+    *图层-layer
+  */
+  --layer-background: #1F2024;
+  --layer-border-color: #2d394a;
+  --layer-shadow-color: rgba(0, 0, 0, 0.45);
+  --layer-divider-shadow-color: #0c0c0c;
+  --layer-font-size: 12px;
+
+  // layer-header
+  --layer-header-background: #35373d;
+  --layer-header-color: #f5f5f5;
+  // action
+  --layer-action-color: #fff;
+  --layer-action-divider-color: #676767;
+
+  // scroll
+  --layer-scroll-background: #000;
+
+  // layer-item
+  --layer-item-height: 40px;
+  --layer-item-color: var(--ui-font-color);
+  --layer-item-hover-background: #2E3036;
+  --layer-item-active-background: var(--el-color-primary);
+  --layer-item-image-background: #000;
+  --layer-item-line-background: var(--el-color-primary);
+
+  /**
+    *编辑区-workspaceBar
+  */
+  --workspace-background: #000000;
+
+  /**
+    *子屏管理栏-pagebar
+  */
+  --pagebar-width: calc(100% - var(--zoombar-width));
+  --pagebar-background: #B5B5B5;
+
+  // pagebar-item
+  --pagebar-item-width: 30px;
+  --pagebar-item-border-color: #000;
+  --pagebar-item-color: #B5B5B5;
+
+  --pagebar-item-hover-color: #FFFFFF;
+  --pagebar-item-hover-background: #2C3745;
+
+  --pagebar-item-active-color: #F5F5F5;
+  --pagebar-item-active-background: #35373D;
+
+  --pagebar-item-input-color: #bcc9d4;
+  --pagebar-item-input-border-color: var(var(--el-color-primary));
+
+  --pagebar-item-top-active-background: var(--el-color-primary);
+  --pagebar-item-top-active-border-color: var(--el-color-primary);
+
+  /**
+  ** 缩放条-zoombar
+  */
+  --zoombar-width: 376px;
+  --zoombar-color: #919293;
+  --zoombar-icon-color: #A7A7A7;
+  --zoombar-input-background: #36373D;
+  --zoombar-slider-background: #A7A7A7;
+  --zoombar-slider-button-background: #D5D5D5;
+  --zoombar-slider-runway-background: rgba(255, 255, 255, 0.1);
+  --zoombar-slider-divider-border: #676767;
+
+  // popper
+  --zoombar-popper-color: var(--ui-secondary-font-color);
+  --zoombar-popper-hover-background: var(--ui-icon-hover-background);
+
+  //el-popper
+  --zoombar-el-popper-color: #ffffff;
+  --zoombar-el-popper-background: #242932;
+  --zoombar-el-popper-box-shadow: rgba(0, 0, 0, 0.45);
+
+  // 帮助
+  --zoombar-shourtcut-background: #1A1D22;
+  --zoombar-shourtcut-box-shadow: rgba(0, 0, 0, 0.21);
+
+  --zoombar-shourtcut-title-color: #dedede;
+  --zoombar-shourtcut-title-shadow: rgba(0, 0, 0, 0.45);
+
+  --zoombar-shourtcut-item-color: #dedede;
+  --zoombar-shourtcut-item-key-color: #8d8d8d;
+
+
+  /*
+  *rightbar
+  */
+  --rightbar-box-shadow: #000000;
+  // tab
+  --rightbar-tab-item-color: var(--ui-tabs-item-font-color);
+  --rightbar-tab-item-hover-background: var(--ui-tabs-item-hover-bg);
+  --rightbar-tab-item-active-background: var(--ui-tabs-item-active-bg);
+  --rightbar-tab-item-active-color: var(--ui-font-color);
+  --rightbar-tab-item-active-after-background: var(--el-color-primary);
+
+
+
+  /*
+  *组件弹出框-component
+  */
+  --component-background: #232428;
+  --component-box-shadow: #0c0c0c;
+  --component-border-shadow: rgba(0, 0, 0, 0.45);
+  --component-color: #c1c7cd;
+  --component-icon-color: rgba(255, 255, 255, 0.65);
+  // tab
+  --component-tab-active-color: #f5f5f5;
+  // menu
+  --component-menu-active-color: #ffffff;
+  --component-menu-active-background: #246dff;
+
+  // list
+  --component-list-item-border: #000205;
+  --component-list-image-background: #000205;
+  --component-list-text-color: #c1c7cd;
+  --component-list-hover-border: #0b8cf0;
+
+  --component-lock-mask-background: rgba(255, 255, 255, 0.15);
+  --component-lock-border-color: #000205;
+
+  /*
+  * 素材库选择框
+  */
+  --gallery-box-shadow: rgba(0, 0, 0, 0.45);
+
+  // menu
+  --gallery-menu-color: #ccc;
+  --gallery-menu-active-color: #fff;
+  --gallery-menu-active-border: #2681ff;
+
+  // item
+  --gallery-list-item-background: #000205;
+  --gallery-list-item-hover-border: #0b8cf0;
+
+  // empty
+  --gallery-list-empty-button-color: #0b8cf0;
+  --gallery-list-empty-tip-color: #e3e9f0;
+
+  /*
+  * 主题配置
+  */
+  --theme-bar-background: var(--ui-setting-background);
+}

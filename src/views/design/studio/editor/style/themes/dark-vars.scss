@@ -1,0 +1,115 @@
+html[data-theme='dark'] {
+    // 主题色
+    --el-color-primary: #246dff;
+    --ui-secondary-primary-color: rgba(67, 126, 252, 1);
+    --ui-color-primary: 36, 109, 255;
+    --ui-warning-color: #e6a23c;
+    // 主背景色
+    --ui-background-primary: #040810;
+    --ui-element-background: #0E1217; // 通用元素背景色
+    --ui-sidebar-background: #0e1217; // 左侧菜单栏背景色
+    --ui-border-radius: 4px; // 统一圆角
+    // 字体颜色
+    --ui-font-color: #ffffff;
+    // label字体颜色
+    --ui-light-font-color: #F5F5F5;
+    --ui-secondary-font-color: #C7C8CF;
+    --ui-thirdly-font-color: #A2A2A2;
+    --ui-weak-font-color: #8d8d8d;
+    // 元素hover背景色
+    --ui-element-hover-bg: #363b45;
+    // 下拉文字颜色
+    --ui-list-item-text-color: rgb(181, 183, 193);
+    // 输入框占位文字颜色
+    --ui-placeholder-color: #999;
+    // 侧边菜单栏背景颜色
+    --ui-sidebar-background: #0e1217;
+    // 下拉文字hover背景色
+    --ui-dropdown-hover-background: var(--ui-element-hover-bg);
+    // 下拉文字激活背景色
+    --ui-dropdown-active-background: #424853;
+    // 图标默认背景色
+    --ui-icon-background: rgba(0, 0, 0, 0);
+    // 图标hover背景色
+    --ui-icon-hover-background: var(--ui-element-hover-bg);
+    // 图标激活背景色
+    --ui-icon-active-background: #424853;
+    --ui-icon-outline-bg-color: rgba(57, 59, 62, 1);
+    --ui-icon-outline-hover-bg-color: rgba(86, 88, 95, 1);
+    --ui-icon-outline-border-color: rgba(151, 151, 151, 0.11);
+    --ui-list-item-hover-bg-color: var(--ui-element-hover-bg);
+    --ui-list-item-active-bg-color: #313845;
+    --ui-list-item-active-text-color: var(--ui-font-color);
+    --ui-disabled-color: rgba(181, 181, 181, 0.45);
+
+    --ui-tabs-item-bg: #27282C;
+    --ui-tabs-item-font-color: #B5B5B5;
+    --ui-tabs-item-hover-bg: rgba(53, 55, 61, 1);
+    --ui-tabs-item-active-bg: #35373D;
+
+    --ui-reset-el-mask-color: rgba(7, 5, 5, 0.3);
+
+    --ui-card-bg-color: #14171e;
+    --ui-card-border-color: #1f232a;
+
+    --ui-tree-acitve-bg: var(--el-color-primary);
+    --ui-tree-active-text-color: var(--ui-font-color);
+
+    // 重置颜色
+    --ui-setting-background: #1F2024;
+    --ui-reset-background: #2C2D33;
+    --ui-reset-disable-background: rgb(64, 70, 88, 0.5);
+
+    --ui-reset-border: #2f343c;
+    --ui-reset-color: #ecf6ff;
+    --ui-reset-input-color: #ffffff;
+    --ui-reset-label-color: #d6dbdf;
+    --ui-reset-switch-off-color: rgba(255, 255, 255, 0.3);
+    --ui-reset-switch-off-border: rgba(0, 0, 0, 0.3);
+
+    --el-color-primary-light-3: rgba(70, 130, 255, 1);
+    --el-color-primary-light-5: rgba(var(--ui-color-primary), 0.5);
+    --el-color-primary-light-7: rgba(var(--ui-color-primary), 0.3);
+    --el-color-primary-light-8: rgba(var(--ui-color-primary), 0.2);
+    --el-color-primary-light-9: rgba(var(--ui-color-primary), 0.1);
+
+    // element
+    --el-bg-color: #021020;
+    --el-bg-color-overlay: #242932;
+    --el-border-color: var(--ui-reset-border);
+    --el-fill-color-blank: var(--ui-background-primary);
+    --el-border-color-light: var(--ui-reset-border);
+
+    --el-text-color-primary: #e3e9f0;
+
+    --el-fill-color-light: rgb(64, 70, 88, 0.5);
+
+    --el-text-color-regular: rgba(172, 181, 188, 1);
+
+    --el-border-color-lighter: var(--ui-reset-border);
+
+    --ui-button-bg-color: #41485a; // 默认按钮背景色
+    --ui-button-hover-text-color: #ffffff; // 默认按钮hover字体颜色
+    --ui-button-hover-bg-color: #52596a; // 默认按钮hover背景色
+    --ui-button-active-bg-color: #353b48; // 默认按钮激活背景色
+
+    --ui-button-primary-hover-bg-color: #4682ff; // 主按钮hover背景色
+
+
+    --ui-table-header-bg-color: #242830;
+    --ui-table-header-text-color: var(--ui-secondary-font-color);
+    --ui-table-border: 1px solid #212529;
+    --ui-table-tr-hover-bg-color: var(--ui-element-hover-bg);
+
+    --ui-reset-menu-base-level-padding: 12px;
+    --ui-reset-menu-level-padding: 12px;
+
+    --ui-reset-table-text-color: #f5f5f5;
+
+    --ui-editor-header-height: 60px;
+    --ui-edtor-header-bg-color: #191A1C;
+
+    --ui-transition-timer: .3s;
+
+    --el-mask-color: rgba(0, 0, 0, 0.2)
+}
