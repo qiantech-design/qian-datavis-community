@@ -49,8 +49,9 @@ import '@/assets/js/datavis/prop/index.css'
 import datavisUI from '@/assets/js/datavis/ui/index.es.js'
 import '@/assets/js/datavis/ui/index.css'
 
-// 编辑器
-import registerEditor from '@/views/design/studio/editor/register'
+// 注册编辑器
+import registerEditor from '@/assets/js/datavis/editor/index.es.js'
+import '@/assets/js/datavis/editor/index.css'
 
 // 注册编辑器布局
 import registerLayout from '@/views/design/studio/community/register'
