@@ -12,16 +12,24 @@ export default defineConfig({
     open: false,
     port: 2800,
     proxy: {
-      '/frame_api': {
-        target: 'http://113.45.138.156/frame_api/',
+      '/frame_api/': {
+        target: 'https://www.qiantech.com.cn/frame_api/',
         changeOrigin: true,
         ws: true,
         secure: false,
-        rewrite: path => path.replace('/frame_api', '/')
+        rewrite: path => path.replace('/frame_api/', '/')
+      },
+      '/formwork_api/': {
+        target: 'https://www.qiantech.com.cn/formwork_api/',
+        changeOrigin: true,
+        ws: true,
+        secure: false,
+        rewrite: path => path.replace('/formwork_api/', '/')
       },
       '/resource': {
-        target: 'http://113.45.138.156',
-        changeOrigin: true
+        target: 'https://resource.qiantech.com.cn',
+        changeOrigin: true,
+        rewrite: path => path.replace('/resource', '/')
       }
     }
   },
