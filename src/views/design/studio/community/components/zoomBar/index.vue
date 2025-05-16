@@ -4,24 +4,24 @@
       <visui-icon class="scale-input-icon minus" @click="handleReduce" name="ele-minus"></visui-icon>
     </visui-tooltip>
     <div class="zoombar-slider">
-      <el-slider tooltip-class="datavis-editor-text-tip" v-model="scaleValue" :min="20" :max="400" :step="5" @change="changeScale"> </el-slider>
+      <visui-slider v-model="scaleValue" :min="20" :max="400" :step="5" @change="changeScale"> </visui-slider>
     </div>
     <visui-tooltip content="放大" placement="top">
       <visui-icon class="scale-input-icon plus" @click="handleIncrease" name="ele-plus"></visui-icon>
     </visui-tooltip>
     <div class="zoombar-input">
       <visui-tooltip popper-class="datavis-editor-scale-popper" placement="top" width="80" trigger="click">
-        <ul class="editor-scale-value-list">
-          <li v-for="s in scaleList" :key="s.value" class="scale-value-item" @click="submitScale(s.value)">
-            {{ s.label }}
-          </li>
-        </ul>
-        <template #reference>
-          <div class="scale-input">
-            <div class="value">{{ scaleValue }}%</div>
-            <div class="triangle"></div>
-          </div>
+        <template #content>
+          <ul class="editor-scale-value-list">
+            <li v-for="s in scaleList" :key="s.value" class="scale-value-item" @click="submitScale(s.value)">
+              {{ s.label }}
+            </li>
+          </ul>
         </template>
+        <div class="scale-input">
+          <div class="value">{{ scaleValue }}%</div>
+          <div class="triangle"></div>
+        </div>
       </visui-tooltip>
     </div>
     <div class="zoombar-divider"></div>
@@ -29,29 +29,27 @@
       <visui-tooltip
         popper-class="datavis-editor-shourtcut-popper"
         placement="top-end"
-        width="219"
         :offset="16"
         trigger="click"
         :show-arrow="false"
         v-model="shutcutPopoverVisible"
       >
-        
         <template #content>
           <div class="shourtcut-head">
-          <span>快捷键列表</span>
-        </div>
-        <ul class="shourtcut-list">
-          <li class="shourtcut-item" v-for="(item, index) in shortcutKey" :key="index">
-            <div>{{ item.name }}</div>
-            <div class="shourtcut-key">{{ item.value }}</div>
-          </li>
-        </ul>
-        </template>
-          <div class="zoombar-keyboard" :class="{ active: shutcutPopoverVisible }">
-            <visui-tooltip content="快捷键" placement="top">
-              <visui-icon class="icon" name="vis-kuaijiejian"></visui-icon>
-            </visui-tooltip>
+            <span>快捷键列表</span>
           </div>
+          <ul class="shourtcut-list">
+            <li class="shourtcut-item" v-for="(item, index) in shortcutKey" :key="index">
+              <div>{{ item.name }}</div>
+              <div class="shourtcut-key">{{ item.value }}</div>
+            </li>
+          </ul>
+        </template>
+        <div class="zoombar-keyboard" :class="{ active: shutcutPopoverVisible }">
+          <visui-tooltip content="快捷键" placement="top">
+            <visui-icon class="icon" name="vis-kuaijiejian"></visui-icon>
+          </visui-tooltip>
+        </div>
       </visui-tooltip>
     </div>
     <div class="zoombar-fullscreen">

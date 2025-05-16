@@ -6,12 +6,6 @@
   overflow: hidden;
   background: #040810;
 
-  svg {
-    &:focus {
-      outline: none;
-    }
-  }
-
   .el-header {
     background: #0E1217;
     box-shadow: inset 0px -1px 0px 0px #1F232A;
