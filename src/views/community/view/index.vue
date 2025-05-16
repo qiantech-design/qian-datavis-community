@@ -13,7 +13,7 @@ defineOptions({
   name: 'Datavis-view'
 })
 const route = useRoute()
-const draftStroageKey = 'datavis-darft-data'
+const previewStroageKey = 'datavis-preview-data'
 
 const datavisRenderRef = ref()
 
@@ -27,14 +27,10 @@ const handleSetDesignData = (data: any) => {
 }
 // 本地预览
 const initGetLocalData = () => {
-  localforage.getItem(draftStroageKey).then((res: any) => {
+  localforage.getItem(previewStroageKey).then((res: any) => {
     const jsonData = JSON.parse(res)
     if (jsonData) {
-      const data = jsonData[route.query.id as any]
-      if (data) {
-        handleSetDesignData(data.pageData)
-
-      }
+      handleSetDesignData(jsonData)
     }
   })
 }
@@ -59,7 +55,7 @@ const initGetPageData = async () => {
 const initViewData = () => {
   if (route.params.id) {
     initGetPageData()
-  } else if (route.query.id) {
+  } else {
     initGetLocalData()
   }
 }
@@ -68,128 +64,128 @@ const initViewData = () => {
 const initGetVariableData = () => {
   // 示例json
   const random = (m, n) => {
-    return Math.floor(Math.random() * (m - n)) + n;
+    return Math.floor(Math.random() * (m - n)) + n
   }
   setInterval(() => {
     const resData = {
-      "data-header-title": {
-        "data": [
+      'data-header-title': {
+        data: [
           {
-            "text": `这是获取的标题`,
+            text: `这是获取的标题`
           }
         ]
       },
-      "data-annual-carbon-emission-reduction-effect": {
-        "data": [
+      'data-annual-carbon-emission-reduction-effect': {
+        data: [
           {
-            "title": "年碳减排效果 %",
-            "subTitle": random(80, 95),
-            "beforeText": "",
-            "afterText": "kWh/月"
-          }
-        ],
-      },
-      "data-transfer-capacity": {
-        "data": [
-          {
-            "title": "装机容量  kWp",
-            "subTitle": 183,
-            "beforeText": "",
-            "afterText": "kWh/月"
-          }
-        ],
-      },
-      "data-photovoltaic-stations-title": {
-        "data": [
-          {
-            "text": `这是光伏站的标题${random(10, 50)}`
+            title: '年碳减排效果 %',
+            subTitle: random(80, 95),
+            beforeText: '',
+            afterText: 'kWh/月'
           }
         ]
       },
-      "data-photovoltaic-stations-real-time-power-generation": {
-        "data": [
+      'data-transfer-capacity': {
+        data: [
           {
-            "title": "实时发电功率",
-            "subTitle": random(500, 1000),
-            "beforeText": "",
-            "afterText": "kW"
-          }
-        ],
-      },
-      "data-photovoltaic-stations-peak-power-generation": {
-        "data": [
-          {
-            "title": "峰值发电功率",
-            "subTitle": random(500, 1000),
-            "beforeText": "",
-            "afterText": "kW"
-          }
-        ],
-      },
-      "data-photovoltaic-stations-grid-connected-voltage": {
-        "data": [
-          {
-            "title": "井网电压",
-            "subTitle": 380,
-            "beforeText": "",
-            "afterText": "V"
-          }
-        ],
-      },
-      "data-photovoltaic-stations-inverter": {
-        "data": [
-          {
-            "title": "逆变器",
-            "subTitle": 3,
-            "beforeText": "",
-            "afterText": "个"
-          }
-        ],
-      },
-      "data-weather-information-chart": {
-        "data": [
-          {
-            "product": "08",
-            "y1": random(10, 50),
-          },
-          {
-            "product": "09",
-            "y1": random(10, 50),
-          },
-          {
-            "product": "10",
-            "y1": random(10, 50),
-          },
-          {
-            "product": "11",
-            "y1": random(10, 50),
-          },
-          {
-            "product": "12",
-            "y1": random(10, 50),
-          },
-          {
-            "product": "13",
-            "y1": random(10, 50),
-          },
-          {
-            "product": "14",
-            "y1": random(10, 50),
-          },
-          {
-            "product": "15",
-            "y1": random(10, 50),
-          },
-          {
-            "product": "16",
-            "y1": random(10, 50),
-          },
-          {
-            "product": "17",
-            "y1": random(10, 50),
+            title: '装机容量  kWp',
+            subTitle: 183,
+            beforeText: '',
+            afterText: 'kWh/月'
           }
         ]
       },
+      'data-photovoltaic-stations-title': {
+        data: [
+          {
+            text: `这是光伏站的标题${random(10, 50)}`
+          }
+        ]
+      },
+      'data-photovoltaic-stations-real-time-power-generation': {
+        data: [
+          {
+            title: '实时发电功率',
+            subTitle: random(500, 1000),
+            beforeText: '',
+            afterText: 'kW'
+          }
+        ]
+      },
+      'data-photovoltaic-stations-peak-power-generation': {
+        data: [
+          {
+            title: '峰值发电功率',
+            subTitle: random(500, 1000),
+            beforeText: '',
+            afterText: 'kW'
+          }
+        ]
+      },
+      'data-photovoltaic-stations-grid-connected-voltage': {
+        data: [
+          {
+            title: '井网电压',
+            subTitle: 380,
+            beforeText: '',
+            afterText: 'V'
+          }
+        ]
+      },
+      'data-photovoltaic-stations-inverter': {
+        data: [
+          {
+            title: '逆变器',
+            subTitle: 3,
+            beforeText: '',
+            afterText: '个'
+          }
+        ]
+      },
+      'data-weather-information-chart': {
+        data: [
+          {
+            product: '08',
+            y1: random(10, 50)
+          },
+          {
+            product: '09',
+            y1: random(10, 50)
+          },
+          {
+            product: '10',
+            y1: random(10, 50)
+          },
+          {
+            product: '11',
+            y1: random(10, 50)
+          },
+          {
+            product: '12',
+            y1: random(10, 50)
+          },
+          {
+            product: '13',
+            y1: random(10, 50)
+          },
+          {
+            product: '14',
+            y1: random(10, 50)
+          },
+          {
+            product: '15',
+            y1: random(10, 50)
+          },
+          {
+            product: '16',
+            y1: random(10, 50)
+          },
+          {
+            product: '17',
+            y1: random(10, 50)
+          }
+        ]
+      }
     }
     datavisRenderRef.value.exposeSetData(resData)
   }, 5 * 1000)

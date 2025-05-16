@@ -15,33 +15,33 @@
       </div>
     </div>
     <div class="datavis-layer-bar--buttons">
-      <el-tooltip popper-class="datavis-editor-text-tip" effect="dark" :enterable="false" content="上移" placement="top">
-        <layer-action icon="vis-zhiding" :class="{ 'is-active': canMoveUp }" @click="handleCommand(canMoveUp, 'bringForward')"></layer-action>
-      </el-tooltip>
-      <el-tooltip popper-class="datavis-editor-text-tip" effect="dark" :enterable="false" content="下移" placement="top">
-        <layer-action icon="vis-zhidi" :class="{ 'is-active': canMoveDown }" @click="handleCommand(canMoveDown, 'sendBackwards')"></layer-action>
-      </el-tooltip>
-      <el-tooltip popper-class="datavis-editor-text-tip" effect="dark" :enterable="false" content="置顶" placement="top">
-        <layer-action icon="vis-shangyi" :class="{ 'is-active': canMoveUp }" @click="handleCommand(canMoveUp, 'bringToFront')"></layer-action>
-      </el-tooltip>
-      <el-tooltip popper-class="datavis-editor-text-tip" effect="dark" :enterable="false" content="置底" placement="top">
-        <layer-action icon="vis-xiayi" :class="{ 'is-active': canMoveDown }" @click="handleCommand(canMoveDown, 'sendToBack')"></layer-action>
-      </el-tooltip>
+      <visui-tooltip :enterable="false" content="置顶" placement="top">
+        <layer-action icon="vis-zhiding" :class="{ 'is-active': canMoveUp }" @click="handleCommand(canMoveUp, 'bringToFront')"></layer-action>
+      </visui-tooltip>
+      <visui-tooltip :enterable="false" content="置底" placement="top">
+        <layer-action icon="vis-zhidi" :class="{ 'is-active': canMoveDown }" @click="handleCommand(canMoveDown, 'sendToBack')"></layer-action>
+      </visui-tooltip>
+      <visui-tooltip :enterable="false" content="上移" placement="top">
+        <layer-action icon="vis-shangyi" :class="{ 'is-active': canMoveUp }" @click="handleCommand(canMoveUp, 'bringForward')"></layer-action>
+      </visui-tooltip>
+      <visui-tooltip :enterable="false" content="下移" placement="top">
+        <layer-action icon="vis-xiayi" :class="{ 'is-active': canMoveDown }" @click="handleCommand(canMoveDown, 'sendBackwards')"></layer-action>
+      </visui-tooltip>
       <layer-divider></layer-divider>
-      <el-tooltip popper-class="datavis-editor-text-tip" effect="dark" :enterable="false" content="组合" placement="top">
+      <visui-tooltip :enterable="false" content="组合" placement="top">
         <layer-action
           icon="vis-bianzu"
           :class="{ 'is-active': editorState.isActiveSelection }"
           @click="handleCommand(editorState.isActiveSelection, 'group')"
         ></layer-action>
-      </el-tooltip>
-      <el-tooltip popper-class="datavis-editor-text-tip" effect="dark" :enterable="false" content="解组" placement="top">
+      </visui-tooltip>
+      <visui-tooltip :enterable="false" content="解组" placement="top">
         <layer-action
           icon="vis-quxiaobianzu"
           :class="{ 'is-active': editorState.isGroup }"
           @click="handleCommand(editorState.isGroup, 'ungroup')"
         ></layer-action>
-      </el-tooltip>
+      </visui-tooltip>
     </div>
     <div class="datavis-layer-bar--content">
       <layer-tree

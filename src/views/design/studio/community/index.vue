@@ -1,46 +1,49 @@
 <template>
-  <div class="datavis-layout-wrapper" v-loading="!!state.loadingText" :element-loading-text="state.loadingText">
-    <!-- 编辑器 -->
-    <datavis-editor
-      ref="datavisEditorRef"
-      v-model:name="state.pageObject.name"
-      :isModule="isModule"
-      :pageInfo="pageInfo"
-      :customThemeList="state.customThemeList"
-      @command="handleCommand"
-    >
-      <template #header="scope">
-        <headerToolbar v-if="scope.isReady" v-model:name="state.pageObject.name" :customThemeList="state.customThemeList"></headerToolbar>
-      </template>
-      <template #left="scope">
-        <datavis-layer-bar v-if="scope.isReady"></datavis-layer-bar>
-      </template>
-      <template #setting>
-        <datavis-setting-bar :isModule="isModule"></datavis-setting-bar>
-      </template>
-      <template #contextmenu="scope">
-        <datavis-contextmenu-bar v-if="scope.isReady"></datavis-contextmenu-bar>
-      </template>
-    </datavis-editor>
-    <!-- 返回 -->
-    <back-dialog ref="backDialogRef" @finish="handleFinishBack"></back-dialog>
-    <!-- 搜索图层/组件 -->
-    <search-dialog ref="searchDialogRef" @command="handleSearchCommand"></search-dialog>
-    <image-picker-dialog ref="imagePickerDialogRef" @finish="handleFinishImagePickerDialog"></image-picker-dialog>
+  <div class="datavis-layout-wrapper datavis-theme-dark" v-loading="!!state.loadingText" :element-loading-text="state.loadingText">
+    <visui-provider popupEl=".datavis-theme-dark">
+      <!-- 编辑器 -->
+      <datavis-editor
+        ref="datavisEditorRef"
+        v-model:name="state.pageObject.name"
+        :isModule="isModule"
+        :pageInfo="pageInfo"
+        :customThemeList="state.customThemeList"
+        @command="handleCommand"
+        @ready="handleEditorReady"
+      >
+        <template #header="scope">
+          <headerToolbar v-if="scope.isReady" v-model:name="state.pageObject.name" :customThemeList="state.customThemeList"></headerToolbar>
+        </template>
+        <template #left="scope">
+          <datavis-layer-bar v-if="scope.isReady"></datavis-layer-bar>
+        </template>
+        <template #setting>
+          <datavis-setting-bar :isModule="isModule"></datavis-setting-bar>
+        </template>
+        <template #contextmenu="scope">
+          <datavis-contextmenu-bar v-if="scope.isReady"></datavis-contextmenu-bar>
+        </template>
+      </datavis-editor>
+      <!-- 返回 -->
+      <back-dialog ref="backDialogRef" @finish="handleFinishBack"></back-dialog>
+      <!-- 搜索图层/组件 -->
+      <search-dialog ref="searchDialogRef" @command="handleSearchCommand"></search-dialog>
+      <image-picker-dialog ref="imagePickerDialogRef" @finish="handleFinishImagePickerDialog"></image-picker-dialog>
+    </visui-provider>
   </div>
 </template>
 <script lang="ts" setup>
 // 依赖
 import { ref, onMounted, onBeforeUnmount, reactive, computed, watch } from 'vue'
 import * as localforage from 'localforage'
-import { draftStroageKey, getImageSize, useMessage, base64ToFile, pageOperationTypes, eventTypes } from './utils/index'
+import { draftStroageKey, previewStroageKey, getImageSize, useMessage, base64ToFile, pageOperationTypes, eventTypes } from './utils/index'
 
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 // @ts-ignore
 import dayjs from 'dayjs'
 import datavisApi from '@/api/datavisApi'
-import { cloneDeep, pick, omit } from 'lodash-es'
+import { pick, omit } from 'lodash-es'
 
 const componentName = 'datavisFrame'
 defineOptions({
@@ -118,7 +121,7 @@ const handleCommand = (type: pageOperationTypes, data: any, source?: any) => {
 const handleFileUpload = async ({ formData, callback }: any) => {
   state.loadingText = '请稍候...'
   const [err, res]: any = await datavisApi.file.uploadFiles(formData.files, {
-    filePath: formData.folder || 'datavis/unclassified',
+    folder: formData.folder || 'datavis/unclassified',
     isCover: false
   })
   state.loadingText = ''
@@ -242,10 +245,6 @@ const handleImportDraft = () => {
   })
 }
 
-// 清除保存草稿定时器
-const autosaveInstance = ref()
-const autosaveTime = ref(60 * 1000) // 自动保存时间间隔
-
 // 返回
 const backDialogRef = ref()
 const handleBack = async () => {
@@ -357,7 +356,7 @@ const handleSearch = async () => {
   const editor = datavisEditorRef.value.exposeGetEditor()
   const pageData = await datavisEditorRef.value.exposeExportData()
   // 获取当前编辑的子屏
-  const activeScreenId = pageData.canvasConfig.toolbar.defaultBoardId
+  const activeScreenId = pageData.config.toolbar.defaultBoardId
   const activeScreen = pageData.screen.find((item: any) => item.uid === activeScreenId)
   const screen = {
     name: '图层',
@@ -375,25 +374,13 @@ const handleSearch = async () => {
 const handleSearchCommand = (row: any) => {
   datavisEditorRef.value.exposeAddComponent(row)
 }
-/**
- * 自动保存草稿
- */
-const autoSaveDraft = () => {
-  autosaveInstance.value = setTimeout(() => {
-    handleSaveDraft().finally(() => {
-      // 无论成功与否都重新开启定时器
-      autoSaveDraft()
-    })
-  }, autosaveTime.value)
-}
 
 /**----------路由相关------- */
 // 预览
 const handlePreviewData = () => {
   // 打开新标签页预览
   const resolveData = router.resolve({
-    path: '/view',
-    query: { id: route.params.id }
+    path: '/view'
   })
   window.open(resolveData.href)
 }
@@ -440,7 +427,6 @@ const initGetScreenData = async () => {
     const parseData = JSON.parse(e.target?.result as string)
     graphString = JSON.stringify(omit(parseData, ['info'])) // 更新全局变量图纸数据
     datavisEditorRef.value.exposeImportData(parseData)
-    autoSaveDraft()
     state.loadingText = ''
   }
   reader.readAsText(fileRes.data, 'utf-8')
@@ -465,7 +451,7 @@ const handleSaveData = async () => {
   }
   const files = [jsonFile, thumbnail]
   const [uploadErr, uploadRes]: any = await datavisApi.file.uploadFiles(files, {
-    filePath: filePathMaps[state.screenType],
+    folder: filePathMaps[state.screenType],
     isCover: true
   })
   if (!uploadErr) {
@@ -496,23 +482,23 @@ watch(
   }
 )
 
-// 处理页面隐藏事件，如切换标签页、页面最小化等，将当前内容写到草稿
-const handleVisibilityChange = () => {
+// 处理页面隐藏事件，如切换标签页、页面最小化等，将当前内容写到预览数据中
+const handleVisibilityChange = async () => {
   if (document.visibilityState === 'hidden') {
-    handleSaveDraft()
+    const pageData = await datavisEditorRef.value.exposeExportData()
+    localforage.setItem(previewStroageKey, JSON.stringify(pageData))
   }
 }
 
-onMounted(() => {
+const handleEditorReady = (datavisEditor: any) => {
   if (route.query.screenType) {
     state.screenType = route.query.screenType as any
   }
   initGetScreenData()
   document.addEventListener('visibilitychange', handleVisibilityChange)
-})
+}
+
 onBeforeUnmount(() => {
-  clearTimeout(autosaveInstance.value)
-  autosaveInstance.value = null
   document.removeEventListener('visibilitychange', handleVisibilityChange)
 })
 </script>

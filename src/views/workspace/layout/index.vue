@@ -1,46 +1,53 @@
 <template>
-  <div class="ui-workspace-wrap">
-    <el-header>
-      <div class="ui-workspace-header">
-        <div class="ui-workspace-header-left">{{ state.systemName }}</div>
-        <div>
-          <el-dropdown @command="handleCommand">
-            <div class="ui-workspace-header-user">
-              {{ state.user }}
-            </div>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item command="logout">退出</el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </div>
-      </div>
-    </el-header>
-    <el-container>
-      <el-aside width="240px">
-        <div class="ui-workspace-side">
-          <div class="ui-workspace-menu">
-            <ul class="ui-workspace-menu-content">
-              <el-scrollbar>
-                <div class="menu-item-box">
-                  <li class="menu-item" v-for="(item, index) in state.menuList" :key="index" @click="handleRouter(item)"
-                    :class="{ 'is-active': item.path === route.fullPath }">
-                    <visui-icon class="menu-item-icon" :name="item.icon" :size="24" />
-                    <div>{{ item.title }}</div>
-                  </li>
-                </div>
-              </el-scrollbar>
-            </ul>
+  <div class="ui-workspace-wrap datavis-theme-dark">
+    <visui-provider popupEl=".datavis-theme-dark">
+      <el-header>
+        <div class="ui-workspace-header">
+          <div class="ui-workspace-header-left">{{ state.systemName }}</div>
+          <div>
+            <el-dropdown @command="handleCommand">
+              <div class="ui-workspace-header-user">
+                {{ state.user }}
+              </div>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item command="logout">退出</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </div>
         </div>
-      </el-aside>
+      </el-header>
       <el-container>
-        <el-main>
-          <router-view></router-view>
-        </el-main>
+        <el-aside width="240px">
+          <div class="ui-workspace-side">
+            <div class="ui-workspace-menu">
+              <ul class="ui-workspace-menu-content">
+                <el-scrollbar>
+                  <div class="menu-item-box">
+                    <li
+                      class="menu-item"
+                      v-for="(item, index) in state.menuList"
+                      :key="index"
+                      @click="handleRouter(item)"
+                      :class="{ 'is-active': item.path === route.fullPath }"
+                    >
+                      <visui-icon class="menu-item-icon" :name="item.icon" :size="24" />
+                      <div>{{ item.title }}</div>
+                    </li>
+                  </div>
+                </el-scrollbar>
+              </ul>
+            </div>
+          </div>
+        </el-aside>
+        <el-container>
+          <el-main>
+            <router-view></router-view>
+          </el-main>
+        </el-container>
       </el-container>
-    </el-container>
+    </visui-provider>
   </div>
 </template>
 <script setup lang="ts">
@@ -72,12 +79,12 @@ const state = reactive({
       title: '模板',
       icon: 'ele-shop',
       path: '/workspace/market'
-    },
-    {
-      title: '主题',
-      icon: 'ele-magicStick',
-      path: '/workspace/theme'
     }
+    // {
+    //   title: '主题',
+    //   icon: 'ele-magicStick',
+    //   path: '/workspace/theme'
+    // }
   ]
 })
 

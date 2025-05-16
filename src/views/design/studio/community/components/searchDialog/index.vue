@@ -5,7 +5,6 @@
   <el-dialog
     v-model="visible"
     class="datavis-search-dialog"
-    append-to-body
     center
     top="10vh"
     width="336px"

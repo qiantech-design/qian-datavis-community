@@ -126,7 +126,7 @@ const handleEventlisteners = () => {
 const parseScreenData = (data: any) => {
   data = data || []
   return data.map((item: any) => {
-    const objs = datavisEditor.value.dataEnlivenObjects(item.objects)
+    const objs = datavisEditor.value.parseObjects(item.objects)
     return {
       ...item,
       objects: objs

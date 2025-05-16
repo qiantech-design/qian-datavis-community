@@ -7,26 +7,24 @@
     </visui-collapse-item>
     <visui-collapse-item :title="node.id ? '状态设置' : '样式设置'" v-model:expand="stateSettingExpand" :showSwitch="false">
       <visui-item label="当前状态" v-if="node.id">
-        <visui-select v-model="node.stateIndex" placeholder="请选择当前状态"
-          @change="handleAttrsChange(['stateIndex'], node, true)">
-          <visui-option v-for="(item, index) in node.states" :key="`state_${index + 1}`"
-            :label="item.name || `状态${index + 1}`" :value="index" />
+        <visui-select v-model="node.stateIndex" placeholder="请选择当前状态" @change="handleAttrsChange(['stateIndex'], node, true)">
+          <visui-option v-for="(item, index) in node.states" :key="`state_${index + 1}`" :label="item.name || `状态${index + 1}`" :value="index" />
         </visui-select>
-        <el-tooltip popper-class="vis-el-tooltip" content="新增状态" placement="top">
+        <visui-tooltip content="新增状态" placement="top">
           <div class="vis-icon-round-wrap" style="margin-left: 6px" @click="handleAddState(node, stateNameDialogRef)">
             <visui-icon name="vis-tianjia"></visui-icon>
           </div>
-        </el-tooltip>
-        <el-tooltip popper-class="vis-el-tooltip" content="编辑状态名称" placement="top">
+        </visui-tooltip>
+        <visui-tooltip content="编辑状态名称" placement="top">
           <div class="vis-icon-round-wrap" style="margin-left: 6px" @click="handleEditState(node, stateNameDialogRef)">
             <visui-icon name="vis-bianji"></visui-icon>
           </div>
-        </el-tooltip>
-        <el-tooltip popper-class="vis-el-tooltip" content="删除当前状态" placement="top">
+        </visui-tooltip>
+        <visui-tooltip content="删除当前状态" placement="top">
           <div class="vis-icon-round-wrap" style="margin-left: 6px" @click="handleRemoveState(node)">
             <visui-icon name="vis-shanchu1" class="danger-color"></visui-icon>
           </div>
-        </el-tooltip>
+        </visui-tooltip>
       </visui-item>
       <visui-item label="字号">
         <visui-input-number suffix="px" v-model="state.style.fontSize" @change="handleConfigChange" />
@@ -43,42 +41,47 @@
         <visui-input-number suffix="px" v-model="state.style.borderRadius" @change="handleConfigChange" />
       </visui-item>
       <visui-item label="文本颜色">
-        <visui-select-color v-model="state.style.color" @input="handleConfigPreview" @change="handleConfigChange"
-          @recover="handleConfigRecover"></visui-select-color>
+        <visui-select-color
+          v-model="state.style.color"
+          @input="handleConfigPreview"
+          @change="handleConfigChange"
+          @recover="handleConfigRecover"
+        ></visui-select-color>
       </visui-item>
       <visui-item label="边框颜色">
-        <visui-select-color v-model="state.style.borderColor" @input="handleConfigPreview" @change="handleConfigChange"
-          @recover="handleConfigRecover"></visui-select-color>
+        <visui-select-color
+          v-model="state.style.borderColor"
+          @input="handleConfigPreview"
+          @change="handleConfigChange"
+          @recover="handleConfigRecover"
+        ></visui-select-color>
       </visui-item>
       <visui-item label="背景颜色">
-        <visui-select-color v-model="state.style.backgroundColor" @input="handleConfigPreview"
-          @change="handleConfigChange" @recover="handleConfigRecover"></visui-select-color>
+        <visui-select-color
+          v-model="state.style.backgroundColor"
+          @input="handleConfigPreview"
+          @change="handleConfigChange"
+          @recover="handleConfigRecover"
+        ></visui-select-color>
       </visui-item>
       <visui-item label="水平对齐">
-        <visui-tab-radio v-model="state.style.justifyContent" :list="textAlignOptions"
-          @change="handleConfigChange"></visui-tab-radio>
+        <visui-tab-radio v-model="state.style.justifyContent" :list="textAlignOptions" @change="handleConfigChange"></visui-tab-radio>
       </visui-item>
       <visui-item label="垂直对齐">
-        <visui-tab-radio v-model="state.style.alignItems" :list="verticalOptions"
-          @change="handleConfigChange"></visui-tab-radio>
+        <visui-tab-radio v-model="state.style.alignItems" :list="verticalOptions" @change="handleConfigChange"></visui-tab-radio>
       </visui-item>
     </visui-collapse-item>
-    <visui-state-name-dialog ref="stateNameDialogRef"
-      @finish="handleFinishStateNameDialog($event, node, stateNameDialogRef)"></visui-state-name-dialog>
+    <visui-state-name-dialog
+      ref="stateNameDialogRef"
+      @finish="handleFinishStateNameDialog($event, node, stateNameDialogRef)"
+    ></visui-state-name-dialog>
   </div>
 </template>
 
 <script lang="ts" setup>
 //@ts-nocheck
 import { ref, computed } from 'vue'
-import {
-  handleAttrsChange,
-  handleAttrsRecover,
-  handleAddState,
-  handleEditState,
-  handleRemoveState,
-  handleFinishStateNameDialog
-} from '../../datavis'
+import { handleAttrsChange, handleAttrsRecover, handleAddState, handleEditState, handleRemoveState, handleFinishStateNameDialog } from '../../datavis'
 defineOptions({
   name: 'customWidgetButtonProp'
 })

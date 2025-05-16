@@ -110,9 +110,9 @@
   <el-dialog modal-append-to-body title="创建文件夹" v-model="state.folderDialogVisible" width="360px" :close-on-click-modal="false">
     <el-form ref="formRef" :model="state.form" :rules="state.rules" label-width="auto">
       <el-form-item label="类型" prop="type">
-        <el-select v-model="state.form.type" placeholder="请选择">
-          <el-option v-for="item in state.typeList" :key="item.value" :label="item.label" :value="item.value" />
-        </el-select>
+        <visui-select v-model="state.form.type" placeholder="请选择">
+          <visui-option v-for="item in state.typeList" :key="item.value" :label="item.label" :value="item.value" />
+        </visui-select>
       </el-form-item>
       <el-form-item label="名称" prop="name">
         <el-input ref="nameInputRef" v-model="state.form.name" placeholder="请输入名称" clearable />

@@ -4,9 +4,6 @@
       <div style="padding-top: 14px"></div>
       <datavis-setting-bar-size ref="pageSizeBarRef" v-model:config="pageConfig" @change="handleChangeSize"></datavis-setting-bar-size>
       <datavis-setting-bar-background v-model:config="pageConfig" @change="handleChange" @recover="handleRecover"> </datavis-setting-bar-background>
-      <datavis-setting-bar-display v-model:config="pageConfig" @change="handleChange"></datavis-setting-bar-display>
-      <datavis-setting-bar-subpage v-model:config="pageConfig" @change="handleChange"></datavis-setting-bar-subpage>
-      <datavis-setting-bar-toolbar v-if="!isModule" v-model:config="pageConfig.toolbar" @change="handleChange"></datavis-setting-bar-toolbar>
     </el-form>
   </div>
 </template>

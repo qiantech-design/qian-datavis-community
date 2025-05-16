@@ -3,9 +3,9 @@
     :close-on-click-modal="false">
     <el-form ref="formRef" :model="state.form" :rules="state.rules" label-width="auto">
       <el-form-item label="父级目录" prop="parent_id" v-if="state.parentFlag">
-        <el-select v-model="state.form.parent_id" placeholder="请选择">
-          <el-option v-for="item in state.classData" :key="item.id" :label="item.name" :value="item.id" />
-        </el-select>
+        <visui-select v-model="state.form.parent_id" placeholder="请选择">
+          <visui-option v-for="item in state.classData" :key="item.id" :label="item.name" :value="item.id" />
+        </visui-select>
       </el-form-item>
       <el-form-item label="名称" prop="name">
         <el-input v-model="state.form.name" placeholder="请输入名称" clearable />

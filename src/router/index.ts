@@ -98,7 +98,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/design/view/index.vue'),
         meta: {
           title: '大屏查看'
-        }
+        } 
       },
       {
         path: '/view/:id',

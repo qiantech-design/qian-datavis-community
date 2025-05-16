@@ -21,8 +21,28 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
 
-  function mitt(n) {
+  function _0x39ca4c(n) {
     return { all: n = n || /* @__PURE__ */ new Map(), on: function(t, e) {
       var i = n.get(t);
       i ? i.push(e) : n.set(t, [e]);
@@ -109,7 +129,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
     return result;
   }
   var isArray = Array.isArray;
-  var INFINITY$3 = 1 / 0;
+  var INFINITY$2 = 1 / 0;
   var symbolProto$2 = Symbol$1 ? Symbol$1.prototype : void 0, symbolToString = symbolProto$2 ? symbolProto$2.toString : void 0;
   function baseToString(value) {
     if (typeof value == "string") {
@@ -122,7 +142,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
       return symbolToString ? symbolToString.call(value) : "";
     }
     var result = value + "";
-    return result == "0" && 1 / value == -INFINITY$3 ? "-0" : result;
+    return result == "0" && 1 / value == -INFINITY$2 ? "-0" : result;
   }
   var reWhitespace = /\s/;
   function trimmedEndIndex(string) {
@@ -162,13 +182,13 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
     var isBinary = reIsBinary.test(value);
     return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
   }
-  var INFINITY$2 = 1 / 0, MAX_INTEGER = 17976931348623157e292;
+  var INFINITY$1 = 1 / 0, MAX_INTEGER = 17976931348623157e292;
   function toFinite(value) {
     if (!value) {
       return value === 0 ? value : 0;
     }
     value = toNumber(value);
-    if (value === INFINITY$2 || value === -INFINITY$2) {
+    if (value === INFINITY$1 || value === -INFINITY$1) {
       var sign = value < 0 ? -1 : 1;
       return sign * MAX_INTEGER;
     }
@@ -265,8 +285,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
     }
     return func.apply(thisArg, args);
   }
-  function noop() {
-  }
   function copyArray(source, array) {
     var index = -1, length = source.length;
     array || (array = Array(length));
@@ -332,25 +350,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
       }
     }
     return -1;
-  }
-  function baseIsNaN(value) {
-    return value !== value;
-  }
-  function strictIndexOf(array, value, fromIndex) {
-    var index = fromIndex - 1, length = array.length;
-    while (++index < length) {
-      if (array[index] === value) {
-        return index;
-      }
-    }
-    return -1;
-  }
-  function baseIndexOf(array, value, fromIndex) {
-    return value === value ? strictIndexOf(array, value, fromIndex) : baseFindIndex(array, baseIsNaN, fromIndex);
-  }
-  function arrayIncludes(array, value) {
-    var length = array == null ? 0 : array.length;
-    return !!length && baseIndexOf(array, value, 0) > -1;
   }
   var MAX_SAFE_INTEGER$1 = 9007199254740991;
   var reIsUint = /^(?:0|[1-9]\d*)$/;
@@ -795,13 +794,13 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
     }
     return isKey(value, object) ? [value] : stringToPath(toString(value));
   }
-  var INFINITY$1 = 1 / 0;
+  var INFINITY = 1 / 0;
   function toKey(value) {
     if (typeof value == "string" || isSymbol(value)) {
       return value;
     }
     var result = value + "";
-    return result == "0" && 1 / value == -INFINITY$1 ? "-0" : result;
+    return result == "0" && 1 / value == -INFINITY ? "-0" : result;
   }
   function baseGet(object, path) {
     path = castPath(path, object);
@@ -877,12 +876,12 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   function stackHas(key) {
     return this.__data__.has(key);
   }
-  var LARGE_ARRAY_SIZE$2 = 200;
+  var LARGE_ARRAY_SIZE = 200;
   function stackSet(key, value) {
     var data = this.__data__;
     if (data instanceof ListCache) {
       var pairs = data.__data__;
-      if (!Map$1 || pairs.length < LARGE_ARRAY_SIZE$2 - 1) {
+      if (!Map$1 || pairs.length < LARGE_ARRAY_SIZE - 1) {
         pairs.push([key, value]);
         this.size = ++data.size;
         return this;
@@ -1629,50 +1628,6 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
       }
     }, keysIn);
   }
-  function arrayIncludesWith(array, value, comparator) {
-    var index = -1, length = array == null ? 0 : array.length;
-    while (++index < length) {
-      if (comparator(value, array[index])) {
-        return true;
-      }
-    }
-    return false;
-  }
-  var LARGE_ARRAY_SIZE$1 = 200;
-  function baseDifference(array, values, iteratee, comparator) {
-    var index = -1, includes = arrayIncludes, isCommon = true, length = array.length, result = [], valuesLength = values.length;
-    if (!length) {
-      return result;
-    }
-    if (iteratee) {
-      values = arrayMap(values, baseUnary(iteratee));
-    }
-    if (comparator) {
-      includes = arrayIncludesWith;
-      isCommon = false;
-    } else if (values.length >= LARGE_ARRAY_SIZE$1) {
-      includes = cacheHas;
-      isCommon = false;
-      values = new SetCache(values);
-    }
-    outer:
-      while (++index < length) {
-        var value = array[index], computed = iteratee == null ? value : iteratee(value);
-        value = comparator || value !== 0 ? value : 0;
-        if (isCommon && computed === computed) {
-          var valuesIndex = valuesLength;
-          while (valuesIndex--) {
-            if (values[valuesIndex] === computed) {
-              continue outer;
-            }
-          }
-          result.push(value);
-        } else if (!includes(values, computed, comparator)) {
-          result.push(value);
-        }
-      }
-    return result;
-  }
   function createFind(findIndexFunc) {
     return function(collection, predicate, fromIndex) {
       var iterable = Object(collection);
@@ -1793,131 +1748,57 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
     return baseOrderBy(collection, baseFlatten(iteratees, 1), []);
   });
   const sortBy$1 = sortBy;
-  var INFINITY = 1 / 0;
-  var createSet = !(Set$1 && 1 / setToArray(new Set$1([, -0]))[1] == INFINITY) ? noop : function(values) {
-    return new Set$1(values);
-  };
-  var LARGE_ARRAY_SIZE = 200;
-  function baseUniq(array, iteratee, comparator) {
-    var index = -1, includes = arrayIncludes, length = array.length, isCommon = true, result = [], seen = result;
-    if (comparator) {
-      isCommon = false;
-      includes = arrayIncludesWith;
-    } else if (length >= LARGE_ARRAY_SIZE) {
-      var set = iteratee ? null : createSet(array);
-      if (set) {
-        return setToArray(set);
-      }
-      isCommon = false;
-      includes = cacheHas;
-      seen = new SetCache();
-    } else {
-      seen = iteratee ? [] : result;
-    }
-    outer:
-      while (++index < length) {
-        var value = array[index], computed = iteratee ? iteratee(value) : value;
-        value = comparator || value !== 0 ? value : 0;
-        if (isCommon && computed === computed) {
-          var seenIndex = seen.length;
-          while (seenIndex--) {
-            if (seen[seenIndex] === computed) {
-              continue outer;
-            }
-          }
-          if (iteratee) {
-            seen.push(computed);
-          }
-          result.push(value);
-        } else if (!includes(seen, computed, comparator)) {
-          if (seen !== result) {
-            seen.push(computed);
-          }
-          result.push(value);
-        }
-      }
-    return result;
-  }
-  function baseXor(arrays, iteratee, comparator) {
-    var length = arrays.length;
-    if (length < 2) {
-      return length ? baseUniq(arrays[0]) : [];
-    }
-    var index = -1, result = Array(length);
-    while (++index < length) {
-      var array = arrays[index], othIndex = -1;
-      while (++othIndex < length) {
-        if (othIndex != index) {
-          result[index] = baseDifference(result[index] || array, arrays[othIndex], iteratee, comparator);
-        }
-      }
-    }
-    return baseUniq(baseFlatten(result, 1), iteratee, comparator);
-  }
-  var xor = baseRest(function(arrays) {
-    return baseXor(arrayFilter(arrays, isArrayLikeObject));
-  });
   const nanoStr = "1234567890abcdefghijklmnopqrstuvwxyz";
   const nanoid = customAlphabet(nanoStr, 8);
-  const treeToList = (treeData, childField) => {
-    let queen = [];
-    const out = [];
-    if (!treeData || treeData.length === 0) {
-      return out;
+  const treeToList = (_0x1f79f9, _0x152503) => {
+    let _0x340f7b = [];
+    const _0x414c6d = [];
+    if (!_0x1f79f9 || _0x1f79f9["length"] === 0)
+      return _0x414c6d;
+    _0x340f7b = _0x340f7b["concat"](_0x1f79f9);
+    while (_0x340f7b["length"]) {
+      const _0x499540 = _0x340f7b["shift"]();
+      _0x499540[_0x152503] && (_0x340f7b = _0x340f7b["concat"](_0x499540[_0x152503])), _0x414c6d["push"](_0x499540);
     }
-    queen = queen.concat(treeData);
-    while (queen.length) {
-      const first = queen.shift();
-      if (first[childField]) {
-        queen = queen.concat(first[childField]);
-      }
-      out.push(first);
-    }
-    return out;
+    return _0x414c6d;
   };
-  const componentMerge = (object, sources, notComponent = false) => {
-    if (notComponent)
-      return merge(object, sources);
-    const option = sources.option;
-    if (!option)
-      return merge(object, sources);
-    sources.option = void 0;
-    if (option) {
-      return __spreadProps(__spreadValues({}, merge(object, sources)), {
-        option
-      });
+  const componentMerge = (_0x1cfd45, _0x3a692f, _0x24d3f3 = ![]) => {
+    if (_0x24d3f3)
+      return merge(_0x1cfd45, _0x3a692f);
+    const _0xf800d7 = _0x3a692f["option"];
+    if (!_0xf800d7)
+      return merge(_0x1cfd45, _0x3a692f);
+    _0x3a692f["option"] = void 0;
+    if (_0xf800d7)
+      return __spreadProps(__spreadValues({}, merge(_0x1cfd45, _0x3a692f)), { "option": _0xf800d7 });
+  };
+  const setAttributes = (_0x667bdb, _0x13369d) => {
+    for (const _0x416759 in _0x13369d) {
+      _0x667bdb["setAttribute"](_0x416759, _0x13369d[_0x416759]);
     }
   };
-  const setAttributes = (el, attrs) => {
-    for (const key in attrs) {
-      el.setAttribute(key, attrs[key]);
-    }
-  };
-  const hideDoms = (doms) => {
-    doms.forEach((dom) => {
-      dom.style.display = "none";
+  const hideDoms = (_0x39899b) => {
+    _0x39899b["forEach"]((_0x530bf6) => {
+      _0x530bf6["style"]["display"] = "none";
     });
   };
-  const showDoms = (doms, display = "block") => {
-    doms.forEach((dom) => {
-      dom.style.display = display;
+  const showDoms = (_0xa5f225, _0x4a5a9a = "block") => {
+    _0xa5f225["forEach"]((_0x17e252) => {
+      _0x17e252["style"]["display"] = _0x4a5a9a;
     });
   };
-  const traverse = (arr, childField, callback) => {
-    arr = arr || [];
-    arr.forEach((item) => {
-      callback(item);
-      const children = item[childField];
-      if (children) {
-        traverse(children, childField, callback);
-      }
+  const traverse = (_0x16ace9, _0x159c7b, _0x2963d4) => {
+    _0x16ace9 = _0x16ace9 || [], _0x16ace9["forEach"]((_0x4a754d) => {
+      _0x2963d4(_0x4a754d);
+      const _0x59794c = _0x4a754d[_0x159c7b];
+      _0x59794c && traverse(_0x59794c, _0x159c7b, _0x2963d4);
     });
   };
-  const logError = (str) => {
-    return console.error(str);
+  const logError = (_0x33a4c5) => {
+    return console["error"](_0x33a4c5);
   };
-  const logWarning = (str) => {
-    return console.warn(str);
+  const logWarning = (_0x1ded02) => {
+    return console["warn"](_0x1ded02);
   };
   function applyToPoint(matrix, point) {
     return Array.isArray(point) ? [
@@ -2169,597 +2050,318 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
       rotation: { angle: rotation }
     };
   }
-  const getBBox = (rect) => {
-    const { tl, tr, bl, br } = getCoords(rect);
-    const xArr = [tl.x, tr.x, bl.x, br.x];
-    const yArr = [tl.y, tr.y, bl.y, br.y];
-    let minX = Math.min(...xArr);
-    let minY = Math.min(...yArr);
-    let maxX = Math.max(...xArr);
-    let maxY = Math.max(...yArr);
-    return {
-      x: minX,
-      y: minY,
-      w: maxX - minX,
-      h: maxY - minY
-    };
+  const getBBox = (_0x5f2541) => {
+    const { tl: _0x3a5575, tr: _0x4caa92, bl: _0x48fd65, br: _0x3c08e4 } = getCoords(_0x5f2541), _0x3670e3 = [_0x3a5575["x"], _0x4caa92["x"], _0x48fd65["x"], _0x3c08e4["x"]], _0x404bcb = [_0x3a5575["y"], _0x4caa92["y"], _0x48fd65["y"], _0x3c08e4["y"]];
+    let _0x554255 = Math["min"](..._0x3670e3), _0x1264b8 = Math["min"](..._0x404bcb), _0x45c472 = Math["max"](..._0x3670e3), _0x29e98f = Math["max"](..._0x404bcb);
+    return { "x": _0x554255, "y": _0x1264b8, "w": _0x45c472 - _0x554255, "h": _0x29e98f - _0x1264b8 };
   };
-  const isRectIntersect = (rect1, rect2, isComplete = false) => {
-    const { x: x1, y: y1, w: w1, h: h1 } = rect1;
-    const { x: x2, y: y2, w: w2, h: h2 } = rect2;
-    let flag = x1 <= x2 + w2 && x1 + w1 >= x2 && y1 <= y2 + h2 && y1 + h1 >= y2;
-    if (isComplete) {
-      flag = x1 <= x2 && x1 + w1 >= x2 + w2 && y1 <= y2 && y1 + h1 >= y2 + h2;
-    }
-    return flag;
+  const isRectIntersect = (_0x29929d, _0x18589a, _0xb48b4c = ![]) => {
+    const { x: _0x57ebff, y: _0x5a80e2, w: _0x1ae240, h: _0x1ad1d2 } = _0x29929d, { x: _0x853b98, y: _0x4451f4, w: _0x33d849, h: _0x122368 } = _0x18589a;
+    let _0xa68a28 = _0x57ebff <= _0x853b98 + _0x33d849 && _0x57ebff + _0x1ae240 >= _0x853b98 && _0x5a80e2 <= _0x4451f4 + _0x122368 && _0x5a80e2 + _0x1ad1d2 >= _0x4451f4;
+    return _0xb48b4c && (_0xa68a28 = _0x57ebff <= _0x853b98 && _0x57ebff + _0x1ae240 >= _0x853b98 + _0x33d849 && _0x5a80e2 <= _0x4451f4 && _0x5a80e2 + _0x1ad1d2 >= _0x4451f4 + _0x122368), _0xa68a28;
   };
-  const rotatePoint = (p1 = { x: 0, y: 0 }, p2 = { x: 0, y: 0 }, angle) => {
-    const dx = p1.x - p2.x;
-    const dy = p1.y - p2.y;
-    const theta = angle * (Math.PI / 180);
-    const newX = dx * Math.cos(theta) - dy * Math.sin(theta) + p2.x;
-    const newY = dx * Math.sin(theta) + dy * Math.cos(theta) + p2.y;
-    return { x: newX, y: newY };
+  const rotatePoint = (_0x209044 = { "x": 0, "y": 0 }, _0x4c9d94 = { "x": 0, "y": 0 }, _0x4f3ad8) => {
+    const _0x4fc5cb = _0x209044["x"] - _0x4c9d94["x"], _0x68f4d5 = _0x209044["y"] - _0x4c9d94["y"], _0xe35a1a = _0x4f3ad8 * (Math["PI"] / 180), _0x1a69c3 = _0x4fc5cb * Math["cos"](_0xe35a1a) - _0x68f4d5 * Math["sin"](_0xe35a1a) + _0x4c9d94["x"], _0x47a84c = _0x4fc5cb * Math["sin"](_0xe35a1a) + _0x68f4d5 * Math["cos"](_0xe35a1a) + _0x4c9d94["y"];
+    return { "x": _0x1a69c3, "y": _0x47a84c };
   };
-  const getCoords = (obj = { x: 0, y: 0, w: 0, h: 0, angle: 0 }) => {
-    const { x, y, w, h, angle = 0 } = obj;
-    const centerPoint = { x: x + w / 2, y: y + h / 2 };
-    let [tl, tr, bl, br] = [
-      { x, y },
-      { x: x + w, y },
-      { x, y: y + h },
-      { x: x + w, y: y + h }
-    ];
-    [tl, tr, bl, br] = [
-      rotatePoint(tl, centerPoint, angle),
-      rotatePoint(tr, centerPoint, angle),
-      rotatePoint(bl, centerPoint, angle),
-      rotatePoint(br, centerPoint, angle)
-    ];
-    const [l, r, t, b] = [
-      { x: (tl.x + bl.x) / 2, y: (tl.y + bl.y) / 2 },
-      { x: (tr.x + br.x) / 2, y: (tr.y + br.y) / 2 },
-      { x: (tl.x + tr.x) / 2, y: (tl.y + tr.y) / 2 },
-      { x: (bl.x + br.x) / 2, y: (bl.y + br.y) / 2 }
-    ];
-    return { tl, tr, bl, br, l, r, t, b };
+  const getCoords = (_0x107c7c = { "x": 0, "y": 0, "w": 0, "h": 0, "angle": 0 }) => {
+    const { x: _0x31918a, y: _0x348d29, w: _0x12b2ac, h: _0x4d8d75, angle = 0 } = _0x107c7c, _0x2a87d2 = { "x": _0x31918a + _0x12b2ac / 2, "y": _0x348d29 + _0x4d8d75 / 2 };
+    let [_0x35d10c, _0x3cc2f8, _0x5b7f40, _0x50d6c3] = [{ "x": _0x31918a, "y": _0x348d29 }, { "x": _0x31918a + _0x12b2ac, "y": _0x348d29 }, { "x": _0x31918a, "y": _0x348d29 + _0x4d8d75 }, { "x": _0x31918a + _0x12b2ac, "y": _0x348d29 + _0x4d8d75 }];
+    [_0x35d10c, _0x3cc2f8, _0x5b7f40, _0x50d6c3] = [rotatePoint(_0x35d10c, _0x2a87d2, angle), rotatePoint(_0x3cc2f8, _0x2a87d2, angle), rotatePoint(_0x5b7f40, _0x2a87d2, angle), rotatePoint(_0x50d6c3, _0x2a87d2, angle)];
+    const [_0x1ea1d4, _0x972083, _0x42087a, _0xedfbb2] = [{ "x": (_0x35d10c["x"] + _0x5b7f40["x"]) / 2, "y": (_0x35d10c["y"] + _0x5b7f40["y"]) / 2 }, { "x": (_0x3cc2f8["x"] + _0x50d6c3["x"]) / 2, "y": (_0x3cc2f8["y"] + _0x50d6c3["y"]) / 2 }, { "x": (_0x35d10c["x"] + _0x3cc2f8["x"]) / 2, "y": (_0x35d10c["y"] + _0x3cc2f8["y"]) / 2 }, { "x": (_0x5b7f40["x"] + _0x50d6c3["x"]) / 2, "y": (_0x5b7f40["y"] + _0x50d6c3["y"]) / 2 }];
+    return { "tl": _0x35d10c, "tr": _0x3cc2f8, "bl": _0x5b7f40, "br": _0x50d6c3, "l": _0x1ea1d4, "r": _0x972083, "t": _0x42087a, "b": _0xedfbb2 };
   };
-  const getBoundingRect = (objs, angle = 0) => {
-    const xArr = [];
-    const yArr = [];
-    const points = [];
-    objs.forEach((obj) => {
-      const worldPos = obj.getGlobalPosition();
-      const { tl, tr, bl, br } = getCoords(worldPos);
-      xArr.push(tl.x, tr.x, bl.x, br.x);
-      yArr.push(tl.y, tr.y, bl.y, br.y);
-      points.push(tl, tr, bl, br);
+  const getBoundingRect = (_0x3d00e7, _0x466776 = 0) => {
+    const _0x5c02d6 = [], _0x4af4ac = [], _0x507a11 = [];
+    _0x3d00e7["forEach"]((_0x274caa) => {
+      const _0x409520 = _0x274caa["getGlobalPosition"](), { tl: _0x4e1efe, tr: _0x183a9c, bl: _0x202141, br: _0x272ce5 } = getCoords(_0x409520);
+      _0x5c02d6["push"](_0x4e1efe["x"], _0x183a9c["x"], _0x202141["x"], _0x272ce5["x"]), _0x4af4ac["push"](_0x4e1efe["y"], _0x183a9c["y"], _0x202141["y"], _0x272ce5["y"]), _0x507a11["push"](_0x4e1efe, _0x183a9c, _0x202141, _0x272ce5);
     });
-    let minX = Math.min(...xArr);
-    let minY = Math.min(...yArr);
-    let maxX = Math.max(...xArr);
-    let maxY = Math.max(...yArr);
-    if (angle) {
-      return computeOBB(points, angle);
-    }
-    return {
-      x: minX,
-      y: minY,
-      w: maxX - minX,
-      h: maxY - minY,
-      angle: 0
-    };
+    let _0x28f70a = Math["min"](..._0x5c02d6), _0x4e28a9 = Math["min"](..._0x4af4ac), _0x17d375 = Math["max"](..._0x5c02d6), _0x242976 = Math["max"](..._0x4af4ac);
+    if (_0x466776)
+      return computeOBB(_0x507a11, _0x466776);
+    return { "x": _0x28f70a, "y": _0x4e28a9, "w": _0x17d375 - _0x28f70a, "h": _0x242976 - _0x4e28a9, "angle": 0 };
   };
-  const getRelativeBoundingRect = (objs, angle = 0) => {
-    const xArr = [];
-    const yArr = [];
-    const points = [];
-    objs.forEach((obj) => {
-      const { tl, tr, bl, br } = getCoords(obj);
-      xArr.push(tl.x, tr.x, bl.x, br.x);
-      yArr.push(tl.y, tr.y, bl.y, br.y);
-      points.push(tl, tr, bl, br);
+  const getRelativeBoundingRect = (_0x242c67, _0x510a99 = 0) => {
+    const _0x590ec1 = [], _0x67aba2 = [], _0x3e3f97 = [];
+    _0x242c67["forEach"]((_0x1a767e) => {
+      const { tl: _0x44db6e, tr: _0xfc989, bl: _0x3afb47, br: _0x141acd } = getCoords(_0x1a767e);
+      _0x590ec1["push"](_0x44db6e["x"], _0xfc989["x"], _0x3afb47["x"], _0x141acd["x"]), _0x67aba2["push"](_0x44db6e["y"], _0xfc989["y"], _0x3afb47["y"], _0x141acd["y"]), _0x3e3f97["push"](_0x44db6e, _0xfc989, _0x3afb47, _0x141acd);
     });
-    let minX = Math.min(...xArr);
-    let minY = Math.min(...yArr);
-    let maxX = Math.max(...xArr);
-    let maxY = Math.max(...yArr);
-    if (angle) {
-      return computeOBB(points, angle);
-    }
-    return {
-      x: minX,
-      y: minY,
-      w: maxX - minX,
-      h: maxY - minY,
-      angle: 0
-    };
+    let _0x1ff43 = Math["min"](..._0x590ec1), _0x146736 = Math["min"](..._0x67aba2), _0x21bcaf = Math["max"](..._0x590ec1), _0x21e961 = Math["max"](..._0x67aba2);
+    if (_0x510a99)
+      return computeOBB(_0x3e3f97, _0x510a99);
+    return { "x": _0x1ff43, "y": _0x146736, "w": _0x21bcaf - _0x1ff43, "h": _0x21e961 - _0x146736, "angle": 0 };
   };
-  const getPositionRect = (objs) => {
-    const xArr = [];
-    const yArr = [];
-    objs.forEach((obj) => {
-      const { tl, tr, bl, br } = getCoords(obj);
-      xArr.push(tl.x, tr.x, bl.x, br.x);
-      yArr.push(tl.y, tr.y, bl.y, br.y);
+  const getPositionRect = (_0x567f1a) => {
+    const _0x3190d6 = [], _0x4d7007 = [];
+    _0x567f1a["forEach"]((_0x1a6dbc) => {
+      const { tl: _0x3416f6, tr: _0x1c0267, bl: _0x43a191, br: _0x52d752 } = getCoords(_0x1a6dbc);
+      _0x3190d6["push"](_0x3416f6["x"], _0x1c0267["x"], _0x43a191["x"], _0x52d752["x"]), _0x4d7007["push"](_0x3416f6["y"], _0x1c0267["y"], _0x43a191["y"], _0x52d752["y"]);
     });
-    let minX = Math.min(...xArr);
-    let minY = Math.min(...yArr);
-    let maxX = Math.max(...xArr);
-    let maxY = Math.max(...yArr);
-    return {
-      x: minX,
-      y: minY,
-      w: maxX - minX,
-      h: maxY - minY
-    };
+    let _0xa32673 = Math["min"](..._0x3190d6), _0x276d11 = Math["min"](..._0x4d7007), _0x2cf01e = Math["max"](..._0x3190d6), _0x2f519b = Math["max"](..._0x4d7007);
+    return { "x": _0xa32673, "y": _0x276d11, "w": _0x2cf01e - _0xa32673, "h": _0x2f519b - _0x276d11 };
   };
-  const getDOMMatrix = (obj) => {
-    const { a, b, c, d, e, f } = obj;
-    return new DOMMatrix([a, b, c, d, e, f]);
+  const getDOMMatrix = (_0x342f09) => {
+    const { a: _0x2ca1fa, b: _0x42650d, c: _0x19aa47, d: _0x1a3a61, e: _0x12d168, f: _0x2eeb8a } = _0x342f09;
+    return new DOMMatrix([_0x2ca1fa, _0x42650d, _0x19aa47, _0x1a3a61, _0x12d168, _0x2eeb8a]);
   };
-  const multiplyMatrix = (matrixList) => {
-    let matrix = getDOMMatrix(matrixList[0]);
-    for (let i = 1; i < matrixList.length; i++) {
-      const matrix2 = getDOMMatrix(matrixList[i]);
-      matrix = matrix.multiply(matrix2);
+  const multiplyMatrix = (_0x233506) => {
+    let _0xe8eaad = getDOMMatrix(_0x233506[0]);
+    for (let _0x3cb8fc = 1; _0x3cb8fc < _0x233506["length"]; _0x3cb8fc++) {
+      const _0x389e64 = getDOMMatrix(_0x233506[_0x3cb8fc]);
+      _0xe8eaad = _0xe8eaad["multiply"](_0x389e64);
     }
-    const { a, b, c, d, e, f } = matrix;
-    return { a, b, c, d, e, f };
+    const { a: _0x416b3c, b: _0x35ef3f, c: _0x2d4f7f, d: _0x10fc29, e: _0x29b43a, f: _0x12f89c } = _0xe8eaad;
+    return { "a": _0x416b3c, "b": _0x35ef3f, "c": _0x2d4f7f, "d": _0x10fc29, "e": _0x29b43a, "f": _0x12f89c };
   };
-  const getObjectCenter = (obj) => {
-    const { x, y, w, h } = obj;
-    return {
-      x: x + w / 2,
-      y: y + h / 2
-    };
+  const getObjectCenter = (_0x3f34d1) => {
+    const { x: _0x4d06ae, y: _0x5e4e2c, w: _0x48bfa1, h: _0x45ec85 } = _0x3f34d1;
+    return { "x": _0x4d06ae + _0x48bfa1 / 2, "y": _0x5e4e2c + _0x45ec85 / 2 };
   };
-  const getPositionCenter = (position) => {
-    const { x, y, w, h } = position;
-    return {
-      x: x + w / 2,
-      y: y + h / 2
-    };
+  const getPositionCenter = (_0x49e197) => {
+    const { x: _0x54abbe, y: _0x25181f, w: _0x149947, h: _0x5b66b5 } = _0x49e197;
+    return { "x": _0x54abbe + _0x149947 / 2, "y": _0x25181f + _0x5b66b5 / 2 };
   };
   const composeMatrix = ({ tx = 0, ty = 0, sx = 1, sy = 1, angle = 0 }) => {
-    const radians = angle * Math.PI / 180;
-    const cosValue = Math.cos(radians);
-    const sinValue = Math.sin(radians);
-    return {
-      a: sx * cosValue,
-      b: sinValue,
-      c: -sinValue,
-      d: sy * cosValue,
-      e: tx,
-      f: ty
-    };
+    const _0x508c30 = angle * Math["PI"] / 180, _0x318916 = Math["cos"](_0x508c30), _0x273733 = Math["sin"](_0x508c30);
+    return { "a": sx * _0x318916, "b": _0x273733, "c": -_0x273733, "d": sy * _0x318916, "e": tx, "f": ty };
   };
-  const decomposeMatrix = (matrix) => {
-    const {
-      rotation,
-      scale: { sx, sy },
-      translate: { tx, ty }
-    } = decomposeTSR(matrix);
-    const angle = rotation.angle * 180 / Math.PI;
-    return { tx, ty, sx, sy, angle };
+  const decomposeMatrix = (_0x106d9b) => {
+    const { rotation: _0x527c13, scale: { sx: _0x452dac, sy: _0x3a09d3 }, translate: { tx: _0x48d80e, ty: _0x31298a } } = decomposeTSR(_0x106d9b), _0x3dd943 = _0x527c13["angle"] * 180 / Math["PI"];
+    return { "tx": _0x48d80e, "ty": _0x31298a, "sx": _0x452dac, "sy": _0x3a09d3, "angle": _0x3dd943 };
   };
-  const getAngle = (p1 = { x: 0, y: 0 }, p2 = { x: 0, y: 0 }) => {
-    const [deltaX, deltaY] = [p2.x - p1.x, p2.y - p1.y];
-    const radians = Math.atan2(deltaY, deltaX);
-    const angle = radians * (180 / Math.PI);
-    return (angle - 90 + 360) % 360;
+  const getAngle = (_0x1a75ae = { "x": 0, "y": 0 }, _0x395037 = { "x": 0, "y": 0 }) => {
+    const [_0x553b78, _0x38acbf] = [_0x395037["x"] - _0x1a75ae["x"], _0x395037["y"] - _0x1a75ae["y"]], _0x53a588 = Math["atan2"](_0x38acbf, _0x553b78), _0x1c13c2 = _0x53a588 * (180 / Math["PI"]);
+    return (_0x1c13c2 - 90 + 360) % 360;
   };
-  const isPointInside = (point, position) => {
-    const { tl, tr, bl, br } = getCoords(position);
-    const { x: rx, y: ry } = point;
-    let rectVertices = [
-      { x: tl.x, y: tl.y },
-      { x: tr.x, y: tr.y },
-      { x: br.x, y: br.y },
-      { x: bl.x, y: bl.y }
-    ];
-    let inside = false;
-    for (let i = 0, j = rectVertices.length - 1; i < rectVertices.length; j = i++) {
-      if (rectVertices[i].y > ry != rectVertices[j].y > ry && rx < (rectVertices[j].x - rectVertices[i].x) * (ry - rectVertices[i].y) / (rectVertices[j].y - rectVertices[i].y) + rectVertices[i].x) {
-        inside = !inside;
-      }
+  const isPointInside = (_0x264efd, _0x13c78a) => {
+    const { tl: _0x15adc8, tr: _0x3eec7d, bl: _0x2c8574, br: _0x29bcfa } = getCoords(_0x13c78a), { x: _0x41dfc2, y: _0x1878ce } = _0x264efd;
+    let _0x3b3a21 = [{ "x": _0x15adc8["x"], "y": _0x15adc8["y"] }, { "x": _0x3eec7d["x"], "y": _0x3eec7d["y"] }, { "x": _0x29bcfa["x"], "y": _0x29bcfa["y"] }, { "x": _0x2c8574["x"], "y": _0x2c8574["y"] }], _0x3be84f = ![];
+    for (let _0x440570 = 0, _0x329c96 = _0x3b3a21["length"] - 1; _0x440570 < _0x3b3a21["length"]; _0x329c96 = _0x440570++) {
+      _0x3b3a21[_0x440570]["y"] > _0x1878ce != _0x3b3a21[_0x329c96]["y"] > _0x1878ce && _0x41dfc2 < (_0x3b3a21[_0x329c96]["x"] - _0x3b3a21[_0x440570]["x"]) * (_0x1878ce - _0x3b3a21[_0x440570]["y"]) / (_0x3b3a21[_0x329c96]["y"] - _0x3b3a21[_0x440570]["y"]) + _0x3b3a21[_0x440570]["x"] && (_0x3be84f = !_0x3be84f);
     }
-    return inside;
+    return _0x3be84f;
   };
-  const getPositionFromCoords = (coords, angle) => {
-    let { tl, br, tr } = coords;
-    const newCenter = { x: (tl.x + br.x) / 2, y: (tl.y + br.y) / 2 };
-    const newtl = rotatePoint(tl, newCenter, -angle);
-    const newtr = rotatePoint(tr, newCenter, -angle);
-    const newbr = rotatePoint(br, newCenter, -angle);
-    const w = newtr.x - newtl.x;
-    const h = newbr.y - newtr.y;
-    const x = newCenter.x - w / 2;
-    const y = newCenter.y - h / 2;
-    return {
-      x,
-      y,
-      w,
-      h,
-      angle
-    };
+  const getPositionFromCoords = (_0x4f029f, _0x5923a7) => {
+    let { tl: _0x5d265e, br: _0x231676, tr: _0x13df3a } = _0x4f029f;
+    const _0x5cccbc = { "x": (_0x5d265e["x"] + _0x231676["x"]) / 2, "y": (_0x5d265e["y"] + _0x231676["y"]) / 2 }, _0x1ea1ed = rotatePoint(_0x5d265e, _0x5cccbc, -_0x5923a7), _0x46675c = rotatePoint(_0x13df3a, _0x5cccbc, -_0x5923a7), _0x40c18c = rotatePoint(_0x231676, _0x5cccbc, -_0x5923a7), _0x42b3d3 = _0x46675c["x"] - _0x1ea1ed["x"], _0x2a727d = _0x40c18c["y"] - _0x46675c["y"], _0x1e3442 = _0x5cccbc["x"] - _0x42b3d3 / 2, _0x3d7c87 = _0x5cccbc["y"] - _0x2a727d / 2;
+    return { "x": _0x1e3442, "y": _0x3d7c87, "w": _0x42b3d3, "h": _0x2a727d, "angle": _0x5923a7 };
   };
-  const getTotalMatrix = (obj, includeEditorMatrix = true, includeOneself = false) => {
-    const matrixList = [];
-    if (includeEditorMatrix) {
-      matrixList.push(obj.editor.viewportTransform);
+  const getTotalMatrix = (_0x24224d, _0x5343ba = !![], _0x49c41e = ![]) => {
+    const _0x3109ee = [];
+    _0x5343ba && _0x3109ee["push"](_0x24224d["editor"]["viewportTransform"]);
+    if (_0x49c41e) {
+      const { x: _0x369ecc, y: _0x4814b8, angle: _0x5d9a8a } = _0x24224d;
+      _0x3109ee["push"](composeMatrix({ "tx": _0x369ecc, "ty": _0x4814b8, "angle": _0x5d9a8a }));
     }
-    if (includeOneself) {
-      const { x, y, angle } = obj;
-      matrixList.push(composeMatrix({ tx: x, ty: y, angle }));
-    }
-    const recursion = (item) => {
-      if (item.group) {
-        const { x, y, angle } = item.group;
-        const matrix = composeMatrix({ tx: x, ty: y, angle });
-        matrixList.push(matrix);
-        recursion(item.group);
+    const _0x44604a = (_0x326136) => {
+      if (_0x326136["group"]) {
+        const { x: _0x427a56, y: _0x25fd3a, angle: _0x45ba5d } = _0x326136["group"], _0x2526ec = composeMatrix({ "tx": _0x427a56, "ty": _0x25fd3a, "angle": _0x45ba5d });
+        _0x3109ee["push"](_0x2526ec), _0x44604a(_0x326136["group"]);
       }
     };
-    recursion(obj);
-    if (!matrixList.length) {
-      return { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 };
+    _0x44604a(_0x24224d);
+    if (!_0x3109ee["length"])
+      return { "a": 1, "b": 0, "c": 0, "d": 1, "e": 0, "f": 0 };
+    return multiplyMatrix(_0x3109ee);
+  };
+  const getObjMatrix = (_0x32c95b) => {
+    const { x: _0x1a4ff1, y: _0x23783e, angle: _0x35418b } = _0x32c95b;
+    return composeMatrix({ "tx": _0x1a4ff1, "ty": _0x23783e, "angle": _0x35418b });
+  };
+  const applyMatrix = (_0x1b3dc4, _0x46b53b) => {
+    const _0x3f9791 = getObjMatrix(_0x1b3dc4), { tx: _0x9b11d5, ty: _0x1c09d1, angle: _0x12daf3 } = decomposeMatrix(multiplyMatrix([_0x3f9791, _0x46b53b]));
+    return _0x1b3dc4["x"] = _0x9b11d5, _0x1b3dc4["y"] = _0x1c09d1, _0x1b3dc4["angle"] = _0x12daf3, _0x1b3dc4;
+  };
+  const getApplyMatrixPosition = (_0xe96e5b, _0x1a3bfb) => {
+    const _0x520b10 = getObjMatrix(_0xe96e5b), _0x2eaa0e = decomposeMatrix(_0x1a3bfb), { tx: _0x4d9079, ty: _0x157d43, angle: _0x429204 } = decomposeMatrix(multiplyMatrix([_0x520b10, _0x1a3bfb])), _0x23c944 = { "x": _0x4d9079, "y": _0x157d43, "angle": _0x429204, "w": _0xe96e5b["w"] * _0x2eaa0e["sx"], "h": _0xe96e5b["h"] * _0x2eaa0e["sy"] };
+    return _0x23c944;
+  };
+  const createSvgElement = (_0x1ce9b6, _0x236c08 = {}, _0xe684e7 = {}) => {
+    const _0x3f8760 = document["createElementNS"]("http://www.w3.org/2000/svg", _0x1ce9b6);
+    return _0x236c08 && Object["keys"](_0x236c08)["forEach"]((_0x17f12b) => {
+      _0x3f8760["setAttribute"](_0x17f12b, _0x236c08[_0x17f12b]);
+    }), _0xe684e7 && Object["assign"](_0x3f8760["style"], _0xe684e7), _0x3f8760;
+  };
+  const updateSvgElement = (_0x488d2a, _0xff2768 = {}, _0x53d94d) => {
+    Object["keys"](_0xff2768)["forEach"]((_0x1b70cc) => {
+      _0x488d2a["setAttribute"](_0x1b70cc, _0xff2768[_0x1b70cc]);
+    }), _0x53d94d && Object["assign"](_0x488d2a["style"], _0x53d94d);
+  };
+  function computeCentroid(_0x4c9186) {
+    let [_0x3707b5, _0x4b74a4, _0x58843f, _0x599de7] = [_0x4c9186[0]["x"], _0x4c9186[0]["x"], _0x4c9186[0]["y"], _0x4c9186[0]["y"]];
+    for (let _0x19848b of _0x4c9186) {
+      _0x3707b5 = Math["min"](_0x3707b5, _0x19848b["x"]), _0x4b74a4 = Math["max"](_0x4b74a4, _0x19848b["x"]), _0x58843f = Math["min"](_0x58843f, _0x19848b["y"]), _0x599de7 = Math["max"](_0x599de7, _0x19848b["y"]);
     }
-    return multiplyMatrix(matrixList);
-  };
-  const getObjMatrix = (obj) => {
-    const { x: tx, y: ty, angle } = obj;
-    return composeMatrix({ tx, ty, angle });
-  };
-  const applyMatrix = (obj, matrix) => {
-    const objMatrix = getObjMatrix(obj);
-    const { tx, ty, angle } = decomposeMatrix(multiplyMatrix([objMatrix, matrix]));
-    obj.x = tx;
-    obj.y = ty;
-    obj.angle = angle;
-    return obj;
-  };
-  const getApplyMatrixPosition = (obj, matrix) => {
-    const objMatrix = getObjMatrix(obj);
-    const deMatrix = decomposeMatrix(matrix);
-    const { tx, ty, angle } = decomposeMatrix(multiplyMatrix([objMatrix, matrix]));
-    const position = {
-      x: tx,
-      y: ty,
-      angle,
-      w: obj.w * deMatrix.sx,
-      h: obj.h * deMatrix.sy
-    };
-    return position;
-  };
-  const createSvgElement = (tagName, attrs = {}, style = {}) => {
-    const element = document.createElementNS("http://www.w3.org/2000/svg", tagName);
-    if (attrs) {
-      Object.keys(attrs).forEach((key) => {
-        element.setAttribute(key, attrs[key]);
-      });
-    }
-    if (style) {
-      Object.assign(element.style, style);
-    }
-    return element;
-  };
-  const updateSvgElement = (svgDom, attrs = {}, style) => {
-    Object.keys(attrs).forEach((key) => {
-      svgDom.setAttribute(key, attrs[key]);
-    });
-    if (style) {
-      Object.assign(svgDom.style, style);
-    }
-  };
-  function computeCentroid(points) {
-    let [minX, maxX, minY, maxY] = [points[0].x, points[0].x, points[0].y, points[0].y];
-    for (let point of points) {
-      minX = Math.min(minX, point.x);
-      maxX = Math.max(maxX, point.x);
-      minY = Math.min(minY, point.y);
-      maxY = Math.max(maxY, point.y);
-    }
-    return {
-      x: (minX + maxX) / 2,
-      y: (minY + maxY) / 2
-    };
+    return { "x": (_0x3707b5 + _0x4b74a4) / 2, "y": (_0x58843f + _0x599de7) / 2 };
   }
-  function buildOBB(points, centroid, eigenVectors) {
-    let obb = {
-      center: centroid,
-      halfExtents: { x: 0, y: 0 },
-      orientation: { x: 0, y: 0 }
-    };
-    for (let point of points) {
-      let dx = point.x - centroid.x;
-      let dy = point.y - centroid.y;
-      let xLength = Math.abs(dx * eigenVectors[0][0] + dy * eigenVectors[0][1]);
-      let yLength = Math.abs(dx * eigenVectors[1][0] + dy * eigenVectors[1][1]);
-      obb.halfExtents.x = Math.max(obb.halfExtents.x, xLength);
-      obb.halfExtents.y = Math.max(obb.halfExtents.y, yLength);
+  function buildOBB(_0x545f88, _0x3e8f5a, _0x2c71f1) {
+    let _0x50dbbb = { "center": _0x3e8f5a, "halfExtents": { "x": 0, "y": 0 }, "orientation": { "x": 0, "y": 0 } };
+    for (let _0x1113b2 of _0x545f88) {
+      let _0x3993f2 = _0x1113b2["x"] - _0x3e8f5a["x"], _0x3277f9 = _0x1113b2["y"] - _0x3e8f5a["y"], _0x22c8a8 = Math["abs"](_0x3993f2 * _0x2c71f1[0][0] + _0x3277f9 * _0x2c71f1[0][1]), _0x452b5c = Math["abs"](_0x3993f2 * _0x2c71f1[1][0] + _0x3277f9 * _0x2c71f1[1][1]);
+      _0x50dbbb["halfExtents"]["x"] = Math["max"](_0x50dbbb["halfExtents"]["x"], _0x22c8a8), _0x50dbbb["halfExtents"]["y"] = Math["max"](_0x50dbbb["halfExtents"]["y"], _0x452b5c);
     }
-    obb.orientation.x = Math.atan2(eigenVectors[0][1], eigenVectors[0][0]);
-    obb.orientation.y = Math.atan2(eigenVectors[1][1], eigenVectors[1][0]);
-    return obb;
+    return _0x50dbbb["orientation"]["x"] = Math["atan2"](_0x2c71f1[0][1], _0x2c71f1[0][0]), _0x50dbbb["orientation"]["y"] = Math["atan2"](_0x2c71f1[1][1], _0x2c71f1[1][0]), _0x50dbbb;
   }
-  function getAngleVectors(angle) {
-    let radians = angle * Math.PI / 180;
-    let x1 = Math.cos(radians);
-    let y1 = Math.sin(radians);
-    let x2 = -y1;
-    let y2 = x1;
-    return [
-      [x1, y1],
-      [x2, y2]
-    ];
+  function getAngleVectors(_0x49100d) {
+    let _0x11d754 = _0x49100d * Math["PI"] / 180, _0xee2a3e = Math["cos"](_0x11d754), _0xef2309 = Math["sin"](_0x11d754), _0x420a98 = -_0xef2309, _0x38fcac = _0xee2a3e;
+    return [[_0xee2a3e, _0xef2309], [_0x420a98, _0x38fcac]];
   }
-  const getProjection = (point, angle) => {
-    const { x, y } = point;
-    const vector = getAngleVectors(angle);
-    const xLength = x * vector[0][0] + y * vector[0][1];
-    const yLength = x * vector[1][0] + y * vector[1][1];
-    return { xLength, yLength };
+  const getProjection = (_0x13a341, _0x23c563) => {
+    const { x: _0x3c0d71, y: _0x5b8dab } = _0x13a341, _0x1771e6 = getAngleVectors(_0x23c563), _0x4a5193 = _0x3c0d71 * _0x1771e6[0][0] + _0x5b8dab * _0x1771e6[0][1], _0x2d924d = _0x3c0d71 * _0x1771e6[1][0] + _0x5b8dab * _0x1771e6[1][1];
+    return { "xLength": _0x4a5193, "yLength": _0x2d924d };
   };
-  function computeOBB(points, angle) {
-    let centroid = computeCentroid(points);
-    let eigenVectors = getAngleVectors(angle);
-    let { center, halfExtents } = buildOBB(points, centroid, eigenVectors);
-    const obj = { x: center.x - halfExtents.x, y: center.y - halfExtents.y, w: halfExtents.x * 2, h: halfExtents.y * 2, angle };
-    return obj;
+  function computeOBB(_0x18592a, _0xe4e6ba) {
+    let _0x3f9628 = computeCentroid(_0x18592a), _0x55f3bf = getAngleVectors(_0xe4e6ba), { center: _0x18032d, halfExtents: _0x1f23c4 } = buildOBB(_0x18592a, _0x3f9628, _0x55f3bf);
+    const _0x4ce766 = { "x": _0x18032d["x"] - _0x1f23c4["x"], "y": _0x18032d["y"] - _0x1f23c4["y"], "w": _0x1f23c4["x"] * 2, "h": _0x1f23c4["y"] * 2, "angle": _0xe4e6ba };
+    return _0x4ce766;
   }
-  const getPathStr = (path) => path.reduce((pre, cur) => {
-    const command = cur[0];
-    return pre + `${command} ${cur.slice(1).join(" ")} `;
+  const getPathStr = (_0x2f41b9) => _0x2f41b9["reduce"]((_0x289d63, _0x19cf43) => {
+    const _0x227b62 = _0x19cf43[0];
+    return _0x289d63 + (_0x227b62 + " " + _0x19cf43["slice"](1)["join"](" ") + " ");
   }, "");
-  function cubicBezierBoundingBox(x0, y0, x1, y1, x2, y2, x3, y3) {
-    const tValues = findBezierExtrema(x0, x1, x2, x3).concat(findBezierExtrema(y0, y1, y2, y3));
-    const points = tValues.map((t) => bezierPoint(x0, y0, x1, y1, x2, y2, x3, y3, t));
-    points.push([x0, y0], [x3, y3]);
-    const xs = points.map((p) => p[0]);
-    const ys = points.map((p) => p[1]);
-    return {
-      minX: Math.min(...xs),
-      minY: Math.min(...ys),
-      maxX: Math.max(...xs),
-      maxY: Math.max(...ys)
-    };
+  function cubicBezierBoundingBox(_0x5e99d3, _0x319a99, _0x457293, _0xc75091, _0x3a204c, _0x4e9279, _0x36d0c7, _0x50c8a6) {
+    const _0xa6e357 = findBezierExtrema(_0x5e99d3, _0x457293, _0x3a204c, _0x36d0c7)["concat"](findBezierExtrema(_0x319a99, _0xc75091, _0x4e9279, _0x50c8a6)), _0xc71430 = _0xa6e357["map"]((_0x1e08e6) => bezierPoint(_0x5e99d3, _0x319a99, _0x457293, _0xc75091, _0x3a204c, _0x4e9279, _0x36d0c7, _0x50c8a6, _0x1e08e6));
+    _0xc71430["push"]([_0x5e99d3, _0x319a99], [_0x36d0c7, _0x50c8a6]);
+    const _0x23f410 = _0xc71430["map"]((_0x2d39cb) => _0x2d39cb[0]), _0x352dc3 = _0xc71430["map"]((_0xc8c620) => _0xc8c620[1]);
+    return { "minX": Math["min"](..._0x23f410), "minY": Math["min"](..._0x352dc3), "maxX": Math["max"](..._0x23f410), "maxY": Math["max"](..._0x352dc3) };
   }
-  function bezierPoint(x0, y0, x1, y1, x2, y2, x3, y3, t) {
-    const u = 1 - t;
-    const x = __pow(u, 3) * x0 + 3 * __pow(u, 2) * t * x1 + 3 * u * __pow(t, 2) * x2 + __pow(t, 3) * x3;
-    const y = __pow(u, 3) * y0 + 3 * __pow(u, 2) * t * y1 + 3 * u * __pow(t, 2) * y2 + __pow(t, 3) * y3;
-    return [x, y];
+  function bezierPoint(_0x39a931, _0xd18ef9, _0x964684, _0x546f67, _0x30bd1b, _0xa00a5d, _0x425cbe, _0x3f3959, _0x168808) {
+    const _0x1a013f = 1 - _0x168808, _0x8425d9 = __pow(_0x1a013f, 3) * _0x39a931 + 3 * __pow(_0x1a013f, 2) * _0x168808 * _0x964684 + 3 * _0x1a013f * __pow(_0x168808, 2) * _0x30bd1b + __pow(_0x168808, 3) * _0x425cbe, _0x5ad56a = __pow(_0x1a013f, 3) * _0xd18ef9 + 3 * __pow(_0x1a013f, 2) * _0x168808 * _0x546f67 + 3 * _0x1a013f * __pow(_0x168808, 2) * _0xa00a5d + __pow(_0x168808, 3) * _0x3f3959;
+    return [_0x8425d9, _0x5ad56a];
   }
-  function findBezierExtrema(p0, p1, p2, p3) {
-    const a = -p0 + 3 * p1 - 3 * p2 + p3;
-    const b = 2 * (p0 - 2 * p1 + p2);
-    const c = -p0 + p1;
-    const discriminant = __pow(b, 2) - 4 * a * c;
-    if (discriminant < 0)
+  function findBezierExtrema(_0x1a6368, _0x2feb81, _0x36d8b9, _0xac69ff) {
+    const _0x33d442 = -_0x1a6368 + 3 * _0x2feb81 - 3 * _0x36d8b9 + _0xac69ff, _0x3d4ba0 = 2 * (_0x1a6368 - 2 * _0x2feb81 + _0x36d8b9), _0x2a83ba = -_0x1a6368 + _0x2feb81, _0x761162 = __pow(_0x3d4ba0, 2) - 4 * _0x33d442 * _0x2a83ba;
+    if (_0x761162 < 0)
       return [];
-    if (a === 0)
-      return b === 0 ? [] : [-c / b].filter((t) => t >= 0 && t <= 1);
-    const t1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-    const t2 = (-b - Math.sqrt(discriminant)) / (2 * a);
-    return [t1, t2].filter((t) => t >= 0 && t <= 1);
+    if (_0x33d442 === 0)
+      return _0x3d4ba0 === 0 ? [] : [-_0x2a83ba / _0x3d4ba0]["filter"]((_0x55dd86) => _0x55dd86 >= 0 && _0x55dd86 <= 1);
+    const _0x589580 = (-_0x3d4ba0 + Math["sqrt"](_0x761162)) / (2 * _0x33d442), _0x1a72b9 = (-_0x3d4ba0 - Math["sqrt"](_0x761162)) / (2 * _0x33d442);
+    return [_0x589580, _0x1a72b9]["filter"]((_0xd10013) => _0xd10013 >= 0 && _0xd10013 <= 1);
   }
-  const getPathBoundingBox = (path) => {
-    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-    let currentX = 0, currentY = 0;
-    path.forEach((segment) => {
-      const type = segment[0];
-      const points = segment.slice(1);
-      switch (type) {
+  const getPathBoundingBox = (_0x3973f5) => {
+    let _0x59b3b8 = Infinity, _0x1ea790 = Infinity, _0x455a73 = -Infinity, _0x455294 = -Infinity, _0x461203 = 0, _0xa6e1b9 = 0;
+    return _0x3973f5["forEach"]((_0x408a8d) => {
+      const _0x3c69ca = _0x408a8d[0], _0x6c5c87 = _0x408a8d["slice"](1);
+      switch (_0x3c69ca) {
         case "M":
-          currentX = points[0];
-          currentY = points[1];
+          _0x461203 = _0x6c5c87[0], _0xa6e1b9 = _0x6c5c87[1];
           break;
         case "L":
-          points.forEach((p, i) => {
-            if (i % 2 === 0) {
-              currentX = p;
-            } else {
-              currentY = p;
-            }
-            minX = Math.min(minX, currentX);
-            minY = Math.min(minY, currentY);
-            maxX = Math.max(maxX, currentX);
-            maxY = Math.max(maxY, currentY);
+          _0x6c5c87["forEach"]((_0xad69cb, _0x1695a1) => {
+            _0x1695a1 % 2 === 0 ? _0x461203 = _0xad69cb : _0xa6e1b9 = _0xad69cb, _0x59b3b8 = Math["min"](_0x59b3b8, _0x461203), _0x1ea790 = Math["min"](_0x1ea790, _0xa6e1b9), _0x455a73 = Math["max"](_0x455a73, _0x461203), _0x455294 = Math["max"](_0x455294, _0xa6e1b9);
           });
           break;
         case "C":
-          for (let i = 0; i < points.length; i += 6) {
-            const x0 = currentX, y0 = currentY;
-            const [x1, y1, x2, y2, x3, y3] = points.slice(i, i + 6);
-            const bbox = cubicBezierBoundingBox(x0, y0, x1, y1, x2, y2, x3, y3);
-            minX = Math.min(minX, bbox.minX);
-            minY = Math.min(minY, bbox.minY);
-            maxX = Math.max(maxX, bbox.maxX);
-            maxY = Math.max(maxY, bbox.maxY);
-            currentX = x3;
-            currentY = y3;
+          for (let _0x4bc3ec = 0; _0x4bc3ec < _0x6c5c87["length"]; _0x4bc3ec += 6) {
+            const _0x496745 = _0x461203, _0x49e0c9 = _0xa6e1b9, [_0x89d27d, _0x952fe6, _0x374ab5, _0x1f354a, _0x14c48e, _0x21defd] = _0x6c5c87["slice"](_0x4bc3ec, _0x4bc3ec + 6), _0x2f96d6 = cubicBezierBoundingBox(_0x496745, _0x49e0c9, _0x89d27d, _0x952fe6, _0x374ab5, _0x1f354a, _0x14c48e, _0x21defd);
+            _0x59b3b8 = Math["min"](_0x59b3b8, _0x2f96d6["minX"]), _0x1ea790 = Math["min"](_0x1ea790, _0x2f96d6["minY"]), _0x455a73 = Math["max"](_0x455a73, _0x2f96d6["maxX"]), _0x455294 = Math["max"](_0x455294, _0x2f96d6["maxY"]), _0x461203 = _0x14c48e, _0xa6e1b9 = _0x21defd;
           }
           break;
       }
-    });
-    return {
-      x: minX,
-      y: minY,
-      width: maxX - minX,
-      height: maxY - minY
-    };
+    }), { "x": _0x59b3b8, "y": _0x1ea790, "width": _0x455a73 - _0x59b3b8, "height": _0x455294 - _0x1ea790 };
   };
-  const isPointOnBezierCurve = (x, y, x0, y0, x1, y1, x2, y2, x3, y3, distance = 2.5) => {
-    let obj = null;
-    for (let t = 0; t <= 1; t += 2e-3) {
-      let [pointX, pointY] = bezierPoint(x0, y0, x1, y1, x2, y2, x3, y3, t);
-      if (Math.abs(pointX - x) < distance && Math.abs(pointY - y) < distance) {
-        obj = {
-          x: pointX,
-          y: pointY,
-          t
-        };
+  const isPointOnBezierCurve = (_0x293313, _0x6524f2, _0x2581e9, _0x5a9b65, _0x2dd6a5, _0x1d8538, _0x5e203a, _0x2051b0, _0x4e36ea, _0x105bec, _0x2cabf9 = 2.5) => {
+    let _0x434cda = null;
+    for (let _0x2aaafe = 0; _0x2aaafe <= 1; _0x2aaafe += 2e-3) {
+      let [_0x105b37, _0x44b09e] = bezierPoint(_0x2581e9, _0x5a9b65, _0x2dd6a5, _0x1d8538, _0x5e203a, _0x2051b0, _0x4e36ea, _0x105bec, _0x2aaafe);
+      if (Math["abs"](_0x105b37 - _0x293313) < _0x2cabf9 && Math["abs"](_0x44b09e - _0x6524f2) < _0x2cabf9) {
+        _0x434cda = { "x": _0x105b37, "y": _0x44b09e, "t": _0x2aaafe };
         break;
       }
     }
-    return obj;
+    return _0x434cda;
   };
-  const isPointArroundPath = (point, path, distance) => {
-    let toAddPoint = null;
-    for (let i = 0; i < path.length - 1; i++) {
-      const path1 = path[i];
-      const path2 = path[i + 1];
-      let arr = [point.x, point.y];
-      arr = arr.concat(i === 0 ? [path1[1], path1[2]] : [path1[5], path1[6]]);
-      arr = arr.concat(path2.slice(1));
-      arr.push(distance);
-      const obj = isPointOnBezierCurve.apply(null, arr);
-      if (obj) {
-        toAddPoint = {
-          index: i + 1,
-          x: obj.x,
-          y: obj.y,
-          t: obj.t
-        };
+  const isPointArroundPath = (_0x2b36b6, _0x1e71c0, _0x3d6348) => {
+    let _0x3c9d5c = null;
+    for (let _0x2d9304 = 0; _0x2d9304 < _0x1e71c0["length"] - 1; _0x2d9304++) {
+      const _0x2b4e31 = _0x1e71c0[_0x2d9304], _0x3e9fba = _0x1e71c0[_0x2d9304 + 1];
+      let _0x40feb4 = [_0x2b36b6["x"], _0x2b36b6["y"]];
+      _0x40feb4 = _0x40feb4["concat"](_0x2d9304 === 0 ? [_0x2b4e31[1], _0x2b4e31[2]] : [_0x2b4e31[5], _0x2b4e31[6]]), _0x40feb4 = _0x40feb4["concat"](_0x3e9fba["slice"](1)), _0x40feb4["push"](_0x3d6348);
+      const _0x327e83 = isPointOnBezierCurve["apply"](null, _0x40feb4);
+      if (_0x327e83) {
+        _0x3c9d5c = { "index": _0x2d9304 + 1, "x": _0x327e83["x"], "y": _0x327e83["y"], "t": _0x327e83["t"] };
         break;
       }
     }
-    return toAddPoint;
+    return _0x3c9d5c;
   };
-  const splitBezierCurve = (p1, p2, p3, p4, t) => {
-    const a = lerp(p1, p2, t);
-    const b = lerp(p2, p3, t);
-    const c = lerp(p3, p4, t);
-    const d = lerp(a, b, t);
-    const e = lerp(b, c, t);
-    const f = lerp(d, e, t);
-    return [
-      [p1, a, d, f],
-      [f, e, c, p4]
-    ];
+  const splitBezierCurve = (_0x1b3b69, _0x50696a, _0x2ae8a5, _0x5ef558, _0x55a2cc) => {
+    const _0x5d2b67 = lerp(_0x1b3b69, _0x50696a, _0x55a2cc), _0x12e37d = lerp(_0x50696a, _0x2ae8a5, _0x55a2cc), _0x544921 = lerp(_0x2ae8a5, _0x5ef558, _0x55a2cc), _0x2da42a = lerp(_0x5d2b67, _0x12e37d, _0x55a2cc), _0x15f639 = lerp(_0x12e37d, _0x544921, _0x55a2cc), _0x38e80e = lerp(_0x2da42a, _0x15f639, _0x55a2cc);
+    return [[_0x1b3b69, _0x5d2b67, _0x2da42a, _0x38e80e], [_0x38e80e, _0x15f639, _0x544921, _0x5ef558]];
   };
-  const lerp = (p1, p2, t) => {
-    return {
-      x: p1.x + (p2.x - p1.x) * t,
-      y: p1.y + (p2.y - p1.y) * t
+  const lerp = (_0x35bd1f, _0x57c6f8, _0x407d78) => {
+    return { "x": _0x35bd1f["x"] + (_0x57c6f8["x"] - _0x35bd1f["x"]) * _0x407d78, "y": _0x35bd1f["y"] + (_0x57c6f8["y"] - _0x35bd1f["y"]) * _0x407d78 };
+  };
+  const getDistance = (_0x262616, _0x4aeb61) => {
+    let _0x58d7e5 = _0x262616["x"] - _0x4aeb61["x"], _0x208d9f = _0x262616["y"] - _0x4aeb61["y"];
+    return Math["sqrt"](_0x58d7e5 * _0x58d7e5 + _0x208d9f * _0x208d9f);
+  };
+  const isPointArroundPolyline = (_0x19e4a7, _0x440b65, _0x17185e = 1) => {
+    const { x: _0x1e4e35, y: _0x252cff } = _0x440b65, _0xd19a22 = (_0x16b6db, _0x1848a1) => {
+      let { x: _0x16b604, y: _0x20846c } = _0x16b6db, { x: _0x6fe562, y: _0x11e62f } = _0x1848a1, _0x37661d = _0x1e4e35 - _0x16b604, _0x192159 = _0x252cff - _0x20846c, _0x3312d7 = _0x6fe562 - _0x16b604, _0x31dba5 = _0x11e62f - _0x20846c, _0x1e8c8b = _0x37661d * _0x3312d7 + _0x192159 * _0x31dba5, _0x4d1f9e = _0x3312d7 * _0x3312d7 + _0x31dba5 * _0x31dba5, _0x2872e6 = -1;
+      _0x4d1f9e !== 0 && (_0x2872e6 = _0x1e8c8b / _0x4d1f9e);
+      let _0x56c241, _0x243d91;
+      if (_0x2872e6 < 0)
+        _0x56c241 = _0x16b604, _0x243d91 = _0x20846c;
+      else
+        _0x2872e6 > 1 ? (_0x56c241 = _0x6fe562, _0x243d91 = _0x11e62f) : (_0x56c241 = _0x16b604 + _0x2872e6 * _0x3312d7, _0x243d91 = _0x20846c + _0x2872e6 * _0x31dba5);
+      let _0x59e0db = _0x1e4e35 - _0x56c241, _0x23afdd = _0x252cff - _0x243d91;
+      return Math["sqrt"](_0x59e0db * _0x59e0db + _0x23afdd * _0x23afdd);
     };
-  };
-  const getDistance = (p1, p2) => {
-    let dx = p1.x - p2.x;
-    let dy = p1.y - p2.y;
-    return Math.sqrt(dx * dx + dy * dy);
-  };
-  const isPointArroundPolyline = (points, point, arroundDistance = 1) => {
-    const { x, y } = point;
-    const judgePoint = (p1, p2) => {
-      let { x: x1, y: y1 } = p1;
-      let { x: x2, y: y2 } = p2;
-      let A = x - x1;
-      let B = y - y1;
-      let C = x2 - x1;
-      let D = y2 - y1;
-      let dot = A * C + B * D;
-      let len_sq = C * C + D * D;
-      let param = -1;
-      if (len_sq !== 0) {
-        param = dot / len_sq;
+    let [_0x10b316, _0x40030b, _0x56f355] = [![], { "x": 0, "y": 0 }, -1];
+    for (let _0x3bf7c0 = 0; _0x3bf7c0 < _0x19e4a7["length"] - 1; _0x3bf7c0++) {
+      const _0xaf32bc = _0xd19a22(_0x19e4a7[_0x3bf7c0], _0x19e4a7[_0x3bf7c0 + 1]);
+      if (_0xaf32bc <= _0x17185e) {
+        _0x10b316 = !![], _0x40030b = { "x": (_0x19e4a7[_0x3bf7c0]["x"] + _0x19e4a7[_0x3bf7c0 + 1]["x"]) / 2, "y": (_0x19e4a7[_0x3bf7c0]["y"] + _0x19e4a7[_0x3bf7c0 + 1]["y"]) / 2 }, _0x56f355 = _0x3bf7c0 + 1;
+        break;
       }
-      let xx, yy;
-      if (param < 0) {
-        xx = x1;
-        yy = y1;
-      } else if (param > 1) {
-        xx = x2;
-        yy = y2;
+    }
+    return { "isArround": _0x10b316, "x": _0x40030b["x"], "y": _0x40030b["y"], "index": _0x56f355 };
+  };
+  const resetGroupSubsSize = (_0x1d2564, _0x5d8815) => {
+    const _0x578bf0 = _0x1d2564["w"] / _0x5d8815["w"], _0x5c89d2 = _0x1d2564["h"] / _0x5d8815["h"];
+    _0x1d2564["objects"]["forEach"]((_0x5bb8cf) => {
+      const _0x123707 = { "w": _0x5bb8cf["w"], "h": _0x5bb8cf["h"] }, _0x48c483 = getCoords(_0x5bb8cf);
+      Object["values"](_0x48c483)["forEach"]((_0x8b80ca) => {
+        _0x8b80ca["x"] = _0x8b80ca["x"] * _0x578bf0, _0x8b80ca["y"] = _0x8b80ca["y"] * _0x5c89d2;
+      });
+      const { x: _0x2c5d6b, y: _0x33abce, w: _0x5dd155, h: _0x3909dd } = getPositionFromCoords(_0x48c483, _0x5bb8cf["angle"]);
+      _0x5bb8cf["x"] = _0x2c5d6b, _0x5bb8cf["y"] = _0x33abce, _0x5bb8cf["w"] = _0x5dd155, _0x5bb8cf["h"] = _0x3909dd;
+      if (_0x5bb8cf["type"] === "polyline") {
+        const _0x51791b = _0x5bb8cf["points"];
+        _0x5bb8cf["points"]["forEach"]((_0x5a5795, _0x219940) => {
+          _0x5a5795["x"] = _0x51791b[_0x219940]["x"] * _0x578bf0, _0x5a5795["y"] = _0x51791b[_0x219940]["y"] * _0x5c89d2;
+        });
       } else {
-        xx = x1 + param * C;
-        yy = y1 + param * D;
-      }
-      let dx = x - xx;
-      let dy = y - yy;
-      return Math.sqrt(dx * dx + dy * dy);
-    };
-    let [isArround, centerPoint, index] = [false, { x: 0, y: 0 }, -1];
-    for (let i = 0; i < points.length - 1; i++) {
-      const distance = judgePoint(points[i], points[i + 1]);
-      if (distance <= arroundDistance) {
-        isArround = true;
-        centerPoint = { x: (points[i].x + points[i + 1].x) / 2, y: (points[i].y + points[i + 1].y) / 2 };
-        index = i + 1;
-        break;
-      }
-    }
-    return { isArround, x: centerPoint.x, y: centerPoint.y, index };
-  };
-  const resetGroupSubsSize = (group, oldSize) => {
-    const ratioW = group.w / oldSize.w;
-    const ratioH = group.h / oldSize.h;
-    group.objects.forEach((obj) => {
-      const objSize = { w: obj.w, h: obj.h };
-      const coords = getCoords(obj);
-      Object.values(coords).forEach((e) => {
-        e.x = e.x * ratioW;
-        e.y = e.y * ratioH;
-      });
-      const { x, y, w, h } = getPositionFromCoords(coords, obj.angle);
-      obj.x = x;
-      obj.y = y;
-      obj.w = w;
-      obj.h = h;
-      if (obj.type === "polyline") {
-        const oldPoints = obj.points;
-        obj.points.forEach((item, index) => {
-          item.x = oldPoints[index].x * ratioW;
-          item.y = oldPoints[index].y * ratioH;
-        });
-      } else if (obj.type === "bezierCurve") {
-        const oldPath = obj.path;
-        obj.path.forEach((p, pIndex) => {
-          p.forEach((item, index) => {
-            if (index > 0) {
-              const oldItem = oldPath[pIndex][index];
-              p[index] = index % 2 === 0 ? oldItem * ratioH : oldItem * ratioW;
-            }
+        if (_0x5bb8cf["type"] === "bezierCurve") {
+          const _0x482d41 = _0x5bb8cf["path"];
+          _0x5bb8cf["path"]["forEach"]((_0x12538a, _0x48e95a) => {
+            _0x12538a["forEach"]((_0x309edd, _0x3a7f6e) => {
+              if (_0x3a7f6e > 0) {
+                const _0x554cdc = _0x482d41[_0x48e95a][_0x3a7f6e];
+                _0x12538a[_0x3a7f6e] = _0x3a7f6e % 2 === 0 ? _0x554cdc * _0x5c89d2 : _0x554cdc * _0x578bf0;
+              }
+            });
           });
-        });
+        }
       }
-      if (obj.type === "group") {
-        resetGroupSubsSize(obj, objSize);
-      }
+      _0x5bb8cf["type"] === "group" && resetGroupSubsSize(_0x5bb8cf, _0x123707);
     });
   };
-  const resetGroupPosition = (group) => {
-    if (group.objects.length) {
-      const { x, y, w, h, angle } = group.editor.calcGroupPositionBySubs(group);
-      let [diffX, diffY] = [group.x - x, group.y - y];
-      const groupOldLeftTop = { x: group.x, y: group.y };
-      const groupOldCenter = { x: group.x + group.w / 2, y: group.y + group.h / 2 };
-      const groupNewCenter = { x: x + w / 2, y: y + h / 2 };
-      const groupNewLeftTop = { x, y };
-      const p1 = rotatePoint(groupOldLeftTop, groupOldCenter, angle);
-      const p2 = rotatePoint(groupNewLeftTop, groupNewCenter, angle);
-      diffX = p1.x - p2.x;
-      diffY = p1.y - p2.y;
-      const { xLength, yLength } = getProjection({ x: diffX, y: diffY }, group.angle);
-      diffX = xLength;
-      diffY = yLength;
-      group.objects.forEach((item) => {
-        item.x += diffX;
-        item.y += diffY;
-      });
-      group.x = x;
-      group.y = y;
-      group.w = w;
-      group.h = h;
-      group.angle = angle;
-      if (group.group) {
-        resetGroupPosition(group.group);
-      }
-    } else {
-      group.w = 0;
-      group.h = 0;
-    }
+  const resetGroupPosition = (_0x598807) => {
+    if (_0x598807["objects"]["length"]) {
+      const { x: _0x169663, y: _0x33ecd5, w: _0x47fb9d, h: _0x6474ec, angle: _0x111dca } = _0x598807["editor"]["calcGroupPositionBySubs"](_0x598807);
+      let [_0x479e8d, _0x14774f] = [_0x598807["x"] - _0x169663, _0x598807["y"] - _0x33ecd5];
+      const _0x13d051 = { "x": _0x598807["x"], "y": _0x598807["y"] }, _0xb8a06a = { "x": _0x598807["x"] + _0x598807["w"] / 2, "y": _0x598807["y"] + _0x598807["h"] / 2 }, _0x5a8004 = { "x": _0x169663 + _0x47fb9d / 2, "y": _0x33ecd5 + _0x6474ec / 2 }, _0x56b996 = { "x": _0x169663, "y": _0x33ecd5 }, _0x546bcb = rotatePoint(_0x13d051, _0xb8a06a, _0x111dca), _0x2d28c7 = rotatePoint(_0x56b996, _0x5a8004, _0x111dca);
+      _0x479e8d = _0x546bcb["x"] - _0x2d28c7["x"], _0x14774f = _0x546bcb["y"] - _0x2d28c7["y"];
+      const { xLength: _0x49a70c, yLength: _0x3d1948 } = getProjection({ "x": _0x479e8d, "y": _0x14774f }, _0x598807["angle"]);
+      _0x479e8d = _0x49a70c, _0x14774f = _0x3d1948, _0x598807["objects"]["forEach"]((_0x234f68) => {
+        _0x234f68["x"] += _0x479e8d, _0x234f68["y"] += _0x14774f;
+      }), _0x598807["x"] = _0x169663, _0x598807["y"] = _0x33ecd5, _0x598807["w"] = _0x47fb9d, _0x598807["h"] = _0x6474ec, _0x598807["angle"] = _0x111dca, _0x598807["group"] && resetGroupPosition(_0x598807["group"]);
+    } else
+      _0x598807["w"] = 0, _0x598807["h"] = 0;
   };
   var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
   function getDefaultExportFromCjs(x) {
@@ -2768,7 +2370,7 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
   function commonjsRequire(path) {
     throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
   }
-  var localforage$1 = { exports: {} };
+  var localforage = { exports: {} };
   /*!
       localForage -- Offline Storage, Improved
       Version 1.10.0
@@ -4899,4108 +4501,1978 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
         module3.exports = localforage_js;
       }, { "3": 3 }] }, {}, [4])(4);
     });
-  })(localforage$1);
-  var localforageExports = localforage$1.exports;
-  const localforage = /* @__PURE__ */ getDefaultExportFromCjs(localforageExports);
-  const mod360 = (deg) => {
-    return (deg + 360) % 360;
+  })(localforage);
+  var localforageExports = localforage.exports;
+  const _0x43842a = /* @__PURE__ */ getDefaultExportFromCjs(localforageExports);
+  const mod360 = (_0x206f4f) => {
+    return (_0x206f4f + 360) % 360;
   };
-  const calculateBoundingBox = (obj) => {
-    const { x, y, w, h, angle } = obj;
-    const radians = angle * Math.PI / 180;
-    const cosA = Math.cos(radians);
-    const sinA = Math.sin(radians);
-    const centerX = x + w / 2;
-    const centerY = y + h / 2;
-    const offsetX = w / 2;
-    const offsetY = h / 2;
-    const rotatePoint2 = (offsetX2, offsetY2) => ({
-      x: centerX + (offsetX2 * cosA - offsetY2 * sinA),
-      y: centerY + (offsetX2 * sinA + offsetY2 * cosA)
+  const calculateBoundingBox = (_0x375f00) => {
+    const { x: _0x597b8f, y: _0x476ff2, w: _0x294af6, h: _0x21cd48, angle: _0x55b4fc } = _0x375f00, _0x2f9c28 = _0x55b4fc * Math["PI"] / 180, _0x37691b = Math["cos"](_0x2f9c28), _0x17beb9 = Math["sin"](_0x2f9c28), _0x301ce3 = _0x597b8f + _0x294af6 / 2, _0x22b409 = _0x476ff2 + _0x21cd48 / 2, _0x50a0ca = _0x294af6 / 2, _0x2ac9f6 = _0x21cd48 / 2, _0x59818f = (_0x25162b, _0x3c2c1c) => ({ "x": _0x301ce3 + (_0x25162b * _0x37691b - _0x3c2c1c * _0x17beb9), "y": _0x22b409 + (_0x25162b * _0x17beb9 + _0x3c2c1c * _0x37691b) }), _0x4593a0 = _0x59818f(-_0x50a0ca, -_0x2ac9f6), _0x3b0e0f = _0x59818f(_0x50a0ca, -_0x2ac9f6), _0xc0e118 = _0x59818f(_0x50a0ca, _0x2ac9f6), _0x30ba92 = _0x59818f(-_0x50a0ca, _0x2ac9f6), _0x5f11fc = Math["min"](_0x4593a0["x"], _0x3b0e0f["x"], _0xc0e118["x"], _0x30ba92["x"]), _0x5a6495 = Math["max"](_0x4593a0["x"], _0x3b0e0f["x"], _0xc0e118["x"], _0x30ba92["x"]), _0x18566c = Math["min"](_0x4593a0["y"], _0x3b0e0f["y"], _0xc0e118["y"], _0x30ba92["y"]), _0x1cc694 = Math["max"](_0x4593a0["y"], _0x3b0e0f["y"], _0xc0e118["y"], _0x30ba92["y"]);
+    return { "x": _0x5f11fc, "y": _0x18566c, "w": _0x5a6495 - _0x5f11fc, "h": _0x1cc694 - _0x18566c, "angle": _0x55b4fc };
+  };
+  const calculateOuterBoundingBox = (_0x536e98) => {
+    let _0x527fb7 = Number["MAX_VALUE"], _0x405710 = Number["MAX_VALUE"], _0x443d52 = Number["MIN_VALUE"], _0x37eb5b = Number["MIN_VALUE"];
+    _0x536e98["forEach"]((_0x423272) => {
+      const _0xa6adc0 = calculateBoundingBox(_0x423272);
+      _0x527fb7 = Math["min"](_0x527fb7, _0xa6adc0["x"]), _0x405710 = Math["min"](_0x405710, _0xa6adc0["y"]), _0x443d52 = Math["max"](_0x443d52, _0xa6adc0["x"] + _0xa6adc0["w"]), _0x37eb5b = Math["max"](_0x37eb5b, _0xa6adc0["y"] + _0xa6adc0["h"]);
     });
-    const rotatedP1 = rotatePoint2(-offsetX, -offsetY);
-    const rotatedP2 = rotatePoint2(offsetX, -offsetY);
-    const rotatedP3 = rotatePoint2(offsetX, offsetY);
-    const rotatedP4 = rotatePoint2(-offsetX, offsetY);
-    const minX = Math.min(rotatedP1.x, rotatedP2.x, rotatedP3.x, rotatedP4.x);
-    const maxX = Math.max(rotatedP1.x, rotatedP2.x, rotatedP3.x, rotatedP4.x);
-    const minY = Math.min(rotatedP1.y, rotatedP2.y, rotatedP3.y, rotatedP4.y);
-    const maxY = Math.max(rotatedP1.y, rotatedP2.y, rotatedP3.y, rotatedP4.y);
-    return {
-      x: minX,
-      y: minY,
-      w: maxX - minX,
-      h: maxY - minY,
-      angle
-    };
+    const _0x4d68bf = _0x443d52 - _0x527fb7, _0x43c31f = _0x37eb5b - _0x405710;
+    return { "x": _0x527fb7, "y": _0x405710, "w": _0x4d68bf, "h": _0x43c31f };
   };
-  const calculateOuterBoundingBox = (rectangles) => {
-    let minX = Number.MAX_VALUE;
-    let minY = Number.MAX_VALUE;
-    let maxX = Number.MIN_VALUE;
-    let maxY = Number.MIN_VALUE;
-    rectangles.forEach((item) => {
-      const attr = calculateBoundingBox(item);
-      minX = Math.min(minX, attr.x);
-      minY = Math.min(minY, attr.y);
-      maxX = Math.max(maxX, attr.x + attr.w);
-      maxY = Math.max(maxY, attr.y + attr.h);
-    });
-    const width = maxX - minX;
-    const height = maxY - minY;
-    return {
-      x: minX,
-      y: minY,
-      w: width,
-      h: height
-    };
-  };
-  const getGridSize = (scale2) => {
-    if (scale2 <= 0.25)
+  const getGridSize = (_0x230ff8) => {
+    if (_0x230ff8 <= 0.25)
       return 40;
-    if (scale2 <= 0.5)
+    if (_0x230ff8 <= 0.5)
       return 20;
-    if (scale2 <= 1)
+    if (_0x230ff8 <= 1)
       return 10;
-    if (scale2 <= 2)
+    if (_0x230ff8 <= 2)
       return 5;
-    if (scale2 <= 4)
+    if (_0x230ff8 <= 4)
       return 2;
     return 1;
-  };
-  const FONT_SCALE = 0.83;
-  const shadowSize = 8 / 8;
-  const drawHorizontalRuler = ({ ctx, start, shadow, config, colorConfig }) => {
-    const { scale: scale2, width, height, ratio } = config;
-    const { bgColor, fontColor, shadowColor, shadowFontColor, longfgColor, shortfgColor } = colorConfig;
-    ctx.scale(ratio, ratio);
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = bgColor;
-    ctx.fillRect(0, 0, width, height);
-    if (shadow.enable) {
-      const shadowX = (shadow.x - start) * scale2;
-      const shadowWidth = shadow.width * scale2;
-      ctx.fillStyle = shadowColor;
-      ctx.fillRect(shadowX, 0, shadowWidth, height * shadowSize);
+  }, FONT_SCALE = 0.83, shadowSize = 8 / 8;
+  const drawHorizontalRuler = ({ ctx: _0x254a04, start: _0x2e415d, shadow: _0x4485f0, config: _0x300b92, colorConfig: _0xdb566e }) => {
+    const { scale: _0x5e6bf2, width: _0x5dbfae, height: _0x128b64, ratio: _0x34039b } = _0x300b92, { bgColor: _0x21830d, fontColor: _0x5e9dfe, shadowColor: _0x78e315, shadowFontColor: _0x56e8a1, longfgColor: _0x57abc1, shortfgColor: _0x22f4dd } = _0xdb566e;
+    _0x254a04["scale"](_0x34039b, _0x34039b), _0x254a04["clearRect"](0, 0, _0x5dbfae, _0x128b64), _0x254a04["fillStyle"] = _0x21830d, _0x254a04["fillRect"](0, 0, _0x5dbfae, _0x128b64);
+    if (_0x4485f0["enable"]) {
+      const _0x3e5a50 = (_0x4485f0["x"] - _0x2e415d) * _0x5e6bf2, _0x1e7a73 = _0x4485f0["width"] * _0x5e6bf2;
+      _0x254a04["fillStyle"] = _0x78e315, _0x254a04["fillRect"](_0x3e5a50, 0, _0x1e7a73, _0x128b64 * shadowSize);
     }
-    const gridSize = getGridSize(scale2);
-    const gridPixel = gridSize * scale2;
-    const gridSize_10 = gridSize * 10;
-    const gridPixel_10 = gridSize_10 * scale2;
-    const startValue = Math.floor(start / gridSize) * gridSize;
-    const startValue_10 = Math.floor(start / gridSize_10) * gridSize_10;
-    const offsetX = (startValue - start) / gridSize * gridPixel;
-    const offsetX_10 = (startValue_10 - start) / gridSize_10 * gridPixel_10;
-    const endValue = start + Math.ceil(width / scale2);
-    ctx.beginPath();
-    ctx.fillStyle = fontColor;
-    ctx.strokeStyle = longfgColor;
-    for (let value = startValue_10, count = 0; value < endValue; value += gridSize_10, count++) {
-      const x = offsetX_10 + count * gridPixel_10 + 0.5;
-      ctx.moveTo(x, 0);
-      ctx.save();
-      ctx.translate(x, height * 0.4);
-      ctx.scale(FONT_SCALE / ratio, FONT_SCALE / ratio);
-      ctx.fillText(value, 4 * ratio, 7 * ratio);
-      ctx.restore();
-      ctx.lineTo(x, height * 9 / 16);
+    const _0x3d331e = getGridSize(_0x5e6bf2), _0x4b2ed3 = _0x3d331e * _0x5e6bf2, _0x2153c2 = _0x3d331e * 10, _0x458402 = _0x2153c2 * _0x5e6bf2, _0x4ac674 = Math["floor"](_0x2e415d / _0x3d331e) * _0x3d331e, _0x4ea4a4 = Math["floor"](_0x2e415d / _0x2153c2) * _0x2153c2, _0x490805 = (_0x4ac674 - _0x2e415d) / _0x3d331e * _0x4b2ed3, _0xe60d72 = (_0x4ea4a4 - _0x2e415d) / _0x2153c2 * _0x458402, _0x437fdd = _0x2e415d + Math["ceil"](_0x5dbfae / _0x5e6bf2);
+    _0x254a04["beginPath"](), _0x254a04["fillStyle"] = _0x5e9dfe, _0x254a04["strokeStyle"] = _0x57abc1;
+    for (let _0x1cb108 = _0x4ea4a4, _0x3e6c70 = 0; _0x1cb108 < _0x437fdd; _0x1cb108 += _0x2153c2, _0x3e6c70++) {
+      const _0x16171c = _0xe60d72 + _0x3e6c70 * _0x458402 + 0.5;
+      _0x254a04["moveTo"](_0x16171c, 0), _0x254a04["save"](), _0x254a04["translate"](_0x16171c, _0x128b64 * 0.4), _0x254a04["scale"](FONT_SCALE / _0x34039b, FONT_SCALE / _0x34039b), _0x254a04["fillText"](_0x1cb108, 4 * _0x34039b, 7 * _0x34039b), _0x254a04["restore"](), _0x254a04["lineTo"](_0x16171c, _0x128b64 * 9 / 16);
     }
-    ctx.stroke();
-    ctx.closePath();
-    ctx.beginPath();
-    ctx.strokeStyle = shortfgColor;
-    for (let value = startValue, count = 0; value < endValue; value += gridSize, count++) {
-      const x = offsetX + count * gridPixel + 0.5;
-      ctx.moveTo(x, 0);
-      if (value % gridSize_10 !== 0) {
-        ctx.lineTo(x, height * 1 / 4);
+    _0x254a04["stroke"](), _0x254a04["closePath"](), _0x254a04["beginPath"](), _0x254a04["strokeStyle"] = _0x22f4dd;
+    for (let _0x5d142f = _0x4ac674, _0x416350 = 0; _0x5d142f < _0x437fdd; _0x5d142f += _0x3d331e, _0x416350++) {
+      const _0x2c9271 = _0x490805 + _0x416350 * _0x4b2ed3 + 0.5;
+      _0x254a04["moveTo"](_0x2c9271, 0), _0x5d142f % _0x2153c2 !== 0 && _0x254a04["lineTo"](_0x2c9271, _0x128b64 * 1 / 4);
+    }
+    _0x254a04["stroke"](), _0x254a04["closePath"]();
+    if (_0x4485f0["enable"]) {
+      const _0x314605 = (_0x4485f0["x"] - _0x2e415d) * _0x5e6bf2, _0x435913 = _0x4485f0["width"] * _0x5e6bf2;
+      _0x254a04["fillStyle"] = _0x56e8a1;
+      if (_0x435913 > 0) {
+        const _0x2ea111 = Number(_0x4485f0["x"])["toFixed"](0), _0x28a2db = Number(_0x4485f0["x"] + _0x4485f0["width"])["toFixed"](0), _0x24f131 = _0x254a04["measureText"](_0x2ea111);
+        _0x254a04["fillText"](_0x2ea111, _0x314605 - _0x24f131["width"] - 3, _0x128b64 * 10 / 16), _0x254a04["fillText"](_0x28a2db, _0x314605 + _0x435913 + 2, _0x128b64 * 10 / 16);
       }
     }
-    ctx.stroke();
-    ctx.closePath();
-    if (shadow.enable) {
-      const shadowX = (shadow.x - start) * scale2;
-      const shadowWidth = shadow.width * scale2;
-      ctx.fillStyle = shadowFontColor;
-      if (shadowWidth > 0) {
-        const startNumber = Number(shadow.x).toFixed(0);
-        const endNumber = Number(shadow.x + shadow.width).toFixed(0);
-        const textMetrics = ctx.measureText(startNumber);
-        ctx.fillText(startNumber, shadowX - textMetrics.width - 3, height * 10 / 16);
-        ctx.fillText(endNumber, shadowX + shadowWidth + 2, height * 10 / 16);
+    _0x254a04["setTransform"](1, 0, 0, 1, 0, 0);
+  };
+  const drawVerticalRuler = ({ ctx: _0xfccbe4, start: _0x24b95b, shadow: _0x32671d, config: _0x46b1d4, colorConfig: _0x299041 }) => {
+    const { scale: _0x3cb8a7, width: _0x57eec9, height: _0x2d6bed, ratio: _0x2db9de } = _0x46b1d4, { bgColor: _0x593e2b, fontColor: _0x1fedf1, shadowColor: _0x2bae46, shadowFontColor: _0x595d33, longfgColor: _0x5d3a8c, shortfgColor: _0x345b3c } = _0x299041;
+    _0xfccbe4["scale"](_0x2db9de, _0x2db9de), _0xfccbe4["clearRect"](0, 0, _0x57eec9, _0x2d6bed), _0xfccbe4["fillStyle"] = _0x593e2b, _0xfccbe4["fillRect"](0, 0, _0x57eec9, _0x2d6bed);
+    if (_0x32671d["enable"]) {
+      const _0x5e4870 = (_0x32671d["y"] - _0x24b95b) * _0x3cb8a7, _0x1631dc = _0x32671d["height"] * _0x3cb8a7;
+      _0xfccbe4["fillStyle"] = _0x2bae46, _0xfccbe4["fillRect"](0, _0x5e4870, _0x57eec9 * shadowSize, _0x1631dc);
+    }
+    const _0x544622 = getGridSize(_0x3cb8a7), _0x2bc05a = _0x544622 * _0x3cb8a7, _0x4f51a4 = _0x544622 * 10, _0x13467a = _0x4f51a4 * _0x3cb8a7, _0x58b443 = Math["floor"](_0x24b95b / _0x544622) * _0x544622, _0x536873 = Math["floor"](_0x24b95b / _0x4f51a4) * _0x4f51a4, _0x20a83d = (_0x58b443 - _0x24b95b) / _0x544622 * _0x2bc05a, _0x4a80e8 = (_0x536873 - _0x24b95b) / _0x4f51a4 * _0x13467a, _0x352fab = _0x24b95b + Math["ceil"](_0x2d6bed / _0x3cb8a7);
+    _0xfccbe4["beginPath"](), _0xfccbe4["fillStyle"] = _0x1fedf1, _0xfccbe4["strokeStyle"] = _0x5d3a8c;
+    for (let _0x2983cb = _0x536873, _0x576f88 = 0; _0x2983cb < _0x352fab; _0x2983cb += _0x4f51a4, _0x576f88++) {
+      const _0x19d7b0 = _0x4a80e8 + _0x576f88 * _0x13467a + 0.5;
+      _0xfccbe4["moveTo"](0, _0x19d7b0), _0xfccbe4["save"](), _0xfccbe4["translate"](_0x57eec9 * 0.4, _0x19d7b0), _0xfccbe4["rotate"](-Math["PI"] / 2), _0xfccbe4["scale"](FONT_SCALE / _0x2db9de, FONT_SCALE / _0x2db9de), _0xfccbe4["fillText"](_0x2983cb, 4 * _0x2db9de, 7 * _0x2db9de), _0xfccbe4["restore"](), _0xfccbe4["lineTo"](_0x57eec9 * 9 / 16, _0x19d7b0);
+    }
+    _0xfccbe4["stroke"](), _0xfccbe4["closePath"](), _0xfccbe4["beginPath"](), _0xfccbe4["strokeStyle"] = _0x345b3c;
+    for (let _0x241953 = _0x58b443, _0x323057 = 0; _0x241953 < _0x352fab; _0x241953 += _0x544622, _0x323057++) {
+      const _0xa988b = _0x20a83d + _0x323057 * _0x2bc05a + 0.5;
+      _0xfccbe4["moveTo"](0, _0xa988b), _0x241953 % _0x4f51a4 !== 0 && _0xfccbe4["lineTo"](_0x57eec9 * 1 / 4, _0xa988b);
+    }
+    _0xfccbe4["stroke"](), _0xfccbe4["closePath"]();
+    if (_0x32671d["enable"]) {
+      const _0x3218e9 = (_0x32671d["y"] - _0x24b95b) * _0x3cb8a7, _0x2e4ad4 = _0x32671d["height"] * _0x3cb8a7;
+      _0xfccbe4["fillStyle"] = _0x595d33;
+      if (_0x2e4ad4 > 0) {
+        _0xfccbe4["save"]();
+        const _0x7e6443 = Number(_0x32671d["y"])["toFixed"](0), _0xad9cfc = Number(_0x32671d["y"] + _0x32671d["height"])["toFixed"](0);
+        _0xfccbe4["translate"](0, _0x3218e9), _0xfccbe4["rotate"](-Math["PI"] / 2), _0xfccbe4["fillText"](_0x7e6443, 2, _0x57eec9 * 9 / 16), _0xfccbe4["restore"](), _0xfccbe4["save"]();
+        const _0x4316a8 = _0xfccbe4["measureText"](_0x7e6443);
+        _0xfccbe4["translate"](0, _0x3218e9 + _0x2e4ad4 + _0x4316a8["width"] + 10), _0xfccbe4["rotate"](-Math["PI"] / 2), _0xfccbe4["fillText"](_0xad9cfc, 2, _0x57eec9 * 9 / 16);
       }
     }
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    _0xfccbe4["setTransform"](1, 0, 0, 1, 0, 0);
   };
-  const drawVerticalRuler = ({ ctx, start, shadow, config, colorConfig }) => {
-    const { scale: scale2, width, height, ratio } = config;
-    const { bgColor, fontColor, shadowColor, shadowFontColor, longfgColor, shortfgColor } = colorConfig;
-    ctx.scale(ratio, ratio);
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = bgColor;
-    ctx.fillRect(0, 0, width, height);
-    if (shadow.enable) {
-      const shadowY = (shadow.y - start) * scale2;
-      const shadowHeight = shadow.height * scale2;
-      ctx.fillStyle = shadowColor;
-      ctx.fillRect(0, shadowY, width * shadowSize, shadowHeight);
-    }
-    const gridSize = getGridSize(scale2);
-    const gridPixel = gridSize * scale2;
-    const gridSize_10 = gridSize * 10;
-    const gridPixel_10 = gridSize_10 * scale2;
-    const startValue = Math.floor(start / gridSize) * gridSize;
-    const startValue_10 = Math.floor(start / gridSize_10) * gridSize_10;
-    const offsetY = (startValue - start) / gridSize * gridPixel;
-    const offsetY_10 = (startValue_10 - start) / gridSize_10 * gridPixel_10;
-    const endValue = start + Math.ceil(height / scale2);
-    ctx.beginPath();
-    ctx.fillStyle = fontColor;
-    ctx.strokeStyle = longfgColor;
-    for (let value = startValue_10, count = 0; value < endValue; value += gridSize_10, count++) {
-      const y = offsetY_10 + count * gridPixel_10 + 0.5;
-      ctx.moveTo(0, y);
-      ctx.save();
-      ctx.translate(width * 0.4, y);
-      ctx.rotate(-Math.PI / 2);
-      ctx.scale(FONT_SCALE / ratio, FONT_SCALE / ratio);
-      ctx.fillText(value, 4 * ratio, 7 * ratio);
-      ctx.restore();
-      ctx.lineTo(width * 9 / 16, y);
-    }
-    ctx.stroke();
-    ctx.closePath();
-    ctx.beginPath();
-    ctx.strokeStyle = shortfgColor;
-    for (let value = startValue, count = 0; value < endValue; value += gridSize, count++) {
-      const y = offsetY + count * gridPixel + 0.5;
-      ctx.moveTo(0, y);
-      if (value % gridSize_10 !== 0) {
-        ctx.lineTo(width * 1 / 4, y);
-      }
-    }
-    ctx.stroke();
-    ctx.closePath();
-    if (shadow.enable) {
-      const shadowY = (shadow.y - start) * scale2;
-      const shadowHeight = shadow.height * scale2;
-      ctx.fillStyle = shadowFontColor;
-      if (shadowHeight > 0) {
-        ctx.save();
-        const startNumber = Number(shadow.y).toFixed(0);
-        const endNumber = Number(shadow.y + shadow.height).toFixed(0);
-        ctx.translate(0, shadowY);
-        ctx.rotate(-Math.PI / 2);
-        ctx.fillText(startNumber, 2, width * 9 / 16);
-        ctx.restore();
-        ctx.save();
-        const textMetrics = ctx.measureText(startNumber);
-        ctx.translate(0, shadowY + shadowHeight + textMetrics.width + 10);
-        ctx.rotate(-Math.PI / 2);
-        ctx.fillText(endNumber, 2, width * 9 / 16);
-      }
-    }
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-  };
-  const editorUtil = {
-    nanoid,
-    sortBy: sortBy$1,
-    find: find$1,
-    cloneDeep,
-    findIndex,
-    updateSvgElement,
-    componentMerge,
-    localforage,
-    treeToList,
-    calculateBoundingBox,
-    calculateOuterBoundingBox,
-    mod360,
-    composeMatrix,
-    decomposeMatrix,
-    getBoundingRect,
-    rotatePoint,
-    getObjectCenter,
-    getCoords,
-    getAngle,
-    isPointInside,
-    getPositionFromCoords,
-    multiplyMatrix,
-    createSvgElement,
-    getPositionCenter,
-    getPositionRect,
-    getBBox,
-    isRectIntersect,
-    getTotalMatrix,
-    applyMatrix,
-    getObjMatrix,
-    getApplyMatrixPosition,
-    computeOBB,
-    getAngleVectors,
-    getProjection,
-    getPathStr,
-    getPathBoundingBox,
-    isPointOnBezierCurve,
-    isPointArroundPath,
-    splitBezierCurve,
-    isPointArroundPolyline,
-    setAttributes,
-    hideDoms,
-    showDoms,
-    getDistance,
-    traverse,
-    logError,
-    logWarning,
-    resetGroupSubsSize,
-    resetGroupPosition,
-    getRelativeBoundingRect
-  };
+  const editorUtil = { "nanoid": nanoid, "sortBy": sortBy$1, "find": find$1, "cloneDeep": cloneDeep, "findIndex": findIndex, "updateSvgElement": updateSvgElement, "componentMerge": componentMerge, "localforage": _0x43842a, "treeToList": treeToList, "calculateBoundingBox": calculateBoundingBox, "calculateOuterBoundingBox": calculateOuterBoundingBox, "mod360": mod360, "composeMatrix": composeMatrix, "decomposeMatrix": decomposeMatrix, "getBoundingRect": getBoundingRect, "rotatePoint": rotatePoint, "getObjectCenter": getObjectCenter, "getCoords": getCoords, "getAngle": getAngle, "isPointInside": isPointInside, "getPositionFromCoords": getPositionFromCoords, "multiplyMatrix": multiplyMatrix, "createSvgElement": createSvgElement, "getPositionCenter": getPositionCenter, "getPositionRect": getPositionRect, "getBBox": getBBox, "isRectIntersect": isRectIntersect, "getTotalMatrix": getTotalMatrix, "applyMatrix": applyMatrix, "getObjMatrix": getObjMatrix, "getApplyMatrixPosition": getApplyMatrixPosition, "computeOBB": computeOBB, "getAngleVectors": getAngleVectors, "getProjection": getProjection, "getPathStr": getPathStr, "getPathBoundingBox": getPathBoundingBox, "isPointOnBezierCurve": isPointOnBezierCurve, "isPointArroundPath": isPointArroundPath, "splitBezierCurve": splitBezierCurve, "isPointArroundPolyline": isPointArroundPolyline, "setAttributes": setAttributes, "hideDoms": hideDoms, "showDoms": showDoms, "getDistance": getDistance, "traverse": traverse, "logError": logError, "logWarning": logWarning, "resetGroupSubsSize": resetGroupSubsSize, "resetGroupPosition": resetGroupPosition, "getRelativeBoundingRect": getRelativeBoundingRect };
   class ElementHandler {
-    constructor(editor) {
-      this.editor = editor;
-      this.classNamePrefix = editor.config.classNamePrefix || "DATAVIS";
-      this.initialize();
+    constructor(_0x26d7e1) {
+      this["editor"] = _0x26d7e1, this["classNamePrefix"] = _0x26d7e1["config"]["classNamePrefix"] || "DATAVIS", this["initialize"]();
     }
-    initialize() {
-      this.initEditorDom();
-      this.initCanvasDom();
+    ["initialize"]() {
+      this["initEditorDom"](), this["initCanvasDom"]();
     }
-    initLayers() {
-      this.initOverLayer();
-      this.initControlLayer();
-      this.initDrawLayer();
+    ["initLayers"]() {
+      this["initOverLayer"](), this["initControlLayer"](), this["initDrawLayer"]();
     }
-    // 获取 编辑器dom
-    initEditorDom() {
-      const { editor } = this;
-      editor.editorDom = document.querySelector(editor.containerId);
-      const handleMouseMove = (e) => {
-        editor.fire("editor:mousemove", { e });
+    ["initEditorDom"]() {
+      const { editor: _0x5f4043 } = this;
+      _0x5f4043["editorDom"] = document["querySelector"](_0x5f4043["containerId"]);
+      const _0x3d8791 = (_0xd90b47) => {
+        _0x5f4043["fire"]("editor:mousemove", { "e": _0xd90b47 });
+      }, _0x240dd9 = (_0x5a28ac) => {
+        _0x5f4043["fire"]("editor:mouseup", { "e": _0x5a28ac }), document["removeEventListener"]("mousemove", _0x3d8791), document["removeEventListener"]("mouseup", _0x240dd9);
       };
-      const handleMouseUp = (e) => {
-        editor.fire("editor:mouseup", { e });
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-      };
-      editor.editorDom.addEventListener("mousedown", (e) => {
-        let target = editor.findTarget(e);
-        editor.fire("editor:mousedown", { e, target });
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseup", handleMouseUp);
+      _0x5f4043["editorDom"]["addEventListener"]("mousedown", (_0x47f32a) => {
+        let _0x5967cd = _0x5f4043["findTarget"](_0x47f32a);
+        _0x5f4043["fire"]("editor:mousedown", { "e": _0x47f32a, "target": _0x5967cd }), document["addEventListener"]("mousemove", _0x3d8791), document["addEventListener"]("mouseup", _0x240dd9);
       });
     }
-    // 画布区dom
-    initCanvasDom() {
-      const { editor } = this;
-      editor.canvasDom = document.querySelector(editor.config.canvas);
-      editor.canvasDom.style.transformOrigin = "left top";
+    ["initCanvasDom"]() {
+      const { editor: _0x32e8b8 } = this;
+      _0x32e8b8["canvasDom"] = document["querySelector"](_0x32e8b8["config"]["canvas"]), _0x32e8b8["canvasDom"]["style"]["transformOrigin"] = "left top";
     }
-    // 初始化 辅助层 dom
-    initOverLayer() {
-      const { editor } = this;
-      const overLayerElement = document.createElement("div");
-      overLayerElement.className = `${this.classNamePrefix}-over-layer`;
-      editor.overLayer = overLayerElement;
-      editor.editorDom.appendChild(overLayerElement);
+    ["initOverLayer"]() {
+      const { editor: _0xc2e076 } = this, _0xb5705a = document["createElement"]("div");
+      _0xb5705a["className"] = this["classNamePrefix"] + "-over-layer", _0xc2e076["overLayer"] = _0xb5705a, _0xc2e076["editorDom"]["appendChild"](_0xb5705a);
     }
-    // 初始化绘制层 (采用svg)
-    initDrawLayer() {
-      const { editor } = this;
-      const svg = editorUtil.createSvgElement("svg", { class: `${this.classNamePrefix}-draw-layer` });
-      editor.drawLayer = svg;
-      editor.canvasDom.appendChild(svg);
+    ["initDrawLayer"]() {
+      const { editor: _0x3e3e27 } = this, _0x3f8657 = editorUtil["createSvgElement"]("svg", { "class": this["classNamePrefix"] + "-draw-layer" });
+      _0x3e3e27["drawLayer"] = _0x3f8657, _0x3e3e27["canvasDom"]["appendChild"](_0x3f8657);
     }
-    // 初始化控制点层 (采用svg)
-    initControlLayer() {
-      const { editor } = this;
-      const layer = editorUtil.createSvgElement(
-        "svg",
-        { class: `${this.classNamePrefix}-control-layer` },
-        { width: "100%", height: "100%", overflow: "visible" }
-      );
-      editor.controlLayer = layer;
-      editor.editorDom.appendChild(layer);
+    ["initControlLayer"]() {
+      const { editor: _0x433dd8 } = this, _0x4372f2 = editorUtil["createSvgElement"]("svg", { "class": this["classNamePrefix"] + "-control-layer" }, { "width": "100%", "height": "100%", "overflow": "visible" });
+      _0x433dd8["controlLayer"] = _0x4372f2, _0x433dd8["editorDom"]["appendChild"](_0x4372f2);
     }
   }
+  var alignEnum = ((_0x40d352) => {
+    return _0x40d352["left"] = "left", _0x40d352["right"] = "right", _0x40d352["centerX"] = "centerX", _0x40d352["top"] = "top", _0x40d352["bottom"] = "bottom", _0x40d352["centerY"] = "centerY", _0x40d352["horizontalUniform"] = "horizontalUniform", _0x40d352["verticalUniform"] = "verticalUniform", _0x40d352["horizontalDistance"] = "horizontalDistance", _0x40d352["verticalDistance"] = "verticalDistance", _0x40d352;
+  })(alignEnum || {});
   class AlignHandler {
-    constructor(editor) {
-      this.distance = 0;
-      this.editor = editor;
+    constructor(_0x45fe7f) {
+      this["distance"] = 0, this["editor"] = _0x45fe7f;
     }
-    align(type, distance = 0) {
-      const editor = this.editor;
-      const config = editor.config;
-      this.distance = +distance;
-      const calculateBoundingBox2 = editor.util.calculateBoundingBox;
-      const calculateOuterBoundingBox2 = editor.util.calculateOuterBoundingBox;
-      const alignLeft = (rectangles) => {
-        let outerBoundingBox = {
-          x: 0
-        };
-        if (rectangles.length > 1) {
-          outerBoundingBox = calculateOuterBoundingBox2(rectangles);
-        }
-        const outerLeftX = outerBoundingBox.x;
-        rectangles.forEach((item) => {
-          const innerBoundingBox = calculateBoundingBox2(item);
-          const innerLeftX = innerBoundingBox.x;
-          const moveDistanceX = outerLeftX - innerLeftX;
-          item.x += moveDistanceX;
+    ["align"](_0x1543e4, _0x575080 = 0) {
+      const _0x3a3fc3 = this["editor"], _0xbe77e4 = _0x3a3fc3["config"];
+      this["distance"] = +_0x575080;
+      const _0x567886 = _0x3a3fc3["util"]["calculateBoundingBox"], _0x3637ed = _0x3a3fc3["util"]["calculateOuterBoundingBox"], _0x1570ca = (_0x43fa80) => {
+        let _0x1bbde1 = { "x": 0 };
+        _0x43fa80["length"] > 1 && (_0x1bbde1 = _0x3637ed(_0x43fa80));
+        const _0x960170 = _0x1bbde1["x"];
+        _0x43fa80["forEach"]((_0x6419c5) => {
+          const _0x2daf50 = _0x567886(_0x6419c5), _0xb0710d = _0x2daf50["x"], _0x12ca36 = _0x960170 - _0xb0710d;
+          _0x6419c5["x"] += _0x12ca36;
         });
-      };
-      const alignRight = (rectangles) => {
-        let outerBoundingBox = {
-          x: 0,
-          w: config.width
-        };
-        if (rectangles.length > 1) {
-          outerBoundingBox = calculateOuterBoundingBox2(rectangles);
-        }
-        const outerRightX = outerBoundingBox.x + outerBoundingBox.w;
-        rectangles.forEach((item) => {
-          const innerBoundingBox = calculateBoundingBox2(item);
-          const innerRightX = innerBoundingBox.x + innerBoundingBox.w;
-          const moveDistanceX = outerRightX - innerRightX;
-          item.x += moveDistanceX;
+      }, _0x520bfa = (_0x61fa45) => {
+        let _0x2dfd5e = { "x": 0, "w": _0xbe77e4["width"] };
+        _0x61fa45["length"] > 1 && (_0x2dfd5e = _0x3637ed(_0x61fa45));
+        const _0x450d1 = _0x2dfd5e["x"] + _0x2dfd5e["w"];
+        _0x61fa45["forEach"]((_0x1cf9d8) => {
+          const _0x262902 = _0x567886(_0x1cf9d8), _0x310160 = _0x262902["x"] + _0x262902["w"], _0x40727c = _0x450d1 - _0x310160;
+          _0x1cf9d8["x"] += _0x40727c;
         });
-      };
-      const alignCenterX = (rectangles) => {
-        let outerBoundingBox = {
-          x: 0,
-          w: config.width
-        };
-        if (rectangles.length > 1) {
-          outerBoundingBox = calculateOuterBoundingBox2(rectangles);
-        }
-        const outerCenterX = outerBoundingBox.x + outerBoundingBox.w / 2;
-        rectangles.forEach((item) => {
-          const innerBoundingBox = calculateBoundingBox2(item);
-          const innerCenterX = innerBoundingBox.x + innerBoundingBox.w / 2;
-          const moveDistanceX = outerCenterX - innerCenterX;
-          item.x += moveDistanceX;
+      }, _0x5b5bb5 = (_0x12d732) => {
+        let _0x554093 = { "x": 0, "w": _0xbe77e4["width"] };
+        _0x12d732["length"] > 1 && (_0x554093 = _0x3637ed(_0x12d732));
+        const _0x58c0de = _0x554093["x"] + _0x554093["w"] / 2;
+        _0x12d732["forEach"]((_0x59fb66) => {
+          const _0xfb8f09 = _0x567886(_0x59fb66), _0x126178 = _0xfb8f09["x"] + _0xfb8f09["w"] / 2, _0x32de00 = _0x58c0de - _0x126178;
+          _0x59fb66["x"] += _0x32de00;
         });
-      };
-      const alignTop = (rectangles) => {
-        let outerBoundingBox = {
-          y: 0
-        };
-        if (rectangles.length > 1) {
-          outerBoundingBox = calculateOuterBoundingBox2(rectangles);
-        }
-        const outerTopY = outerBoundingBox.y;
-        rectangles.forEach((item) => {
-          const innerBoundingBox = calculateBoundingBox2(item);
-          const innerTopY = innerBoundingBox.y;
-          const moveDistanceY = outerTopY - innerTopY;
-          item.y += moveDistanceY;
+      }, _0xfbc63f = (_0x5ec5d3) => {
+        let _0x3b7efe = { "y": 0 };
+        _0x5ec5d3["length"] > 1 && (_0x3b7efe = _0x3637ed(_0x5ec5d3));
+        const _0x143b3b = _0x3b7efe["y"];
+        _0x5ec5d3["forEach"]((_0x337600) => {
+          const _0xe91dce = _0x567886(_0x337600), _0x64a14e = _0xe91dce["y"], _0x4b0100 = _0x143b3b - _0x64a14e;
+          _0x337600["y"] += _0x4b0100;
         });
-      };
-      const alignCenterY = (rectangles) => {
-        let outerBoundingBox = {
-          y: 0,
-          h: config.height
-        };
-        if (rectangles.length > 1) {
-          outerBoundingBox = calculateOuterBoundingBox2(rectangles);
-        }
-        const outerCenter = outerBoundingBox.y + outerBoundingBox.h / 2;
-        rectangles.forEach((item) => {
-          const innerBoundingBox = calculateBoundingBox2(item);
-          const innerCenter = innerBoundingBox.y + innerBoundingBox.h / 2;
-          const moveDistance = outerCenter - innerCenter;
-          item.y += moveDistance;
+      }, _0x35d0c9 = (_0x46c9f5) => {
+        let _0x45f29b = { "y": 0, "h": _0xbe77e4["height"] };
+        _0x46c9f5["length"] > 1 && (_0x45f29b = _0x3637ed(_0x46c9f5));
+        const _0x31be35 = _0x45f29b["y"] + _0x45f29b["h"] / 2;
+        _0x46c9f5["forEach"]((_0x1b890f) => {
+          const _0x2cdd45 = _0x567886(_0x1b890f), _0x2d48a7 = _0x2cdd45["y"] + _0x2cdd45["h"] / 2, _0xf533f = _0x31be35 - _0x2d48a7;
+          _0x1b890f["y"] += _0xf533f;
         });
-      };
-      const alignBottom = (rectangles) => {
-        let outerBoundingBox = {
-          y: 0,
-          h: config.height
-        };
-        if (rectangles.length > 1) {
-          outerBoundingBox = calculateOuterBoundingBox2(rectangles);
-        }
-        const outerTopY = outerBoundingBox.y + outerBoundingBox.h;
-        rectangles.forEach((item) => {
-          const innerBoundingBox = calculateBoundingBox2(item);
-          const innerTopY = innerBoundingBox.y + innerBoundingBox.h;
-          const moveDistanceY = outerTopY - innerTopY;
-          item.y += moveDistanceY;
+      }, _0x190371 = (_0x35a1d1) => {
+        let _0x96bcbb = { "y": 0, "h": _0xbe77e4["height"] };
+        _0x35a1d1["length"] > 1 && (_0x96bcbb = _0x3637ed(_0x35a1d1));
+        const _0x27b719 = _0x96bcbb["y"] + _0x96bcbb["h"];
+        _0x35a1d1["forEach"]((_0x5d6962) => {
+          const _0x3aaa8e = _0x567886(_0x5d6962), _0x407236 = _0x3aaa8e["y"] + _0x3aaa8e["h"], _0x2e4edd = _0x27b719 - _0x407236;
+          _0x5d6962["y"] += _0x2e4edd;
         });
-      };
-      const distributeHorizontally = (rectangles) => {
-        const outerBoundingBox = calculateOuterBoundingBox2(rectangles);
-        const outerWidth = outerBoundingBox.w;
-        const totalInnerWidth = rectangles.reduce((total, item) => {
-          const innerBoundingBox = calculateBoundingBox2(item);
-          return total + innerBoundingBox.w;
-        }, 0);
-        const spaceBetween = this.distance || (outerWidth - totalInnerWidth) / (rectangles.length - 1);
-        rectangles.sort((a, b) => {
-          const boxA = calculateBoundingBox2(a);
-          const boxB = calculateBoundingBox2(b);
-          return boxA.x - boxB.x;
+      }, _0xde0dca = (_0x5105b1) => {
+        const _0x324327 = _0x3637ed(_0x5105b1), _0x48f0b6 = _0x324327["w"], _0x2c03aa = _0x5105b1["reduce"]((_0x1cda86, _0x251530) => {
+          const _0x298fa0 = _0x567886(_0x251530);
+          return _0x1cda86 + _0x298fa0["w"];
+        }, 0), _0x1c5a2b = this["distance"] || (_0x48f0b6 - _0x2c03aa) / (_0x5105b1["length"] - 1);
+        _0x5105b1["sort"]((_0x300be8, _0x1679a4) => {
+          const _0x1060bf = _0x567886(_0x300be8), _0x50e117 = _0x567886(_0x1679a4);
+          return _0x1060bf["x"] - _0x50e117["x"];
         });
-        const leftBoundary = outerBoundingBox.x;
-        let currentX = leftBoundary;
-        rectangles.forEach((item, index) => {
-          const innerBoundingBox = calculateBoundingBox2(item);
-          if (index > 0 && index < rectangles.length - 1) {
-            const targetX = currentX + innerBoundingBox.w / 2;
-            const moveDistanceX = targetX - (item.x + innerBoundingBox.w / 2);
-            item.x += moveDistanceX;
+        const _0x43e826 = _0x324327["x"];
+        let _0x1e5125 = _0x43e826;
+        _0x5105b1["forEach"]((_0x489bd0, _0xc75fad) => {
+          const _0x38afa2 = _0x567886(_0x489bd0);
+          if (_0xc75fad > 0 && _0xc75fad < _0x5105b1["length"] - 1) {
+            const _0x47ea4d = _0x1e5125 + _0x38afa2["w"] / 2, _0x327a71 = _0x47ea4d - (_0x489bd0["x"] + _0x38afa2["w"] / 2);
+            _0x489bd0["x"] += _0x327a71;
           }
-          currentX += innerBoundingBox.w + spaceBetween;
+          _0x1e5125 += _0x38afa2["w"] + _0x1c5a2b;
         });
-        const rightBoundary = currentX - spaceBetween;
-        const rightOffset = outerBoundingBox.x + outerWidth - rightBoundary;
-        if (rightOffset > 0) {
-          rectangles.forEach((item, index) => {
-            if (index < rectangles.length - 1) {
-              item.x += rightOffset;
-            }
-          });
-        }
-      };
-      const distributeVertically = (rectangles) => {
-        const outerBoundingBox = calculateOuterBoundingBox2(rectangles);
-        const outerHeight = outerBoundingBox.h;
-        const totalInnerHeight = rectangles.reduce((total, item) => {
-          const innerBoundingBox = calculateBoundingBox2(item);
-          return total + innerBoundingBox.h;
-        }, 0);
-        const spaceBetween = this.distance || (outerHeight - totalInnerHeight) / (rectangles.length - 1);
-        rectangles.sort((a, b) => {
-          const boxA = calculateBoundingBox2(a);
-          const boxB = calculateBoundingBox2(b);
-          return boxA.y - boxB.y;
+        const _0x52eb11 = _0x1e5125 - _0x1c5a2b, _0x456bed = _0x324327["x"] + _0x48f0b6 - _0x52eb11;
+        _0x456bed > 0 && _0x5105b1["forEach"]((_0x4d5c9b, _0x309aaf) => {
+          _0x309aaf < _0x5105b1["length"] - 1 && (_0x4d5c9b["x"] += _0x456bed);
         });
-        const topBoundary = outerBoundingBox.y;
-        let currentY = topBoundary;
-        rectangles.forEach((item, index) => {
-          const innerBoundingBox = calculateBoundingBox2(item);
-          if (index > 0 && index < rectangles.length - 1) {
-            const targetY = currentY + innerBoundingBox.h / 2;
-            const moveDistanceY = targetY - (item.y + innerBoundingBox.h / 2);
-            item.y += moveDistanceY;
+      }, _0x5cf3bf = (_0x4f8543) => {
+        const _0x396fce = _0x3637ed(_0x4f8543), _0x128fd8 = _0x396fce["h"], _0x191840 = _0x4f8543["reduce"]((_0x1c41da, _0x37e49c) => {
+          const _0x459bca = _0x567886(_0x37e49c);
+          return _0x1c41da + _0x459bca["h"];
+        }, 0), _0x2ff53e = this["distance"] || (_0x128fd8 - _0x191840) / (_0x4f8543["length"] - 1);
+        _0x4f8543["sort"]((_0x5b6735, _0x4b1c61) => {
+          const _0x42683d = _0x567886(_0x5b6735), _0x5c749d = _0x567886(_0x4b1c61);
+          return _0x42683d["y"] - _0x5c749d["y"];
+        });
+        const _0x40f73a = _0x396fce["y"];
+        let _0x1f0832 = _0x40f73a;
+        _0x4f8543["forEach"]((_0x4b67ac, _0x56854a) => {
+          const _0x1536d6 = _0x567886(_0x4b67ac);
+          if (_0x56854a > 0 && _0x56854a < _0x4f8543["length"] - 1) {
+            const _0x5bba70 = _0x1f0832 + _0x1536d6["h"] / 2, _0x4357fe = _0x5bba70 - (_0x4b67ac["y"] + _0x1536d6["h"] / 2);
+            _0x4b67ac["y"] += _0x4357fe;
           }
-          currentY += innerBoundingBox.h + spaceBetween;
+          _0x1f0832 += _0x1536d6["h"] + _0x2ff53e;
         });
-        const bottomBoundary = currentY - spaceBetween;
-        const bottomOffset = outerBoundingBox.y + outerHeight - bottomBoundary;
-        if (bottomOffset > 0) {
-          rectangles.forEach((item, index) => {
-            if (index < rectangles.length - 1) {
-              item.y += bottomOffset;
-            }
-          });
-        }
-      };
-      const horizontalDistance = (rectangles) => {
-        rectangles.sort((a, b) => {
-          const boxA = calculateBoundingBox2(a);
-          const boxB = calculateBoundingBox2(b);
-          return boxA.x - boxB.x;
+        const _0x404c05 = _0x1f0832 - _0x2ff53e, _0x70c3a2 = _0x396fce["y"] + _0x128fd8 - _0x404c05;
+        _0x70c3a2 > 0 && _0x4f8543["forEach"]((_0x1af3be, _0x3e9fa9) => {
+          _0x3e9fa9 < _0x4f8543["length"] - 1 && (_0x1af3be["y"] += _0x70c3a2);
         });
-        const distance2 = this.distance;
-        for (let i = 1; i < rectangles.length; i++) {
-          const prevRect = rectangles[i - 1];
-          const currentRect = rectangles[i];
-          const prevRectBox = calculateBoundingBox2(prevRect);
-          const targetX = prevRectBox.x + prevRectBox.w + distance2;
-          currentRect.x = targetX;
-        }
-      };
-      const verticalDistance = (rectangles) => {
-        rectangles.sort((a, b) => {
-          const boxA = calculateBoundingBox2(a);
-          const boxB = calculateBoundingBox2(b);
-          return boxA.y - boxB.y;
+      }, _0xff1326 = (_0x2368ed) => {
+        _0x2368ed["sort"]((_0x1fd631, _0x145f22) => {
+          const _0x542068 = _0x567886(_0x1fd631), _0x3e2e67 = _0x567886(_0x145f22);
+          return _0x542068["x"] - _0x3e2e67["x"];
         });
-        const distance2 = this.distance;
-        for (let i = 1; i < rectangles.length; i++) {
-          const prevRect = rectangles[i - 1];
-          const currentRect = rectangles[i];
-          const prevRectBox = calculateBoundingBox2(prevRect);
-          const targetY = prevRectBox.y + prevRectBox.h + distance2;
-          currentRect.y = targetY;
+        const _0x114863 = this["distance"];
+        for (let _0x4097d4 = 1; _0x4097d4 < _0x2368ed["length"]; _0x4097d4++) {
+          const _0x51abdd = _0x2368ed[_0x4097d4 - 1], _0x5b7813 = _0x2368ed[_0x4097d4], _0x121639 = _0x567886(_0x51abdd), _0x4a6a36 = _0x121639["x"] + _0x121639["w"] + _0x114863;
+          _0x5b7813["x"] = _0x4a6a36;
         }
-      };
-      const selectedWidgets = editor.getActiveObjects();
-      if (!(selectedWidgets == null ? void 0 : selectedWidgets.length))
+      }, _0x27c0ed = (_0x4f576d) => {
+        _0x4f576d["sort"]((_0x3e4c51, _0x542f6d) => {
+          const _0x109466 = _0x567886(_0x3e4c51), _0x280904 = _0x567886(_0x542f6d);
+          return _0x109466["y"] - _0x280904["y"];
+        });
+        const _0x30ee8c = this["distance"];
+        for (let _0x40453a = 1; _0x40453a < _0x4f576d["length"]; _0x40453a++) {
+          const _0x1b4bb5 = _0x4f576d[_0x40453a - 1], _0x587677 = _0x4f576d[_0x40453a], _0x42cd79 = _0x567886(_0x1b4bb5), _0x3ff618 = _0x42cd79["y"] + _0x42cd79["h"] + _0x30ee8c;
+          _0x587677["y"] = _0x3ff618;
+        }
+      }, _0x206662 = _0x3a3fc3["getActiveObjects"]();
+      if (!(_0x206662 == null ? void 0 : _0x206662["length"]))
         return;
-      switch (type) {
+      switch (_0x1543e4) {
         case "left":
-          alignLeft(selectedWidgets);
+          _0x1570ca(_0x206662);
           break;
         case "right":
-          alignRight(selectedWidgets);
+          _0x520bfa(_0x206662);
           break;
         case "centerX":
-          alignCenterX(selectedWidgets);
+          _0x5b5bb5(_0x206662);
           break;
         case "top":
-          alignTop(selectedWidgets);
+          _0xfbc63f(_0x206662);
           break;
         case "centerY":
-          alignCenterY(selectedWidgets);
+          _0x35d0c9(_0x206662);
           break;
         case "bottom":
-          alignBottom(selectedWidgets);
+          _0x190371(_0x206662);
           break;
         case "horizontalUniform":
-          distributeHorizontally(selectedWidgets);
+          _0xde0dca(_0x206662);
           break;
         case "verticalUniform":
-          distributeVertically(selectedWidgets);
+          _0x5cf3bf(_0x206662);
           break;
         case "horizontalDistance":
-          horizontalDistance(selectedWidgets);
+          _0xff1326(_0x206662);
           break;
         case "verticalDistance":
-          verticalDistance(selectedWidgets);
+          _0x27c0ed(_0x206662);
           break;
       }
-      editor.setActiveObjects(selectedWidgets);
-      return Promise.resolve("");
+      return _0x3a3fc3["setActiveObjects"](_0x206662), Promise["resolve"]("");
     }
   }
-  var HistoryTypesEnum = /* @__PURE__ */ ((HistoryTypesEnum2) => {
-    HistoryTypesEnum2["attrs"] = "attrs";
-    HistoryTypesEnum2["inversion"] = "inversion";
-    HistoryTypesEnum2["add"] = "add";
-    HistoryTypesEnum2["delete"] = "delete";
-    HistoryTypesEnum2["config"] = "config";
-    return HistoryTypesEnum2;
+  var HistoryTypesEnum = ((_0x69c7d2) => {
+    return _0x69c7d2["attrs"] = "attrs", _0x69c7d2["inversion"] = "inversion", _0x69c7d2["add"] = "add", _0x69c7d2["delete"] = "delete", _0x69c7d2["config"] = "config", _0x69c7d2;
   })(HistoryTypesEnum || {});
-  var ObjectAttrsEnum = /* @__PURE__ */ ((ObjectAttrsEnum2) => {
-    ObjectAttrsEnum2["position"] = "position";
-    ObjectAttrsEnum2["all"] = "all";
-    return ObjectAttrsEnum2;
+  var ObjectAttrsEnum = ((_0x5e09e9) => {
+    return _0x5e09e9["position"] = "position", _0x5e09e9["all"] = "all", _0x5e09e9;
   })(ObjectAttrsEnum || {});
   class HistoryHandler {
-    constructor(editor) {
-      this.undoList = [];
-      this.redoList = [];
-      this.opLoding = false;
-      this.editor = editor;
-      this.editorMount();
+    constructor(_0xe5482e) {
+      this["undoList"] = [], this["redoList"] = [], this["opLoding"] = ![], this["editor"] = _0xe5482e, this["editorMount"]();
     }
-    editorMount() {
-      this.editor.undo = this.undo.bind(this);
-      this.editor.redo = this.redo.bind(this);
-      this.editor.emitStatus = this.emitStatus.bind(this);
-      this.editor.getStatus = this.getStatus.bind(this);
-      this.editor.store = this.store.bind(this);
-      this.editor.handleRestoreAttrs = this.handleRestoreInversion.bind(this);
-      this.editor.handleRestoreInversion = this.handleRestoreInversion.bind(this);
-      this.editor.handleRestoreAdd = this.handleRestoreAdd.bind(this);
-      this.editor.handleRestoreDelete = this.handleRestoreDelete.bind(this);
-      this.editor.handleRestoreConfig = this.handleRestoreConfig.bind(this);
-      this.editor.handleRestore = this.handleRestore.bind(this);
+    ["editorMount"]() {
+      this["editor"]["undo"] = this["undo"]["bind"](this), this["editor"]["redo"] = this["redo"]["bind"](this), this["editor"]["emitStatus"] = this["emitStatus"]["bind"](this), this["editor"]["getStatus"] = this["getStatus"]["bind"](this), this["editor"]["store"] = this["store"]["bind"](this), this["editor"]["handleRestoreAttrs"] = this["handleRestoreInversion"]["bind"](this), this["editor"]["handleRestoreInversion"] = this["handleRestoreInversion"]["bind"](this), this["editor"]["handleRestoreAdd"] = this["handleRestoreAdd"]["bind"](this), this["editor"]["handleRestoreDelete"] = this["handleRestoreDelete"]["bind"](this), this["editor"]["handleRestoreConfig"] = this["handleRestoreConfig"]["bind"](this), this["editor"]["handleRestore"] = this["handleRestore"]["bind"](this);
     }
-    /**
-     * 撤销
-     */
-    undo() {
-      const { undoList, redoList, editor } = this;
-      if (this.opLoding) {
-        return editorUtil.logWarning("please wait for the operation to complete.");
-      }
-      this.opLoding = true;
-      editor.fire("history:before:operation", "undo");
+    ["undo"]() {
+      const { undoList: _0x55b2ac, redoList: _0x71739e, editor: _0xc4702e } = this;
+      if (this["opLoding"])
+        return editorUtil["logWarning"]("please wait for the operation to complete.");
+      this["opLoding"] = !![], _0xc4702e["fire"]("history:before:operation", "undo");
       try {
-        if (undoList.length) {
-          const item = undoList.pop();
-          this.operation = item;
-          if (item) {
-            this.handleRestore(item, redoList);
-          }
+        if (_0x55b2ac["length"]) {
+          const _0x58dd00 = _0x55b2ac["pop"]();
+          this["operation"] = _0x58dd00, _0x58dd00 && this["handleRestore"](_0x58dd00, _0x71739e);
         }
-      } catch (error) {
-        editorUtil.logError(error);
+      } catch (_0x3cf305) {
+        editorUtil["logError"](_0x3cf305);
       } finally {
-        this.opLoding = false;
+        this["opLoding"] = ![];
       }
     }
-    /**
-     * 重做
-     */
-    redo() {
-      const { undoList, redoList, editor } = this;
-      if (this.opLoding) {
-        return editorUtil.logWarning("please wait for the operation to complete.");
-      }
-      this.opLoding = true;
-      editor.fire("history:before:operation", "redo");
+    ["redo"]() {
+      const { undoList: _0x263194, redoList: _0x58469a, editor: _0x3549ac } = this;
+      if (this["opLoding"])
+        return editorUtil["logWarning"]("please wait for the operation to complete.");
+      this["opLoding"] = !![], _0x3549ac["fire"]("history:before:operation", "redo");
       try {
-        if (redoList.length) {
-          const item = redoList.pop();
-          this.operation = item;
-          if (item) {
-            this.handleRestore(item, undoList);
-          }
+        if (_0x58469a["length"]) {
+          const _0x1ad798 = _0x58469a["pop"]();
+          this["operation"] = _0x1ad798, _0x1ad798 && this["handleRestore"](_0x1ad798, _0x263194);
         }
-      } catch (error) {
-        editorUtil.logError(error);
+      } catch (_0x454954) {
+        editorUtil["logError"](_0x454954);
       } finally {
-        this.opLoding = false;
+        this["opLoding"] = ![];
       }
     }
-    /**
-     * 提交状态
-     */
-    emitStatus() {
-      const editor = this.editor;
-      editor.fire("history:changed", this.getStatus());
+    ["emitStatus"]() {
+      const _0x657525 = this["editor"];
+      _0x657525["fire"]("history:changed", this["getStatus"]());
     }
-    /**
-     * 获取状态
-     * @returns
-     */
-    getStatus() {
-      return {
-        canUndo: this.undoList.length > 0,
-        canRedo: this.redoList.length > 0,
-        opLoding: this.opLoding
-      };
+    ["getStatus"]() {
+      return { "canUndo": this["undoList"]["length"] > 0, "canRedo": this["redoList"]["length"] > 0, "opLoding": this["opLoding"] };
     }
-    /**
-     * 保存历史纪录
-     *
-     * @param data
-     */
-    store(data) {
-      this.undoList.push(data);
-      this.redoList = [];
+    ["store"](_0x2d5a2f) {
+      this["undoList"]["push"](_0x2d5a2f), this["redoList"] = [];
     }
-    /**
-     * 从属性变化中恢复上一次的属性
-     * @param data 数据
-     * @param list 撤销/重做列表
-     */
-    handleRestoreAttrs(data, list) {
-      const { editor } = this;
-      const { from, to } = data;
-      const idList = [];
-      const attrsMap = {};
-      let sizeAttrsList = ["w", "h"];
-      let positionAttrsList = ["x", "y"];
-      from.data.forEach((item) => {
-        const { id } = item.data;
-        Reflect.set(attrsMap, id, item.data);
-        idList.push(id);
+    ["handleRestoreAttrs"](_0x1ec8cc, _0x4838d6) {
+      const { editor: _0x585783 } = this, { from: _0x1befc8, to: _0x47f209 } = _0x1ec8cc, _0x80148a = [], _0xa8dc8c = {};
+      let _0x884026 = ["w", "h"], _0x2d1a2f = ["x", "y"];
+      _0x1befc8["data"]["forEach"]((_0x212397) => {
+        const { id: _0x1d605f } = _0x212397["data"];
+        Reflect["set"](_0xa8dc8c, _0x1d605f, _0x212397["data"]), _0x80148a["push"](_0x1d605f);
       });
-      const objs = editor.getObjectsByCondition((a) => idList.includes(a.id));
-      const groupList = [];
-      objs.forEach((item) => {
-        const attrs = attrsMap[item.id];
-        const oldSize = { w: item.w, h: item.h };
-        item.set(attrs);
-        const keys2 = Object.keys(attrs);
-        if (keys2.some((a) => sizeAttrsList.includes(a))) {
-          item.handleSizeChange && item.handleSizeChange(oldSize);
-        }
-        if (keys2.some((a) => positionAttrsList.includes(a))) {
-          if (item.group && !groupList.find((a) => a.id === item.group.id)) {
-            groupList.push(item.group);
-          }
-        }
-      });
-      groupList.forEach((group) => {
-        editorUtil.resetGroupPosition(group);
-      });
-      editor.setActiveObjectsWithPosition(objs, from.activeSelection);
-      list.push({
-        type: HistoryTypesEnum.attrs,
-        from: to,
-        to: from
-      });
+      const _0x63e5da = _0x585783["getObjectsByCondition"]((_0x5391ae) => _0x80148a["includes"](_0x5391ae["id"])), _0x1370c1 = [];
+      _0x63e5da["forEach"]((_0x4a6e2d) => {
+        const _0x477851 = _0xa8dc8c[_0x4a6e2d["id"]], _0xe43864 = { "w": _0x4a6e2d["w"], "h": _0x4a6e2d["h"] };
+        _0x4a6e2d["set"](_0x477851);
+        const _0x1f3862 = Object["keys"](_0x477851);
+        _0x1f3862["some"]((_0x593718) => _0x884026["includes"](_0x593718)) && (_0x4a6e2d["handleSizeChange"] && _0x4a6e2d["handleSizeChange"](_0xe43864)), _0x1f3862["some"]((_0x2a8c47) => _0x2d1a2f["includes"](_0x2a8c47)) && (_0x4a6e2d["group"] && !_0x1370c1["find"]((_0x3bca52) => _0x3bca52["id"] === _0x4a6e2d["group"]["id"]) && _0x1370c1["push"](_0x4a6e2d["group"]));
+      }), _0x1370c1["forEach"]((_0x2e222e) => {
+        editorUtil["resetGroupPosition"](_0x2e222e);
+      }), _0x585783["setActiveObjectsWithPosition"](_0x63e5da, _0x1befc8["activeSelection"]), _0x4838d6["push"]({ "type": HistoryTypesEnum["attrs"], "from": _0x47f209, "to": _0x1befc8 });
     }
-    /**
-     * 粗暴的互逆，from和to状态调换（先删掉from里的数据，再添加to里的数据）
-     * @param data 数据
-     * @param list 撤销/重做列表
-     */
-    handleRestoreInversion(data, list) {
-      const { editor } = this;
-      const { from, to } = data;
-      const toRemoveIdList = to.data.map((a) => a.data.id);
-      const toRemoveList = editor.getObjectsByCondition((a) => toRemoveIdList.includes(a.id));
-      toRemoveList.forEach((item) => {
-        const parent = item.group || editor;
-        const findIndex2 = parent.objects.findIndex((a) => a.id === item.id);
-        if (findIndex2 > -1) {
-          parent.objects.splice(findIndex2, 1);
-        }
+    ["handleRestoreInversion"](_0x47eed7, _0x2f106f) {
+      const { editor: _0x43af21 } = this, { from: _0x45efde, to: _0x335d23 } = _0x47eed7, _0x3ca589 = _0x335d23["data"]["map"]((_0x58a816) => _0x58a816["data"]["id"]), _0x8c5784 = _0x43af21["getObjectsByCondition"]((_0x46c07a) => _0x3ca589["includes"](_0x46c07a["id"]));
+      _0x8c5784["forEach"]((_0x2f23a3) => {
+        const _0x4380cf = _0x2f23a3["group"] || _0x43af21, _0x2e4790 = _0x4380cf["objects"]["findIndex"]((_0x27ce36) => _0x27ce36["id"] === _0x2f23a3["id"]);
+        _0x2e4790 > -1 && _0x4380cf["objects"]["splice"](_0x2e4790, 1);
       });
-      const toAddList = [];
-      const toResetGroupList = [];
-      if (from.groupPositions) {
-        from.groupPositions.forEach((item) => {
-          const group = editor.getObjectById(item.id);
-          const diffX = group.x - item.x;
-          const diffY = group.y - item.y;
-          group.set(item);
-          group.objects.forEach((object) => {
-            object.x += diffX;
-            object.y += diffY;
-          });
+      const _0x12b8eb = [], _0x1c4ec4 = [];
+      _0x45efde["groupPositions"] && _0x45efde["groupPositions"]["forEach"]((_0x46b6c1) => {
+        const _0x1b03d7 = _0x43af21["getObjectById"](_0x46b6c1["id"]), _0x428ac3 = _0x1b03d7["x"] - _0x46b6c1["x"], _0x3f9ae7 = _0x1b03d7["y"] - _0x46b6c1["y"];
+        _0x1b03d7["set"](_0x46b6c1), _0x1b03d7["objects"]["forEach"]((_0x3af080) => {
+          _0x3af080["x"] += _0x428ac3, _0x3af080["y"] += _0x3f9ae7;
         });
-      }
-      from.data.forEach((item, index) => {
-        const instance = editor.plainObjectToClass(item.data);
-        const { parentId, index: realIndex } = from.data[index];
-        const parent = (parentId ? editor.getObjectById(parentId) : null) || editor;
-        if (parent && parent.type === "group") {
-          instance.group = parent;
-          if (!toResetGroupList.find((a) => a.id === parent.id)) {
-            toResetGroupList.push(parent);
-          }
-        }
-        parent.objects.splice(realIndex, 0, instance);
-        toAddList.push(instance);
-      });
-      toResetGroupList.forEach((item) => {
-        editorUtil.resetGroupPosition(item);
-      });
-      editor.setActiveObjectsWithPosition(toAddList, from.activeSelection);
-      list.push({
-        type: data.type,
-        from: to,
-        to: from
-      });
+      }), _0x45efde["data"]["forEach"]((_0x47b0af, _0x3b28ed) => {
+        const _0x56d309 = _0x43af21["plainObjectToClass"](_0x47b0af["data"]), { parentId: _0x20a1a0, index: _0x1b3a30 } = _0x45efde["data"][_0x3b28ed], _0x4ee099 = (_0x20a1a0 ? _0x43af21["getObjectById"](_0x20a1a0) : null) || _0x43af21;
+        _0x4ee099 && _0x4ee099["type"] === "group" && (_0x56d309["group"] = _0x4ee099, !_0x1c4ec4["find"]((_0x4aaea2) => _0x4aaea2["id"] === _0x4ee099["id"]) && _0x1c4ec4["push"](_0x4ee099)), _0x4ee099["objects"]["splice"](_0x1b3a30, 0, _0x56d309), _0x12b8eb["push"](_0x56d309);
+      }), _0x1c4ec4["forEach"]((_0x1c7395) => {
+        editorUtil["resetGroupPosition"](_0x1c7395);
+      }), _0x43af21["setActiveObjectsWithPosition"](_0x12b8eb, _0x45efde["activeSelection"]), _0x2f106f["push"]({ "type": _0x47eed7["type"], "from": _0x335d23, "to": _0x45efde });
     }
-    /**
-     * 处理新增对象。逆向操作，将to中的对象删除，并设置选中from中的对象
-     * from标识新增之前的状态，to标识新增之后的状态，to中是新增的对象
-     * @param data
-     * @param list
-     */
-    handleRestoreAdd(data, list) {
-      const { editor } = this;
-      const { from, to } = data;
-      const toRemoveIdList = to.data.map((a) => a.data.id);
-      const toRemoveList = editor.getObjectsByCondition((a) => toRemoveIdList.includes(a.id));
-      toRemoveList.sort((a, b) => {
-        const aIndex = toRemoveIdList.indexOf(a.id);
-        const bIndex = toRemoveIdList.indexOf(b.id);
-        return bIndex - aIndex;
-      });
-      editor.objectHandler.remove(toRemoveList);
-      const fromIdList = from.data.map((a) => a.data.id);
-      const objs = editor.getObjectsByCondition((a) => fromIdList.includes(a.id));
-      editor.setActiveObjectsWithPosition(objs, from.activeSelection);
-      list.push({
-        type: HistoryTypesEnum.delete,
-        from: to,
-        to: from
-      });
+    ["handleRestoreAdd"](_0x3543ae, _0x56fc82) {
+      const { editor: _0x2de3cf } = this, { from: _0x434d4d, to: _0x55699b } = _0x3543ae, _0x3005b4 = _0x55699b["data"]["map"]((_0x4a3291) => _0x4a3291["data"]["id"]), _0x175680 = _0x2de3cf["getObjectsByCondition"]((_0x28ddc1) => _0x3005b4["includes"](_0x28ddc1["id"]));
+      _0x175680["sort"]((_0xe2e75b, _0x1403e4) => {
+        const _0x87179 = _0x3005b4["indexOf"](_0xe2e75b["id"]), _0x28ed10 = _0x3005b4["indexOf"](_0x1403e4["id"]);
+        return _0x28ed10 - _0x87179;
+      }), _0x2de3cf["objectHandler"]["remove"](_0x175680);
+      const _0x3506cc = _0x434d4d["data"]["map"]((_0x3ce8fa) => _0x3ce8fa["data"]["id"]), _0x4f5bd8 = _0x2de3cf["getObjectsByCondition"]((_0x52b08e) => _0x3506cc["includes"](_0x52b08e["id"]));
+      _0x2de3cf["setActiveObjectsWithPosition"](_0x4f5bd8, _0x434d4d["activeSelection"]), _0x56fc82["push"]({ "type": HistoryTypesEnum["delete"], "from": _0x55699b, "to": _0x434d4d });
     }
-    /**
-     * 处理删除对象。逆向操作，添加from中的对象并选中
-     * from标识删除之前的状态，to标识删除之后的状态，被删除了，to里的数据就是空的
-     * @param data
-     * @param list
-     */
-    handleRestoreDelete(data, list) {
-      const { editor } = this;
-      const { from, to } = data;
-      const toAddList = [];
-      from.data.forEach((item, index) => {
-        const instance = editor.plainObjectToClass(item.data);
-        const { parentId, index: realIndex } = from.data[index];
-        const parent = parentId ? editor.getObjectById(parentId) : editor;
-        if (parentId) {
-          instance.group = parent;
-        }
-        parent.objects.splice(realIndex, 0, instance);
-        toAddList.push(instance);
-      });
-      editor.setActiveObjectsWithPosition(toAddList, from.activeSelection);
-      list.push({
-        type: HistoryTypesEnum.add,
-        from: to,
-        to: from
-      });
+    ["handleRestoreDelete"](_0x5c1aad, _0x2e6ed6) {
+      const { editor: _0x2cc599 } = this, { from: _0x2807f1, to: _0x7fb356 } = _0x5c1aad, _0x357f12 = [];
+      _0x2807f1["data"]["forEach"]((_0x32c053, _0x487e04) => {
+        const _0x2c03db = _0x2cc599["plainObjectToClass"](_0x32c053["data"]), { parentId: _0x4467e0, index: _0x19c426 } = _0x2807f1["data"][_0x487e04], _0x2b4bc4 = _0x4467e0 ? _0x2cc599["getObjectById"](_0x4467e0) : _0x2cc599;
+        _0x4467e0 && (_0x2c03db["group"] = _0x2b4bc4), _0x2b4bc4["objects"]["splice"](_0x19c426, 0, _0x2c03db), _0x357f12["push"](_0x2c03db);
+      }), _0x2cc599["setActiveObjectsWithPosition"](_0x357f12, _0x2807f1["activeSelection"]), _0x2e6ed6["push"]({ "type": HistoryTypesEnum["add"], "from": _0x7fb356, "to": _0x2807f1 });
     }
-    handleRestoreConfig(data, list) {
-      const { editor } = this;
-      const { from, to } = data;
-      Object.assign(editor.config, from);
-      list.push({
-        type: HistoryTypesEnum.config,
-        from: to,
-        to: from
-      });
+    ["handleRestoreConfig"](_0x32e33a, _0x43075e) {
+      const { editor: _0x4f29e5 } = this, { from: _0x5ccee8, to: _0x5abb3f } = _0x32e33a;
+      Object["assign"](_0x4f29e5["config"], _0x5ccee8), _0x43075e["push"]({ "type": HistoryTypesEnum["config"], "from": _0x5abb3f, "to": _0x5ccee8 });
     }
-    /**
-     * 根据操作类型，进行数据恢复
-     * @param data 数据
-     * @param list 撤销/重做列表
-     */
-    handleRestore(data, list) {
-      const { editor } = this;
-      switch (data.type) {
-        case HistoryTypesEnum.attrs:
-          this.handleRestoreAttrs(data, list);
+    ["handleRestore"](_0x1d119a, _0x388d7d) {
+      const { editor: _0x590fc8 } = this;
+      switch (_0x1d119a["type"]) {
+        case HistoryTypesEnum["attrs"]:
+          this["handleRestoreAttrs"](_0x1d119a, _0x388d7d);
           break;
-        case HistoryTypesEnum.inversion:
-          this.handleRestoreInversion(data, list);
+        case HistoryTypesEnum["inversion"]:
+          this["handleRestoreInversion"](_0x1d119a, _0x388d7d);
           break;
-        case HistoryTypesEnum.add:
-          this.handleRestoreAdd(data, list);
+        case HistoryTypesEnum["add"]:
+          this["handleRestoreAdd"](_0x1d119a, _0x388d7d);
           break;
-        case HistoryTypesEnum.delete:
-          this.handleRestoreDelete(data, list);
+        case HistoryTypesEnum["delete"]:
+          this["handleRestoreDelete"](_0x1d119a, _0x388d7d);
           break;
-        case HistoryTypesEnum.config:
-          this.handleRestoreConfig(data, list);
+        case HistoryTypesEnum["config"]:
+          this["handleRestoreConfig"](_0x1d119a, _0x388d7d);
           break;
       }
-      editor.layerChange();
-      this.emitStatus();
+      _0x590fc8["layerChange"](), this["emitStatus"]();
     }
   }
-  const angleCursorList = [
-    { cursor: "n", list: [[23, 68]] },
-    { cursor: "ne", list: [[23, 113]] },
-    { cursor: "e", list: [[113, 158]] },
-    { cursor: "se", list: [[158, 203]] },
-    { cursor: "s", list: [[203, 248]] },
-    { cursor: "sw", list: [[248, 293]] },
-    { cursor: "w", list: [[293, 338]] },
-    {
-      cursor: "nw",
-      list: [
-        [338, 360],
-        [0, 23]
-      ]
-    }
-  ];
-  const initialAngle = {
-    // 每个点对应的初始角度
-    tl: 0,
-    t: 45,
-    tr: 90,
-    r: 135,
-    br: 180,
-    b: 225,
-    bl: 270,
-    l: 315
-  };
-  const controlMap = {
-    // 控制点的对角面或对面
-    tl: "br",
-    tr: "bl",
-    bl: "tr",
-    br: "tl",
-    l: "r",
-    r: "l",
-    t: "b",
-    b: "t"
-  };
-  const lnflectionPointList = ["tl", "tr", "bl", "br"];
-  const handleResize = (mousePoint = { x: 0, y: 0 }, controlPoint, editor, ev, positionMap) => {
-    const target = editor.getActiveObject();
-    const objPos = positionMap.get(target.id);
-    if (objPos.groupId) {
-      mousePoint = convertMousePoint(mousePoint, objPos.groupId, positionMap);
-    }
-    const objAttr = positionMap.get(target.id);
-    const coord = editorUtil.getCoords(objAttr);
-    let p1 = coord[controlMap[controlPoint]];
-    const objCenter = { x: objAttr.x + objAttr.w / 2, y: objAttr.y + objAttr.h / 2 };
-    objCenter.x = +objCenter.x.toFixed(4);
-    objCenter.y = +objCenter.y.toFixed(4);
-    p1.x = +p1.x.toFixed(4);
-    p1.y = +p1.y.toFixed(4);
-    let slope = (objCenter.y - p1.y) / (objCenter.x - p1.x);
-    const isInfinity = slope === Infinity || slope === -Infinity;
-    if (["l", "r", "t", "b"].includes(controlPoint)) {
-      if (isInfinity) {
-        mousePoint.x = p1.x;
-      } else {
-        mousePoint.y = (mousePoint.x - p1.x) * slope + p1.y;
-      }
-    }
-    let [x, y, w, h] = [0, 0, 0, 0];
-    const isTop = /t/.test(controlPoint);
-    const isBottom = /b/.test(controlPoint);
-    const isLeft = /l/.test(controlPoint);
-    const isRight = /r/.test(controlPoint);
-    const isInflection = lnflectionPointList.find((item) => item === controlPoint);
-    const isRatioScale = target.isRatioScale;
-    const itemY = target.y;
-    const itemW = target.w;
-    const itemH = target.h;
-    let newCenter = { x: (p1.x + mousePoint.x) / 2, y: (p1.y + mousePoint.y) / 2 };
-    const newP1 = editorUtil.rotatePoint(p1, newCenter, -objAttr.angle);
-    const newP2 = editorUtil.rotatePoint(mousePoint, newCenter, -objAttr.angle);
-    w = Math.abs(newP1.x - newP2.x);
-    h = Math.abs(newP1.y - newP2.y);
-    x = newCenter.x - w / 2;
-    y = newCenter.y - h / 2;
-    if (isRatioScale || ev.shiftKey) {
-      w = w < 10 ? 10 : w;
-      h = h < 10 ? 10 : h;
-      let zoomVal = w / itemW;
-      if (isInflection) {
-        const afterH = itemH * zoomVal;
-        h = Math.round(afterH);
-        if (["tl", "tr"].find((item) => item === controlPoint)) {
-          y = itemY - Math.round(afterH - itemH);
-        }
-      } else {
-        if (isLeft || isRight) {
-          zoomVal = w / itemW;
-          h = Math.round(itemH * zoomVal);
-          y = objAttr.y;
-        }
-        if (isTop || isBottom) {
-          zoomVal = h / itemH;
-          w = Math.round(itemW * zoomVal);
-          x = objAttr.x;
-        }
-      }
+  const angleCursorList = [{ "cursor": "n", "list": [[23, 68]] }, { "cursor": "ne", "list": [[23, 113]] }, { "cursor": "e", "list": [[113, 158]] }, { "cursor": "se", "list": [[158, 203]] }, { "cursor": "s", "list": [[203, 248]] }, { "cursor": "sw", "list": [[248, 293]] }, { "cursor": "w", "list": [[293, 338]] }, { "cursor": "nw", "list": [[338, 360], [0, 23]] }], initialAngle = { "tl": 0, "t": 45, "tr": 90, "r": 135, "br": 180, "b": 225, "bl": 270, "l": 315 }, controlMap = { "tl": "br", "tr": "bl", "bl": "tr", "br": "tl", "l": "r", "r": "l", "t": "b", "b": "t" }, lnflectionPointList = ["tl", "tr", "bl", "br"], handleResize = (_0x590ce6 = { "x": 0, "y": 0 }, _0x1c9b8d, _0x1b7990, _0xc9be19, _0x8243b6) => {
+    const _0x5c8ae0 = _0x1b7990["getActiveObject"](), _0x55003d = _0x8243b6["get"](_0x5c8ae0["id"]);
+    _0x55003d["groupId"] && (_0x590ce6 = convertMousePoint(_0x590ce6, _0x55003d["groupId"], _0x8243b6));
+    const _0x2c1823 = _0x8243b6["get"](_0x5c8ae0["id"]), _0x1caffc = editorUtil["getCoords"](_0x2c1823);
+    let _0x3582c2 = _0x1caffc[controlMap[_0x1c9b8d]];
+    const _0x51e488 = { "x": _0x2c1823["x"] + _0x2c1823["w"] / 2, "y": _0x2c1823["y"] + _0x2c1823["h"] / 2 };
+    _0x51e488["x"] = +_0x51e488["x"]["toFixed"](4), _0x51e488["y"] = +_0x51e488["y"]["toFixed"](4), _0x3582c2["x"] = +_0x3582c2["x"]["toFixed"](4), _0x3582c2["y"] = +_0x3582c2["y"]["toFixed"](4);
+    let _0x1543ec = (_0x51e488["y"] - _0x3582c2["y"]) / (_0x51e488["x"] - _0x3582c2["x"]);
+    const _0x20ecf9 = _0x1543ec === Infinity || _0x1543ec === -Infinity;
+    ["l", "r", "t", "b"]["includes"](_0x1c9b8d) && (_0x20ecf9 ? _0x590ce6["x"] = _0x3582c2["x"] : _0x590ce6["y"] = (_0x590ce6["x"] - _0x3582c2["x"]) * _0x1543ec + _0x3582c2["y"]);
+    let [_0x5883a2, _0x271683, _0x17c717, _0x5b8244] = [0, 0, 0, 0];
+    const _0x41cf26 = /t/["test"](_0x1c9b8d), _0x2b2408 = /b/["test"](_0x1c9b8d), _0x420053 = /l/["test"](_0x1c9b8d), _0x585a78 = /r/["test"](_0x1c9b8d), _0x4edd4e = lnflectionPointList["find"]((_0x55cad2) => _0x55cad2 === _0x1c9b8d), _0x16b0a2 = _0x5c8ae0["isRatioScale"], _0x32ef29 = _0x5c8ae0["y"], _0xf209e0 = _0x5c8ae0["w"], _0x2ed7d6 = _0x5c8ae0["h"];
+    let _0x468c04 = { "x": (_0x3582c2["x"] + _0x590ce6["x"]) / 2, "y": (_0x3582c2["y"] + _0x590ce6["y"]) / 2 };
+    const _0x30d677 = editorUtil["rotatePoint"](_0x3582c2, _0x468c04, -_0x2c1823["angle"]), _0x92b03b = editorUtil["rotatePoint"](_0x590ce6, _0x468c04, -_0x2c1823["angle"]);
+    _0x17c717 = Math["abs"](_0x30d677["x"] - _0x92b03b["x"]), _0x5b8244 = Math["abs"](_0x30d677["y"] - _0x92b03b["y"]), _0x5883a2 = _0x468c04["x"] - _0x17c717 / 2, _0x271683 = _0x468c04["y"] - _0x5b8244 / 2;
+    if (_0x16b0a2 || _0xc9be19["shiftKey"]) {
+      _0x17c717 = _0x17c717 < 10 ? 10 : _0x17c717, _0x5b8244 = _0x5b8244 < 10 ? 10 : _0x5b8244;
+      let _0x389624 = _0x17c717 / _0xf209e0;
+      if (_0x4edd4e) {
+        const _0x505ef8 = _0x2ed7d6 * _0x389624;
+        _0x5b8244 = Math["round"](_0x505ef8), ["tl", "tr"]["find"]((_0x4cf489) => _0x4cf489 === _0x1c9b8d) && (_0x271683 = _0x32ef29 - Math["round"](_0x505ef8 - _0x2ed7d6));
+      } else
+        (_0x420053 || _0x585a78) && (_0x389624 = _0x17c717 / _0xf209e0, _0x5b8244 = Math["round"](_0x2ed7d6 * _0x389624), _0x271683 = _0x2c1823["y"]), (_0x41cf26 || _0x2b2408) && (_0x389624 = _0x5b8244 / _0x2ed7d6, _0x17c717 = Math["round"](_0xf209e0 * _0x389624), _0x5883a2 = _0x2c1823["x"]);
     } else {
-      if (["t", "b"].includes(controlPoint)) {
-        w = objAttr.w;
-        x = newCenter.x - w / 2;
-      } else if (["l", "r"].includes(controlPoint)) {
-        h = objAttr.h;
-        y = newCenter.y - h / 2;
-      }
+      if (["t", "b"]["includes"](_0x1c9b8d))
+        _0x17c717 = _0x2c1823["w"], _0x5883a2 = _0x468c04["x"] - _0x17c717 / 2;
+      else
+        ["l", "r"]["includes"](_0x1c9b8d) && (_0x5b8244 = _0x2c1823["h"], _0x271683 = _0x468c04["y"] - _0x5b8244 / 2);
     }
-    const finalAttr = { x, y, w, h, angle: objAttr.angle };
-    const oldSize = { w: target.w, h: target.h };
-    Object.assign(target, finalAttr);
-    if (target.type === "activeSelection") {
-      setActiveSelectionObjsPosition(target, positionMap);
-    } else {
-      target.handleSizeChange && target.handleSizeChange(oldSize);
-    }
-    editor.fire("object:resizing", { target });
-  };
-  const setActiveSelectionObjsPosition = (group, positionMap) => {
-    const originGroup = positionMap.get(group.id);
-    const ratioW = group.w / originGroup.w;
-    const ratioH = group.h / originGroup.h;
-    const originGroupCenter = { x: originGroup.x + originGroup.w / 2, y: originGroup.y + originGroup.h / 2 };
-    group.objects.forEach((obj) => {
-      const attr = positionMap.get(obj.id);
-      let objCenter = { x: attr.x + attr.w / 2, y: attr.y + attr.h / 2 };
-      objCenter = editorUtil.rotatePoint(objCenter, originGroupCenter, -originGroup.angle);
-      let objX = objCenter.x - attr.w / 2 - originGroup.x;
-      let objY = objCenter.y - attr.h / 2 - originGroup.y;
-      let objAngle = attr.angle - originGroup.angle;
-      const item = { x: objX, y: objY, w: attr.w, h: attr.h, angle: objAngle };
-      const oldSize = { w: obj.w, h: obj.h };
-      const coords = editorUtil.getCoords(item);
-      Object.values(coords).forEach((e) => {
-        e.x = e.x * ratioW;
-        e.y = e.y * ratioH;
+    const _0x439983 = { "x": _0x5883a2, "y": _0x271683, "w": _0x17c717, "h": _0x5b8244, "angle": _0x2c1823["angle"] }, _0xacea8c = { "w": _0x5c8ae0["w"], "h": _0x5c8ae0["h"] };
+    Object["assign"](_0x5c8ae0, _0x439983), _0x5c8ae0["type"] === "activeSelection" ? setActiveSelectionObjsPosition(_0x5c8ae0, _0x8243b6) : _0x5c8ae0["handleSizeChange"] && _0x5c8ae0["handleSizeChange"](_0xacea8c), _0x1b7990["fire"]("object:resizing", { "target": _0x5c8ae0 });
+  }, setActiveSelectionObjsPosition = (_0x1c4001, _0x4f96fc) => {
+    const _0x169583 = _0x4f96fc["get"](_0x1c4001["id"]), _0x2d979b = _0x1c4001["w"] / _0x169583["w"], _0x366da9 = _0x1c4001["h"] / _0x169583["h"], _0x35b1df = { "x": _0x169583["x"] + _0x169583["w"] / 2, "y": _0x169583["y"] + _0x169583["h"] / 2 };
+    _0x1c4001["objects"]["forEach"]((_0x22793b) => {
+      const _0x23fbc8 = _0x4f96fc["get"](_0x22793b["id"]);
+      let _0x353c2d = { "x": _0x23fbc8["x"] + _0x23fbc8["w"] / 2, "y": _0x23fbc8["y"] + _0x23fbc8["h"] / 2 };
+      _0x353c2d = editorUtil["rotatePoint"](_0x353c2d, _0x35b1df, -_0x169583["angle"]);
+      let _0x3515a2 = _0x353c2d["x"] - _0x23fbc8["w"] / 2 - _0x169583["x"], _0x477ac7 = _0x353c2d["y"] - _0x23fbc8["h"] / 2 - _0x169583["y"], _0x24d8de = _0x23fbc8["angle"] - _0x169583["angle"];
+      const _0x59337d = { "x": _0x3515a2, "y": _0x477ac7, "w": _0x23fbc8["w"], "h": _0x23fbc8["h"], "angle": _0x24d8de }, _0x2abbd9 = { "w": _0x22793b["w"], "h": _0x22793b["h"] }, _0xe9f521 = editorUtil["getCoords"](_0x59337d);
+      Object["values"](_0xe9f521)["forEach"]((_0x3cec19) => {
+        _0x3cec19["x"] = _0x3cec19["x"] * _0x2d979b, _0x3cec19["y"] = _0x3cec19["y"] * _0x366da9;
       });
-      let { tl, br } = coords;
-      const newCenter = { x: (tl.x + br.x) / 2, y: (tl.y + br.y) / 2 };
-      const w = attr.w * ratioW;
-      const h = attr.h * ratioH;
-      const x = newCenter.x - w / 2 + group.x;
-      const y = newCenter.y - h / 2 + group.y;
-      obj.x = x;
-      obj.y = y;
-      obj.w = w;
-      obj.h = h;
-      obj.handleSizeChange && obj.handleSizeChange(oldSize);
+      let { tl: _0x45661e, br: _0x15bb2f } = _0xe9f521;
+      const _0x7c0ae4 = { "x": (_0x45661e["x"] + _0x15bb2f["x"]) / 2, "y": (_0x45661e["y"] + _0x15bb2f["y"]) / 2 }, _0xfd0a46 = _0x23fbc8["w"] * _0x2d979b, _0x285865 = _0x23fbc8["h"] * _0x366da9, _0x53f3da = _0x7c0ae4["x"] - _0xfd0a46 / 2 + _0x1c4001["x"], _0xbf1536 = _0x7c0ae4["y"] - _0x285865 / 2 + _0x1c4001["y"];
+      _0x22793b["x"] = _0x53f3da, _0x22793b["y"] = _0xbf1536, _0x22793b["w"] = _0xfd0a46, _0x22793b["h"] = _0x285865, _0x22793b["handleSizeChange"] && _0x22793b["handleSizeChange"](_0x2abbd9);
     });
-  };
-  const convertMousePoint = (point, groupId, positionMap) => {
-    let p = point || { x: 0, y: 0 };
-    const recursion = (e) => {
-      const group = positionMap.get(e);
-      const { x, y, angle } = group;
-      const groupMatrix = editorUtil.composeMatrix({ tx: x, ty: y, angle });
-      const inverseMatrix = inverse(groupMatrix);
-      p = applyToPoint(inverseMatrix, p);
-      if (group.groupId) {
-        recursion(group.groupId);
-      }
+  }, convertMousePoint = (_0x3598d3, _0x98955, _0x2a9c58) => {
+    let _0x27ba2a = _0x3598d3 || { "x": 0, "y": 0 };
+    const _0x143c96 = (_0x1ac0cf) => {
+      const _0x1cbd22 = _0x2a9c58["get"](_0x1ac0cf), { x: _0xfd5407, y: _0x50995c, angle: _0x1bfe4f } = _0x1cbd22, _0x27ba02 = editorUtil["composeMatrix"]({ "tx": _0xfd5407, "ty": _0x50995c, "angle": _0x1bfe4f }), _0x268d5f = inverse(_0x27ba02);
+      _0x27ba2a = applyToPoint(_0x268d5f, _0x27ba2a), _0x1cbd22["groupId"] && _0x143c96(_0x1cbd22["groupId"]);
     };
-    recursion(groupId);
-    return p;
-  };
-  const handleRotate = (mousePoint, editor) => {
-    const target = editor.getActiveObject();
-    let position = target.getGlobalPosition();
-    const center = { x: position.x + position.w / 2, y: position.y + position.h / 2 };
-    const curAngle = editorUtil.getAngle(mousePoint, center);
-    const diffAngle = curAngle - position.angle;
-    target.angle = curAngle;
-    if (target.type === "activeSelection") {
-      target.objects.forEach((item) => {
-        const { x, y, w, h, angle } = item.getGlobalPosition();
-        const cx = x + w / 2;
-        const cy = y + h / 2;
-        const p2 = editorUtil.rotatePoint({ x: cx, y: cy }, center, diffAngle);
-        item.x = p2.x - w / 2 - (item.group ? item.group.getGlobalPosition().x : 0);
-        item.y = p2.y - h / 2 - (item.group ? item.group.getGlobalPosition().y : 0);
-        item.angle = angle + diffAngle;
-      });
-    }
-    editor.fire("object:rotating", { target });
+    return _0x143c96(_0x98955), _0x27ba2a;
+  }, handleRotate = (_0x3c425d, _0xe105e0) => {
+    const _0x5af9b8 = _0xe105e0["getActiveObject"]();
+    let _0x28934a = _0x5af9b8["getGlobalPosition"]();
+    const _0x5cd698 = { "x": _0x28934a["x"] + _0x28934a["w"] / 2, "y": _0x28934a["y"] + _0x28934a["h"] / 2 }, _0x460576 = editorUtil["getAngle"](_0x3c425d, _0x5cd698), _0x5894f6 = _0x460576 - _0x28934a["angle"];
+    _0x5af9b8["angle"] = _0x460576, _0x5af9b8["type"] === "activeSelection" && _0x5af9b8["objects"]["forEach"]((_0x2770a3) => {
+      const { x: _0x427688, y: _0x429195, w: _0x12f06f, h: _0xce655a, angle: _0xe916df } = _0x2770a3["getGlobalPosition"](), _0x152b7e = _0x427688 + _0x12f06f / 2, _0x3aaddc = _0x429195 + _0xce655a / 2, _0x2d4c82 = editorUtil["rotatePoint"]({ "x": _0x152b7e, "y": _0x3aaddc }, _0x5cd698, _0x5894f6);
+      _0x2770a3["x"] = _0x2d4c82["x"] - _0x12f06f / 2 - (_0x2770a3["group"] ? _0x2770a3["group"]["getGlobalPosition"]()["x"] : 0), _0x2770a3["y"] = _0x2d4c82["y"] - _0xce655a / 2 - (_0x2770a3["group"] ? _0x2770a3["group"]["getGlobalPosition"]()["y"] : 0), _0x2770a3["angle"] = _0xe916df + _0x5894f6;
+    }), _0xe105e0["fire"]("object:rotating", { "target": _0x5af9b8 });
   };
   class RectControls {
-    // 选中框容器，activeSelection要把子用虚框框起来。目前rectControls有些庞大了，逻辑复杂，后续要重构 2025/02/25 lqn
-    constructor(editor, target) {
-      this.controls = {
-        t: { visible: true },
-        b: { visible: true },
-        l: { visible: true },
-        r: { visible: true },
-        tl: { visible: true },
-        tr: { visible: true },
-        bl: { visible: true },
-        br: { visible: true },
-        rotate: { visible: true }
-      };
-      this.controlDomList = [];
-      this.controlGroupDom = null;
-      this.activeSelectionDomList = [];
-      this.editor = editor;
-      this.target = target;
-      const { controlLayer } = editor;
-      controlLayer.innerHTML = "";
-      controlLayer.setAttribute("data-id", target.id);
-      const controlActionHandler = (dom, type) => {
-        let [mouseX, mouseY] = [0, 0];
-        let activePositionState;
-        let positionMap = /* @__PURE__ */ new Map();
-        let isHighPerformance = false;
-        dom.addEventListener("mousedown", (e) => {
-          e.stopPropagation && e.stopPropagation();
-          e.preventDefault && e.preventDefault();
-          if (this.target.locked && type === "rotate") {
-            return editor.shortcutHandler.handleLock(false);
-          }
-          positionMap = editor.getPositionMap();
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-          activePositionState = editor.getActiveObjectPositionState();
-          document.addEventListener("mousemove", handleMouseMove);
-          document.addEventListener("mouseup", handleMouseUp);
+    constructor(_0xe04d74, _0x22673e) {
+      this["controls"] = { "t": { "visible": !![] }, "b": { "visible": !![] }, "l": { "visible": !![] }, "r": { "visible": !![] }, "tl": { "visible": !![] }, "tr": { "visible": !![] }, "bl": { "visible": !![] }, "br": { "visible": !![] }, "rotate": { "visible": !![] } }, this["controlDomList"] = [], this["controlGroupDom"] = null, this["activeSelectionDomList"] = [], this["editor"] = _0xe04d74, this["target"] = _0x22673e;
+      const { controlLayer: _0xa7237b } = _0xe04d74;
+      _0xa7237b["innerHTML"] = "", _0xa7237b["setAttribute"]("data-id", _0x22673e["id"]);
+      const _0x25423b = (_0x259cef, _0x448f82) => {
+        let [_0x25638a, _0x27a74f] = [0, 0], _0x57626e, _0x5b7088 = /* @__PURE__ */ new Map(), _0x57c1aa = ![];
+        _0x259cef["addEventListener"]("mousedown", (_0x57c0a3) => {
+          _0x57c0a3["stopPropagation"] && _0x57c0a3["stopPropagation"](), _0x57c0a3["preventDefault"] && _0x57c0a3["preventDefault"]();
+          if (this["target"]["locked"] && _0x448f82 === "rotate")
+            return _0xe04d74["shortcutHandler"]["handleLock"](![]);
+          _0x5b7088 = _0xe04d74["getPositionMap"](), _0x25638a = _0x57c0a3["clientX"], _0x27a74f = _0x57c0a3["clientY"], _0x57626e = _0xe04d74["getActiveObjectPositionState"](), document["addEventListener"]("mousemove", _0x5abcc6), document["addEventListener"]("mouseup", _0x13e50c);
         });
-        const handleMouseMove = (moveEvent) => {
-          if (!isHighPerformance) {
-            isHighPerformance = true;
-            editor.zoomHandler.setHighPerformance(true);
-          }
-          const mousePoint = editor.getMouseInnerPosition(moveEvent);
-          if (type === "rotate") {
-            handleRotate(mousePoint, editor);
-          } else {
-            handleResize(mousePoint, type, editor, moveEvent, positionMap);
-          }
-          this.updateControlsPosition();
-        };
-        const handleMouseUp = (e) => {
-          isHighPerformance = false;
-          editor.zoomHandler.setHighPerformance(false);
-          if (mouseX !== e.clientX && mouseY !== e.clientY) {
-            editor.historyHandler.store({
-              type: HistoryTypesEnum.attrs,
-              from: activePositionState,
-              to: editor.getActiveObjectPositionState()
-            });
-            if (type === "rotate") {
-              editor.fire("object:rotate:end", { target });
-            } else {
-              editor.fire("object:resize:end", { target });
-            }
-          }
-          document.removeEventListener("mousemove", handleMouseMove);
-          document.removeEventListener("mouseup", handleMouseUp);
+        const _0x5abcc6 = (_0x1c87c9) => {
+          !_0x57c1aa && (_0x57c1aa = !![], _0xe04d74["zoomHandler"]["setHighPerformance"](!![]));
+          const _0x19e200 = _0xe04d74["getMouseInnerPosition"](_0x1c87c9);
+          _0x448f82 === "rotate" ? handleRotate(_0x19e200, _0xe04d74) : handleResize(_0x19e200, _0x448f82, _0xe04d74, _0x1c87c9, _0x5b7088), this["updateControlsPosition"]();
+        }, _0x13e50c = (_0x19666d) => {
+          _0x57c1aa = ![], _0xe04d74["zoomHandler"]["setHighPerformance"](![]), _0x25638a !== _0x19666d["clientX"] && _0x27a74f !== _0x19666d["clientY"] && (_0xe04d74["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0x57626e, "to": _0xe04d74["getActiveObjectPositionState"]() }), _0x448f82 === "rotate" ? _0xe04d74["fire"]("object:rotate:end", { "target": _0x22673e }) : _0xe04d74["fire"]("object:resize:end", { "target": _0x22673e })), document["removeEventListener"]("mousemove", _0x5abcc6), document["removeEventListener"]("mouseup", _0x13e50c);
         };
       };
-      if (target.type === "activeSelection") {
-        const activeSelectionDom = editorUtil.createSvgElement("g");
-        target.objects.forEach((item) => {
-          const itemRect = editorUtil.createSvgElement(
-            "rect",
-            { x: 0, y: 0, width: 0, height: 0, class: "sub-border-rect" },
-            { fill: "transparent", stroke: "#2c83fb", "stroke-width": 2, "stroke-dasharray": "2 2" }
-          );
-          activeSelectionDom.appendChild(itemRect);
-          this.activeSelectionDomList.push({ item, itemRect });
-        });
-        controlLayer.appendChild(activeSelectionDom);
+      if (_0x22673e["type"] === "activeSelection") {
+        const _0x1cd49e = editorUtil["createSvgElement"]("g");
+        _0x22673e["objects"]["forEach"]((_0x338caa) => {
+          const _0x345762 = editorUtil["createSvgElement"]("rect", { "x": 0, "y": 0, "width": 0, "height": 0, "class": "sub-border-rect" }, { "fill": "transparent", "stroke": "#2c83fb", "stroke-width": 2, "stroke-dasharray": "2 2" });
+          _0x1cd49e["appendChild"](_0x345762), this["activeSelectionDomList"]["push"]({ "item": _0x338caa, "itemRect": _0x345762 });
+        }), _0xa7237b["appendChild"](_0x1cd49e);
       }
-      const groupDom = editorUtil.createSvgElement("g");
-      controlLayer.appendChild(groupDom);
-      this.controlGroupDom = groupDom;
-      const rect = editorUtil.createSvgElement("rect", { x: 0, y: 0, width: 0, height: 0, class: "border-rect" });
-      groupDom.appendChild(rect);
-      Object.keys(this.controls).forEach((key) => {
-        if (key !== "rotate") {
-          const dom = editorUtil.createSvgElement("circle", { cx: 0, cy: 0, r: 5, fill: "#ffffff", stroke: "#2c83fb" });
-          const angle = (initialAngle[key] + target.angle) % 360;
-          const findObj = angleCursorList.find((a) => {
-            return !!a.list.find((b) => b[0] <= angle && b[1] >= angle);
-          }) || { cursor: "" };
-          Object.assign(dom.style, { cursor: findObj.cursor + "-resize", pointerEvents: "auto" });
-          groupDom.appendChild(dom);
-          controlActionHandler(dom, key);
-          this.controlDomList.push({ dom, key });
+      const _0x5384ea = editorUtil["createSvgElement"]("g");
+      _0xa7237b["appendChild"](_0x5384ea), this["controlGroupDom"] = _0x5384ea;
+      const _0x179c71 = editorUtil["createSvgElement"]("rect", { "x": 0, "y": 0, "width": 0, "height": 0, "class": "border-rect" });
+      _0x5384ea["appendChild"](_0x179c71), Object["keys"](this["controls"])["forEach"]((_0x358f28) => {
+        if (_0x358f28 !== "rotate") {
+          const _0x1245fd = editorUtil["createSvgElement"]("circle", { "cx": 0, "cy": 0, "r": 5, "fill": "#ffffff", "stroke": "#2c83fb" }), _0x319aeb = (initialAngle[_0x358f28] + _0x22673e["angle"]) % 360, _0x26dd40 = angleCursorList["find"]((_0x3d7426) => {
+            return !!_0x3d7426["list"]["find"]((_0x158b32) => _0x158b32[0] <= _0x319aeb && _0x158b32[1] >= _0x319aeb);
+          }) || { "cursor": "" };
+          Object["assign"](_0x1245fd["style"], { "cursor": _0x26dd40["cursor"] + "-resize", "pointerEvents": "auto" }), _0x5384ea["appendChild"](_0x1245fd), _0x25423b(_0x1245fd, _0x358f28), this["controlDomList"]["push"]({ "dom": _0x1245fd, "key": _0x358f28 });
         } else {
-          const dom = editorUtil.createSvgElement("g", {});
-          dom.innerHTML = '<foreignObject width="20" height="20" class="rotate-point"><div></div></foreignObject>';
-          Object.assign(dom.style, { cursor: "move", pointerEvents: "auto" });
-          controlActionHandler(dom, key);
-          this.controlDomList.push({ dom, key });
-          groupDom.appendChild(dom);
+          const _0x4e9bb3 = editorUtil["createSvgElement"]("g", {});
+          _0x4e9bb3["innerHTML"] = '<foreignObject width="20" height="20" class="rotate-point"><div></div></foreignObject>', Object["assign"](_0x4e9bb3["style"], { "cursor": "move", "pointerEvents": "auto" }), _0x25423b(_0x4e9bb3, _0x358f28), this["controlDomList"]["push"]({ "dom": _0x4e9bb3, "key": _0x358f28 }), _0x5384ea["appendChild"](_0x4e9bb3);
         }
       });
-      if (target.type === "activeSelection") {
-        target.objects.forEach((element) => {
+      if (_0x22673e["type"] === "activeSelection")
+        _0x22673e["objects"]["forEach"]((_0x36aae5) => {
         });
-      } else {
-        const groupRect = editorUtil.createSvgElement(
-          "rect",
-          { x: 0, y: 0, width: 0, height: 0, class: "group-rect" },
-          { stroke: "#2c83fb", "stroke-width": "1px", fill: "transparent", "stroke-dasharray": "2 2" }
-        );
-        controlLayer.appendChild(groupRect);
+      else {
+        const _0x136a70 = editorUtil["createSvgElement"]("rect", { "x": 0, "y": 0, "width": 0, "height": 0, "class": "group-rect" }, { "stroke": "#2c83fb", "stroke-width": "1px", "fill": "transparent", "stroke-dasharray": "2 2" });
+        _0xa7237b["appendChild"](_0x136a70);
       }
-      this.updateControlsPosition();
+      this["updateControlsPosition"]();
     }
-    updateControlsPosition() {
-      const { editor, target, controlGroupDom } = this;
-      const { controlLayer } = editor;
-      const { x, y, w, h, angle } = target.getContainerPosition();
-      target.locked ? controlLayer.classList.add("locked") : controlLayer.classList.remove("locked");
-      const rect = controlGroupDom.querySelector(".border-rect");
-      editorUtil.updateSvgElement(rect, { width: w, height: h }, { pointerEvents: target.editing ? "none" : "auto" });
-      const groupStyle = {
-        transform: `rotate(${angle}deg) translate(${x}px, ${y}px)`,
-        transformOrigin: `${x + w / 2}px ${y + h / 2}px`
-      };
-      Object.assign(this.controlGroupDom.style, groupStyle);
-      this.controlDomList.forEach((item) => {
-        const { dom, key } = item;
-        let [cx, cy] = [0, 0];
-        switch (key) {
+    ["updateControlsPosition"]() {
+      const { editor: _0x2452a4, target: _0x3d5cc7, controlGroupDom: _0x37273d } = this, { controlLayer: _0x11715e } = _0x2452a4, { x: _0x30c214, y: _0x4af9fb, w: _0x329a3b, h: _0x4fc1d3, angle: _0x244f4d } = _0x3d5cc7["getContainerPosition"]();
+      _0x3d5cc7["locked"] ? _0x11715e["classList"]["add"]("locked") : _0x11715e["classList"]["remove"]("locked");
+      const _0x14831b = _0x37273d["querySelector"](".border-rect");
+      editorUtil["updateSvgElement"](_0x14831b, { "width": _0x329a3b, "height": _0x4fc1d3 }, { "pointerEvents": _0x3d5cc7["editing"] ? "none" : "auto" });
+      const _0x4c5ad4 = { "transform": "rotate(" + _0x244f4d + "deg) translate(" + _0x30c214 + "px, " + _0x4af9fb + "px)", "transformOrigin": _0x30c214 + _0x329a3b / 2 + "px " + (_0x4af9fb + _0x4fc1d3 / 2) + "px" };
+      Object["assign"](this["controlGroupDom"]["style"], _0x4c5ad4), this["controlDomList"]["forEach"]((_0x543145) => {
+        const { dom: _0x266061, key: _0x1985f2 } = _0x543145;
+        let [_0xc736a2, _0x1bc6e2] = [0, 0];
+        switch (_0x1985f2) {
           case "t":
-            cx = w / 2;
+            _0xc736a2 = _0x329a3b / 2;
             break;
           case "b":
-            cx = w / 2;
-            cy = h;
+            _0xc736a2 = _0x329a3b / 2, _0x1bc6e2 = _0x4fc1d3;
             break;
           case "l":
-            cy = h / 2;
+            _0x1bc6e2 = _0x4fc1d3 / 2;
             break;
           case "r":
-            cx = w;
-            cy = h / 2;
+            _0xc736a2 = _0x329a3b, _0x1bc6e2 = _0x4fc1d3 / 2;
             break;
           case "tl":
             break;
           case "tr":
-            cx = w;
+            _0xc736a2 = _0x329a3b;
             break;
           case "bl":
-            cy = h;
+            _0x1bc6e2 = _0x4fc1d3;
             break;
           case "br":
-            cx = w;
-            cy = h;
+            _0xc736a2 = _0x329a3b, _0x1bc6e2 = _0x4fc1d3;
             break;
           case "rotate":
-            cx = w / 2 - 10;
-            cy = -30;
+            _0xc736a2 = _0x329a3b / 2 - 10, _0x1bc6e2 = -30;
             break;
         }
-        const finalPoint = { x: cx, y: cy };
-        if (key === "rotate") {
-          dom.style.transform = `translate(${finalPoint.x}px, ${finalPoint.y}px)`;
-        } else {
-          dom.setAttribute("cx", finalPoint.x);
-          dom.setAttribute("cy", finalPoint.y);
-        }
+        const _0x1d63c4 = { "x": _0xc736a2, "y": _0x1bc6e2 };
+        _0x1985f2 === "rotate" ? _0x266061["style"]["transform"] = "translate(" + _0x1d63c4["x"] + "px, " + _0x1d63c4["y"] + "px)" : (_0x266061["setAttribute"]("cx", _0x1d63c4["x"]), _0x266061["setAttribute"]("cy", _0x1d63c4["y"]));
       });
-      if (target.type === "activeSelection") {
-        this.activeSelectionDomList.forEach((obj) => {
-          const { item, itemRect } = obj;
-          const { x: x2, y: y2, w: w2, h: h2, angle: angle2 } = item.getContainerPosition();
-          editorUtil.updateSvgElement(
-            itemRect,
-            {
-              width: w2,
-              height: h2
-            },
-            {
-              transform: `rotate(${angle2}deg) translate(${x2}px, ${y2}px)`,
-              transformOrigin: `${x2 + w2 / 2}px ${y2 + h2 / 2}px`
-            }
-          );
-        });
-      }
-      const groupRect = controlLayer.querySelector(".group-rect");
-      if (groupRect) {
-        if (target.group) {
-          const { x: x2, y: y2, w: w2, h: h2, angle: angle2 } = editor.calcGroupContainerPositionBySubs(target.group);
-          editorUtil.updateSvgElement(
-            groupRect,
-            {
-              width: w2,
-              height: h2
-            },
-            {
-              transform: `rotate(${angle2}deg) translate(${x2}px, ${y2}px)`,
-              transformOrigin: `${x2 + w2 / 2}px ${y2 + h2 / 2}px`,
-              display: "block"
-            }
-          );
+      _0x3d5cc7["type"] === "activeSelection" && this["activeSelectionDomList"]["forEach"]((_0x3ff813) => {
+        const { item: _0x436658, itemRect: _0x3771d2 } = _0x3ff813, { x: _0x3b2fda, y: _0x5a26b7, w: _0x2ecb1e, h: _0xbf5650, angle: _0x29c886 } = _0x436658["getContainerPosition"]();
+        editorUtil["updateSvgElement"](_0x3771d2, { "width": _0x2ecb1e, "height": _0xbf5650 }, { "transform": "rotate(" + _0x29c886 + "deg) translate(" + _0x3b2fda + "px, " + _0x5a26b7 + "px)", "transformOrigin": _0x3b2fda + _0x2ecb1e / 2 + "px " + (_0x5a26b7 + _0xbf5650 / 2) + "px" });
+      });
+      const _0x53d312 = _0x11715e["querySelector"](".group-rect");
+      if (_0x53d312) {
+        if (_0x3d5cc7["group"]) {
+          const { x: _0x4bf5b3, y: _0x171516, w: _0x28f9a2, h: _0x438338, angle: _0x23155a } = _0x2452a4["calcGroupContainerPositionBySubs"](_0x3d5cc7["group"]);
+          editorUtil["updateSvgElement"](_0x53d312, { "width": _0x28f9a2, "height": _0x438338 }, { "transform": "rotate(" + _0x23155a + "deg) translate(" + _0x4bf5b3 + "px, " + _0x171516 + "px)", "transformOrigin": _0x4bf5b3 + _0x28f9a2 / 2 + "px " + (_0x171516 + _0x438338 / 2) + "px", "display": "block" });
         }
       }
     }
-    /**
-     * 销毁控制点
-     */
-    disposeControls() {
-      const { editor } = this;
-      editor.controlLayer.innerHTML = "";
+    ["disposeControls"]() {
+      const { editor: _0xcba567 } = this;
+      _0xcba567["controlLayer"]["innerHTML"] = "";
     }
   }
-  const constructHistory$2 = (target) => {
-    const { id, x, y, x1, x2, y1, y2, w, h } = target;
-    const parent = target.group || target.editor;
-    return {
-      activeSelection: null,
-      data: [
-        {
-          data: { id, x, y, x1, x2, y1, y2, w, h },
-          index: parent.objects.findIndex((a) => a.id === target.id),
-          parentId: target.group ? target.group.id : null
-        }
-      ]
-    };
+  const constructHistory$2 = (_0x2959e6) => {
+    const { id: _0x1a37cf, x: _0x3dae1a, y: _0x1c6ce5, x1: _0x516b52, x2: _0x159c7c, y1: _0x4deb03, y2: _0x37dd58, w: _0x365528, h: _0x290729 } = _0x2959e6, _0x56ffc2 = _0x2959e6["group"] || _0x2959e6["editor"];
+    return { "activeSelection": null, "data": [{ "data": { "id": _0x1a37cf, "x": _0x3dae1a, "y": _0x1c6ce5, "x1": _0x516b52, "x2": _0x159c7c, "y1": _0x4deb03, "y2": _0x37dd58, "w": _0x365528, "h": _0x290729 }, "index": _0x56ffc2["objects"]["findIndex"]((_0x1da5e6) => _0x1da5e6["id"] === _0x2959e6["id"]), "parentId": _0x2959e6["group"] ? _0x2959e6["group"]["id"] : null }] };
   };
   class LineControls {
-    // 点位对应的dom列表
-    constructor(editor, target) {
-      this.controls = {
-        p1: { visible: true },
-        p2: { visible: true }
-      };
-      this.pointDomList = [];
-      this.editor = editor;
-      this.target = target;
-      const { controlLayer } = editor;
-      const { locked } = target;
-      controlLayer.innerHTML = "";
-      controlLayer.setAttribute("data-id", target.id);
-      locked ? controlLayer.classList.add("locked") : controlLayer.classList.remove("locked");
-      this.initlialize();
+    constructor(_0x46469c, _0x1574b9) {
+      this["controls"] = { "p1": { "visible": !![] }, "p2": { "visible": !![] } }, this["pointDomList"] = [], this["editor"] = _0x46469c, this["target"] = _0x1574b9;
+      const { controlLayer: _0xa42a2 } = _0x46469c, { locked: _0x1b4e30 } = _0x1574b9;
+      _0xa42a2["innerHTML"] = "", _0xa42a2["setAttribute"]("data-id", _0x1574b9["id"]), _0x1b4e30 ? _0xa42a2["classList"]["add"]("locked") : _0xa42a2["classList"]["remove"]("locked"), this["initlialize"]();
     }
-    initlialize() {
-      this.createControls();
-      this.updateControlsPosition();
+    ["initlialize"]() {
+      this["createControls"](), this["updateControlsPosition"]();
     }
-    createControlPoint() {
+    ["createControlPoint"]() {
     }
-    // 创建控制点
-    createControls() {
-      const { editor, target } = this;
-      const { controlLayer } = editor;
-      const controlActionHandler = (dom, type) => {
-        let [mouseX, mouseY] = [0, 0];
-        let activePositionState;
-        dom.addEventListener("mousedown", (e) => {
-          e.stopPropagation && e.stopPropagation();
-          e.preventDefault && e.preventDefault();
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-          activePositionState = constructHistory$2(target);
-          document.addEventListener("mousemove", handleMouseMove);
-          document.addEventListener("mouseup", handleMouseUp);
+    ["createControls"]() {
+      const { editor: _0x3040a9, target: _0xa56d42 } = this, { controlLayer: _0x528f06 } = _0x3040a9, _0x254ffe = (_0x4b451b, _0x4fb720) => {
+        let [_0x2e13fc, _0x9386de] = [0, 0], _0x244d38;
+        _0x4b451b["addEventListener"]("mousedown", (_0x1e3a57) => {
+          _0x1e3a57["stopPropagation"] && _0x1e3a57["stopPropagation"](), _0x1e3a57["preventDefault"] && _0x1e3a57["preventDefault"](), _0x2e13fc = _0x1e3a57["clientX"], _0x9386de = _0x1e3a57["clientY"], _0x244d38 = constructHistory$2(_0xa56d42), document["addEventListener"]("mousemove", _0x48c193), document["addEventListener"]("mouseup", _0x2d5cc5);
         });
-        const handleMouseMove = (e) => {
-          const mousePoint = editor.getMousePositionInObject(e, target);
-          let { x, y } = mousePoint;
-          if (e.shiftKey) {
-            const px = type === "p1" ? target.x2 : target.x1;
-            const py = type === "p1" ? target.y2 : target.y1;
-            const diffX = Math.abs(px - x);
-            const diffY = Math.abs(py - y);
-            if (diffX > diffY) {
-              y = py;
-            } else {
-              x = px;
-            }
+        const _0x48c193 = (_0x1ea186) => {
+          const _0x4c089f = _0x3040a9["getMousePositionInObject"](_0x1ea186, _0xa56d42);
+          let { x: _0x362fa1, y: _0x551ed2 } = _0x4c089f;
+          if (_0x1ea186["shiftKey"]) {
+            const _0x9ab528 = _0x4fb720 === "p1" ? _0xa56d42["x2"] : _0xa56d42["x1"], _0x2f04a2 = _0x4fb720 === "p1" ? _0xa56d42["y2"] : _0xa56d42["y1"], _0x4ede8d = Math["abs"](_0x9ab528 - _0x362fa1), _0x8910c2 = Math["abs"](_0x2f04a2 - _0x551ed2);
+            _0x4ede8d > _0x8910c2 ? _0x551ed2 = _0x2f04a2 : _0x362fa1 = _0x9ab528;
           }
-          if (type === "p1") {
-            target.set({
-              x1: x,
-              y1: y
-            });
-          } else {
-            target.set({
-              x2: x,
-              y2: y
-            });
+          _0x4fb720 === "p1" ? _0xa56d42["set"]({ "x1": _0x362fa1, "y1": _0x551ed2 }) : _0xa56d42["set"]({ "x2": _0x362fa1, "y2": _0x551ed2 }), this["updateControlsPosition"]();
+        }, _0x2d5cc5 = (_0x56d92c) => {
+          if (_0x2e13fc !== _0x56d92c["clientX"] && _0x9386de !== _0x56d92c["clientY"]) {
+            let { x: _0x3d0564, y: _0x4a7171, x1: _0x13b0aa, y1: _0x60762d, x2: _0x2b588d, y2: _0x374730 } = _0xa56d42;
+            const _0x4370e3 = Math["abs"](_0x2b588d - _0x13b0aa), _0x31a349 = Math["abs"](_0x374730 - _0x60762d);
+            let _0x57fdf9 = Math["min"](_0x13b0aa, _0x2b588d), _0xf6b43d = Math["min"](_0x60762d, _0x374730);
+            _0x13b0aa -= _0x57fdf9, _0x2b588d -= _0x57fdf9, _0x3d0564 += _0x57fdf9, _0x60762d -= _0xf6b43d, _0x374730 -= _0xf6b43d, _0x4a7171 += _0xf6b43d, _0xa56d42["set"]({ "x": _0x3d0564, "y": _0x4a7171, "x1": _0x13b0aa, "y1": _0x60762d, "x2": _0x2b588d, "y2": _0x374730, "w": _0x4370e3, "h": _0x31a349 }), _0x3040a9["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0x244d38, "to": constructHistory$2(_0xa56d42) });
           }
-          this.updateControlsPosition();
+          document["removeEventListener"]("mousemove", _0x48c193), document["removeEventListener"]("mouseup", _0x2d5cc5);
         };
-        const handleMouseUp = (e) => {
-          if (mouseX !== e.clientX && mouseY !== e.clientY) {
-            let { x, y, x1, y1, x2, y2 } = target;
-            const w = Math.abs(x2 - x1);
-            const h = Math.abs(y2 - y1);
-            let minX = Math.min(x1, x2);
-            let minY = Math.min(y1, y2);
-            x1 -= minX;
-            x2 -= minX;
-            x += minX;
-            y1 -= minY;
-            y2 -= minY;
-            y += minY;
-            target.set({ x, y, x1, y1, x2, y2, w, h });
-            editor.historyHandler.store({
-              type: HistoryTypesEnum.attrs,
-              from: activePositionState,
-              to: constructHistory$2(target)
-            });
-          }
-          document.removeEventListener("mousemove", handleMouseMove);
-          document.removeEventListener("mouseup", handleMouseUp);
-        };
-      };
-      const rect = editorUtil.createSvgElement("rect", { x: 0, y: 0, width: 0, height: 0, class: "border-rect" });
-      controlLayer.appendChild(rect);
-      Object.keys(this.controls).forEach((key) => {
-        const dom = editorUtil.createSvgElement(
-          "circle",
-          { stroke: "#1ab394", strokeWidth: "1", r: "5", fill: "#1ab394" },
-          { pointerEvents: "auto", cursor: "move" }
-        );
-        controlLayer.appendChild(dom);
-        controlActionHandler(dom, key);
-        this.pointDomList.push({ dom, key });
+      }, _0x190b09 = editorUtil["createSvgElement"]("rect", { "x": 0, "y": 0, "width": 0, "height": 0, "class": "border-rect" });
+      _0x528f06["appendChild"](_0x190b09), Object["keys"](this["controls"])["forEach"]((_0x21bfa0) => {
+        const _0x209945 = editorUtil["createSvgElement"]("circle", { "stroke": "#1ab394", "strokeWidth": "1", "r": "5", "fill": "#1ab394" }, { "pointerEvents": "auto", "cursor": "move" });
+        _0x528f06["appendChild"](_0x209945), _0x254ffe(_0x209945, _0x21bfa0), this["pointDomList"]["push"]({ "dom": _0x209945, "key": _0x21bfa0 });
       });
     }
-    updateControlsPosition() {
-      const { editor, target } = this;
-      const { controlLayer } = editor;
-      const matrix = editorUtil.getTotalMatrix(target, true, true);
-      const rect = controlLayer.querySelector(".border-rect");
-      let [minX, minY, maxX, maxY] = [0, 0, 0, 0];
-      this.pointDomList.forEach((item, index) => {
-        const { dom, key } = item;
-        const { x1, y1, x2, y2 } = target;
-        const point = key == "p1" ? { x: x1, y: y1 } : { x: x2, y: y2 };
-        const applyPoint = applyToPoint(matrix, point);
-        if (index === 0) {
-          minX = maxX = applyPoint.x;
-          minY = maxY = applyPoint.y;
-        } else {
-          minX = Math.min(minX, applyPoint.x);
-          minY = Math.min(minY, applyPoint.y);
-          maxX = Math.max(maxX, applyPoint.x);
-          maxY = Math.max(maxY, applyPoint.y);
-        }
-        editorUtil.updateSvgElement(dom, { cx: applyPoint.x, cy: applyPoint.y }, { display: target.locked ? "none" : "block" });
-      });
-      editorUtil.updateSvgElement(
-        rect,
-        { x: minX, y: minY, width: maxX - minX, height: maxY - minY },
-        { stroke: target.locked ? "#ff0000" : editor.controlConfig.line.stroke }
-      );
+    ["updateControlsPosition"]() {
+      const { editor: _0x46d83d, target: _0x2ac741 } = this, { controlLayer: _0x5c1575 } = _0x46d83d, _0x3e0acd = editorUtil["getTotalMatrix"](_0x2ac741, !![], !![]), _0x22fc17 = _0x5c1575["querySelector"](".border-rect");
+      let [_0xbc43b2, _0x3f1b9c, _0x48e945, _0x72f53a] = [0, 0, 0, 0];
+      this["pointDomList"]["forEach"]((_0x1e9f95, _0x457a0d) => {
+        const { dom: _0x451046, key: _0xdb98c3 } = _0x1e9f95, { x1: _0x273f46, y1: _0x351197, x2: _0x2eefef, y2: _0x502c9b } = _0x2ac741, _0x5bc00f = _0xdb98c3 == "p1" ? { "x": _0x273f46, "y": _0x351197 } : { "x": _0x2eefef, "y": _0x502c9b }, _0xdad10a = applyToPoint(_0x3e0acd, _0x5bc00f);
+        _0x457a0d === 0 ? (_0xbc43b2 = _0x48e945 = _0xdad10a["x"], _0x3f1b9c = _0x72f53a = _0xdad10a["y"]) : (_0xbc43b2 = Math["min"](_0xbc43b2, _0xdad10a["x"]), _0x3f1b9c = Math["min"](_0x3f1b9c, _0xdad10a["y"]), _0x48e945 = Math["max"](_0x48e945, _0xdad10a["x"]), _0x72f53a = Math["max"](_0x72f53a, _0xdad10a["y"])), editorUtil["updateSvgElement"](_0x451046, { "cx": _0xdad10a["x"], "cy": _0xdad10a["y"] }, { "display": _0x2ac741["locked"] ? "none" : "block" });
+      }), editorUtil["updateSvgElement"](_0x22fc17, { "x": _0xbc43b2, "y": _0x3f1b9c, "width": _0x48e945 - _0xbc43b2, "height": _0x72f53a - _0x3f1b9c }, { "stroke": _0x2ac741["locked"] ? "#ff0000" : _0x46d83d["controlConfig"]["line"]["stroke"] });
     }
   }
-  const constructHistory$1 = (target) => {
-    const { id, x, y, w, h, points } = target;
-    const parent = target.group || target.editor;
-    return {
-      activeSelection: null,
-      data: [
-        {
-          data: cloneDeep({ id, x, y, w, h, points }),
-          index: parent.objects.findIndex((a) => a.id === target.id),
-          parentId: target.group ? target.group.id : null
-        }
-      ]
-    };
+  const constructHistory$1 = (_0x430dc5) => {
+    const { id: _0x4b5d3f, x: _0x10a9eb, y: _0x56e921, w: _0x486ae4, h: _0x271023, points: _0x58c9cc } = _0x430dc5, _0x2a4845 = _0x430dc5["group"] || _0x430dc5["editor"];
+    return { "activeSelection": null, "data": [{ "data": cloneDeep({ "id": _0x4b5d3f, "x": _0x10a9eb, "y": _0x56e921, "w": _0x486ae4, "h": _0x271023, "points": _0x58c9cc }), "index": _0x2a4845["objects"]["findIndex"]((_0x528966) => _0x528966["id"] === _0x430dc5["id"]), "parentId": _0x430dc5["group"] ? _0x430dc5["group"]["id"] : null }] };
   };
   class PolylineControls {
-    // 要想成功移除document上的事件，必须使用与添加时完全相同的事件处理函数，而事件处理函数采用bind动态绑定了this，因此将事件处理函数赋予临时变量mouseMoveFun
-    constructor(editor, target) {
-      this.toAddPoint = {
-        // 待添加的点
-        index: -1,
-        // 插入位置
-        x: 0,
-        y: 0
-      };
-      this.activePoint = null;
-      this.pointDomList = [];
-      this.editor = editor;
-      this.target = target;
-      const { controlLayer } = editor;
-      controlLayer.innerHTML = "";
-      controlLayer.setAttribute("data-id", target.id);
-      this.initlialize();
+    constructor(_0x3832d8, _0x51a56d) {
+      this["toAddPoint"] = { "index": -1, "x": 0, "y": 0 }, this["activePoint"] = null, this["pointDomList"] = [], this["editor"] = _0x3832d8, this["target"] = _0x51a56d;
+      const { controlLayer: _0xdce39e } = _0x3832d8;
+      _0xdce39e["innerHTML"] = "", _0xdce39e["setAttribute"]("data-id", _0x51a56d["id"]), this["initlialize"]();
     }
-    initlialize() {
-      this.createControls();
-      this.updateControlsPosition();
+    ["initlialize"]() {
+      this["createControls"](), this["updateControlsPosition"]();
     }
-    // 重新设置包围盒
-    resetBounding() {
-      const { target } = this;
-      const { points } = target;
-      const firstPoint = points[0];
-      const { minX, minY, maxX, maxY } = points.reduce(
-        (pre, cur) => {
-          pre.minX = Math.min(pre.minX, cur.x);
-          pre.minY = Math.min(pre.minY, cur.y);
-          pre.maxX = Math.max(pre.maxX, cur.x);
-          pre.maxY = Math.max(pre.maxY, cur.y);
-          return pre;
-        },
-        {
-          minX: firstPoint.x,
-          minY: firstPoint.y,
-          maxX: firstPoint.x,
-          maxY: firstPoint.y
-        }
-      );
-      const [w, h] = [maxX - minX, maxY - minY];
-      points.forEach((item) => {
-        item.x -= minX;
-        item.y -= minY;
-      });
-      target.set({ x: target.x + minX, y: target.y + minY, w, h, points });
+    ["resetBounding"]() {
+      const { target: _0x402b95 } = this, { points: _0x3c2206 } = _0x402b95, _0x482165 = _0x3c2206[0], { minX: _0x217312, minY: _0x57a06f, maxX: _0x2d43d1, maxY: _0x274616 } = _0x3c2206["reduce"]((_0x4e14f5, _0x588427) => {
+        return _0x4e14f5["minX"] = Math["min"](_0x4e14f5["minX"], _0x588427["x"]), _0x4e14f5["minY"] = Math["min"](_0x4e14f5["minY"], _0x588427["y"]), _0x4e14f5["maxX"] = Math["max"](_0x4e14f5["maxX"], _0x588427["x"]), _0x4e14f5["maxY"] = Math["max"](_0x4e14f5["maxY"], _0x588427["y"]), _0x4e14f5;
+      }, { "minX": _0x482165["x"], "minY": _0x482165["y"], "maxX": _0x482165["x"], "maxY": _0x482165["y"] }), [_0xcacc2f, _0x4e758f] = [_0x2d43d1 - _0x217312, _0x274616 - _0x57a06f];
+      _0x3c2206["forEach"]((_0x499d4c) => {
+        _0x499d4c["x"] -= _0x217312, _0x499d4c["y"] -= _0x57a06f;
+      }), _0x402b95["set"]({ "x": _0x402b95["x"] + _0x217312, "y": _0x402b95["y"] + _0x57a06f, "w": _0xcacc2f, "h": _0x4e758f, "points": _0x3c2206 });
     }
-    // 创建控制点
-    createControlPoint(point) {
-      const { editor, target } = this;
-      const { controlLayer } = editor;
-      let activePositionState;
-      let [mouseX, mouseY] = [0, 0];
-      const dom = editorUtil.createSvgElement(
-        "circle",
-        { stroke: "#2c83fb", "stroke-width": 1, r: "5", fill: "#ffffff", class: "control-point" },
-        { pointerEvents: "auto", cursor: "move" }
-      );
-      dom.addEventListener("mousedown", (e) => {
-        e.stopPropagation && e.stopPropagation();
-        e.preventDefault && e.preventDefault();
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        activePositionState = constructHistory$1(target);
-        this.activePoint = point;
-        this.updateControlsPosition();
-        const handleMouseMove = (moveEvent) => {
-          const mousePoint = editor.getMousePositionInObject(moveEvent, target);
-          const { x, y } = mousePoint;
-          point.x = x;
-          point.y = y;
-          this.updateControlsPosition();
+    ["createControlPoint"](_0x2c9735) {
+      const { editor: _0x598aca, target: _0x437798 } = this, { controlLayer: _0x3e09a9 } = _0x598aca;
+      let _0x421665, [_0x44541f, _0x70b854] = [0, 0];
+      const _0x1aee16 = editorUtil["createSvgElement"]("circle", { "stroke": "#2c83fb", "stroke-width": 1, "r": "5", "fill": "#ffffff", "class": "control-point" }, { "pointerEvents": "auto", "cursor": "move" });
+      _0x1aee16["addEventListener"]("mousedown", (_0x14bec0) => {
+        _0x14bec0["stopPropagation"] && _0x14bec0["stopPropagation"](), _0x14bec0["preventDefault"] && _0x14bec0["preventDefault"](), _0x44541f = _0x14bec0["clientX"], _0x70b854 = _0x14bec0["clientY"], _0x421665 = constructHistory$1(_0x437798), this["activePoint"] = _0x2c9735, this["updateControlsPosition"]();
+        const _0x8d20c4 = (_0x40a0df) => {
+          const _0x3ac24a = _0x598aca["getMousePositionInObject"](_0x40a0df, _0x437798), { x: _0x1e7f5a, y: _0x35a091 } = _0x3ac24a;
+          _0x2c9735["x"] = _0x1e7f5a, _0x2c9735["y"] = _0x35a091, this["updateControlsPosition"]();
+        }, _0x209a02 = (_0x2357a2) => {
+          _0x44541f !== _0x2357a2["clientX"] && _0x70b854 !== _0x2357a2["clientY"] && (this["resetBounding"](), _0x598aca["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0x421665, "to": constructHistory$1(_0x437798) }), this["updateControlsPosition"]()), document["removeEventListener"]("mousemove", _0x8d20c4), document["removeEventListener"]("mouseup", _0x209a02);
         };
-        const handleMouseUp = (upEvent) => {
-          if (mouseX !== upEvent.clientX && mouseY !== upEvent.clientY) {
-            this.resetBounding();
-            editor.historyHandler.store({
-              type: HistoryTypesEnum.attrs,
-              from: activePositionState,
-              to: constructHistory$1(target)
-            });
-            this.updateControlsPosition();
-          }
-          document.removeEventListener("mousemove", handleMouseMove);
-          document.removeEventListener("mouseup", handleMouseUp);
-        };
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseup", handleMouseUp);
-      });
-      controlLayer.appendChild(dom);
-      this.pointDomList.push({ dom, point });
+        document["addEventListener"]("mousemove", _0x8d20c4), document["addEventListener"]("mouseup", _0x209a02);
+      }), _0x3e09a9["appendChild"](_0x1aee16), this["pointDomList"]["push"]({ "dom": _0x1aee16, "point": _0x2c9735 });
     }
-    // 删除当前激活的控制点
-    deleteActiveControlPoint() {
-      if (this.activePoint) {
-        const fromState = constructHistory$1(this.target);
-        const index = this.target.points.findIndex((item) => item === this.activePoint);
-        const domIndex = this.pointDomList.findIndex((item) => item.point === this.activePoint);
-        this.pointDomList[domIndex].dom.remove();
-        this.target.points.splice(index, 1);
-        this.pointDomList.splice(domIndex, 1);
-        this.activePoint = null;
-        this.resetBounding();
-        this.editor.historyHandler.store({
-          type: HistoryTypesEnum.attrs,
-          from: fromState,
-          to: constructHistory$1(this.target)
-        });
-        this.updateControlsPosition();
-        return true;
+    ["deleteActiveControlPoint"]() {
+      if (this["activePoint"]) {
+        const _0x204c1d = constructHistory$1(this["target"]), _0x5a5c7a = this["target"]["points"]["findIndex"]((_0x1f7fab) => _0x1f7fab === this["activePoint"]), _0x3edbd8 = this["pointDomList"]["findIndex"]((_0x16895e) => _0x16895e["point"] === this["activePoint"]);
+        return this["pointDomList"][_0x3edbd8]["dom"]["remove"](), this["target"]["points"]["splice"](_0x5a5c7a, 1), this["pointDomList"]["splice"](_0x3edbd8, 1), this["activePoint"] = null, this["resetBounding"](), this["editor"]["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0x204c1d, "to": constructHistory$1(this["target"]) }), this["updateControlsPosition"](), !![];
       }
-      return false;
+      return ![];
     }
-    // 创建控制点
-    createControls() {
-      const { editor, target } = this;
-      const { controlLayer } = editor;
-      const rect = editorUtil.createSvgElement("rect", { x: 0, y: 0, width: 0, height: 0, class: "border-rect" });
-      controlLayer.appendChild(rect);
-      const points = target.points || [];
-      points.forEach((item) => {
-        this.createControlPoint(item);
+    ["createControls"]() {
+      const { editor: _0x387fc4, target: _0xaa0b2 } = this, { controlLayer: _0x1025ea } = _0x387fc4, _0x21391a = editorUtil["createSvgElement"]("rect", { "x": 0, "y": 0, "width": 0, "height": 0, "class": "border-rect" });
+      _0x1025ea["appendChild"](_0x21391a);
+      const _0x127cbe = _0xaa0b2["points"] || [];
+      _0x127cbe["forEach"]((_0x2693b2) => {
+        this["createControlPoint"](_0x2693b2);
       });
-      const domToAddPoint = editorUtil.createSvgElement(
-        "circle",
-        { stroke: "#2c83fb", strokeWidth: "1", r: "5", fill: "#ffffff", class: "to-add-point" },
-        { pointerEvents: "auto", cursor: "copy", display: "none" }
-      );
-      domToAddPoint.addEventListener("mousedown", () => {
-        let activePositionState = constructHistory$1(target);
-        const { x, y, index } = this.toAddPoint;
-        target.points.splice(index, 0, { x, y });
-        target.set({ points });
-        editor.historyHandler.store({
-          type: HistoryTypesEnum.attrs,
-          from: activePositionState,
-          to: constructHistory$1(target)
-        });
-        this.createControlPoint(target.points[index]);
-        this.updateControlsPosition();
-      });
-      controlLayer.appendChild(domToAddPoint);
-      this.mouseMoveFun = this.onMouseMove.bind(this);
-      document.addEventListener("mousemove", this.mouseMoveFun);
+      const _0x4f1e02 = editorUtil["createSvgElement"]("circle", { "stroke": "#2c83fb", "strokeWidth": "1", "r": "5", "fill": "#ffffff", "class": "to-add-point" }, { "pointerEvents": "auto", "cursor": "copy", "display": "none" });
+      _0x4f1e02["addEventListener"]("mousedown", () => {
+        let _0x375bd1 = constructHistory$1(_0xaa0b2);
+        const { x: _0x5d1331, y: _0x38ec90, index: _0x5ced3f } = this["toAddPoint"];
+        _0xaa0b2["points"]["splice"](_0x5ced3f, 0, { "x": _0x5d1331, "y": _0x38ec90 }), _0xaa0b2["set"]({ "points": _0x127cbe }), _0x387fc4["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0x375bd1, "to": constructHistory$1(_0xaa0b2) }), this["createControlPoint"](_0xaa0b2["points"][_0x5ced3f]), this["updateControlsPosition"]();
+      }), _0x1025ea["appendChild"](_0x4f1e02), this["mouseMoveFun"] = this["onMouseMove"]["bind"](this), document["addEventListener"]("mousemove", this["mouseMoveFun"]);
     }
-    updateControlsPosition() {
-      const { editor, target } = this;
-      const { controlLayer } = editor;
-      const rect = controlLayer.querySelector(".border-rect");
-      const position = target.getContainerPosition();
-      editorUtil.updateSvgElement(rect, { x: position.x, y: position.y, width: position.w, height: position.h });
-      if (target.locked) {
-        controlLayer.classList.add("locked");
+    ["updateControlsPosition"]() {
+      const { editor: _0x238f5e, target: _0xf64948 } = this, { controlLayer: _0xa00745 } = _0x238f5e, _0x46daaa = _0xa00745["querySelector"](".border-rect"), _0x2c2c5e = _0xf64948["getContainerPosition"]();
+      editorUtil["updateSvgElement"](_0x46daaa, { "x": _0x2c2c5e["x"], "y": _0x2c2c5e["y"], "width": _0x2c2c5e["w"], "height": _0x2c2c5e["h"] });
+      if (_0xf64948["locked"]) {
+        _0xa00745["classList"]["add"]("locked");
         return;
-      } else {
-        controlLayer.classList.remove("locked");
-      }
-      const matrix = editorUtil.getTotalMatrix(target, true, true);
-      this.pointDomList.forEach((item) => {
-        const { point, dom } = item;
-        const { x, y } = point;
-        const finalPoint = applyToPoint(matrix, { x, y });
-        dom.setAttribute("cx", finalPoint.x);
-        dom.setAttribute("cy", finalPoint.y);
-        dom.setAttribute("fill", this.activePoint === point ? "#00ff00" : "#ffffff");
+      } else
+        _0xa00745["classList"]["remove"]("locked");
+      const _0x2d58f5 = editorUtil["getTotalMatrix"](_0xf64948, !![], !![]);
+      this["pointDomList"]["forEach"]((_0x202eb5) => {
+        const { point: _0x266ee2, dom: _0x1e8ee1 } = _0x202eb5, { x: _0x4fe64f, y: _0x41ade7 } = _0x266ee2, _0x3b384f = applyToPoint(_0x2d58f5, { "x": _0x4fe64f, "y": _0x41ade7 });
+        _0x1e8ee1["setAttribute"]("cx", _0x3b384f["x"]), _0x1e8ee1["setAttribute"]("cy", _0x3b384f["y"]), _0x1e8ee1["setAttribute"]("fill", this["activePoint"] === _0x266ee2 ? "#00ff00" : "#ffffff");
       });
     }
-    onMouseMove(e) {
-      const { editor, target } = this;
-      const points = target.points || [];
-      const point = editor.getMousePositionInObject(e, target);
-      const strokeWidth = target.strokeWidth || 1;
-      const arroundDistance = strokeWidth / 2 + 2;
-      const res = editorUtil.isPointArroundPolyline(points, point, arroundDistance);
-      const { controlLayer } = editor;
-      const dom = controlLayer.querySelector(".to-add-point");
-      if (e.target.classList.contains("control-point")) {
-        dom.style.display = "none";
+    ["onMouseMove"](_0x3f0c0d) {
+      const { editor: _0x2a9365, target: _0x475125 } = this, _0x283b5c = _0x475125["points"] || [], _0x3ffedf = _0x2a9365["getMousePositionInObject"](_0x3f0c0d, _0x475125), _0xc1a820 = _0x475125["strokeWidth"] || 1, _0x25c05f = _0xc1a820 / 2 + 2, _0x3723ab = editorUtil["isPointArroundPolyline"](_0x283b5c, _0x3ffedf, _0x25c05f), { controlLayer: _0x32dcbc } = _0x2a9365, _0x444c21 = _0x32dcbc["querySelector"](".to-add-point");
+      if (_0x3f0c0d["target"]["classList"]["contains"]("control-point")) {
+        _0x444c21["style"]["display"] = "none";
         return;
       }
-      if (res.isArround) {
-        const { x, y, index } = res;
-        const matrix = editorUtil.getTotalMatrix(target, true, true);
-        const point2 = applyToPoint(matrix, { x, y });
-        this.toAddPoint = { x, y, index };
-        dom.setAttribute("cx", point2.x);
-        dom.setAttribute("cy", point2.y);
-        dom.style.display = "block";
-      } else {
-        this.toAddPoint = { x: 0, y: 0, index: -1 };
-        dom.style.display = "none";
-      }
+      if (_0x3723ab["isArround"]) {
+        const { x: _0x3f0268, y: _0x57f5c5, index: _0x5dec6c } = _0x3723ab, _0xdbc129 = editorUtil["getTotalMatrix"](_0x475125, !![], !![]), _0x3511db = applyToPoint(_0xdbc129, { "x": _0x3f0268, "y": _0x57f5c5 });
+        this["toAddPoint"] = { "x": _0x3f0268, "y": _0x57f5c5, "index": _0x5dec6c }, _0x444c21["setAttribute"]("cx", _0x3511db["x"]), _0x444c21["setAttribute"]("cy", _0x3511db["y"]), _0x444c21["style"]["display"] = "block";
+      } else
+        this["toAddPoint"] = { "x": 0, "y": 0, "index": -1 }, _0x444c21["style"]["display"] = "none";
     }
-    /**
-     * 销毁控制点
-     */
-    dispose() {
-      const { editor } = this;
-      document.removeEventListener("mousemove", this.mouseMoveFun);
-      this.mouseMoveFun = null;
-      editor.controlLayer.innerHTML = "";
+    ["dispose"]() {
+      const { editor: _0x3a9090 } = this;
+      document["removeEventListener"]("mousemove", this["mouseMoveFun"]), this["mouseMoveFun"] = null, _0x3a9090["controlLayer"]["innerHTML"] = "";
     }
   }
-  const constructHistory = (target) => {
-    const { id, x, y, w, h, path } = target;
-    const parent = target.group || target.editor;
-    return {
-      activeSelection: null,
-      data: [
-        {
-          data: cloneDeep({ id, x, y, w, h, path }),
-          index: parent.objects.findIndex((a) => a.id === target.id),
-          parentId: target.group ? target.group.id : null
-        }
-      ]
-    };
+  const constructHistory = (_0x55b99d) => {
+    const { id: _0x3b5525, x: _0xf6d40c, y: _0x4e98f9, w: _0x57d1fe, h: _0x68de41, path: _0x146c6e } = _0x55b99d, _0x5d9510 = _0x55b99d["group"] || _0x55b99d["editor"];
+    return { "activeSelection": null, "data": [{ "data": cloneDeep({ "id": _0x3b5525, "x": _0xf6d40c, "y": _0x4e98f9, "w": _0x57d1fe, "h": _0x68de41, "path": _0x146c6e }), "index": _0x5d9510["objects"]["findIndex"]((_0x4b3bb7) => _0x4b3bb7["id"] === _0x55b99d["id"]), "parentId": _0x55b99d["group"] ? _0x55b99d["group"]["id"] : null }] };
   };
   class BezierCurveControls {
-    // 当前激活的路径
-    constructor(editor, target) {
-      this.toAddPoint = null;
-      this.pathDomList = [];
-      this.activePath = null;
-      this.editor = editor;
-      this.target = target;
-      const { controlLayer } = editor;
-      controlLayer.innerHTML = "";
-      controlLayer.setAttribute("data-id", target.id);
-      this.initlialize();
+    constructor(_0x429949, _0xef979f) {
+      this["toAddPoint"] = null, this["pathDomList"] = [], this["activePath"] = null, this["editor"] = _0x429949, this["target"] = _0xef979f;
+      const { controlLayer: _0x4a1647 } = _0x429949;
+      _0x4a1647["innerHTML"] = "", _0x4a1647["setAttribute"]("data-id", _0xef979f["id"]), this["initlialize"]();
     }
-    initlialize() {
-      this.createControls();
-      this.updateControlsPosition();
+    ["initlialize"]() {
+      this["createControls"](), this["updateControlsPosition"]();
     }
-    // 重新设置包围盒
-    resetBounding() {
-      const { target } = this;
-      const { width, height, x, y } = editorUtil.getPathBoundingBox(target.path);
-      target.path.forEach((p) => {
-        p.forEach((item, index) => {
-          if (index > 0) {
-            p[index] = index % 2 === 0 ? item - y : item - x;
-          }
+    ["resetBounding"]() {
+      const { target: _0x2a68fc } = this, { width: _0x2712ee, height: _0x1695bf, x: _0x98c8cf, y: _0x17ff5f } = editorUtil["getPathBoundingBox"](_0x2a68fc["path"]);
+      _0x2a68fc["path"]["forEach"]((_0x5544f4) => {
+        _0x5544f4["forEach"]((_0xf3d676, _0x33d9d3) => {
+          _0x33d9d3 > 0 && (_0x5544f4[_0x33d9d3] = _0x33d9d3 % 2 === 0 ? _0xf3d676 - _0x17ff5f : _0xf3d676 - _0x98c8cf);
         });
-      });
-      target.set({
-        x: target.x + x,
-        y: target.y + y,
-        w: width,
-        h: height
-      });
+      }), _0x2a68fc["set"]({ "x": _0x2a68fc["x"] + _0x98c8cf, "y": _0x2a68fc["y"] + _0x17ff5f, "w": _0x2712ee, "h": _0x1695bf });
     }
-    // 一段路径的终点控制函数
-    createPathPoint(path) {
-      const { editor, target } = this;
-      const { controlLayer, controlConfig } = editor;
-      let fromState;
-      let [mouseX, mouseY] = [0, 0];
-      const dom = editorUtil.createSvgElement("circle", __spreadProps(__spreadValues({}, controlConfig.circle), { class: "path-point" }), { pointerEvents: "auto", cursor: "move" });
-      dom.addEventListener("mousedown", (e) => {
-        e.stopPropagation && e.stopPropagation();
-        e.preventDefault && e.preventDefault();
-        [mouseX, mouseY] = [e.clientX, e.clientY];
-        fromState = constructHistory(target);
-        this.activePath = path;
-        this.updateControlsPosition();
-        const handleMouseMove = (moveEvent) => {
-          const mousePoint = editor.getMousePositionInObject(moveEvent, target);
-          const { x, y } = mousePoint;
-          const index = target.path.findIndex((a) => a === path);
-          if (index === 0) {
-            path[1] = x;
-            path[2] = y;
-          } else {
-            const diffX = x - path[5];
-            const diffY = y - path[6];
-            path[3] += diffX;
-            path[4] += diffY;
-            path[5] = x;
-            path[6] = y;
-            const nextPath = target.path[index + 1];
-            if (index < target.path.length - 1 && nextPath[0] !== "Z") {
-              nextPath[1] = 2 * path[5] - path[3];
-              nextPath[2] = 2 * path[6] - path[4];
-            }
+    ["createPathPoint"](_0x22ea29) {
+      const { editor: _0x395b52, target: _0x7e9f1a } = this, { controlLayer: _0x530158, controlConfig: _0x442f6c } = _0x395b52;
+      let _0xf90780, [_0x1bcc54, _0x462944] = [0, 0];
+      const _0x35a8d5 = editorUtil["createSvgElement"]("circle", __spreadProps(__spreadValues({}, _0x442f6c["circle"]), { "class": "path-point" }), { "pointerEvents": "auto", "cursor": "move" });
+      _0x35a8d5["addEventListener"]("mousedown", (_0x11ec48) => {
+        _0x11ec48["stopPropagation"] && _0x11ec48["stopPropagation"](), _0x11ec48["preventDefault"] && _0x11ec48["preventDefault"](), [_0x1bcc54, _0x462944] = [_0x11ec48["clientX"], _0x11ec48["clientY"]], _0xf90780 = constructHistory(_0x7e9f1a), this["activePath"] = _0x22ea29, this["updateControlsPosition"]();
+        const _0x4a447c = (_0xc341b) => {
+          const _0x15cad6 = _0x395b52["getMousePositionInObject"](_0xc341b, _0x7e9f1a), { x: _0x4cb2e6, y: _0x559747 } = _0x15cad6, _0x402f9a = _0x7e9f1a["path"]["findIndex"]((_0xff57b2) => _0xff57b2 === _0x22ea29);
+          if (_0x402f9a === 0)
+            _0x22ea29[1] = _0x4cb2e6, _0x22ea29[2] = _0x559747;
+          else {
+            const _0x22ce04 = _0x4cb2e6 - _0x22ea29[5], _0x4bdc65 = _0x559747 - _0x22ea29[6];
+            _0x22ea29[3] += _0x22ce04, _0x22ea29[4] += _0x4bdc65, _0x22ea29[5] = _0x4cb2e6, _0x22ea29[6] = _0x559747;
+            const _0x197d33 = _0x7e9f1a["path"][_0x402f9a + 1];
+            _0x402f9a < _0x7e9f1a["path"]["length"] - 1 && _0x197d33[0] !== "Z" && (_0x197d33[1] = 2 * _0x22ea29[5] - _0x22ea29[3], _0x197d33[2] = 2 * _0x22ea29[6] - _0x22ea29[4]);
           }
-          this.updateControlsPosition();
+          this["updateControlsPosition"]();
+        }, _0x1b2943 = (_0x1c1875) => {
+          _0x1bcc54 !== _0x1c1875["clientX"] && _0x462944 !== _0x1c1875["clientY"] && (this["resetBounding"](), this["saveHistory"](_0xf90780), this["updateControlsPosition"]()), document["removeEventListener"]("mousemove", _0x4a447c), document["removeEventListener"]("mouseup", _0x1b2943);
         };
-        const handleMouseUp = (upEvent) => {
-          if (mouseX !== upEvent.clientX && mouseY !== upEvent.clientY) {
-            this.resetBounding();
-            this.saveHistory(fromState);
-            this.updateControlsPosition();
-          }
-          document.removeEventListener("mousemove", handleMouseMove);
-          document.removeEventListener("mouseup", handleMouseUp);
-        };
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseup", handleMouseUp);
-      });
-      controlLayer.appendChild(dom);
-      this.pathDomList.push({ dom, path });
+        document["addEventListener"]("mousemove", _0x4a447c), document["addEventListener"]("mouseup", _0x1b2943);
+      }), _0x530158["appendChild"](_0x35a8d5), this["pathDomList"]["push"]({ "dom": _0x35a8d5, "path": _0x22ea29 });
     }
-    saveHistory(fromState) {
-      const { editor, target } = this;
-      editor.historyHandler.store({
-        type: HistoryTypesEnum.attrs,
-        from: fromState,
-        to: constructHistory(target)
-      });
+    ["saveHistory"](_0x14d945) {
+      const { editor: _0x2a308a, target: _0x5c5051 } = this;
+      _0x2a308a["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0x14d945, "to": constructHistory(_0x5c5051) });
     }
-    // 删除当前激活的控制点
-    deleteActiveControlPoint() {
-      if (this.activePath) {
-        const fromState = constructHistory(this.target);
-        const index = this.target.path.findIndex((item) => item === this.activePath);
-        const prePath = this.target.path[index - 1];
-        const nextPath = this.target.path[index + 1];
-        if (index === 0) {
-          this.target.path[index + 1] = ["M", nextPath[5], nextPath[6]];
-        }
-        if (nextPath && prePath) {
-          if (prePath[5]) {
-            nextPath[1] = 2 * prePath[5] - prePath[3];
-            nextPath[2] = 2 * prePath[6] - prePath[4];
-          } else {
-            nextPath[1] = prePath[1];
-            nextPath[2] = prePath[2];
-          }
-        }
-        this.target.path.splice(index, 1);
-        this.activePath = null;
-        this.resetBounding();
-        this.saveHistory(fromState);
-        this.createControls();
-        this.updateControlsPosition();
-        return true;
+    ["deleteActiveControlPoint"]() {
+      if (this["activePath"]) {
+        const _0xd36962 = constructHistory(this["target"]), _0x2845f8 = this["target"]["path"]["findIndex"]((_0x17e833) => _0x17e833 === this["activePath"]), _0x3de457 = this["target"]["path"][_0x2845f8 - 1], _0x184383 = this["target"]["path"][_0x2845f8 + 1];
+        return _0x2845f8 === 0 && (this["target"]["path"][_0x2845f8 + 1] = ["M", _0x184383[5], _0x184383[6]]), _0x184383 && _0x3de457 && (_0x3de457[5] ? (_0x184383[1] = 2 * _0x3de457[5] - _0x3de457[3], _0x184383[2] = 2 * _0x3de457[6] - _0x3de457[4]) : (_0x184383[1] = _0x3de457[1], _0x184383[2] = _0x3de457[2])), this["target"]["path"]["splice"](_0x2845f8, 1), this["activePath"] = null, this["resetBounding"](), this["saveHistory"](_0xd36962), this["createControls"](), this["updateControlsPosition"](), !![];
       }
-      return false;
+      return ![];
     }
-    // 创建三阶贝塞尔曲线的控制点，以及控制线
-    createControlPoint() {
-      const { editor, target } = this;
-      const { controlLayer } = editor;
-      const controlConfig = editor.controlConfig;
-      const pointList = ["control-p1", "control-p2"];
-      pointList.forEach((className) => {
-        const dom = editorUtil.createSvgElement(
-          "circle",
-          __spreadProps(__spreadValues({}, controlConfig.circle), { class: `control-point ${className}` }),
-          { pointerEvents: "auto", cursor: "move" }
-        );
-        let mouseDownPoint = { x: 0, y: 0 };
-        let fromState;
-        dom.addEventListener("mousedown", (e) => {
-          e.preventDefault && e.preventDefault();
-          e.stopPropagation && e.stopPropagation();
-          mouseDownPoint = { x: e.clientX, y: e.clientY };
-          fromState = constructHistory(target);
-          const handleMove = (moveEvent) => {
-            const point = editor.getMousePositionInObject(moveEvent, target);
-            const pathIndex = target.path.findIndex((a) => a === this.activePath);
-            const nextPath = target.path[pathIndex + 1];
-            if (className === "control-p1") {
-              this.activePath[3] = point.x;
-              this.activePath[4] = point.y;
-              if (nextPath) {
-                nextPath[1] = 2 * this.activePath[5] - point.x;
-                nextPath[2] = 2 * this.activePath[6] - point.y;
-              }
-            } else {
-              this.activePath[3] = 2 * this.activePath[5] - point.x;
-              this.activePath[4] = 2 * this.activePath[6] - point.y;
-              if (nextPath) {
-                nextPath[1] = point.x;
-                nextPath[2] = point.y;
-              }
-            }
-            this.updateControlsPosition();
+    ["createControlPoint"]() {
+      const { editor: _0x50f8a2, target: _0xb0cc24 } = this, { controlLayer: _0x48d444 } = _0x50f8a2, _0x580e6b = _0x50f8a2["controlConfig"], _0x398317 = ["control-p1", "control-p2"];
+      _0x398317["forEach"]((_0x4aed85) => {
+        const _0x863921 = editorUtil["createSvgElement"]("circle", __spreadProps(__spreadValues({}, _0x580e6b["circle"]), { "class": "control-point " + _0x4aed85 }), { "pointerEvents": "auto", "cursor": "move" });
+        let _0x4a628e = { "x": 0, "y": 0 }, _0x4d150a;
+        _0x863921["addEventListener"]("mousedown", (_0x3d9a56) => {
+          _0x3d9a56["preventDefault"] && _0x3d9a56["preventDefault"](), _0x3d9a56["stopPropagation"] && _0x3d9a56["stopPropagation"](), _0x4a628e = { "x": _0x3d9a56["clientX"], "y": _0x3d9a56["clientY"] }, _0x4d150a = constructHistory(_0xb0cc24);
+          const _0x5d86a2 = (_0x25f235) => {
+            const _0x4791c6 = _0x50f8a2["getMousePositionInObject"](_0x25f235, _0xb0cc24), _0xf2629a = _0xb0cc24["path"]["findIndex"]((_0x2eba70) => _0x2eba70 === this["activePath"]), _0x19b0d9 = _0xb0cc24["path"][_0xf2629a + 1];
+            _0x4aed85 === "control-p1" ? (this["activePath"][3] = _0x4791c6["x"], this["activePath"][4] = _0x4791c6["y"], _0x19b0d9 && (_0x19b0d9[1] = 2 * this["activePath"][5] - _0x4791c6["x"], _0x19b0d9[2] = 2 * this["activePath"][6] - _0x4791c6["y"])) : (this["activePath"][3] = 2 * this["activePath"][5] - _0x4791c6["x"], this["activePath"][4] = 2 * this["activePath"][6] - _0x4791c6["y"], _0x19b0d9 && (_0x19b0d9[1] = _0x4791c6["x"], _0x19b0d9[2] = _0x4791c6["y"])), this["updateControlsPosition"]();
+          }, _0x47ffeb = (_0x24eb48) => {
+            document["removeEventListener"]("mousemove", _0x5d86a2), document["removeEventListener"]("mouseup", _0x47ffeb), _0x24eb48["clientX"] !== _0x4a628e["x"] && _0x24eb48["clientY"] !== _0x4a628e["y"] && (this["resetBounding"](), this["saveHistory"](_0x4d150a), this["updateControlsPosition"]());
           };
-          const handleUp = (e2) => {
-            document.removeEventListener("mousemove", handleMove);
-            document.removeEventListener("mouseup", handleUp);
-            if (e2.clientX !== mouseDownPoint.x && e2.clientY !== mouseDownPoint.y) {
-              this.resetBounding();
-              this.saveHistory(fromState);
-              this.updateControlsPosition();
-            }
-          };
-          document.addEventListener("mousemove", handleMove);
-          document.addEventListener("mouseup", handleUp);
-        });
-        controlLayer.appendChild(dom);
+          document["addEventListener"]("mousemove", _0x5d86a2), document["addEventListener"]("mouseup", _0x47ffeb);
+        }), _0x48d444["appendChild"](_0x863921);
       });
     }
-    // 创建控制点
-    createControls() {
-      const { editor, target } = this;
-      const { controlLayer } = editor;
-      const controlConfig = editor.controlConfig || {};
-      this.dispose();
-      const rect = editorUtil.createSvgElement("rect", { x: 0, y: 0, width: 100, height: 100, class: "border-rect" });
-      controlLayer.appendChild(rect);
-      const path = target.path || [];
-      path.forEach((item) => {
-        if (item[0] !== "Z") {
-          this.createPathPoint(item);
-        }
-      });
-      this.createControlPoint();
-      const lineDom = editorUtil.createSvgElement("line", __spreadProps(__spreadValues({}, controlConfig.line), { class: "control-line" }));
-      controlLayer.prepend(lineDom);
-      const domToAddPoint = editorUtil.createSvgElement("circle", __spreadProps(__spreadValues({}, controlConfig.circle), { class: "to-add-point" }), { display: "none" });
-      controlLayer.appendChild(domToAddPoint);
-      this.mouseDownFun = this.globalMouseDown.bind(this);
-      this.mouseMoveFun = this.globalMouseMove.bind(this);
-      editor.editorDom.addEventListener("mousedown", this.mouseDownFun);
-      editor.editorDom.addEventListener("mousemove", this.mouseMoveFun);
+    ["createControls"]() {
+      const { editor: _0x4c4f2d, target: _0x8ca956 } = this, { controlLayer: _0x3af573 } = _0x4c4f2d, _0x5e473f = _0x4c4f2d["controlConfig"] || {};
+      this["dispose"]();
+      const _0x504339 = editorUtil["createSvgElement"]("rect", { "x": 0, "y": 0, "width": 100, "height": 100, "class": "border-rect" });
+      _0x3af573["appendChild"](_0x504339);
+      const _0x3b90d6 = _0x8ca956["path"] || [];
+      _0x3b90d6["forEach"]((_0x585ce2) => {
+        _0x585ce2[0] !== "Z" && this["createPathPoint"](_0x585ce2);
+      }), this["createControlPoint"]();
+      const _0x25a9a9 = editorUtil["createSvgElement"]("line", __spreadProps(__spreadValues({}, _0x5e473f["line"]), { "class": "control-line" }));
+      _0x3af573["prepend"](_0x25a9a9);
+      const _0x18d090 = editorUtil["createSvgElement"]("circle", __spreadProps(__spreadValues({}, _0x5e473f["circle"]), { "class": "to-add-point" }), { "display": "none" });
+      _0x3af573["appendChild"](_0x18d090), this["mouseDownFun"] = this["globalMouseDown"]["bind"](this), this["mouseMoveFun"] = this["globalMouseMove"]["bind"](this), _0x4c4f2d["editorDom"]["addEventListener"]("mousedown", this["mouseDownFun"]), _0x4c4f2d["editorDom"]["addEventListener"]("mousemove", this["mouseMoveFun"]);
     }
-    // 更新控制点位置
-    updateControlsPosition() {
-      const { editor, target, activePath } = this;
-      const { controlLayer, controlConfig } = editor;
-      const rect = controlLayer.querySelector(".border-rect");
-      const position = target.getContainerPosition();
-      editorUtil.updateSvgElement(rect, { x: position.x, y: position.y, width: position.w, height: position.h });
-      if (target.locked) {
-        controlLayer.classList.add("locked");
+    ["updateControlsPosition"]() {
+      const { editor: _0x616b54, target: _0x4168bc, activePath: _0x130b6c } = this, { controlLayer: _0x57411e, controlConfig: _0x464765 } = _0x616b54, _0x595afc = _0x57411e["querySelector"](".border-rect"), _0x5727fc = _0x4168bc["getContainerPosition"]();
+      editorUtil["updateSvgElement"](_0x595afc, { "x": _0x5727fc["x"], "y": _0x5727fc["y"], "width": _0x5727fc["w"], "height": _0x5727fc["h"] });
+      if (_0x4168bc["locked"]) {
+        _0x57411e["classList"]["add"]("locked");
         return;
-      } else {
-        controlLayer.classList.remove("locked");
-      }
-      const matrix = editorUtil.getTotalMatrix(target, true, true);
-      this.pathDomList.forEach((item) => {
-        const { path, dom } = item;
-        const x = path[path.length - 2];
-        const y = path[path.length - 1];
-        const finalPoint = applyToPoint(matrix, { x, y });
-        const obj = path === activePath ? controlConfig.activeCircle : controlConfig.circle;
-        dom.setAttribute("fill", obj.fill);
-        editorUtil.updateSvgElement(dom, { cx: finalPoint.x, cy: finalPoint.y });
+      } else
+        _0x57411e["classList"]["remove"]("locked");
+      const _0x30cf6b = editorUtil["getTotalMatrix"](_0x4168bc, !![], !![]);
+      this["pathDomList"]["forEach"]((_0x2b9b58) => {
+        const { path: _0x49cdbb, dom: _0x14d2be } = _0x2b9b58, _0x34477d = _0x49cdbb[_0x49cdbb["length"] - 2], _0x1278f0 = _0x49cdbb[_0x49cdbb["length"] - 1], _0x241192 = applyToPoint(_0x30cf6b, { "x": _0x34477d, "y": _0x1278f0 }), _0x57b73 = _0x49cdbb === _0x130b6c ? _0x464765["activeCircle"] : _0x464765["circle"];
+        _0x14d2be["setAttribute"]("fill", _0x57b73["fill"]), editorUtil["updateSvgElement"](_0x14d2be, { "cx": _0x241192["x"], "cy": _0x241192["y"] });
       });
-      const domP1 = controlLayer.querySelector(".control-p1");
-      const domP2 = controlLayer.querySelector(".control-p2");
-      const domLine = controlLayer.querySelector(".control-line");
-      if (activePath) {
-        const p = activePath;
-        const index = target.path.findIndex((a) => a === activePath);
-        if (index === 0 || index === target.path.length - 1) {
-          editorUtil.hideDoms([domP1, domP2, domLine]);
-        } else {
-          const p1 = { x: p[3], y: p[4] };
-          const p2 = { x: 2 * p[5] - p[3], y: 2 * p[6] - p[4] };
-          const point1 = applyToPoint(matrix, p1);
-          const point2 = applyToPoint(matrix, p2);
-          editorUtil.setAttributes(domP1, { cx: point1.x, cy: point1.y });
-          editorUtil.setAttributes(domP2, { cx: point2.x, cy: point2.y });
-          editorUtil.setAttributes(domLine, { x1: point1.x, y1: point1.y, x2: point2.x, y2: point2.y });
-          editorUtil.showDoms([domP1, domP2, domLine]);
+      const _0x2c03b1 = _0x57411e["querySelector"](".control-p1"), _0x1d409f = _0x57411e["querySelector"](".control-p2"), _0x50c6ee = _0x57411e["querySelector"](".control-line");
+      if (_0x130b6c) {
+        const _0x5d9221 = _0x130b6c, _0x456c40 = _0x4168bc["path"]["findIndex"]((_0x2e88cf) => _0x2e88cf === _0x130b6c);
+        if (_0x456c40 === 0 || _0x456c40 === _0x4168bc["path"]["length"] - 1)
+          editorUtil["hideDoms"]([_0x2c03b1, _0x1d409f, _0x50c6ee]);
+        else {
+          const _0x279f66 = { "x": _0x5d9221[3], "y": _0x5d9221[4] }, _0x23cd68 = { "x": 2 * _0x5d9221[5] - _0x5d9221[3], "y": 2 * _0x5d9221[6] - _0x5d9221[4] }, _0x5d08a5 = applyToPoint(_0x30cf6b, _0x279f66), _0x2aa030 = applyToPoint(_0x30cf6b, _0x23cd68);
+          editorUtil["setAttributes"](_0x2c03b1, { "cx": _0x5d08a5["x"], "cy": _0x5d08a5["y"] }), editorUtil["setAttributes"](_0x1d409f, { "cx": _0x2aa030["x"], "cy": _0x2aa030["y"] }), editorUtil["setAttributes"](_0x50c6ee, { "x1": _0x5d08a5["x"], "y1": _0x5d08a5["y"], "x2": _0x2aa030["x"], "y2": _0x2aa030["y"] }), editorUtil["showDoms"]([_0x2c03b1, _0x1d409f, _0x50c6ee]);
         }
-      } else {
-        editorUtil.hideDoms([domP1, domP2, domLine]);
-      }
+      } else
+        editorUtil["hideDoms"]([_0x2c03b1, _0x1d409f, _0x50c6ee]);
     }
-    globalMouseMove(e) {
-      const { editor, target } = this;
-      const { controlLayer } = editor;
-      const dom = controlLayer.querySelector(".to-add-point");
-      const rect = controlLayer.querySelector(".border-rect");
-      if (e.target.classList.contains("path-point")) {
-        dom.style.display = "none";
+    ["globalMouseMove"](_0x15d83c) {
+      const { editor: _0x1a11f6, target: _0x4bc1e5 } = this, { controlLayer: _0x5a7ed1 } = _0x1a11f6, _0x5974e0 = _0x5a7ed1["querySelector"](".to-add-point"), _0x236f33 = _0x5a7ed1["querySelector"](".border-rect");
+      if (_0x15d83c["target"]["classList"]["contains"]("path-point")) {
+        _0x5974e0["style"]["display"] = "none";
         return;
       }
-      const point = editor.getMousePositionInObject(e, target);
-      const obj = editorUtil.isPointArroundPath(point, target.path, 2.5);
-      this.toAddPoint = obj;
-      if (obj) {
-        rect.style.pointerEvents = "none";
-        dom.style.display = "block";
-        document.body.style.cursor = "copy";
-        const matrix = editorUtil.getTotalMatrix(target, true, true);
-        const applyPoint = applyToPoint(matrix, { x: obj.x, y: obj.y });
-        editorUtil.setAttributes(dom, { cx: applyPoint.x, cy: applyPoint.y });
-      } else {
-        rect.style.pointerEvents = "auto";
-        dom.style.display = "none";
-        document.body.style.cursor = "";
+      const _0x1239ed = _0x1a11f6["getMousePositionInObject"](_0x15d83c, _0x4bc1e5), _0xa6b500 = editorUtil["isPointArroundPath"](_0x1239ed, _0x4bc1e5["path"], 2.5);
+      this["toAddPoint"] = _0xa6b500;
+      if (_0xa6b500) {
+        _0x236f33["style"]["pointerEvents"] = "none", _0x5974e0["style"]["display"] = "block", document["body"]["style"]["cursor"] = "copy";
+        const _0x4f1af0 = editorUtil["getTotalMatrix"](_0x4bc1e5, !![], !![]), _0xdf8a6a = applyToPoint(_0x4f1af0, { "x": _0xa6b500["x"], "y": _0xa6b500["y"] });
+        editorUtil["setAttributes"](_0x5974e0, { "cx": _0xdf8a6a["x"], "cy": _0xdf8a6a["y"] });
+      } else
+        _0x236f33["style"]["pointerEvents"] = "auto", _0x5974e0["style"]["display"] = "none", document["body"]["style"]["cursor"] = "";
+    }
+    ["globalMouseDown"]() {
+      const { target: _0x86593, toAddPoint: _0x59fa04 } = this;
+      if (_0x59fa04) {
+        this["toAddPoint"] = null;
+        const _0x43676d = constructHistory(_0x86593), { x: _0x2ed90d, y: _0x34d831, index: _0xb2b53d, t: _0x5a0a49 } = _0x59fa04, _0x343805 = _0x86593["path"][_0xb2b53d - 1], _0x4cfd41 = _0x86593["path"][_0xb2b53d], _0x37b36d = { "x": _0x343805[_0x343805["length"] - 2], "y": _0x343805[_0x343805["length"] - 1] }, _0x46ccde = { "x": _0x4cfd41[1], "y": _0x4cfd41[2] }, _0x2ac8e1 = { "x": _0x4cfd41[3], "y": _0x4cfd41[4] }, _0x3cb468 = { "x": _0x4cfd41[5], "y": _0x4cfd41[6] }, [_0x67eae7, _0x55e5d5] = editorUtil["splitBezierCurve"](_0x37b36d, _0x46ccde, _0x2ac8e1, _0x3cb468, _0x5a0a49), _0x3bd2b7 = ["C", _0x67eae7[1]["x"], _0x67eae7[1]["y"], _0x67eae7[2]["x"], _0x67eae7[2]["y"], _0x2ed90d, _0x34d831];
+        _0x4cfd41[1] = _0x55e5d5[1]["x"], _0x4cfd41[2] = _0x55e5d5[1]["y"], _0x4cfd41[3] = _0x55e5d5[2]["x"], _0x4cfd41[4] = _0x55e5d5[2]["y"], _0x86593["path"]["splice"](_0xb2b53d, 0, _0x3bd2b7), this["saveHistory"](_0x43676d), this["createPathPoint"](_0x86593["path"][_0xb2b53d]), this["updateControlsPosition"]();
       }
     }
-    globalMouseDown() {
-      const { target, toAddPoint } = this;
-      if (toAddPoint) {
-        this.toAddPoint = null;
-        const fromState = constructHistory(target);
-        const { x, y, index, t } = toAddPoint;
-        const prePath = target.path[index - 1];
-        const nexPath = target.path[index];
-        const p1 = { x: prePath[prePath.length - 2], y: prePath[prePath.length - 1] };
-        const p2 = { x: nexPath[1], y: nexPath[2] };
-        const p3 = { x: nexPath[3], y: nexPath[4] };
-        const p4 = { x: nexPath[5], y: nexPath[6] };
-        const [segment1, segment2] = editorUtil.splitBezierCurve(p1, p2, p3, p4, t);
-        const newPath = ["C", segment1[1].x, segment1[1].y, segment1[2].x, segment1[2].y, x, y];
-        nexPath[1] = segment2[1].x;
-        nexPath[2] = segment2[1].y;
-        nexPath[3] = segment2[2].x;
-        nexPath[4] = segment2[2].y;
-        target.path.splice(index, 0, newPath);
-        this.saveHistory(fromState);
-        this.createPathPoint(target.path[index]);
-        this.updateControlsPosition();
-      }
-    }
-    /**
-     * 销毁控制点
-     */
-    dispose() {
-      const { editor } = this;
-      editor.editorDom.removeEventListener("mousedown", this.mouseDownFun);
-      editor.editorDom.removeEventListener("mousemove", this.mouseMoveFun);
-      this.mouseMoveFun = null;
-      this.mouseMoveFun = null;
-      editor.controlLayer.innerHTML = "";
+    ["dispose"]() {
+      const { editor: _0x2d9132 } = this;
+      _0x2d9132["editorDom"]["removeEventListener"]("mousedown", this["mouseDownFun"]), _0x2d9132["editorDom"]["removeEventListener"]("mousemove", this["mouseMoveFun"]), this["mouseMoveFun"] = null, this["mouseMoveFun"] = null, _0x2d9132["controlLayer"]["innerHTML"] = "";
     }
   }
   class ControlsFactory {
-    static getInstance(editor, target) {
-      switch (target.type) {
+    static ["getInstance"](_0x2429d3, _0x2581b7) {
+      switch (_0x2581b7["type"]) {
         case "line":
-          return new LineControls(editor, target);
+          return new LineControls(_0x2429d3, _0x2581b7);
         case "polyline":
-          return new PolylineControls(editor, target);
+          return new PolylineControls(_0x2429d3, _0x2581b7);
         case "bezierCurve":
-          return new BezierCurveControls(editor, target);
+          return new BezierCurveControls(_0x2429d3, _0x2581b7);
         default:
-          return new RectControls(editor, target);
+          return new RectControls(_0x2429d3, _0x2581b7);
       }
     }
   }
   const ignoreKeys = ["emitter", "controls", "editor", "group"];
   class BaseObject {
-    constructor(editor, option) {
-      this.id = editorUtil.nanoid(8);
-      this.name = "";
-      this.type = "object";
-      this.component = {
-        // 组件，用于vue、rect等框架使用
-        name: "",
-        title: ""
-      };
-      this.stateIndex = 0;
-      this.states = [];
-      this.x = 0;
-      this.y = 0;
-      this.w = 0;
-      this.h = 0;
-      this.angle = 0;
-      this.locked = false;
-      this.visible = true;
-      this.controls = null;
-      this.emitter = mitt();
-      this.editor = null;
-      option = option || {};
-      this.editor = editor;
-      Object.keys(option).forEach((key) => {
-        if (!ignoreKeys.includes(key)) {
-          this[key] = option[key];
-        }
+    constructor(_0x393ac7, _0x4629d7) {
+      this["id"] = editorUtil["nanoid"](8), this["name"] = "", this["type"] = "object", this["component"] = { "name": "", "title": "" }, this["stateIndex"] = 0, this["states"] = [], this["x"] = 0, this["y"] = 0, this["w"] = 0, this["h"] = 0, this["angle"] = 0, this["locked"] = ![], this["visible"] = !![], this["controls"] = null, this["emitter"] = _0x39ca4c(), this["editor"] = null, _0x4629d7 = _0x4629d7 || {}, this["editor"] = _0x393ac7, Object["keys"](_0x4629d7)["forEach"]((_0x336c62) => {
+        !ignoreKeys["includes"](_0x336c62) && (this[_0x336c62] = _0x4629d7[_0x336c62]);
       });
     }
-    /**
-     * 批量设置对象属性
-     * @param key 键。如果传入key是对象则遍历该对象赋值
-     * @param value 值（如果第一个参数是对象则第二个参数会被忽略）
-     */
-    set(key, value) {
-      if (typeof key === "object") {
-        Object.keys(key).forEach((k) => {
-          this[k] = key[k];
-        });
-      } else {
-        this[key] = value;
-      }
+    ["set"](_0x2d5318, _0x111e98) {
+      typeof _0x2d5318 === "object" ? Object["keys"](_0x2d5318)["forEach"]((_0x1d6b7b) => {
+        this[_0x1d6b7b] = _0x2d5318[_0x1d6b7b];
+      }) : this[_0x2d5318] = _0x111e98;
     }
-    on(event, callback) {
-      if (typeof event === "object") {
-        Object.keys(event).forEach((k) => {
-          this.emitter.on(k, event[k]);
-        });
-      } else {
-        this.emitter.on(event, callback);
-      }
+    ["on"](_0x109644, _0x46a3c7) {
+      typeof _0x109644 === "object" ? Object["keys"](_0x109644)["forEach"]((_0x4bfec2) => {
+        this["emitter"]["on"](_0x4bfec2, _0x109644[_0x4bfec2]);
+      }) : this["emitter"]["on"](_0x109644, _0x46a3c7);
     }
-    off(event, callback) {
-      if (typeof event === "object") {
-        Object.keys(event).forEach((k) => {
-          this.emitter.off(k, event[k]);
-        });
-      } else {
-        this.emitter.off(event, callback);
-      }
+    ["off"](_0x209869, _0x24f5bd) {
+      typeof _0x209869 === "object" ? Object["keys"](_0x209869)["forEach"]((_0xfd625e) => {
+        this["emitter"]["off"](_0xfd625e, _0x209869[_0xfd625e]);
+      }) : this["emitter"]["off"](_0x209869, _0x24f5bd);
     }
-    emit(event, callback) {
-      this.emitter.emit(event, callback);
+    ["emit"](_0x50c0f6, _0x2aba99) {
+      this["emitter"]["emit"](_0x50c0f6, _0x2aba99);
     }
-    /**
-     * 获取当前状态
-     * @returns
-     */
-    getState() {
-      return this.states[this.stateIndex];
+    ["getState"]() {
+      return this["states"][this["stateIndex"]];
     }
-    createControls() {
-      this.controls = ControlsFactory.getInstance(this.editor, this);
+    ["createControls"]() {
+      this["controls"] = ControlsFactory["getInstance"](this["editor"], this);
     }
-    disposeControls() {
-      const { editor, controls } = this;
-      controls && controls.dispose && controls.dispose();
-      editor.controlLayer.innerHTML = "";
-      this.controls = null;
+    ["disposeControls"]() {
+      const { editor: _0x2ecb72, controls: _0x12d421 } = this;
+      _0x12d421 && _0x12d421["dispose"] && _0x12d421["dispose"](), _0x2ecb72["controlLayer"]["innerHTML"] = "", this["controls"] = null;
     }
-    updateControlsPosition() {
-      this.controls && this.controls.updateControlsPosition();
+    ["updateControlsPosition"]() {
+      this["controls"] && this["controls"]["updateControlsPosition"]();
     }
-    toJSON() {
-      const recursion = (item) => {
-        const obj2 = {};
-        Object.keys(item).forEach((key) => {
-          if (!ignoreKeys.includes(key) && typeof item[key] !== "function" && !key.startsWith("__")) {
-            if (key === "objects") {
-              const subObjs = [];
-              for (let i = 0; i < item.objects.length; i++) {
-                subObjs.push(recursion(item.objects[i]));
+    ["toJSON"]() {
+      const _0x57d9e8 = (_0x2f202c) => {
+        const _0x3f9475 = {};
+        return Object["keys"](_0x2f202c)["forEach"]((_0x8c1b55) => {
+          if (!ignoreKeys["includes"](_0x8c1b55) && typeof _0x2f202c[_0x8c1b55] !== "function" && !_0x8c1b55["startsWith"]("__")) {
+            if (_0x8c1b55 === "objects") {
+              const _0x5a4fde = [];
+              for (let _0x5e29c3 = 0; _0x5e29c3 < _0x2f202c["objects"]["length"]; _0x5e29c3++) {
+                _0x5a4fde["push"](_0x57d9e8(_0x2f202c["objects"][_0x5e29c3]));
               }
-              Reflect.set(obj2, "objects", subObjs);
-            } else {
-              Reflect.set(obj2, key, cloneDeep(item[key]));
-            }
+              Reflect["set"](_0x3f9475, "objects", _0x5a4fde);
+            } else
+              Reflect["set"](_0x3f9475, _0x8c1b55, cloneDeep(_0x2f202c[_0x8c1b55]));
           }
-        });
-        return obj2;
-      };
-      const obj = recursion(this);
-      return obj;
+        }), _0x3f9475;
+      }, _0x390937 = _0x57d9e8(this);
+      return _0x390937;
     }
-    getPosition() {
-      const { id, x, y, w, h, angle } = this;
-      return { id, x, y, w, h, angle };
+    ["getPosition"]() {
+      const { id: _0x490883, x: _0x291297, y: _0x13abed, w: _0x21c2f2, h: _0x5b2c66, angle: _0xe3e4f5 } = this;
+      return { "id": _0x490883, "x": _0x291297, "y": _0x13abed, "w": _0x21c2f2, "h": _0x5b2c66, "angle": _0xe3e4f5 };
     }
-    clone() {
-      const json = this.toJSON();
-      return this.editor.plainObjectToClass(json);
+    ["clone"]() {
+      const _0x4b25da = this["toJSON"]();
+      return this["editor"]["plainObjectToClass"](_0x4b25da);
     }
-    /**
-     * 获取对象的全局坐标位置信息（递归应用所有父级矩阵）
-     * @returns
-     */
-    getGlobalPosition() {
-      let objCenter = editorUtil.getObjectCenter(this);
-      let itemAngle = this.angle;
-      const recurssion = (obj) => {
-        if (obj.group) {
-          const { group } = obj;
-          const groupCenter = editorUtil.getObjectCenter(group);
-          objCenter.x += group.x;
-          objCenter.y += group.y;
-          objCenter = editorUtil.rotatePoint(objCenter, groupCenter, group.angle);
-          itemAngle += group.angle;
-          recurssion(group);
+    ["getGlobalPosition"]() {
+      let _0xfa5c65 = editorUtil["getObjectCenter"](this), _0x56c03e = this["angle"];
+      const _0x563f4e = (_0x448986) => {
+        if (_0x448986["group"]) {
+          const { group: _0x226d1f } = _0x448986, _0x5975f7 = editorUtil["getObjectCenter"](_0x226d1f);
+          _0xfa5c65["x"] += _0x226d1f["x"], _0xfa5c65["y"] += _0x226d1f["y"], _0xfa5c65 = editorUtil["rotatePoint"](_0xfa5c65, _0x5975f7, _0x226d1f["angle"]), _0x56c03e += _0x226d1f["angle"], _0x563f4e(_0x226d1f);
         }
       };
-      recurssion(this);
-      const { w, h } = this;
-      const itemX = objCenter.x - w / 2;
-      const itemY = objCenter.y - h / 2;
-      const res = { x: itemX, y: itemY, w, h, angle: itemAngle };
-      return res;
+      _0x563f4e(this);
+      const { w: _0xeb2c3b, h: _0x1aff09 } = this, _0x5bb0f5 = _0xfa5c65["x"] - _0xeb2c3b / 2, _0x99076d = _0xfa5c65["y"] - _0x1aff09 / 2, _0x30c9b2 = { "x": _0x5bb0f5, "y": _0x99076d, "w": _0xeb2c3b, "h": _0x1aff09, "angle": _0x56c03e };
+      return _0x30c9b2;
     }
-    /**
-     * 获取对象在容器中的位置（应用画布矩阵）
-     * @returns
-     */
-    getContainerPosition() {
-      const { x, y, w, h, angle } = this.getGlobalPosition();
-      const { tx, ty, sx, sy } = editorUtil.decomposeMatrix(this.editor.viewportTransform);
-      return {
-        x: x * sx + tx,
-        y: y * sy + ty,
-        w: w * sx,
-        h: h * sy,
-        angle
-      };
+    ["getContainerPosition"]() {
+      const { x: _0x1144cb, y: _0x3abd1f, w: _0x4e3537, h: _0x243f70, angle: _0x97a4e } = this["getGlobalPosition"](), { tx: _0x5dba41, ty: _0x30af31, sx: _0x593c2a, sy: _0x33354b } = editorUtil["decomposeMatrix"](this["editor"]["viewportTransform"]);
+      return { "x": _0x1144cb * _0x593c2a + _0x5dba41, "y": _0x3abd1f * _0x33354b + _0x30af31, "w": _0x4e3537 * _0x593c2a, "h": _0x243f70 * _0x33354b, "angle": _0x97a4e };
     }
-    /**
-     * 获取对象坐标信息（八个控制点坐标）
-     * @param isGlobal 是否获取全局坐标位置信息
-     * @returns
-     */
-    getCoords(isGlobal = false) {
-      let obj = isGlobal ? this.getGlobalPosition() : this.getPosition();
-      const { x, y, w, h, angle = 0 } = obj;
-      const centerPoint = { x: x + w / 2, y: y + h / 2 };
-      let [tl, tr, bl, br] = [
-        { x, y },
-        { x: x + w, y },
-        { x, y: y + h },
-        { x: x + w, y: y + h }
-      ];
-      [tl, tr, bl, br] = [
-        editorUtil.rotatePoint(tl, centerPoint, angle),
-        editorUtil.rotatePoint(tr, centerPoint, angle),
-        editorUtil.rotatePoint(bl, centerPoint, angle),
-        editorUtil.rotatePoint(br, centerPoint, angle)
-      ];
-      const [l, r, t, b] = [
-        { x: (tl.x + bl.x) / 2, y: (tl.y + bl.y) / 2 },
-        { x: (tr.x + br.x) / 2, y: (tr.y + br.y) / 2 },
-        { x: (tl.x + tr.x) / 2, y: (tl.y + tr.y) / 2 },
-        { x: (bl.x + br.x) / 2, y: (bl.y + br.y) / 2 }
-      ];
-      return { tl, tr, bl, br, l, r, t, b };
+    ["getCoords"](_0x47bbbc = ![]) {
+      let _0x1711cd = _0x47bbbc ? this["getGlobalPosition"]() : this["getPosition"]();
+      const { x: _0x54bda5, y: _0x2e8e61, w: _0x1d8630, h: _0x21051d, angle = 0 } = _0x1711cd, _0x4d81d0 = { "x": _0x54bda5 + _0x1d8630 / 2, "y": _0x2e8e61 + _0x21051d / 2 };
+      let [_0x3ca31d, _0x517deb, _0x299aca, _0x509116] = [{ "x": _0x54bda5, "y": _0x2e8e61 }, { "x": _0x54bda5 + _0x1d8630, "y": _0x2e8e61 }, { "x": _0x54bda5, "y": _0x2e8e61 + _0x21051d }, { "x": _0x54bda5 + _0x1d8630, "y": _0x2e8e61 + _0x21051d }];
+      [_0x3ca31d, _0x517deb, _0x299aca, _0x509116] = [editorUtil["rotatePoint"](_0x3ca31d, _0x4d81d0, angle), editorUtil["rotatePoint"](_0x517deb, _0x4d81d0, angle), editorUtil["rotatePoint"](_0x299aca, _0x4d81d0, angle), editorUtil["rotatePoint"](_0x509116, _0x4d81d0, angle)];
+      const [_0x58afa6, _0x2d04ab, _0x282bc3, _0x536525] = [{ "x": (_0x3ca31d["x"] + _0x299aca["x"]) / 2, "y": (_0x3ca31d["y"] + _0x299aca["y"]) / 2 }, { "x": (_0x517deb["x"] + _0x509116["x"]) / 2, "y": (_0x517deb["y"] + _0x509116["y"]) / 2 }, { "x": (_0x3ca31d["x"] + _0x517deb["x"]) / 2, "y": (_0x3ca31d["y"] + _0x517deb["y"]) / 2 }, { "x": (_0x299aca["x"] + _0x509116["x"]) / 2, "y": (_0x299aca["y"] + _0x509116["y"]) / 2 }];
+      return { "tl": _0x3ca31d, "tr": _0x517deb, "bl": _0x299aca, "br": _0x509116, "l": _0x58afa6, "r": _0x2d04ab, "t": _0x282bc3, "b": _0x536525 };
     }
   }
   class Group extends BaseObject {
-    constructor(editor, option) {
-      const cloneOption = cloneDeep(option);
-      super(editor, cloneOption);
-      this.type = "group";
-      this.subEventTrigger = false;
-      this.objects = [];
-      const recursion = (arr, parent) => {
-        arr = arr || [];
-        for (let i = 0; i < arr.length; i++) {
-          arr[i] = Factory$1.getInstance(editor, arr[i]);
-          arr[i].group = parent;
-          recursion(arr[i].objects, arr[i]);
+    constructor(_0x22e57b, _0x207cd5) {
+      const _0x41fed3 = cloneDeep(_0x207cd5);
+      super(_0x22e57b, _0x41fed3), this["type"] = "group", this["subEventTrigger"] = ![], this["objects"] = [];
+      const _0x17778f = (_0xd27639, _0x309082) => {
+        _0xd27639 = _0xd27639 || [];
+        for (let _0x5500c9 = 0; _0x5500c9 < _0xd27639["length"]; _0x5500c9++) {
+          _0xd27639[_0x5500c9] = _0x1deaa8["getInstance"](_0x22e57b, _0xd27639[_0x5500c9]), _0xd27639[_0x5500c9]["group"] = _0x309082, _0x17778f(_0xd27639[_0x5500c9]["objects"], _0xd27639[_0x5500c9]);
         }
       };
-      recursion(cloneOption.objects, this);
-      this.objects = cloneOption.objects || [];
+      _0x17778f(_0x41fed3["objects"], this), this["objects"] = _0x41fed3["objects"] || [];
     }
-    // 组合尺寸变化时，更新子对象位置信息
-    handleSizeChange(oldSize) {
-      editorUtil.resetGroupSubsSize(this, oldSize);
+    ["handleSizeChange"](_0x5a64df) {
+      editorUtil["resetGroupSubsSize"](this, _0x5a64df);
     }
   }
   class ActiveSelection extends BaseObject {
-    constructor(editor, option) {
-      super(editor, option);
-      this.type = "activeSelection";
-      this.objects = [];
-      this.objects = option.objects || [];
+    constructor(_0x490bed, _0x149271) {
+      super(_0x490bed, _0x149271), this["type"] = "activeSelection", this["objects"] = [], this["objects"] = _0x149271["objects"] || [];
     }
   }
   class Rect extends BaseObject {
-    constructor(editor, option) {
-      super(editor, option);
-      this.type = "rect";
+    constructor(_0x3ade20, _0x19ae43) {
+      super(_0x3ade20, _0x19ae43), this["type"] = "rect";
     }
   }
   class Line extends BaseObject {
-    constructor(editor, option) {
-      super(editor, option);
-      this.type = "line";
-      this.x1 = 0;
-      this.y1 = 0;
-      this.x2 = 0;
-      this.y2 = 0;
-      this.stroke = "#000000";
-      this.fill = "#ffffff00";
-      this.strokeWidth = 1;
-      Object.assign(this, option);
+    constructor(_0x46d596, _0x55cb36) {
+      super(_0x46d596, _0x55cb36), this["type"] = "line", this["x1"] = 0, this["y1"] = 0, this["x2"] = 0, this["y2"] = 0, this["stroke"] = "#000000", this["fill"] = "#ffffff00", this["strokeWidth"] = 1, Object["assign"](this, _0x55cb36);
     }
   }
   class Polyline extends BaseObject {
-    constructor(editor, option) {
-      super(editor, option);
-      this.type = "polyline";
-      this.points = [{ x: 0, y: 0 }];
-      this.stroke = "#000000";
-      this.fill = "#ffffff00";
-      this.strokeWidth = 1;
-      Object.assign(this, option);
+    constructor(_0x310d41, _0x1fba86) {
+      super(_0x310d41, _0x1fba86), this["type"] = "polyline", this["points"] = [{ "x": 0, "y": 0 }], this["stroke"] = "#000000", this["fill"] = "#ffffff00", this["strokeWidth"] = 1, Object["assign"](this, _0x1fba86);
     }
-    handleSizeChange(oldSize) {
-      const ratioW = this.w / oldSize.w;
-      const ratioH = this.h / oldSize.h;
-      this.points.forEach((item, index) => {
-        item.x = this.points[index].x * ratioW;
-        item.y = this.points[index].y * ratioH;
+    ["handleSizeChange"](_0x221c82) {
+      const _0x3d19cf = this["w"] / _0x221c82["w"], _0x4a6a2a = this["h"] / _0x221c82["h"];
+      this["points"]["forEach"]((_0xd9b102, _0x9be2d9) => {
+        _0xd9b102["x"] = this["points"][_0x9be2d9]["x"] * _0x3d19cf, _0xd9b102["y"] = this["points"][_0x9be2d9]["y"] * _0x4a6a2a;
       });
     }
   }
   class BezierCurve extends BaseObject {
-    constructor(editor, option) {
-      super(editor, option);
-      this.type = "bezierCurve";
-      this.path = [
-        ["M", 0, 0],
-        ["C", -25, 0, -25, 100, 0, 100]
-      ];
-      this.stroke = "#000000";
-      this.fill = "#ffffff00";
-      this.strokeWidth = 1;
-      Object.assign(this, option);
+    constructor(_0x24c80c, _0x5bbec7) {
+      super(_0x24c80c, _0x5bbec7), this["type"] = "bezierCurve", this["path"] = [["M", 0, 0], ["C", -25, 0, -25, 100, 0, 100]], this["stroke"] = "#000000", this["fill"] = "#ffffff00", this["strokeWidth"] = 1, Object["assign"](this, _0x5bbec7);
     }
-    handleSizeChange(oldSize) {
-      const ratioW = this.w / oldSize.w;
-      const ratioH = this.h / oldSize.h;
-      this.path.forEach((p, pIndex) => {
-        p.forEach((item, index) => {
-          if (index > 0) {
-            p[index] = index % 2 === 0 ? p[index] * ratioH : p[index] * ratioW;
-          }
+    ["handleSizeChange"](_0x5107eb) {
+      const _0x160a6d = this["w"] / _0x5107eb["w"], _0xc8f270 = this["h"] / _0x5107eb["h"];
+      this["path"]["forEach"]((_0x13150a, _0x2b6aec) => {
+        _0x13150a["forEach"]((_0x4e67ae, _0x33cbac) => {
+          _0x33cbac > 0 && (_0x13150a[_0x33cbac] = _0x33cbac % 2 === 0 ? _0x13150a[_0x33cbac] * _0xc8f270 : _0x13150a[_0x33cbac] * _0x160a6d);
         });
       });
     }
   }
   class Factory {
-    static getInstance(editor, obj) {
-      switch (obj.type) {
+    static ["getInstance"](_0x504c76, _0x5196f7) {
+      switch (_0x5196f7["type"]) {
         case "group":
-          return new Group(editor, obj);
+          return new Group(_0x504c76, _0x5196f7);
         case "activeSelection":
-          return new ActiveSelection(editor, obj);
+          return new ActiveSelection(_0x504c76, _0x5196f7);
         case "rect":
-          return new Rect(editor, obj);
+          return new Rect(_0x504c76, _0x5196f7);
         case "line":
-          return new Line(editor, obj);
+          return new Line(_0x504c76, _0x5196f7);
         case "polyline":
-          return new Polyline(editor, obj);
+          return new Polyline(_0x504c76, _0x5196f7);
         case "bezierCurve":
-          return new BezierCurve(editor, obj);
+          return new BezierCurve(_0x504c76, _0x5196f7);
         default:
-          return new BaseObject(editor, obj);
+          return new BaseObject(_0x504c76, _0x5196f7);
       }
     }
   }
-  const Factory$1 = Factory;
-  const recursionSetId = (arr) => {
-    arr.forEach((obj) => {
-      obj.id = editorUtil.nanoid(8);
-      if (obj.objects && obj.objects.length) {
-        recursionSetId(obj.objects);
-      }
-    });
-  };
+  const _0x1deaa8 = Factory;
   class ObjectHandler {
-    constructor(editor) {
-      this.editor = editor;
+    constructor(_0x4c09fc) {
+      this["editor"] = _0x4c09fc;
     }
-    attribute(objs = {}) {
-      const { editor } = this;
-      return new Promise((resolve, reject) => {
-        const idList = objs.map((obj) => obj.id);
-        const targets = editor.getObjectsByCondition((a) => idList.includes(a.id));
-        if (!targets.length) {
-          reject("no target");
-        } else {
-          const sizeAttrsList = ["w", "h"];
-          targets.forEach((item) => {
-            const attrs = objs.find((a) => a.id === item.id);
-            const oldSize = { w: item.w, h: item.h };
-            item.set(attrs);
-            const keys2 = Object.keys(attrs);
-            if (keys2.some((key) => sizeAttrsList.includes(key))) {
-              item.handleSizeChange && item.handleSizeChange(oldSize);
-            }
-          });
-          resolve("");
+    ["attribute"](_0x340a45 = {}) {
+      const { editor: _0xa90dd4 } = this;
+      return new Promise((_0x535517, _0x498dbb) => {
+        const _0x446422 = _0x340a45["map"]((_0x332731) => _0x332731["id"]), _0x118cf2 = _0xa90dd4["getObjectsByCondition"]((_0x2781b6) => _0x446422["includes"](_0x2781b6["id"]));
+        if (!_0x118cf2["length"])
+          _0x498dbb("no target");
+        else {
+          const _0x248317 = ["w", "h"];
+          _0x118cf2["forEach"]((_0x367106) => {
+            const _0x283428 = _0x340a45["find"]((_0x3abb15) => _0x3abb15["id"] === _0x367106["id"]), _0x2202d4 = { "w": _0x367106["w"], "h": _0x367106["h"] };
+            _0x367106["set"](_0x283428);
+            const _0x1f1d9f = Object["keys"](_0x283428);
+            _0x1f1d9f["some"]((_0x33c46e) => _0x248317["includes"](_0x33c46e)) && (_0x367106["handleSizeChange"] && _0x367106["handleSizeChange"](_0x2202d4));
+          }), _0x535517("");
         }
       });
     }
-    move(type, distance) {
-      const { editor } = this;
-      return new Promise((resolve, reject) => {
-        const activeObj = editor.getActiveObject();
-        if (activeObj) {
-          if (activeObj.locked) {
-            return reject("object is locked.");
-          }
-          let key = "";
-          switch (type) {
+    ["move"](_0x10eac5, _0x369010) {
+      const { editor: _0x2f2b92 } = this;
+      return new Promise((_0x573e37, _0x1df14f) => {
+        const _0x35aa87 = _0x2f2b92["getActiveObject"]();
+        if (_0x35aa87) {
+          if (_0x35aa87["locked"])
+            return _0x1df14f("object is locked.");
+          let _0x3ed811 = "";
+          switch (_0x10eac5) {
             case "top":
-              key = "y";
+              _0x3ed811 = "y";
               break;
             case "left":
-              key = "x";
+              _0x3ed811 = "x";
               break;
           }
-          activeObj[key] += distance;
-          if (activeObj.type === "activeSelection") {
-            activeObj.objects.forEach((item) => {
-              item[key] += distance;
+          _0x35aa87[_0x3ed811] += _0x369010, _0x35aa87["type"] === "activeSelection" && _0x35aa87["objects"]["forEach"]((_0xdadd77) => {
+            _0xdadd77[_0x3ed811] += _0x369010;
+          }), _0x35aa87["updateControlsPosition"](), _0x573e37("");
+        } else
+          _0x1df14f("no active object.");
+      });
+    }
+    ["copy"](_0xe13a2d = ![]) {
+      const { editor: _0x43608e } = this;
+      return new Promise((_0x29d815, _0x41cfab) => __async(this, null, function* () {
+        const { copyKey: _0x99fea4 } = _0x43608e["config"], _0x148f88 = _0x43608e["getActiveObject"]();
+        if (_0x148f88) {
+          const _0x37d725 = _0x148f88["toJSON"]();
+          if (_0x43608e["enableCustomPaste"] && navigator && navigator["clipboard"]) {
+            const _0x5937f5 = JSON["stringify"]({ "datavisCopy": !![], "content": _0x37d725 });
+            yield navigator["clipboard"]["writeText"](_0x5937f5);
+          } else {
+            const _0x516d24 = JSON["stringify"](_0x37d725);
+            yield _0x43608e["util"]["localforage"]["setItem"](_0x99fea4, _0x516d24);
+          }
+          if (_0xe13a2d) {
+            const _0x4f1f2a = _0x43608e["objects"];
+            if (_0x148f88["type"] === "activeSelection")
+              _0x148f88["objects"]["forEach"]((_0x5d4563) => {
+                const _0x560e25 = _0x4f1f2a["findIndex"]((_0x518d24) => _0x518d24["id"] === _0x5d4563["id"]);
+                _0x560e25 > -1 && _0x4f1f2a["splice"](_0x560e25, 1);
+              });
+            else {
+              const _0x3301d1 = _0x4f1f2a["findIndex"]((_0x5f058d) => _0x5f058d["id"] === _0x148f88["id"]);
+              _0x3301d1 > -1 && _0x4f1f2a["splice"](_0x3301d1, 1);
+            }
+            _0x43608e["discardActiveObject"]();
+          }
+          _0x29d815("");
+        } else
+          _0x41cfab("no active object");
+      }));
+    }
+    ["cut"]() {
+      return this["copy"](!![]);
+    }
+    ["paste"]() {
+      return __async(this, null, function* () {
+        const { editor: _0x282b31 } = this;
+        return new Promise((_0x53522d, _0x22fbd3) => __async(this, null, function* () {
+          const { copyKey: _0x3617ac } = _0x282b31["config"], _0x5499ba = yield _0x282b31["util"]["localforage"]["getItem"](_0x3617ac);
+          if (!_0x5499ba)
+            return _0x22fbd3("no data to paste");
+          const _0x4ee99a = JSON["parse"](_0x5499ba);
+          let _0x76c861 = _0x4ee99a["type"] === "activeSelection" ? _0x4ee99a["objects"] : [_0x4ee99a];
+          _0x76c861 = _0x282b31["parseObjects"](_0x76c861);
+          const _0x5d2741 = _0x282b31["getNamesMap"]();
+          editorUtil["traverse"](_0x76c861, "objects", (_0x292bdf) => {
+            _0x292bdf["id"] = editorUtil["nanoid"](8);
+          }), _0x76c861["forEach"]((_0x197354) => {
+            const { prefix: _0x4a1161 } = _0x282b31["analysisName"](_0x197354["name"]);
+            !_0x5d2741[_0x4a1161] && (_0x5d2741[_0x4a1161] = 0), _0x197354["name"] = _0x4a1161 + "_" + ++_0x5d2741[_0x4a1161];
+          });
+          let _0xd8e360 = _0x282b31["objects"]["length"];
+          const _0x5e3c81 = _0x282b31["getActiveObjects"](), { startX: _0x2a8e49, startY: _0xd099a9, centerX: _0x1353e1, centerY: _0x1b372b, width: _0x3fc6f9, height: _0x1f62d8 } = _0x282b31["getEditorBounding"](), _0x2b201e = editorUtil["getBoundingRect"](_0x76c861), _0x2eb6d1 = { "x": _0x2a8e49, "y": _0xd099a9, "w": _0x3fc6f9, "h": _0x1f62d8 }, _0x2d8b6b = editorUtil["isRectIntersect"](_0x2b201e, _0x2eb6d1);
+          if (!_0x2d8b6b) {
+            const _0x3bc703 = _0x1353e1 - _0x4ee99a["x"] - _0x4ee99a["w"] / 2, _0x5cbd87 = _0x1b372b - _0x4ee99a["y"] - _0x4ee99a["h"] / 2;
+            _0x76c861["forEach"]((_0x420bf1) => {
+              _0x420bf1["x"] += _0x3bc703, _0x420bf1["y"] += _0x5cbd87;
             });
           }
-          activeObj.updateControlsPosition();
-          resolve("");
-        } else {
-          reject("no active object.");
-        }
+          _0x282b31["discardActiveObject"]();
+          _0x5e3c81["length"] && (_0xd8e360 = _0x5e3c81["reduce"]((_0x5e2aa1, _0x3ee2fd) => {
+            const _0x550535 = _0x282b31["objects"]["findIndex"]((_0x1d0100) => _0x1d0100["id"] === _0x3ee2fd["id"]);
+            return _0x550535 > _0x5e2aa1 ? _0x550535 : _0x5e2aa1;
+          }, 0) + 1);
+          this["add"](_0x76c861, _0xd8e360);
+          if (_0x4ee99a["type"] === "activeSelection") {
+            const _0x1781df = editorUtil["getBoundingRect"](_0x76c861, _0x4ee99a["angle"]);
+            _0x282b31["setActiveObjectsWithPosition"](_0x76c861, _0x1781df);
+          } else
+            _0x282b31["setActiveObjects"](_0x76c861);
+          _0x53522d("ok");
+        }));
       });
     }
-    copy(isCut = false) {
-      const editor = this.editor;
-      return new Promise((resolve, reject) => {
-        const copyKey = editor.config.copyKey;
-        editor.pasteCount = 0;
-        const activeObj = editor.getActiveObject();
-        if (activeObj) {
-          const content = activeObj.toJSON();
-          editor.util.localforage.setItem(copyKey, JSON.stringify(content)).then(() => {
-          });
-          if (isCut) {
-            const objs = editor.objects;
-            if (activeObj.type === "activeSelection") {
-              activeObj.objects.forEach((item) => {
-                const index = objs.findIndex((a) => a.id === item.id);
-                index > -1 && objs.splice(index, 1);
-              });
-            } else {
-              const index = objs.findIndex((a) => a.id === activeObj.id);
-              index > -1 && objs.splice(index, 1);
-            }
-            editor.discardActiveObject();
-          }
-          resolve("");
-        } else {
-          reject("no active object");
-        }
+    ["multiplex"](_0x416b9a) {
+      const { editor: _0x297271 } = this;
+      let _0x35698e = [];
+      const _0x422776 = _0x297271["getNamesMap"]();
+      _0x416b9a["type"] === "activeSelection" ? _0x35698e = _0x416b9a["objects"]["map"]((_0x51b079) => _0x51b079["clone"]()) : _0x35698e = [_0x416b9a["clone"]()];
+      _0x35698e["forEach"]((_0x3703a0) => {
+        const { prefix: _0x13fbcd } = _0x297271["analysisName"](_0x3703a0["name"]);
+        !_0x422776[_0x13fbcd] && (_0x422776[_0x13fbcd] = 0), _0x3703a0["name"] = _0x13fbcd + "_" + ++_0x422776[_0x13fbcd];
+      }), editorUtil["traverse"](_0x35698e, "objects", (_0x341ff9) => {
+        _0x341ff9["id"] = editorUtil["nanoid"](8);
       });
-    }
-    cut() {
-      return this.copy(true);
-    }
-    /**
-     * 粘贴
-     * @param {*} mousePosition 鼠标位置
-     */
-    paste(mousePosition) {
-      const { editor } = this;
-      return new Promise((resolve, reject) => {
-        editor.pasteCount += 1;
-        const { copyKey, pasteOffset } = editor.config;
-        const parseHandle = (e) => {
-          recursionSetId([e]);
-          let diffX = 0;
-          let diffY = 0;
-          if (mousePosition) {
-            let realX = mousePosition.x - e.w / 2;
-            let realY = mousePosition.y - e.h / 2;
-            diffX = realX - e.x;
-            diffY = realY - e.y;
-            e.x = realX;
-            e.y = realY;
-            if (e.type === "activeSelection") {
-              e.objects.forEach((item) => {
-                item.x += diffX;
-                item.y += diffY;
-              });
-            }
-          } else {
-            e.x += editor.pasteCount * pasteOffset.x;
-            e.y += editor.pasteCount * pasteOffset.y;
-          }
-          return e;
-        };
-        console.time("paste");
-        console.log("typeCounts", editor.typeCounts);
-        editor.util.localforage.getItem(copyKey).then((value) => {
-          if (!value) {
-            return reject("no data to paste");
-          }
-          const pasteData = JSON.parse(value);
-          const disposeItem = parseHandle(pasteData);
-          let objs = disposeItem.type === "activeSelection" ? disposeItem.objects : [disposeItem];
-          objs = objs.map((a) => {
-            const obj = Factory$1.getInstance(editor, a);
-            const name = editor.getTypeCountName(obj);
-            obj.name = name;
-            return obj;
-          });
-          let insertIndex = editor.objects.length;
-          const activeObjs = editor.getActiveObjects();
-          editor.discardActiveObject();
-          if (activeObjs.length) {
-            insertIndex = activeObjs.reduce((pre, cur) => {
-              const index = editor.objects.findIndex((b) => b.id === cur.id);
-              return index > pre ? index : pre;
-            }, 0) + 1;
-          }
-          this.add(objs, insertIndex);
-          if (disposeItem.type === "activeSelection") {
-            const position = editorUtil.getBoundingRect(objs, disposeItem.angle);
-            editor.setActiveObjectsWithPosition(objs, position);
-          } else {
-            editor.setActiveObjects(objs);
-          }
-          console.timeEnd("paste");
-          resolve("");
+      let _0x2789fc = _0x297271["objects"]["length"];
+      const { startX: _0x2f3b0c, startY: _0x4c4000, centerX: _0x515a4c, centerY: _0x558012, width: _0x3cd114, height: _0x214c79 } = _0x297271["getEditorBounding"](), _0x1f5059 = editorUtil["getBoundingRect"](_0x35698e), _0x57d9f1 = { "x": _0x2f3b0c, "y": _0x4c4000, "w": _0x3cd114, "h": _0x214c79 }, _0x289ab1 = _0x297271["getActiveObjects"]();
+      _0x289ab1["length"] && (_0x2789fc = _0x289ab1["reduce"]((_0x293a5f, _0x3d8aa8) => {
+        const _0x30ade8 = _0x297271["objects"]["findIndex"]((_0x20129a) => _0x20129a["id"] === _0x3d8aa8["id"]);
+        return _0x30ade8 > _0x293a5f ? _0x30ade8 : _0x293a5f;
+      }, 0) + 1);
+      const _0x45da5f = editorUtil["isRectIntersect"](_0x1f5059, _0x57d9f1);
+      if (!_0x45da5f) {
+        const _0x5534fc = _0x515a4c - _0x416b9a["x"] - _0x416b9a["w"] / 2, _0x485dca = _0x558012 - _0x416b9a["y"] - _0x416b9a["h"] / 2;
+        _0x35698e["forEach"]((_0x1d5007) => {
+          _0x1d5007["x"] += _0x5534fc, _0x1d5007["y"] += _0x485dca;
         });
-      });
-    }
-    /**
-     * 复用对象
-     * @param target 源对象
-     * @param offset 偏移量
-     * @returns
-     */
-    multiplex(target, offset = { x: 0, y: 0 }) {
-      const { editor } = this;
-      let objs = [];
-      if (target.type === "activeSelection") {
-        objs = target.objects.map((a) => a.clone());
-      } else {
-        objs = [target.clone()];
       }
-      objs.forEach((item) => {
-        item.x += offset.x;
-        item.y += offset.y;
-      });
-      recursionSetId(objs);
-      editor.add(objs);
-      if (target.type === "activeSelection") {
-        let { x, y, w, h, angle } = target;
-        x += offset.x;
-        y += offset.y;
-        editor.setActiveObjectsWithPosition(objs, { x, y, w, h, angle });
-      } else {
-        editor.setActiveObjects(objs);
-      }
-      return Promise.resolve("ok");
+      this["add"](_0x35698e, _0x2789fc);
+      if (_0x416b9a["type"] === "activeSelection") {
+        let { x: _0x135a80, y: _0x782aca, w: _0x17c9c4, h: _0x525918, angle: _0x3c1c2a } = _0x416b9a;
+        _0x297271["setActiveObjectsWithPosition"](_0x35698e, { "x": _0x135a80, "y": _0x782aca, "w": _0x17c9c4, "h": _0x525918, "angle": _0x3c1c2a });
+      } else
+        _0x297271["setActiveObjects"](_0x35698e);
+      return Promise["resolve"]("ok");
     }
-    /**
-     * 组合
-     * @returns
-     */
-    group() {
-      const { editor } = this;
-      const { groupAttrs } = editor.config;
-      return new Promise((resolve, reject) => {
-        const activeObject = editor.getActiveObject();
-        if (activeObject && activeObject.type === "activeSelection") {
-          const objs = activeObject.objects || [];
-          const relationship = editor.getObjectsParentRelationship(objs);
-          relationship.sort((a, b) => b.path - a.path);
-          let parentIdList = relationship.reduce((pre, cur) => {
-            pre.push(...cur.parentIdList);
-            return pre;
+    ["group"]() {
+      const { editor: _0x3fe04c } = this, { groupAttrs: _0x371a24 } = _0x3fe04c["config"];
+      return new Promise((_0x23ce03, _0x5ed033) => {
+        const _0x128b70 = _0x3fe04c["getActiveObject"]();
+        if (_0x128b70 && _0x128b70["type"] === "activeSelection") {
+          const _0x137f0f = _0x128b70["objects"] || [], _0x25f60c = _0x3fe04c["getObjectsParentRelationship"](_0x137f0f);
+          _0x25f60c["sort"]((_0x16c625, _0x240060) => _0x240060["path"] - _0x16c625["path"]);
+          let _0x48cd0a = _0x25f60c["reduce"]((_0x531286, _0x5b470f) => {
+            return _0x531286["push"](..._0x5b470f["parentIdList"]), _0x531286;
           }, []);
-          parentIdList = [...new Set(parentIdList)];
-          const idList = objs.map((a) => a.id);
-          if (parentIdList.some((a) => idList.includes(a))) {
-            return reject("cannot operate parent and children at the same time");
+          _0x48cd0a = [...new Set(_0x48cd0a)];
+          const _0x57addf = _0x137f0f["map"]((_0x53a31a) => _0x53a31a["id"]);
+          if (_0x48cd0a["some"]((_0xc3ebfe) => _0x57addf["includes"](_0xc3ebfe)))
+            return _0x5ed033("cannot operate parent and children at the same time");
+          const _0x3be1f2 = _0x25f60c[0]["target"]["group"] || _0x3fe04c, _0x2b2171 = _0x25f60c[0]["parentId"];
+          let _0x1fc8cf = _0x25f60c["filter"]((_0x276f91) => _0x276f91["parentId"] === _0x2b2171)["reduce"]((_0x2f4bfa, _0x11df52) => {
+            return Math["min"](_0x2f4bfa, _0x11df52["index"]);
+          }, _0x25f60c[0]["index"]);
+          const { x: _0x32d49b, y: _0x22082a, w: _0x4f0f54, h: _0x4333f, angle: _0x669170 } = editorUtil["getBoundingRect"](_0x137f0f), _0x266348 = _0x137f0f["map"]((_0x30b7b4) => {
+            return __spreadValues({ "id": _0x30b7b4["id"] }, _0x30b7b4["getGlobalPosition"]());
+          });
+          _0x25f60c["forEach"]((_0x5301a4) => {
+            const { index: _0x438afa, target: _0x4d6a59 } = _0x5301a4, _0x4f80c6 = _0x4d6a59["group"] || _0x3fe04c;
+            _0x4f80c6["objects"]["splice"](_0x438afa, 1), delete _0x4d6a59["group"];
+            const _0x174dbe = _0x266348["find"]((_0x2e204f) => _0x2e204f["id"] === _0x4d6a59["id"]);
+            Object["assign"](_0x4d6a59, _0x174dbe);
+          });
+          const _0x1f4d27 = _0x1deaa8["getInstance"](_0x3fe04c, __spreadProps(__spreadValues({ "type": "group" }, cloneDeep(_0x371a24)), { "x": _0x32d49b, "y": _0x22082a, "w": _0x4f0f54, "h": _0x4333f, "angle": _0x669170 })), _0x11599d = editorUtil["getTotalMatrix"](_0x1f4d27, ![], !![]);
+          _0x137f0f["forEach"]((_0x270399) => {
+            editorUtil["applyMatrix"](_0x270399, inverse(_0x11599d)), _0x270399["group"] = _0x1f4d27, _0x1f4d27["objects"]["push"](_0x270399);
+          }), _0x1f4d27["name"] = _0x3fe04c["getTypeCountName"](_0x1f4d27);
+          if (_0x3be1f2["type"] === "group") {
+            const _0xc6b099 = editorUtil["getTotalMatrix"](_0x3be1f2, ![], !![]);
+            editorUtil["applyMatrix"](_0x1f4d27, inverse(_0xc6b099)), _0x1f4d27["group"] = _0x3be1f2;
           }
-          const insertParent = relationship[0].target.group || editor;
-          const insertParentId = relationship[0].parentId;
-          let insertIndex = relationship.filter((item) => item.parentId === insertParentId).reduce((pre, cur) => {
-            return Math.min(pre, cur.index);
-          }, relationship[0].index);
-          const { x, y, w, h, angle } = editorUtil.getBoundingRect(objs);
-          const objsGlobalPosList = objs.map((a) => {
-            return __spreadValues({ id: a.id }, a.getGlobalPosition());
-          });
-          relationship.forEach((relation) => {
-            const { index, target } = relation;
-            const parent = target.group || editor;
-            parent.objects.splice(index, 1);
-            delete target.group;
-            const position = objsGlobalPosList.find((a) => a.id === target.id);
-            Object.assign(target, position);
-          });
-          const groupItem = Factory$1.getInstance(editor, __spreadProps(__spreadValues({
-            type: "group"
-          }, cloneDeep(groupAttrs)), {
-            x,
-            y,
-            w,
-            h,
-            angle
-          }));
-          const groupMatrix = editorUtil.getTotalMatrix(groupItem, false, true);
-          objs.forEach((item) => {
-            editorUtil.applyMatrix(item, inverse(groupMatrix));
-            item.group = groupItem;
-            groupItem.objects.push(item);
-          });
-          groupItem.name = editor.getTypeCountName(groupItem);
-          if (insertParent.type === "group") {
-            const parentMatrix = editorUtil.getTotalMatrix(insertParent, false, true);
-            editorUtil.applyMatrix(groupItem, inverse(parentMatrix));
-            groupItem.group = insertParent;
-          }
-          insertParent.objects.splice(insertIndex, 0, groupItem);
-          editor.setActiveObjects([groupItem]);
-          resolve("");
-        } else {
-          reject("no need to group");
-        }
+          _0x3be1f2["objects"]["splice"](_0x1fc8cf, 0, _0x1f4d27), _0x3fe04c["setActiveObjects"]([_0x1f4d27]), _0x23ce03("");
+        } else
+          _0x5ed033("no need to group");
       });
     }
-    ungroup() {
-      const { editor } = this;
-      return new Promise((resolve, reject) => {
-        const objs = editor.getActiveObjects();
-        if (objs.every((a) => a.type === "group")) {
-          const relationship = editor.getObjectsParentRelationship(objs);
-          relationship.sort((a, b) => b.path - a.path);
-          const toSelectObjs = [];
-          relationship.forEach((element) => {
-            const { index, target } = element;
-            const parent = target.group || editor;
-            const { x, y, angle } = target;
-            const chidlren = target.objects || [];
-            const groupCenter = editorUtil.getObjectCenter(target);
-            chidlren.forEach((item) => {
-              let objCenter = editorUtil.getObjectCenter(item);
-              objCenter.x += x;
-              objCenter.y += y;
-              const objIndex = target.objects.findIndex((a) => a.id === item.id);
-              objCenter = editorUtil.rotatePoint(objCenter, groupCenter, angle);
-              item.x = objCenter.x - item.w / 2;
-              item.y = objCenter.y - item.h / 2;
-              item.angle = item.angle + angle;
-              if (parent.type === "group") {
-                item.group = parent;
-              } else {
-                delete item.group;
-              }
-              parent.objects.splice(objIndex + index, 0, item);
-              toSelectObjs.push(item);
+    ["ungroup"]() {
+      const { editor: _0x5c14d9 } = this;
+      return new Promise((_0x558905, _0x2173b7) => {
+        const _0x26773d = _0x5c14d9["getActiveObjects"]();
+        if (_0x26773d["every"]((_0x10854b) => _0x10854b["type"] === "group")) {
+          const _0x49d64e = _0x5c14d9["getObjectsParentRelationship"](_0x26773d);
+          _0x49d64e["sort"]((_0x90204c, _0x4758ef) => _0x4758ef["path"] - _0x90204c["path"]);
+          const _0x13d9b7 = [];
+          _0x49d64e["forEach"]((_0x127f7a) => {
+            const { index: _0x3ca5a4, target: _0x411da3 } = _0x127f7a, _0x198881 = _0x411da3["group"] || _0x5c14d9, { x: _0xf2d0f0, y: _0x210b06, angle: _0x36449b } = _0x411da3, _0x166cf9 = _0x411da3["objects"] || [], _0x27c275 = editorUtil["getObjectCenter"](_0x411da3);
+            _0x166cf9["forEach"]((_0xe74ce1) => {
+              let _0x221304 = editorUtil["getObjectCenter"](_0xe74ce1);
+              _0x221304["x"] += _0xf2d0f0, _0x221304["y"] += _0x210b06;
+              const _0x2fb4c0 = _0x411da3["objects"]["findIndex"]((_0x544908) => _0x544908["id"] === _0xe74ce1["id"]);
+              _0x221304 = editorUtil["rotatePoint"](_0x221304, _0x27c275, _0x36449b), _0xe74ce1["x"] = _0x221304["x"] - _0xe74ce1["w"] / 2, _0xe74ce1["y"] = _0x221304["y"] - _0xe74ce1["h"] / 2, _0xe74ce1["angle"] = _0xe74ce1["angle"] + _0x36449b, _0x198881["type"] === "group" ? _0xe74ce1["group"] = _0x198881 : delete _0xe74ce1["group"], _0x198881["objects"]["splice"](_0x2fb4c0 + _0x3ca5a4, 0, _0xe74ce1), _0x13d9b7["push"](_0xe74ce1);
             });
-            const groupIndex = parent.objects.findIndex((a) => a.id === target.id);
-            parent.objects.splice(groupIndex, 1);
-          });
-          editor.setActiveObjects(toSelectObjs);
-          resolve("");
-        } else {
-          reject("no need to ungroup");
-        }
+            const _0x3e846f = _0x198881["objects"]["findIndex"]((_0xd248a7) => _0xd248a7["id"] === _0x411da3["id"]);
+            _0x198881["objects"]["splice"](_0x3e846f, 1);
+          }), _0x5c14d9["setActiveObjects"](_0x13d9b7), _0x558905("");
+        } else
+          _0x2173b7("no need to ungroup");
       });
     }
-    /**
-     * 锁定/解锁对象
-     * @param {*} locked 是否锁定
-     */
-    lock(locked) {
-      const { editor } = this;
-      return new Promise((resolve, reject) => {
-        const activeObj = editor.getActiveObject();
-        if (activeObj && activeObj.type !== "activeSelection") {
-          activeObj.locked = locked;
-          activeObj.updateControlsPosition();
-          resolve("");
-        } else {
-          reject("lock/unlock failed");
-        }
+    ["lock"](_0x1e50d2) {
+      const { editor: _0x57b624 } = this;
+      return new Promise((_0x38c44c, _0x10dfa6) => {
+        const _0x411466 = _0x57b624["getActiveObject"]();
+        _0x411466 && _0x411466["type"] !== "activeSelection" ? (_0x411466["locked"] = _0x1e50d2, _0x411466["updateControlsPosition"](), _0x38c44c("")) : _0x10dfa6("lock/unlock failed");
       });
     }
-    /**
-     * 层级操作
-     * @param {String} type。bringForward 上移；sendBackwards 下移；bringToFront 置顶；sendToBack 置底
-     * @returns
-     */
-    layer(type) {
-      const { editor } = this;
-      return new Promise((resolve, reject) => {
-        const activeObj = editor.getActiveObject();
-        if (!activeObj) {
-          return reject("no active object");
-        }
-        if (activeObj.type === "activeSelection") {
-          return reject("activeSelection have not layer operations");
-        }
-        const parent = activeObj.group || editor;
-        const index = parent.objects.findIndex((a) => a.id === activeObj.id);
-        const objs = parent.objects;
-        switch (type) {
+    ["layer"](_0x23f3b2) {
+      const { editor: _0x5198ca } = this;
+      return new Promise((_0x4f3787, _0xb8dbb0) => {
+        const _0x236045 = _0x5198ca["getActiveObject"]();
+        if (!_0x236045)
+          return _0xb8dbb0("no active object");
+        if (_0x236045["type"] === "activeSelection")
+          return _0xb8dbb0("activeSelection have not layer operations");
+        const _0x10ff00 = _0x236045["group"] || _0x5198ca, _0x45531d = _0x10ff00["objects"]["findIndex"]((_0x117973) => _0x117973["id"] === _0x236045["id"]), _0x4d8017 = _0x10ff00["objects"];
+        switch (_0x23f3b2) {
           case "bringForward":
-            if (index < objs.length - 1) {
-              objs.splice(index + 1, 0, objs.splice(index, 1)[0]);
-              resolve("");
-            } else {
-              reject("could not bring forward");
-            }
+            _0x45531d < _0x4d8017["length"] - 1 ? (_0x4d8017["splice"](_0x45531d + 1, 0, _0x4d8017["splice"](_0x45531d, 1)[0]), _0x4f3787("")) : _0xb8dbb0("could not bring forward");
             break;
           case "sendBackwards":
-            if (index > 0) {
-              objs.splice(index - 1, 0, objs.splice(index, 1)[0]);
-              resolve("");
-            } else {
-              reject("could not bring send backwards");
-            }
+            _0x45531d > 0 ? (_0x4d8017["splice"](_0x45531d - 1, 0, _0x4d8017["splice"](_0x45531d, 1)[0]), _0x4f3787("")) : _0xb8dbb0("could not bring send backwards");
             break;
           case "bringToFront":
-            if (index < objs.length - 1) {
-              objs.splice(objs.length - 1, 0, objs.splice(index, 1)[0]);
-              resolve("");
-            } else {
-              reject("could not bring to front");
-            }
+            _0x45531d < _0x4d8017["length"] - 1 ? (_0x4d8017["splice"](_0x4d8017["length"] - 1, 0, _0x4d8017["splice"](_0x45531d, 1)[0]), _0x4f3787("")) : _0xb8dbb0("could not bring to front");
             break;
           case "sendToBack":
-            if (index > 0) {
-              objs.splice(0, 0, objs.splice(index, 1)[0]);
-              resolve("");
-            } else {
-              reject("could not send to back");
-            }
+            _0x45531d > 0 ? (_0x4d8017["splice"](0, 0, _0x4d8017["splice"](_0x45531d, 1)[0]), _0x4f3787("")) : _0xb8dbb0("could not send to back");
             break;
           default:
-            reject("unrecognized layer action");
+            _0xb8dbb0("unrecognized layer action");
             break;
         }
       });
     }
-    /**
-     * 删除对象
-     * @param objs 要删除的对象
-     * @returns
-     */
-    remove(objs = []) {
-      const { editor } = this;
-      for (let i = 0; i < objs.length; i++) {
-        const item = objs[i];
-        const parent = item.group || editor;
-        const findIndex2 = parent.objects.findIndex((a) => a.id === item.id);
-        if (findIndex2 > -1) {
-          parent.objects.splice(findIndex2, 1);
-        }
+    ["remove"](_0x30a017 = []) {
+      const { editor: _0x264469 } = this;
+      for (let _0x156eba = 0; _0x156eba < _0x30a017["length"]; _0x156eba++) {
+        const _0x1896ef = _0x30a017[_0x156eba], _0x259b70 = _0x1896ef["group"] || _0x264469, _0x1293e1 = _0x259b70["objects"]["findIndex"]((_0x4d4fef) => _0x4d4fef["id"] === _0x1896ef["id"]);
+        _0x1293e1 > -1 && _0x259b70["objects"]["splice"](_0x1293e1, 1);
       }
-      editor.discardActiveObject();
-      return Promise.resolve("ok");
+      return _0x264469["discardActiveObject"](), Promise["resolve"]("ok");
     }
-    /**
-     * 向上递归退出组合
-     */
-    exitGroup() {
-      const { editor } = this;
-      if (editor.group) {
-        editorUtil.resetGroupPosition(editor.group);
-        editor.group = null;
-      }
+    ["exitGroup"]() {
+      const { editor: _0x219586 } = this;
+      _0x219586["group"] && (editorUtil["resetGroupPosition"](_0x219586["group"]), _0x219586["group"] = null);
     }
-    /**
-     * 添加对象
-     * @param objs 对象数组
-     * @param index 要插入的索引
-     */
-    add(objs, index) {
-      const { editor } = this;
-      editor.objects.splice(index, 0, ...objs);
+    ["add"](_0x204b89, _0x14d673) {
+      const { editor: _0x354dc1 } = this;
+      _0x354dc1["objects"]["splice"](_0x14d673, 0, ..._0x204b89);
     }
   }
   class ZoomHandler {
-    constructor(editor) {
-      this.limit = {
-        min: 0.2,
-        max: 4
-      };
-      this.thumbnailNumber = 2;
-      this.blankDistance = 100;
-      this.dragY = {
-        dragging: false,
-        clientY: 0
-      };
-      this.dragX = {
-        dragging: false,
-        clientX: 0
-      };
-      this.clientX = 0;
-      this.clientY = 0;
-      this.rightDom = null;
-      this.rightBarDom = null;
-      this.bottomDom = null;
-      this.bottomBarDom = null;
-      this.editor = editor;
-      this.initialize();
+    constructor(_0x317967) {
+      this["limit"] = { "min": 0.2, "max": 4 }, this["thumbnailNumber"] = 2, this["blankDistance"] = 100, this["dragY"] = { "dragging": ![], "clientY": 0 }, this["dragX"] = { "dragging": ![], "clientX": 0 }, this["clientX"] = 0, this["clientY"] = 0, this["rightDom"] = null, this["rightBarDom"] = null, this["bottomDom"] = null, this["bottomBarDom"] = null, this["editor"] = _0x317967, this["initialize"]();
     }
-    initialize() {
-      this.initEvent();
-      this.initScrollBar();
-      this.initRightEvent();
-      this.initBottomEvent();
-      this.zoomFitView();
+    ["initialize"]() {
+      this["initEvent"](), this["initScrollBar"](), this["initRightEvent"](), this["initBottomEvent"](), this["zoomFitView"]();
     }
-    /**
-     * 通过给画布添加will-change开启高性能模式
-     * @param enabled 是否开启
-     */
-    setHighPerformance(enabled) {
-      const { editor } = this;
-      editor.canvasDom.style.willChange = enabled ? "transform" : "";
+    ["setHighPerformance"](_0x319644) {
+      const { editor: _0x115091 } = this;
+      _0x115091["canvasDom"]["style"]["willChange"] = _0x319644 ? "transform" : "";
     }
-    initEvent() {
-      const editor = this.editor;
-      const editorDom = editor.getEditorDom();
-      let timer = null;
-      editorDom.addEventListener("mousewheel", (e) => {
-        clearTimeout(timer);
-        this.setHighPerformance(true);
-        e.preventDefault();
-        if (e.ctrlKey || e.metaKey) {
-          this.zoomToPoint(e);
-        } else {
-          const { wheelDeltaX, wheelDeltaY } = e;
-          if (e.shiftKey) {
-            this.addOffset(wheelDeltaY / 2, 0);
-          } else {
-            this.addOffset(wheelDeltaX / 2, wheelDeltaY / 2);
-          }
+    ["initEvent"]() {
+      const _0x2c8360 = this["editor"], _0x93e9ae = _0x2c8360["getEditorDom"]();
+      let _0xad3791 = null;
+      _0x93e9ae["addEventListener"]("mousewheel", (_0x519e24) => {
+        clearTimeout(_0xad3791), this["setHighPerformance"](!![]), _0x519e24["preventDefault"]();
+        if (_0x519e24["ctrlKey"] || _0x519e24["metaKey"])
+          this["zoomToPoint"](_0x519e24);
+        else {
+          const { wheelDeltaX: _0x20d885, wheelDeltaY: _0x20731a } = _0x519e24;
+          _0x519e24["shiftKey"] ? this["addOffset"](_0x20731a / 2, 0) : this["addOffset"](_0x20d885 / 2, _0x20731a / 2);
         }
-        timer = setTimeout(() => {
-          this.setHighPerformance(false);
+        _0xad3791 = setTimeout(() => {
+          this["setHighPerformance"](![]);
         }, 50);
-      });
-      editorDom.addEventListener("DOMMouseScroll", (e) => {
-        if (e.ctrlKey || e.metaKey) {
-          e.preventDefault();
-          this.zoomToPoint(e);
+      }), _0x93e9ae["addEventListener"]("DOMMouseScroll", (_0x40b2b3) => {
+        if (_0x40b2b3["ctrlKey"] || _0x40b2b3["metaKey"]) {
+          _0x40b2b3["preventDefault"](), this["zoomToPoint"](_0x40b2b3);
           return;
         }
-        if (e.shiftKey) {
-          this.addOffset(-e.detail, 0);
+        if (_0x40b2b3["shiftKey"]) {
+          this["addOffset"](-_0x40b2b3["detail"], 0);
           return;
         }
-        this.addOffset(0, -e.detail);
-      });
-      setTimeout(() => {
-        editor.fire("editor:mounted");
+        this["addOffset"](0, -_0x40b2b3["detail"]);
+      }), setTimeout(() => {
+        _0x2c8360["fire"]("editor:mounted");
       }, 100);
     }
-    initScrollBar() {
-      const editor = this.editor;
-      const classNamePrefix = editor.classNamePrefix;
-      const overLayerDom = editor.overLayer;
-      const rightElement = document.createElement("div");
-      rightElement.className = `${classNamePrefix}-scroll-right`;
-      this.rightDom = rightElement;
-      const rightBarElement = document.createElement("div");
-      rightBarElement.className = `${classNamePrefix}-scroll-right-bar`;
-      this.rightBarDom = rightBarElement;
-      rightElement.appendChild(this.rightBarDom);
-      overLayerDom.appendChild(this.rightDom);
-      const bottomElement = document.createElement("div");
-      bottomElement.className = `${classNamePrefix}-scroll-bottom`;
-      this.bottomDom = bottomElement;
-      const bottomBarElement = document.createElement("div");
-      bottomBarElement.className = `${classNamePrefix}-scroll-bottom-bar`;
-      this.bottomBarDom = bottomBarElement;
-      bottomElement.appendChild(this.bottomBarDom);
-      overLayerDom.appendChild(this.bottomDom);
+    ["initScrollBar"]() {
+      const _0x411646 = this["editor"], _0x1040db = _0x411646["classNamePrefix"], _0x181ea0 = _0x411646["overLayer"], _0xc06e6a = document["createElement"]("div");
+      _0xc06e6a["className"] = _0x1040db + "-scroll-right", this["rightDom"] = _0xc06e6a;
+      const _0x4b23e5 = document["createElement"]("div");
+      _0x4b23e5["className"] = _0x1040db + "-scroll-right-bar", this["rightBarDom"] = _0x4b23e5, _0xc06e6a["appendChild"](this["rightBarDom"]), _0x181ea0["appendChild"](this["rightDom"]);
+      const _0x10e5f2 = document["createElement"]("div");
+      _0x10e5f2["className"] = _0x1040db + "-scroll-bottom", this["bottomDom"] = _0x10e5f2;
+      const _0x3fc899 = document["createElement"]("div");
+      _0x3fc899["className"] = _0x1040db + "-scroll-bottom-bar", this["bottomBarDom"] = _0x3fc899, _0x10e5f2["appendChild"](this["bottomBarDom"]), _0x181ea0["appendChild"](this["bottomDom"]);
     }
-    initRightEvent() {
-      const editor = this.editor;
-      const { viewportTransform } = editor;
-      const config = editor.config;
-      this.rightBarDom.addEventListener("mousedown", (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        this.dragY.dragging = true;
-        this.dragY.clientY = e.clientY;
-        const mousemove = (event) => {
-          event.preventDefault();
-          if (this.dragY.dragging) {
-            const { sx: scale2 } = editorUtil.decomposeMatrix(viewportTransform);
-            const { height: clientOff } = editor.getEditorBoundingClientRect();
-            const calcOff = this.thumbnailNumber * clientOff + config.height * scale2;
-            const offset = (this.dragY.clientY - event.clientY) * calcOff / (clientOff - 20);
-            this.dragY.clientY = event.clientY;
-            this.addOffsetY(offset);
+    ["initRightEvent"]() {
+      const _0x316696 = this["editor"], { viewportTransform: _0xc23fe7 } = _0x316696, _0x555dad = _0x316696["config"];
+      this["rightBarDom"]["addEventListener"]("mousedown", (_0x52ff77) => {
+        _0x52ff77["stopPropagation"](), _0x52ff77["preventDefault"](), this["dragY"]["dragging"] = !![], this["dragY"]["clientY"] = _0x52ff77["clientY"];
+        const _0x25e919 = (_0x1e11af) => {
+          _0x1e11af["preventDefault"]();
+          if (this["dragY"]["dragging"]) {
+            const { sx: _0x384de2 } = editorUtil["decomposeMatrix"](_0xc23fe7), { height: _0x2911c0 } = _0x316696["getEditorBoundingClientRect"](), _0x32e3f9 = this["thumbnailNumber"] * _0x2911c0 + _0x555dad["height"] * _0x384de2, _0x50e2ba = (this["dragY"]["clientY"] - _0x1e11af["clientY"]) * _0x32e3f9 / (_0x2911c0 - 20);
+            this["dragY"]["clientY"] = _0x1e11af["clientY"], this["addOffsetY"](_0x50e2ba);
           }
+        }, _0x2223c5 = (_0x15ab2a) => {
+          _0x15ab2a["preventDefault"](), this["dragY"]["dragging"] = ![], document["removeEventListener"]("mousemove", _0x25e919), document["removeEventListener"]("mouseup", _0x2223c5);
         };
-        const mouseup = (ev) => {
-          ev.preventDefault();
-          this.dragY.dragging = false;
-          document.removeEventListener("mousemove", mousemove);
-          document.removeEventListener("mouseup", mouseup);
-        };
-        document.addEventListener("mousemove", mousemove);
-        document.addEventListener("mouseup", mouseup);
+        document["addEventListener"]("mousemove", _0x25e919), document["addEventListener"]("mouseup", _0x2223c5);
       });
     }
-    setRightBar() {
-      const { editor } = this;
-      const { ty: offsetY, sx: scale2 } = editorUtil.decomposeMatrix(editor.viewportTransform);
-      const { height: clientHeight } = editor.getEditorBoundingClientRect();
-      const configHeight = editor.config.height;
-      const calcHeight = this.thumbnailNumber * clientHeight + configHeight * scale2;
-      const height = Math.round(clientHeight * (clientHeight - 20) / calcHeight) + "px";
-      const top = Math.round((clientHeight - offsetY) * (clientHeight - 20) / calcHeight) + "px";
-      this.rightBarDom.style.top = top;
-      this.rightBarDom.style.height = height;
+    ["setRightBar"]() {
+      const { editor: _0x519839 } = this, { ty: _0x5c4fa7, sx: _0x202867 } = editorUtil["decomposeMatrix"](_0x519839["viewportTransform"]), { height: _0x340790 } = _0x519839["getEditorBoundingClientRect"](), _0x4d705c = _0x519839["config"]["height"], _0x48a91d = this["thumbnailNumber"] * _0x340790 + _0x4d705c * _0x202867, _0x77961 = Math["round"](_0x340790 * (_0x340790 - 20) / _0x48a91d) + "px", _0x9e9f5b = Math["round"]((_0x340790 - _0x5c4fa7) * (_0x340790 - 20) / _0x48a91d) + "px";
+      this["rightBarDom"]["style"]["top"] = _0x9e9f5b, this["rightBarDom"]["style"]["height"] = _0x77961;
     }
-    initBottomEvent() {
-      const { editor } = this;
-      const { config } = editor;
-      this.bottomBarDom.addEventListener("mousedown", (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        this.dragX.dragging = true;
-        this.dragX.clientX = e.clientX;
-        const mousemove = (event) => {
-          event.preventDefault();
-          if (this.dragX.dragging) {
-            const { sx: scale2 } = editorUtil.decomposeMatrix(editor.viewportTransform);
-            const { width: clientOff } = editor.getEditorBoundingClientRect();
-            const calcOff = this.thumbnailNumber * clientOff + config.width * scale2;
-            const offset = (this.dragX.clientX - event.clientX) * calcOff / (clientOff - 20);
-            this.dragX.clientX = event.clientX;
-            this.addOffsetX(offset);
+    ["initBottomEvent"]() {
+      const { editor: _0x442bab } = this, { config: _0x1e7731 } = _0x442bab;
+      this["bottomBarDom"]["addEventListener"]("mousedown", (_0x507d2c) => {
+        _0x507d2c["stopPropagation"](), _0x507d2c["preventDefault"](), this["dragX"]["dragging"] = !![], this["dragX"]["clientX"] = _0x507d2c["clientX"];
+        const _0x899709 = (_0x1891f6) => {
+          _0x1891f6["preventDefault"]();
+          if (this["dragX"]["dragging"]) {
+            const { sx: _0x574af1 } = editorUtil["decomposeMatrix"](_0x442bab["viewportTransform"]), { width: _0x1bb3de } = _0x442bab["getEditorBoundingClientRect"](), _0x282a07 = this["thumbnailNumber"] * _0x1bb3de + _0x1e7731["width"] * _0x574af1, _0x5058c7 = (this["dragX"]["clientX"] - _0x1891f6["clientX"]) * _0x282a07 / (_0x1bb3de - 20);
+            this["dragX"]["clientX"] = _0x1891f6["clientX"], this["addOffsetX"](_0x5058c7);
           }
+        }, _0x54e90c = (_0x550fbd) => {
+          _0x550fbd["preventDefault"](), this["dragX"]["dragging"] = ![], document["removeEventListener"]("mousemove", _0x899709), document["removeEventListener"]("mouseup", _0x54e90c);
         };
-        const mouseup = (ev) => {
-          ev.preventDefault();
-          this.dragX.dragging = false;
-          document.removeEventListener("mousemove", mousemove);
-          document.removeEventListener("mouseup", mouseup);
-        };
-        document.addEventListener("mousemove", mousemove);
-        document.addEventListener("mouseup", mouseup);
+        document["addEventListener"]("mousemove", _0x899709), document["addEventListener"]("mouseup", _0x54e90c);
       });
     }
-    setBottomBar() {
-      const editor = this.editor;
-      const { tx: offsetX, sx: scale2 } = editorUtil.decomposeMatrix(editor.viewportTransform);
-      const { width: clientWidth } = editor.getEditorBoundingClientRect();
-      const configWidth = editor.config.width;
-      const calcWidth = this.thumbnailNumber * clientWidth + configWidth * scale2;
-      const width = Math.round(clientWidth * (clientWidth - 20) / calcWidth) + "px";
-      const left = Math.round((clientWidth - offsetX) * (clientWidth - 20) / calcWidth) + "px";
-      this.bottomBarDom.style.left = left;
-      this.bottomBarDom.style.width = width;
+    ["setBottomBar"]() {
+      const _0xdac905 = this["editor"], { tx: _0x200a82, sx: _0xe92a8e } = editorUtil["decomposeMatrix"](_0xdac905["viewportTransform"]), { width: _0x1dff91 } = _0xdac905["getEditorBoundingClientRect"](), _0x509461 = _0xdac905["config"]["width"], _0x4500af = this["thumbnailNumber"] * _0x1dff91 + _0x509461 * _0xe92a8e, _0x39f2ce = Math["round"](_0x1dff91 * (_0x1dff91 - 20) / _0x4500af) + "px", _0x5b7770 = Math["round"]((_0x1dff91 - _0x200a82) * (_0x1dff91 - 20) / _0x4500af) + "px";
+      this["bottomBarDom"]["style"]["left"] = _0x5b7770, this["bottomBarDom"]["style"]["width"] = _0x39f2ce;
     }
-    handleViewportTransform() {
-      const { editor } = this;
-      const { sx: scale2, tx: offsetX, ty: offsetY } = editorUtil.decomposeMatrix(editor.viewportTransform);
-      const config = editor.config;
-      const width = Math.round(config.width) + "px";
-      const height = Math.round(config.height) + "px";
-      const matrix = `matrix(${scale2}, 0, 0, ${scale2}, ${offsetX}, ${offsetY})`;
-      editor.canvasDom.style.width = width;
-      editor.canvasDom.style.height = height;
-      editor.canvasDom.style.transform = matrix;
-      this.fireEvent();
+    ["handleViewportTransform"]() {
+      const { editor: _0x4a8979 } = this, { sx: _0x4fda41, tx: _0xc1287b, ty: _0x1932f5 } = editorUtil["decomposeMatrix"](_0x4a8979["viewportTransform"]), _0x2cbadc = _0x4a8979["config"], _0x4e0405 = Math["round"](_0x2cbadc["width"]) + "px", _0x380058 = Math["round"](_0x2cbadc["height"]) + "px", _0x1004b4 = "matrix(" + _0x4fda41 + ", 0, 0, " + _0x4fda41 + ", " + _0xc1287b + ", " + _0x1932f5 + ")";
+      _0x4a8979["canvasDom"]["style"]["width"] = _0x4e0405, _0x4a8979["canvasDom"]["style"]["height"] = _0x380058, _0x4a8979["canvasDom"]["style"]["transform"] = _0x1004b4, this["fireEvent"]();
     }
-    /**
-     * 缩放至适应画布
-     */
-    zoomFitView() {
-      const { editor } = this;
-      const { width: editorWidth, height: editorHeight } = editor.getEditorBoundingClientRect();
-      const { width: configWidth, height: configHeight } = editor.config;
-      const zoomConfig = editor.config.zoom || {};
-      const spaceH = zoomConfig.spaceH || 0;
-      const spaceV = zoomConfig.spaceV || 0;
-      const scaleX = (editorWidth - 2 * spaceH) / configWidth;
-      const scaleY = (editorHeight - 2 * spaceV) / configHeight;
-      const scale2 = Math.min(scaleX, scaleY);
-      const [sx, sy] = [scale2, scale2];
-      const tx = Math.round(editorWidth / 2 - configWidth / 2 * scale2);
-      const ty = Math.round(editorHeight / 2 - configHeight / 2 * scale2);
-      editor.viewportTransform = editorUtil.composeMatrix({ sx, sy, tx, ty });
-      this.setRightBar();
-      this.setBottomBar();
-      this.handleViewportTransform();
+    ["zoomFitView"]() {
+      const { editor: _0x21d97d } = this, { width: _0x32a35a, height: _0x3b54ab } = _0x21d97d["getEditorBoundingClientRect"](), { width: _0x310395, height: _0x1baa22 } = _0x21d97d["config"], _0x3fbba1 = _0x21d97d["config"]["zoom"] || {}, _0x3ce5b3 = _0x3fbba1["spaceH"] || 0, _0x390963 = _0x3fbba1["spaceV"] || 0, _0x36106c = (_0x32a35a - 2 * _0x3ce5b3) / _0x310395, _0x5e8bcc = (_0x3b54ab - 2 * _0x390963) / _0x1baa22, _0x435b68 = Math["min"](_0x36106c, _0x5e8bcc), [_0x3de3fc, _0x3686d4] = [_0x435b68, _0x435b68], _0x5f4782 = Math["round"](_0x32a35a / 2 - _0x310395 / 2 * _0x435b68), _0x42c376 = Math["round"](_0x3b54ab / 2 - _0x1baa22 / 2 * _0x435b68);
+      _0x21d97d["viewportTransform"] = editorUtil["composeMatrix"]({ "sx": _0x3de3fc, "sy": _0x3686d4, "tx": _0x5f4782, "ty": _0x42c376 }), this["setRightBar"](), this["setBottomBar"](), this["handleViewportTransform"]();
     }
-    zoomIn() {
-      const { editor } = this;
-      const { viewportTransform } = editor;
-      let { a: scale2 } = viewportTransform;
-      scale2 += 0.1;
-      scale2 = Math.min(scale2, this.limit.max);
-      viewportTransform.a = viewportTransform.d = scale2;
-      this.setRightBar();
-      this.setBottomBar();
-      this.handleViewportTransform();
+    ["zoomIn"]() {
+      const { editor: _0x21d998 } = this, { viewportTransform: _0x2f7d51 } = _0x21d998;
+      let { a: _0x61e45c } = _0x2f7d51;
+      _0x61e45c += 0.1, _0x61e45c = Math["min"](_0x61e45c, this["limit"]["max"]), _0x2f7d51["a"] = _0x2f7d51["d"] = _0x61e45c, this["setRightBar"](), this["setBottomBar"](), this["handleViewportTransform"]();
     }
-    zoomOut() {
-      const { editor } = this;
-      const { viewportTransform } = editor;
-      let { a: scale2 } = viewportTransform;
-      scale2 -= 0.1;
-      scale2 = Math.max(scale2, this.limit.min);
-      viewportTransform.a = viewportTransform.d = scale2;
-      this.setRightBar();
-      this.setBottomBar();
-      this.handleViewportTransform();
+    ["zoomOut"]() {
+      const { editor: _0x5016df } = this, { viewportTransform: _0x4bdd81 } = _0x5016df;
+      let { a: _0x448ec8 } = _0x4bdd81;
+      _0x448ec8 -= 0.1, _0x448ec8 = Math["max"](_0x448ec8, this["limit"]["min"]), _0x4bdd81["a"] = _0x4bdd81["d"] = _0x448ec8, this["setRightBar"](), this["setBottomBar"](), this["handleViewportTransform"]();
     }
-    zoomToReset() {
-      const { viewportTransform } = this.editor;
-      viewportTransform.e = viewportTransform.f = 0;
-      this.setRightBar();
-      this.setBottomBar();
-      this.handleViewportTransform();
+    ["zoomToReset"]() {
+      const { viewportTransform: _0x462423 } = this["editor"];
+      _0x462423["e"] = _0x462423["f"] = 0, this["setRightBar"](), this["setBottomBar"](), this["handleViewportTransform"]();
     }
-    /**
-     * 以画布中心点作为基点进行缩放
-     * @param {Number} zoomRatio 缩放倍数
-     */
-    zoomToRatio(zoomRatio) {
-      const { viewportTransform } = this.editor;
-      viewportTransform.a = viewportTransform.d = zoomRatio;
-      this.setRightBar();
-      this.setBottomBar();
-      this.handleViewportTransform();
+    ["zoomToRatio"](_0x37ae3c) {
+      const { viewportTransform: _0x258b8a } = this["editor"];
+      _0x258b8a["a"] = _0x258b8a["d"] = _0x37ae3c, this["setRightBar"](), this["setBottomBar"](), this["handleViewportTransform"]();
     }
-    setZoom(row) {
-      switch (row.type) {
+    ["setZoom"](_0x3f9cbe) {
+      switch (_0x3f9cbe["type"]) {
         case "ratio":
-          this.zoomToRatio(row.value);
+          this["zoomToRatio"](_0x3f9cbe["value"]);
           break;
         case "fitView":
-          this.zoomFitView();
+          this["zoomFitView"]();
           break;
         case "zoomIn":
-          this.zoomIn();
+          this["zoomIn"]();
           break;
         case "zoomOut":
-          this.zoomOut();
+          this["zoomOut"]();
           break;
         case "reset":
-          this.zoomToReset();
+          this["zoomToReset"]();
           break;
       }
     }
-    /**
-     * 以画布中心点作为基点进行缩放
-     * @param {Number} zoomRatio 缩放倍数
-     */
-    zoomToPoint(e) {
-      const { editor, blankDistance } = this;
-      const { viewportTransform } = editor;
-      let direction = 0;
-      if (e.detail) {
-        direction = e.detail > 0 ? -10 : 10;
+    ["zoomToPoint"](_0x40073b) {
+      const { editor: _0x1006b1, blankDistance: _0x496144 } = this, { viewportTransform: _0x29217a } = _0x1006b1;
+      let _0x68c9bd = 0;
+      _0x40073b["detail"] && (_0x68c9bd = _0x40073b["detail"] > 0 ? -10 : 10);
+      _0x40073b["wheelDelta"] && (_0x68c9bd = +(_0x40073b["wheelDelta"] / 1e3)["toFixed"](2));
+      _0x40073b["preventDefault"]();
+      const { sx: _0x47454e, tx: _0x3954a6, ty: _0x6c605b } = editorUtil["decomposeMatrix"](_0x29217a), { width: _0x35cf8a, height: _0x495a06 } = _0x1006b1["getEditorBoundingClientRect"]();
+      let _0x4f4e3f = _0x47454e + _0x68c9bd;
+      const _0x384ab1 = _0x1006b1["getEditorBoundingClientRect"]();
+      _0x4f4e3f = Math["min"](_0x4f4e3f, this["limit"]["max"]), _0x4f4e3f = Math["max"](_0x4f4e3f, this["limit"]["min"]);
+      if (_0x40073b) {
+        const _0x36c794 = _0x1006b1["config"], _0x1a21c1 = _0x36c794["width"], _0x507678 = _0x36c794["height"], _0x57d5fc = _0x40073b["clientX"] - _0x384ab1["left"], _0x52494b = _0x40073b["clientY"] - _0x384ab1["top"], _0x2742d5 = Math["round"](_0x1a21c1 * _0x47454e);
+        let _0xe9cc0f = Math["round"](_0x57d5fc - _0x4f4e3f / _0x47454e * (_0x57d5fc - _0x3954a6));
+        const _0x547b35 = _0x496144 * _0x47454e, _0x5468f3 = _0x2742d5 <= _0x547b35, _0x8284ac = _0x5468f3 ? 0 : -_0x2742d5 + _0x547b35, _0x1fc8de = _0x5468f3 ? _0x35cf8a - _0x2742d5 : _0x35cf8a - _0x547b35;
+        _0xe9cc0f < 0 && _0xe9cc0f < _0x8284ac && (_0xe9cc0f = _0x8284ac);
+        _0xe9cc0f > 0 && _0xe9cc0f > _0x1fc8de && (_0xe9cc0f = _0x1fc8de);
+        _0x29217a["e"] = _0xe9cc0f;
+        const _0x49ffb9 = Math["round"](_0x507678 * _0x47454e);
+        let _0x3f6bb9 = Math["round"](_0x52494b - _0x4f4e3f / _0x47454e * (_0x52494b - _0x6c605b));
+        const _0x39398f = _0x49ffb9 <= _0x547b35, _0x26b2a7 = _0x39398f ? 0 : -_0x49ffb9 + _0x547b35, _0x3cf581 = _0x39398f ? _0x495a06 - _0x49ffb9 : _0x495a06 - _0x547b35;
+        _0x3f6bb9 < 0 && _0x3f6bb9 < _0x26b2a7 && (_0x3f6bb9 = _0x26b2a7), _0x3f6bb9 > 0 && _0x3f6bb9 > _0x3cf581 && (_0x3f6bb9 = _0x3cf581), _0x29217a["f"] = _0x3f6bb9;
       }
-      if (e.wheelDelta) {
-        direction = +(e.wheelDelta / 1e3).toFixed(2);
-      }
-      e.preventDefault();
-      const { sx: scale2, tx: offsetX, ty: offsetY } = editorUtil.decomposeMatrix(viewportTransform);
-      const { width: clientWidth, height: clientHeight } = editor.getEditorBoundingClientRect();
-      let ratio = scale2 + direction;
-      const dom = editor.getEditorBoundingClientRect();
-      ratio = Math.min(ratio, this.limit.max);
-      ratio = Math.max(ratio, this.limit.min);
-      if (e) {
-        const config = editor.config;
-        const configWidth = config.width;
-        const configHeight = config.height;
-        const calcLeft = e.clientX - dom.left;
-        const calcTop = e.clientY - dom.top;
-        const moveWidth = Math.round(configWidth * scale2);
-        let moveX = Math.round(calcLeft - ratio / scale2 * (calcLeft - offsetX));
-        const distance = blankDistance * scale2;
-        const isMiniSizeW = moveWidth <= distance;
-        const minOffsetX = isMiniSizeW ? 0 : -moveWidth + distance;
-        const maxOffsetX = isMiniSizeW ? clientWidth - moveWidth : clientWidth - distance;
-        if (moveX < 0 && moveX < minOffsetX) {
-          moveX = minOffsetX;
-        }
-        if (moveX > 0 && moveX > maxOffsetX) {
-          moveX = maxOffsetX;
-        }
-        viewportTransform.e = moveX;
-        const moveHeight = Math.round(configHeight * scale2);
-        let moveY = Math.round(calcTop - ratio / scale2 * (calcTop - offsetY));
-        const isMiniSizeH = moveHeight <= distance;
-        const minOffsetY = isMiniSizeH ? 0 : -moveHeight + distance;
-        const maxOffsetY = isMiniSizeH ? clientHeight - moveHeight : clientHeight - distance;
-        if (moveY < 0 && moveY < minOffsetY) {
-          moveY = minOffsetY;
-        }
-        if (moveY > 0 && moveY > maxOffsetY) {
-          moveY = maxOffsetY;
-        }
-        viewportTransform.f = moveY;
-      }
-      viewportTransform.a = viewportTransform.d = ratio;
-      this.setBottomBar();
-      this.setRightBar();
-      this.handleViewportTransform();
+      _0x29217a["a"] = _0x29217a["d"] = _0x4f4e3f, this["setBottomBar"](), this["setRightBar"](), this["handleViewportTransform"]();
     }
-    /**
-     * 缩放
-     */
-    fireEvent() {
-      const { editor } = this;
-      editor.editorPanzoom(editor.viewportTransform);
+    ["fireEvent"]() {
+      const { editor: _0xea1c56 } = this;
+      _0xea1c56["editorPanzoom"](_0xea1c56["viewportTransform"]);
     }
-    addOffset(x, y) {
-      const { editor, blankDistance } = this;
-      const { viewportTransform } = editor;
-      const { sx: scale2, tx: offsetX, ty: offsetY } = editorUtil.decomposeMatrix(viewportTransform);
-      const { width: clientWidth, height: clientHeight } = editor.getEditorBoundingClientRect();
-      let calcOffsetX = offsetX + x;
-      let calcOffsetY = offsetY + y;
-      const configWidth = editor.config.width;
-      const configHeight = editor.config.height;
-      const calcWidth = Math.round(configWidth * scale2);
-      const calcHeight = Math.round(configHeight * scale2);
-      const distance = blankDistance * scale2;
-      const isMiniSizeW = calcWidth <= distance;
-      const minOffsetX = isMiniSizeW ? 0 : -calcWidth + distance;
-      const maxOffsetX = isMiniSizeW ? clientWidth - calcWidth : clientWidth - distance;
-      if (calcOffsetX < 0 && calcOffsetX < minOffsetX) {
-        calcOffsetX = minOffsetX;
-      }
-      if (calcOffsetX > 0 && calcOffsetX > maxOffsetX) {
-        calcOffsetX = maxOffsetX;
-      }
-      const isMiniSizeH = calcHeight <= distance;
-      const minOffsetY = isMiniSizeH ? 0 : -calcHeight + distance;
-      const maxOffsetY = isMiniSizeH ? clientHeight - calcHeight : clientHeight - distance;
-      if (calcOffsetY < 0 && calcOffsetY < minOffsetY) {
-        calcOffsetY = minOffsetY;
-      }
-      if (calcOffsetY > 0 && calcOffsetY > maxOffsetY) {
-        calcOffsetY = maxOffsetY;
-      }
-      viewportTransform.e = calcOffsetX;
-      viewportTransform.f = calcOffsetY;
-      this.setBottomBar();
-      this.setRightBar();
-      this.handleViewportTransform();
+    ["addOffset"](_0x5c53be, _0x9275cf) {
+      const { editor: _0x3f1634, blankDistance: _0x41d2d1 } = this, { viewportTransform: _0x43990f } = _0x3f1634, { sx: _0x49080c, tx: _0x16780c, ty: _0x5cf3dc } = editorUtil["decomposeMatrix"](_0x43990f), { width: _0x223c4e, height: _0x2f6be8 } = _0x3f1634["getEditorBoundingClientRect"]();
+      let _0x2ab004 = _0x16780c + _0x5c53be, _0x13f3ba = _0x5cf3dc + _0x9275cf;
+      const _0x3ce29b = _0x3f1634["config"]["width"], _0x4c1b30 = _0x3f1634["config"]["height"], _0x4badba = Math["round"](_0x3ce29b * _0x49080c), _0xc86f1a = Math["round"](_0x4c1b30 * _0x49080c), _0x414792 = _0x41d2d1 * _0x49080c, _0x2ee3b9 = _0x4badba <= _0x414792, _0x2867cb = _0x2ee3b9 ? 0 : -_0x4badba + _0x414792, _0x30aa5a = _0x2ee3b9 ? _0x223c4e - _0x4badba : _0x223c4e - _0x414792;
+      _0x2ab004 < 0 && _0x2ab004 < _0x2867cb && (_0x2ab004 = _0x2867cb);
+      _0x2ab004 > 0 && _0x2ab004 > _0x30aa5a && (_0x2ab004 = _0x30aa5a);
+      const _0x5109ff = _0xc86f1a <= _0x414792, _0x124867 = _0x5109ff ? 0 : -_0xc86f1a + _0x414792, _0x427997 = _0x5109ff ? _0x2f6be8 - _0xc86f1a : _0x2f6be8 - _0x414792;
+      _0x13f3ba < 0 && _0x13f3ba < _0x124867 && (_0x13f3ba = _0x124867), _0x13f3ba > 0 && _0x13f3ba > _0x427997 && (_0x13f3ba = _0x427997), _0x43990f["e"] = _0x2ab004, _0x43990f["f"] = _0x13f3ba, this["setBottomBar"](), this["setRightBar"](), this["handleViewportTransform"]();
     }
-    addOffsetX(value) {
-      const { editor, blankDistance } = this;
-      const { viewportTransform } = editor;
-      const { sx: scale2, tx: offsetX } = editorUtil.decomposeMatrix(viewportTransform);
-      const { width: clientWidth } = editor.getEditorBoundingClientRect();
-      const configWidth = editor.config.width;
-      const calcWidth = Math.round(configWidth * scale2);
-      let calcOffset = offsetX + value;
-      const distance = blankDistance * scale2;
-      const isMiniSizeW = calcWidth <= distance;
-      const minOffsetX = isMiniSizeW ? 0 : -calcWidth + distance;
-      const maxOffsetX = isMiniSizeW ? clientWidth - calcWidth : clientWidth - distance;
-      if (calcOffset < 0 && calcOffset < minOffsetX) {
-        calcOffset = minOffsetX;
-      }
-      if (calcOffset > 0 && calcOffset > maxOffsetX) {
-        calcOffset = maxOffsetX;
-      }
-      viewportTransform.e = calcOffset;
-      this.setBottomBar();
-      this.handleViewportTransform();
+    ["addOffsetX"](_0x44c3f2) {
+      const { editor: _0x1141c1, blankDistance: _0x4890db } = this, { viewportTransform: _0x21a19b } = _0x1141c1, { sx: _0x3236b4, tx: _0x429d12 } = editorUtil["decomposeMatrix"](_0x21a19b), { width: _0x4d251b } = _0x1141c1["getEditorBoundingClientRect"](), _0x110c34 = _0x1141c1["config"]["width"], _0x4e12da = Math["round"](_0x110c34 * _0x3236b4);
+      let _0x2b6c0c = _0x429d12 + _0x44c3f2;
+      const _0x3b845e = _0x4890db * _0x3236b4, _0x3f2fbd = _0x4e12da <= _0x3b845e, _0x5c2c37 = _0x3f2fbd ? 0 : -_0x4e12da + _0x3b845e, _0x44640b = _0x3f2fbd ? _0x4d251b - _0x4e12da : _0x4d251b - _0x3b845e;
+      _0x2b6c0c < 0 && _0x2b6c0c < _0x5c2c37 && (_0x2b6c0c = _0x5c2c37), _0x2b6c0c > 0 && _0x2b6c0c > _0x44640b && (_0x2b6c0c = _0x44640b), _0x21a19b["e"] = _0x2b6c0c, this["setBottomBar"](), this["handleViewportTransform"]();
     }
-    addOffsetY(value) {
-      const { editor, blankDistance } = this;
-      const { viewportTransform } = editor;
-      const { sx: scale2, ty: offsetY } = editorUtil.decomposeMatrix(viewportTransform);
-      const { height: clientHeight } = editor.getEditorBoundingClientRect();
-      const configHeight = editor.config.height;
-      const calcHeight = Math.round(configHeight * scale2);
-      let calcOffset = offsetY + value;
-      const distance = blankDistance * scale2;
-      const isMiniSizeH = calcHeight <= distance;
-      const minOffsetY = isMiniSizeH ? 0 : -calcHeight + distance;
-      const maxOffsetY = isMiniSizeH ? clientHeight - calcHeight : clientHeight - distance;
-      if (calcOffset < 0 && calcOffset < minOffsetY) {
-        calcOffset = minOffsetY;
-      }
-      if (calcOffset > 0 && calcOffset > maxOffsetY) {
-        calcOffset = maxOffsetY;
-      }
-      viewportTransform.f = calcOffset;
-      this.setRightBar();
-      this.handleViewportTransform();
+    ["addOffsetY"](_0x18fe21) {
+      const { editor: _0xe54c57, blankDistance: _0x4fb5e8 } = this, { viewportTransform: _0x6c8654 } = _0xe54c57, { sx: _0xde1ced, ty: _0x2fedb6 } = editorUtil["decomposeMatrix"](_0x6c8654), { height: _0x198364 } = _0xe54c57["getEditorBoundingClientRect"](), _0x193d91 = _0xe54c57["config"]["height"], _0x4a7777 = Math["round"](_0x193d91 * _0xde1ced);
+      let _0x436c29 = _0x2fedb6 + _0x18fe21;
+      const _0x1d60f1 = _0x4fb5e8 * _0xde1ced, _0x57b401 = _0x4a7777 <= _0x1d60f1, _0x437be2 = _0x57b401 ? 0 : -_0x4a7777 + _0x1d60f1, _0x2783d6 = _0x57b401 ? _0x198364 - _0x4a7777 : _0x198364 - _0x1d60f1;
+      _0x436c29 < 0 && _0x436c29 < _0x437be2 && (_0x436c29 = _0x437be2), _0x436c29 > 0 && _0x436c29 > _0x2783d6 && (_0x436c29 = _0x2783d6), _0x6c8654["f"] = _0x436c29, this["setRightBar"](), this["handleViewportTransform"]();
     }
-    // 拖动画布
-    zoomMoveTo(e) {
-      const { editor, blankDistance } = this;
-      if (!editor.grabing)
+    ["zoomMoveTo"](_0xaec394) {
+      const { editor: _0x3bdf5e, blankDistance: _0x2e7a1f } = this;
+      if (!_0x3bdf5e["grabing"])
         return;
-      const { viewportTransform } = editor;
-      this.clientY = e.clientY;
-      this.clientX = e.clientX;
-      this.setHighPerformance(true);
-      const mousemove = (event) => {
-        const offsetX = this.clientX ? event.clientX - this.clientX : 0;
-        const offsetY = this.clientY ? event.clientY - this.clientY : 0;
-        this.clientX = event.clientX;
-        this.clientY = event.clientY;
-        const { sx: scale2 } = editorUtil.decomposeMatrix(viewportTransform);
-        const { width: clientWidth, height: clientHeight } = editor.getEditorBoundingClientRect();
-        let calcOffsetX = viewportTransform.e + offsetX;
-        let calcOffsetY = viewportTransform.f + offsetY;
-        const configWidth = editor.config.width;
-        const configHeight = editor.config.height;
-        const calcWidth = Math.round(configWidth * scale2);
-        const calcHeight = Math.round(configHeight * scale2);
-        const distance = blankDistance * scale2;
-        const isMiniSizeW = calcWidth <= distance;
-        const minOffsetX = isMiniSizeW ? 0 : -calcWidth + distance;
-        const maxOffsetX = isMiniSizeW ? clientWidth - calcWidth : clientWidth - distance;
-        if (calcOffsetX < 0 && calcOffsetX < minOffsetX) {
-          calcOffsetX = minOffsetX;
-        }
-        if (calcOffsetX > 0 && calcOffsetX > maxOffsetX) {
-          calcOffsetX = maxOffsetX;
-        }
-        const isMiniSizeH = calcHeight <= distance;
-        const minOffsetY = isMiniSizeH ? 0 : -calcHeight + distance;
-        const maxOffsetY = isMiniSizeH ? clientHeight - calcHeight : clientHeight - distance;
-        if (calcOffsetY < 0 && calcOffsetY < minOffsetY) {
-          calcOffsetY = minOffsetY;
-        }
-        if (calcOffsetY > 0 && calcOffsetY > maxOffsetY) {
-          calcOffsetY = maxOffsetY;
-        }
-        viewportTransform.e = calcOffsetX;
-        viewportTransform.f = calcOffsetY;
-        this.setRightBar();
-        this.setBottomBar();
-        this.handleViewportTransform();
+      const { viewportTransform: _0x20935e } = _0x3bdf5e;
+      this["clientY"] = _0xaec394["clientY"], this["clientX"] = _0xaec394["clientX"], this["setHighPerformance"](!![]);
+      const _0x2b3976 = (_0x1edcd2) => {
+        const _0x4afeef = this["clientX"] ? _0x1edcd2["clientX"] - this["clientX"] : 0, _0x38425d = this["clientY"] ? _0x1edcd2["clientY"] - this["clientY"] : 0;
+        this["clientX"] = _0x1edcd2["clientX"], this["clientY"] = _0x1edcd2["clientY"];
+        const { sx: _0x236ba9 } = editorUtil["decomposeMatrix"](_0x20935e), { width: _0x4ead8e, height: _0x4c127b } = _0x3bdf5e["getEditorBoundingClientRect"]();
+        let _0x23b0fb = _0x20935e["e"] + _0x4afeef, _0x5058f0 = _0x20935e["f"] + _0x38425d;
+        const _0x22c92c = _0x3bdf5e["config"]["width"], _0x4a84ee = _0x3bdf5e["config"]["height"], _0xee860a = Math["round"](_0x22c92c * _0x236ba9), _0x412cb1 = Math["round"](_0x4a84ee * _0x236ba9), _0x4ceeb = _0x2e7a1f * _0x236ba9, _0x39d199 = _0xee860a <= _0x4ceeb, _0x4422f4 = _0x39d199 ? 0 : -_0xee860a + _0x4ceeb, _0x7b991 = _0x39d199 ? _0x4ead8e - _0xee860a : _0x4ead8e - _0x4ceeb;
+        _0x23b0fb < 0 && _0x23b0fb < _0x4422f4 && (_0x23b0fb = _0x4422f4);
+        _0x23b0fb > 0 && _0x23b0fb > _0x7b991 && (_0x23b0fb = _0x7b991);
+        const _0x345675 = _0x412cb1 <= _0x4ceeb, _0x1d17a6 = _0x345675 ? 0 : -_0x412cb1 + _0x4ceeb, _0x5e810e = _0x345675 ? _0x4c127b - _0x412cb1 : _0x4c127b - _0x4ceeb;
+        _0x5058f0 < 0 && _0x5058f0 < _0x1d17a6 && (_0x5058f0 = _0x1d17a6), _0x5058f0 > 0 && _0x5058f0 > _0x5e810e && (_0x5058f0 = _0x5e810e), _0x20935e["e"] = _0x23b0fb, _0x20935e["f"] = _0x5058f0, this["setRightBar"](), this["setBottomBar"](), this["handleViewportTransform"]();
+      }, _0x50b2f1 = () => {
+        this["clientX"] = 0, this["clientY"] = 0, this["handleViewportTransform"](), this["setHighPerformance"](![]), document["removeEventListener"]("mousemove", _0x2b3976), document["removeEventListener"]("mouseup", _0x50b2f1);
       };
-      const mouseup = () => {
-        this.clientX = 0;
-        this.clientY = 0;
-        this.handleViewportTransform();
-        this.setHighPerformance(false);
-        document.removeEventListener("mousemove", mousemove);
-        document.removeEventListener("mouseup", mouseup);
-      };
-      document.addEventListener("mousemove", mousemove);
-      document.addEventListener("mouseup", mouseup);
+      document["addEventListener"]("mousemove", _0x2b3976), document["addEventListener"]("mouseup", _0x50b2f1);
     }
   }
   class RulerAdsorbHandler {
-    constructor(editor) {
-      this.aligningLineMargin = 3;
-      this.lines = {
-        v: [],
-        h: []
-      };
-      this.editor = editor;
-      this.initEvent();
+    constructor(_0x2e655d) {
+      this["aligningLineMargin"] = 3, this["lines"] = { "v": [], "h": [] }, this["editor"] = _0x2e655d, this["initEvent"]();
     }
-    initEvent() {
-      const editor = this.editor;
-      const self2 = this;
-      editor.on({
-        "object:moving": function(e) {
-          self2.adsorption();
-        }
-      });
+    ["initEvent"]() {
+      const _0x59fd3a = this["editor"], _0x5021da = this;
+      _0x59fd3a["on"]({ "object:moving": function(_0x30e5a2) {
+        _0x5021da["adsorption"]();
+      } });
     }
-    setLines(lines) {
-      this.lines = lines;
+    ["setLines"](_0x277e6a) {
+      this["lines"] = _0x277e6a;
     }
-    adsorption() {
-      const editor = this.editor;
-      const sorption = editor.config.sorption;
-      const isAdsorb = sorption.enable;
-      const alignMargin = sorption.offset;
-      if (!isAdsorb)
+    ["adsorption"]() {
+      const _0x31f355 = this["editor"], _0x5ff765 = _0x31f355["config"]["sorption"], _0x5002c0 = _0x5ff765["enable"], _0x58be7e = _0x5ff765["offset"];
+      if (!_0x5002c0)
         return;
-      const target = editor.getActiveObject();
-      const lines = this.lines;
-      if (!target)
+      const _0x54e7c9 = _0x31f355["getActiveObject"](), _0x30ce67 = this["lines"];
+      if (!_0x54e7c9)
         return;
-      if (target.parentId)
+      if (_0x54e7c9["parentId"])
         return;
-      const disposePosition = (data) => {
-        const { x, y, w, h } = editorUtil.getBoundingRect([data]);
-        return {
-          angle: 0,
-          width: w,
-          height: h,
-          left: x,
-          top: y,
-          right: x + w,
-          bottom: y + h,
-          centerX: x + w / 2,
-          // 水平
-          centerY: y + h / 2
-          // 垂直
-        };
-      };
-      const isInRange = (value1, value2) => {
-        value1 = Math.round(value1);
-        value2 = Math.round(value2);
-        for (let i = value1 - alignMargin, len = value1 + alignMargin; i <= len; i++) {
-          if (i === value2) {
-            return true;
-          }
+      const _0x27e6a8 = (_0x57450f) => {
+        const { x: _0x1a14a1, y: _0x1200db, w: _0x17b524, h: _0x5bed7f } = editorUtil["getBoundingRect"]([_0x57450f]);
+        return { "angle": 0, "width": _0x17b524, "height": _0x5bed7f, "left": _0x1a14a1, "top": _0x1200db, "right": _0x1a14a1 + _0x17b524, "bottom": _0x1200db + _0x5bed7f, "centerX": _0x1a14a1 + _0x17b524 / 2, "centerY": _0x1200db + _0x5bed7f / 2 };
+      }, _0x483920 = (_0x3ebe15, _0x1bf2af) => {
+        _0x3ebe15 = Math["round"](_0x3ebe15), _0x1bf2af = Math["round"](_0x1bf2af);
+        for (let _0x26a906 = _0x3ebe15 - _0x58be7e, _0x1e3aa6 = _0x3ebe15 + _0x58be7e; _0x26a906 <= _0x1e3aa6; _0x26a906++) {
+          if (_0x26a906 === _0x1bf2af)
+            return !![];
         }
-        return false;
-      };
-      const hLines = lines.h || [];
-      for (const objectLeft of hLines) {
-        const objectPositon = disposePosition(target);
-        if (isInRange(objectPositon.left, objectLeft)) {
-          const boundingBox = editorUtil.getBoundingRect([target]);
-          const innerLeft = boundingBox.x;
-          const distanceX = objectLeft - innerLeft;
-          target.x += distanceX;
+        return ![];
+      }, _0x273f50 = _0x30ce67["h"] || [];
+      for (const _0x422efc of _0x273f50) {
+        const _0x49077b = _0x27e6a8(_0x54e7c9);
+        if (_0x483920(_0x49077b["left"], _0x422efc)) {
+          const _0x2408ec = editorUtil["getBoundingRect"]([_0x54e7c9]), _0x4bca79 = _0x2408ec["x"], _0xb93588 = _0x422efc - _0x4bca79;
+          _0x54e7c9["x"] += _0xb93588;
         }
-        if (isInRange(objectPositon.centerX, objectLeft)) {
-          const boundingBox = editorUtil.getBoundingRect([target]);
-          const innerCenterX = boundingBox.x + boundingBox.w / 2;
-          const distanceX = objectLeft - innerCenterX;
-          target.x += distanceX;
+        if (_0x483920(_0x49077b["centerX"], _0x422efc)) {
+          const _0x5ef9ac = editorUtil["getBoundingRect"]([_0x54e7c9]), _0x35cb0e = _0x5ef9ac["x"] + _0x5ef9ac["w"] / 2, _0x318099 = _0x422efc - _0x35cb0e;
+          _0x54e7c9["x"] += _0x318099;
         }
-        if (isInRange(objectPositon.right, objectLeft)) {
-          const boundingBox = editorUtil.getBoundingRect([target]);
-          const innerRight = boundingBox.x + boundingBox.w;
-          const distanceX = objectLeft - innerRight;
-          target.x += distanceX;
+        if (_0x483920(_0x49077b["right"], _0x422efc)) {
+          const _0x2e04c4 = editorUtil["getBoundingRect"]([_0x54e7c9]), _0x24d514 = _0x2e04c4["x"] + _0x2e04c4["w"], _0x496a9d = _0x422efc - _0x24d514;
+          _0x54e7c9["x"] += _0x496a9d;
         }
       }
-      const vLines = lines.v || [];
-      for (const objectTop of vLines) {
-        const objectPositon = disposePosition(target);
-        if (isInRange(objectPositon.top, objectTop)) {
-          const boundingBox = editorUtil.getBoundingRect([target]);
-          const innerTop = boundingBox.y;
-          const distanceY = objectTop - innerTop;
-          target.y += distanceY;
+      const _0xd18ebb = _0x30ce67["v"] || [];
+      for (const _0x3fc82b of _0xd18ebb) {
+        const _0x4ace85 = _0x27e6a8(_0x54e7c9);
+        if (_0x483920(_0x4ace85["top"], _0x3fc82b)) {
+          const _0x26438e = editorUtil["getBoundingRect"]([_0x54e7c9]), _0x5653c1 = _0x26438e["y"], _0x111fce = _0x3fc82b - _0x5653c1;
+          _0x54e7c9["y"] += _0x111fce;
         }
-        if (isInRange(objectPositon.centerY, objectTop)) {
-          const boundingBox = editorUtil.getBoundingRect([target]);
-          const innerCenterY = boundingBox.y + boundingBox.h / 2;
-          const distanceY = objectTop - innerCenterY;
-          target.y += distanceY;
+        if (_0x483920(_0x4ace85["centerY"], _0x3fc82b)) {
+          const _0x373947 = editorUtil["getBoundingRect"]([_0x54e7c9]), _0x395b2c = _0x373947["y"] + _0x373947["h"] / 2, _0x11f4bb = _0x3fc82b - _0x395b2c;
+          _0x54e7c9["y"] += _0x11f4bb;
         }
-        if (isInRange(objectPositon.bottom, objectTop)) {
-          const boundingBox = editorUtil.getBoundingRect([target]);
-          const innerRight = boundingBox.y + boundingBox.h;
-          const distanceY = objectTop - innerRight;
-          target.y += distanceY;
+        if (_0x483920(_0x4ace85["bottom"], _0x3fc82b)) {
+          const _0x3b6ec5 = editorUtil["getBoundingRect"]([_0x54e7c9]), _0x1343a9 = _0x3b6ec5["y"] + _0x3b6ec5["h"], _0x555caf = _0x3fc82b - _0x1343a9;
+          _0x54e7c9["y"] += _0x555caf;
         }
-        if (isAdsorb) {
-          editor.fire("object:sorption");
-        }
+        _0x5002c0 && _0x31f355["fire"]("object:sorption");
       }
     }
-    initRulerAdsorb(rulerLines) {
-      const editor = this.editor;
-      const selectTarget = editor.getActiveObject();
-      if (!selectTarget)
+    ["initRulerAdsorb"](_0x1bde5e) {
+      const _0x4d1e48 = this["editor"], _0x3f7fde = _0x4d1e48["getActiveObject"]();
+      if (!_0x3f7fde)
         return;
-      if (selectTarget.parentId)
+      if (_0x3f7fde["parentId"])
         return;
-      const isSorption = (selectValue, componentValue) => {
-        return Math.abs(selectValue - componentValue) <= this.aligningLineMargin;
+      const _0x1599f4 = (_0x540f54, _0x216c7c) => {
+        return Math["abs"](_0x540f54 - _0x216c7c) <= this["aligningLineMargin"];
+      }, _0x523254 = _0x3f7fde && _0x3f7fde ? _0x3f7fde : {}, _0x2fc782 = _0x523254["w"], _0x19348a = _0x523254["h"];
+      _0x3f7fde["setPosition"] = (_0x487dc2, _0x5c1c45) => {
+        _0x3f7fde["x"] = _0x487dc2, _0x3f7fde["y"] = _0x5c1c45;
       };
-      const selectAttr = selectTarget && selectTarget ? selectTarget : {};
-      const selectW = selectAttr.w;
-      const selectH = selectAttr.h;
-      selectTarget.setPosition = (x, y) => {
-        selectTarget.x = x;
-        selectTarget.y = y;
-      };
-      const selectLeftX = selectAttr.x;
-      const selectHalfX = selectLeftX + selectW / 2;
-      const selectRightX = selectLeftX + selectW;
-      const selectTopY = selectAttr.y;
-      const selectHalfY = selectTopY + selectH / 2;
-      const selectBottomY = selectTopY + selectH;
-      const horizontalLines = rulerLines.h || [];
-      for (let objectLeft of horizontalLines) {
-        objectLeft += objectLeft;
-        if (isSorption(selectLeftX, objectLeft)) {
-          selectTarget.setPosition(objectLeft, selectTopY);
-        }
-        if (isSorption(selectHalfX, objectLeft)) {
-          selectTarget.setPosition(objectLeft - selectW / 2, selectTopY);
-        }
-        if (isSorption(selectRightX, objectLeft)) {
-          selectTarget.setPosition(objectLeft - selectW, selectTopY);
-        }
+      const _0x17ba0c = _0x523254["x"], _0x2945f = _0x17ba0c + _0x2fc782 / 2, _0x291085 = _0x17ba0c + _0x2fc782, _0x3471a2 = _0x523254["y"], _0x350108 = _0x3471a2 + _0x19348a / 2, _0x178440 = _0x3471a2 + _0x19348a, _0x189cb3 = _0x1bde5e["h"] || [];
+      for (let _0x385860 of _0x189cb3) {
+        _0x385860 += _0x385860, _0x1599f4(_0x17ba0c, _0x385860) && _0x3f7fde["setPosition"](_0x385860, _0x3471a2), _0x1599f4(_0x2945f, _0x385860) && _0x3f7fde["setPosition"](_0x385860 - _0x2fc782 / 2, _0x3471a2), _0x1599f4(_0x291085, _0x385860) && _0x3f7fde["setPosition"](_0x385860 - _0x2fc782, _0x3471a2);
       }
-      const verticalLines = rulerLines.v || [];
-      for (let objectTop of verticalLines) {
-        if (isSorption(selectTopY, objectTop)) {
-          selectTarget.setPosition(selectLeftX, objectTop);
-        }
-        if (isSorption(selectHalfY, objectTop)) {
-          selectTarget.setPosition(selectLeftX, objectTop - selectH / 2);
-        }
-        if (isSorption(selectBottomY, objectTop)) {
-          selectTarget.setPosition(selectLeftX, objectTop - selectH);
-        }
+      const _0x3313b5 = _0x1bde5e["v"] || [];
+      for (let _0x259aa9 of _0x3313b5) {
+        _0x1599f4(_0x3471a2, _0x259aa9) && _0x3f7fde["setPosition"](_0x17ba0c, _0x259aa9), _0x1599f4(_0x350108, _0x259aa9) && _0x3f7fde["setPosition"](_0x17ba0c, _0x259aa9 - _0x19348a / 2), _0x1599f4(_0x178440, _0x259aa9) && _0x3f7fde["setPosition"](_0x17ba0c, _0x259aa9 - _0x19348a);
       }
     }
   }
   class GuidelineHandler {
-    // 边界列表（不包含当前移动对象）
-    constructor(editor) {
-      this.guidelineDom = null;
-      this.horizontalList = [];
-      this.verticalList = [];
-      this.guideGapDom = null;
-      this.gapHorizontalList = [];
-      this.gapVerticalList = [];
-      this.boundingList = [];
-      this.editor = editor;
-      this.initGuidlineDom();
-      this.initguideGapDom();
-      this.initEvent();
+    constructor(_0x193b1c) {
+      this["guidelineDom"] = null, this["horizontalList"] = [], this["verticalList"] = [], this["guideGapDom"] = null, this["gapHorizontalList"] = [], this["gapVerticalList"] = [], this["boundingList"] = [], this["editor"] = _0x193b1c, this["initGuidlineDom"](), this["initguideGapDom"](), this["initEvent"]();
     }
-    initEvent() {
-      const self2 = this;
-      const editor = this.editor;
-      editor.on({
-        "object:moving": function(e) {
-          if (editor.config.sorption && !editor.config.sorption.enabled) {
-            return;
-          } else if (e.e.shiftKey || e.e.altKey) {
-            self2.clearGuidelines();
-            self2.clearGuideGap();
-            return;
-          }
-          if (!self2.boundingList.length) {
-            self2.boundingList = self2.getBoundingList(editor);
-          }
-          self2.createGuideLines();
-          self2.createGuideGap();
-        },
-        "editor:panzoom": function(e) {
-          if (self2.horizontalList.length || self2.verticalList.length) {
-            self2.boundingList = self2.getBoundingList(editor);
-            self2.createGuideLines();
-            self2.createGuideGap();
-          }
-        },
-        "editor:mouseup": function(e) {
-          self2.boundingList = [];
-          self2.clearGuidelines();
-          self2.clearGuideGap();
-        }
-      });
-    }
-    // 吸附判定，默认改为距离小于1像素才吸附，避免画布元素过多时频繁触发吸附
-    isInRange(value1, value2, adsorValue = 1) {
-      value1 = Math.round(value1);
-      value2 = Math.round(value2);
-      for (let i = value1 - adsorValue, len = value1 + adsorValue; i <= len; i++) {
-        if (i === value2) {
-          return true;
-        }
-      }
-      return false;
-    }
-    // 获取边界列表
-    getBoundingList(editor) {
-      const objects = editor.group ? editor.group.objects : editor.objects;
-      const target = editor.getActiveObject();
-      const list = [];
-      for (let i = 0; i < objects.length; i++) {
-        const item = objects[i];
-        if (item.id !== target.id) {
-          const bounding = item.getContainerPosition();
-          bounding.id = item.id;
-          const position = getPosition(bounding);
-          list.push(position);
-        }
-      }
-      return list;
-    }
-    // 创建对齐线dom
-    initGuidlineDom() {
-      const editor = this.editor;
-      const guidelineDom = editorUtil.createSvgElement(
-        "svg",
-        { class: "guide-line-dom" },
-        {
-          pointerEvents: "none",
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          left: "0px",
-          top: "0px",
-          overflow: "visible"
-        }
-      );
-      this.guidelineDom = guidelineDom;
-      const overLayerDom = editor.overLayer;
-      setTimeout(() => {
-        overLayerDom.appendChild(this.guidelineDom);
-      }, 300);
-    }
-    // 清除对齐线
-    clearGuidelines() {
-      this.horizontalList = this.verticalList = [];
-      this.guidelineDom.innerHTML = null;
-    }
-    /**
-     * 绘制辅助线
-     */
-    drawLines() {
-      const { editor, guidelineDom, horizontalList, verticalList } = this;
-      const { color, width } = editor.config.guideline;
-      let horizontalStr = "";
-      horizontalList.forEach((item) => {
-        const { x1, x2, y1, y2 } = item;
-        horizontalStr += `<line
-      x1="${x1}"
-      y1="${y1}"
-      x2="${x2}"
-      y2="${y2}"
-      stroke-width="${width}"
-      stroke="${color}"
-    />`;
-      });
-      let verticalStr = "";
-      verticalList.forEach((item) => {
-        const { x1, x2, y1, y2 } = item;
-        verticalStr += `<line
-      x1="${x1}"
-      y1="${y1}"
-      x2="${x2}"
-      y2="${y2}"
-      stroke-width="${width}"
-      stroke="${color}"
-    />`;
-      });
-      guidelineDom.innerHTML = `<g>${horizontalStr} ${verticalStr}</g>`;
-    }
-    createGuideLines() {
-      const { editor } = this;
-      const { offset: alignMargin } = editor.config.sorption;
-      const target = editor.getActiveObject();
-      if (!target || target.type === "activeSelection")
-        return;
-      const zoom = editor.getZoom();
-      const calcSorption = (diffPosition, direction = "horizontal", diffType = "left", type = "left") => {
-        const { left, top, right, bottom } = diffPosition;
-        const activeObjPosition = getPosition(activeObjBounding);
-        if (!this.isInRange(diffPosition[diffType], activeObjPosition[type], alignMargin)) {
+    ["initEvent"]() {
+      const _0x501c4c = this, _0x3b593f = this["editor"];
+      _0x3b593f["on"]({ "object:moving": function(_0x259fd2) {
+        if (_0x3b593f["config"]["sorption"] && !_0x3b593f["config"]["sorption"]["enabled"])
           return;
-        }
-        const diffValue = (diffPosition[diffType] - activeObjPosition[type]) / zoom;
-        let [x1, x2, y1, y2] = [0, 0, 0, 0];
-        if (direction === "horizontal") {
-          x1 = Math.min(left, activeObjPosition.left);
-          x2 = Math.max(right, activeObjPosition.right);
-          y1 = y2 = diffPosition[diffType];
-        } else {
-          x1 = x2 = diffPosition[diffType];
-          y1 = Math.min(top, activeObjPosition.top);
-          y2 = Math.max(bottom, activeObjPosition.bottom);
-        }
-        const p1 = { x: x1, y: y1 };
-        const p2 = { x: x2, y: y2 };
-        const obj = { x1: +p1.x.toFixed(2), y1: +p1.y.toFixed(2), x2: +p2.x.toFixed(2), y2: +p2.y.toFixed(2) };
-        if (direction === "horizontal") {
-          if (!sorptionHorizontal) {
-            sorptionHorizontal = true;
-            target.y += diffValue;
-            activeObjBounding.y += diffValue;
-            hList.push(obj);
-          } else {
-            if (y1.toFixed(2) === activeObjPosition[type].toFixed(2)) {
-              hList.push(obj);
-            }
-          }
-        } else {
-          if (!sorptionVertical) {
-            sorptionVertical = true;
-            target.x += diffValue;
-            activeObjBounding.x += diffValue;
-            vList.push(obj);
-          } else {
-            if (x1.toFixed(2) === activeObjPosition[type].toFixed(2)) {
-              vList.push(obj);
-            }
+        else {
+          if (_0x259fd2["e"]["shiftKey"] || _0x259fd2["e"]["altKey"]) {
+            _0x501c4c["clearGuidelines"](), _0x501c4c["clearGuideGap"]();
+            return;
           }
         }
-      };
-      const activeObjBounding = target.getContainerPosition();
-      const vList = [];
-      const hList = [];
-      let sorptionHorizontal = false;
-      let sorptionVertical = false;
-      for (let i = 0; i < this.boundingList.length; i++) {
-        const position = this.boundingList[i];
-        calcSorption(position, "vertical", "left", "left");
-        calcSorption(position, "vertical", "centerX", "left");
-        calcSorption(position, "vertical", "right", "left");
-        calcSorption(position, "vertical", "left", "centerX");
-        calcSorption(position, "vertical", "centerX", "centerX");
-        calcSorption(position, "vertical", "right", "centerX");
-        calcSorption(position, "vertical", "left", "right");
-        calcSorption(position, "vertical", "centerX", "right");
-        calcSorption(position, "vertical", "right", "right");
-        calcSorption(position, "horizontal", "top", "top");
-        calcSorption(position, "horizontal", "centerY", "top");
-        calcSorption(position, "horizontal", "bottom", "top");
-        calcSorption(position, "horizontal", "top", "centerY");
-        calcSorption(position, "horizontal", "centerY", "centerY");
-        calcSorption(position, "horizontal", "bottom", "centerY");
-        calcSorption(position, "horizontal", "top", "bottom");
-        calcSorption(position, "horizontal", "centerY", "bottom");
-        calcSorption(position, "horizontal", "bottom", "bottom");
-      }
-      this.verticalList = Object.values(groupBy(vList, "x1")).map((a) => {
-        const firstItem = a[0];
-        let [minY, maxY] = [firstItem.y1, firstItem.y2];
-        a.forEach((b) => {
-          minY = Math.min(b.y1, b.y2, minY);
-          maxY = Math.max(b.y1, b.y2, maxY);
-        });
-        return { x1: firstItem.x1, y1: minY, x2: firstItem.x2, y2: maxY };
-      });
-      this.horizontalList = Object.values(groupBy(hList, "y1")).map((a) => {
-        const firstItem = a[0];
-        let [minX, maxX] = [firstItem.x1, firstItem.x2];
-        a.forEach((b) => {
-          minX = Math.min(b.x1, b.x2, minX);
-          maxX = Math.max(b.x1, b.x2, maxX);
-        });
-        return { x1: minX, y1: firstItem.y1, x2: maxX, y2: firstItem.y2 };
-      });
-      this.drawLines();
+        !_0x501c4c["boundingList"]["length"] && (_0x501c4c["boundingList"] = _0x501c4c["getBoundingList"](_0x3b593f)), _0x501c4c["createGuideLines"](), _0x501c4c["createGuideGap"]();
+      }, "editor:panzoom": function(_0x470441) {
+        (_0x501c4c["horizontalList"]["length"] || _0x501c4c["verticalList"]["length"]) && (_0x501c4c["boundingList"] = _0x501c4c["getBoundingList"](_0x3b593f), _0x501c4c["createGuideLines"](), _0x501c4c["createGuideGap"]());
+      }, "editor:mouseup": function(_0x9d60cd) {
+        _0x501c4c["boundingList"] = [], _0x501c4c["clearGuidelines"](), _0x501c4c["clearGuideGap"]();
+      } });
     }
-    // 初始化辅助间隔dom
-    initguideGapDom() {
-      const editor = this.editor;
-      const guideGapDom = editorUtil.createSvgElement(
-        "svg",
-        { class: "guide-gap-dom" },
-        {
-          pointerEvents: "none",
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          left: "0px",
-          top: "0px",
-          overflow: "visible"
+    ["isInRange"](_0x345f74, _0x60fb5e, _0x120dff = 1) {
+      _0x345f74 = Math["round"](_0x345f74), _0x60fb5e = Math["round"](_0x60fb5e);
+      for (let _0x1e8e55 = _0x345f74 - _0x120dff, _0x441540 = _0x345f74 + _0x120dff; _0x1e8e55 <= _0x441540; _0x1e8e55++) {
+        if (_0x1e8e55 === _0x60fb5e)
+          return !![];
+      }
+      return ![];
+    }
+    ["getBoundingList"](_0x50d7c6) {
+      const _0x36b1cc = _0x50d7c6["group"] ? _0x50d7c6["group"]["objects"] : _0x50d7c6["objects"], _0x517718 = _0x50d7c6["getActiveObject"](), _0xa629d2 = [];
+      for (let _0xb6f976 = 0; _0xb6f976 < _0x36b1cc["length"]; _0xb6f976++) {
+        const _0x785f61 = _0x36b1cc[_0xb6f976];
+        if (_0x785f61["id"] !== _0x517718["id"]) {
+          const _0x3c0d2c = _0x785f61["getContainerPosition"]();
+          _0x3c0d2c["id"] = _0x785f61["id"];
+          const _0x5a64e5 = getPosition(_0x3c0d2c);
+          _0xa629d2["push"](_0x5a64e5);
         }
-      );
-      this.guideGapDom = guideGapDom;
-      const overLayerDom = editor.overLayer;
+      }
+      return _0xa629d2;
+    }
+    ["initGuidlineDom"]() {
+      const _0x25b0eb = this["editor"], _0x54a6bc = editorUtil["createSvgElement"]("svg", { "class": "guide-line-dom" }, { "pointerEvents": "none", "position": "absolute", "width": "100%", "height": "100%", "left": "0px", "top": "0px", "overflow": "visible" });
+      this["guidelineDom"] = _0x54a6bc;
+      const _0x286b02 = _0x25b0eb["overLayer"];
       setTimeout(() => {
-        overLayerDom.appendChild(this.guideGapDom);
+        _0x286b02["appendChild"](this["guidelineDom"]);
       }, 300);
     }
-    // 清除辅助间隔
-    clearGuideGap() {
-      this.guideGapDom.innerHTML = null;
+    ["clearGuidelines"]() {
+      this["horizontalList"] = this["verticalList"] = [], this["guidelineDom"]["innerHTML"] = null;
     }
-    // 绘制辅助间隔，目前此方法300多行代码，但还没抽离出公共逻辑，以后再优化 2025/04/09
-    createGuideGap() {
-      const { editor } = this;
-      const target = editor.getActiveObject();
-      if (!target || target.type === "activeSelection")
-        return;
-      const { offset: alignMargin } = editor.config.sorption;
-      const zoom = editor.getZoom();
-      this.gapVerticalList = this.gapHorizontalList = [];
-      const gapHorizontalList = [];
-      const gapVerticalList = [];
-      const activeObjBounding = getPosition(target.getContainerPosition());
-      activeObjBounding.id = target.id;
-      const objs = [...this.boundingList, activeObjBounding];
-      const topSortList = cloneDeep(objs).sort((a, b) => a.top - b.top).filter((a) => !(a.left > activeObjBounding.right || a.right < activeObjBounding.left));
-      const topCurrentIndex = topSortList.findIndex((item) => item.id === target.id);
-      const topCurrentItem = topSortList[topCurrentIndex];
-      const topCurrentPreItem = topSortList[topCurrentIndex - 1];
-      const topCurrentNextItem = topSortList[topCurrentIndex + 1];
-      const topDistanceMap = /* @__PURE__ */ new Map();
-      for (let i = 0; i < topSortList.length; i++) {
-        const item = topSortList[i];
-        const nextItem = topSortList[i + 1];
-        if (item.id !== target.id && nextItem && nextItem.id !== target.id) {
-          const distance = +(nextItem.top - item.bottom).toFixed(0);
-          if (distance > 0) {
-            const itemObj = topDistanceMap.get(distance);
-            let obj = {
-              x: Math.min(item.left, nextItem.left),
-              y: item.bottom,
-              w: Math.max(item.right, nextItem.right) - Math.min(item.left, nextItem.left),
-              h: distance,
-              value: +(distance / zoom).toFixed(0)
-            };
-            if (itemObj) {
-              itemObj.push(obj);
-            } else {
-              topDistanceMap.set(distance, [obj]);
-            }
-          }
-        }
-      }
-      const topKeys = Array.from(topDistanceMap.keys());
-      topKeys.sort();
-      let isTopAdsor = false;
-      if (topCurrentPreItem) {
-        const distance = +(topCurrentItem.top - topCurrentPreItem.bottom).toFixed(0);
-        for (let i = 0; i < topKeys.length; i++) {
-          const key = topKeys[i];
-          if (this.isInRange(key, distance, alignMargin)) {
-            const diff = key - distance;
-            const realDiff = diff / zoom;
-            const item = topDistanceMap.get(key);
-            item.push({
-              x: Math.min(topCurrentItem.left, topCurrentPreItem.left),
-              y: topCurrentPreItem.bottom,
-              w: Math.max(topCurrentItem.right, topCurrentPreItem.right) - Math.min(topCurrentItem.left, topCurrentPreItem.left),
-              h: key,
-              value: +(key / zoom).toFixed(0),
-              isSelf: true
-            });
-            target.set({
-              y: target.y + realDiff
-            });
-            isTopAdsor = true;
-            break;
-          }
-        }
-      }
-      if (topCurrentNextItem) {
-        const distance = +(topCurrentNextItem.top - topCurrentItem.bottom).toFixed(0);
-        for (let i = 0; i < topKeys.length; i++) {
-          const key = topKeys[i];
-          if (this.isInRange(key, distance, alignMargin)) {
-            const diff = key - distance;
-            const realDiff = diff / zoom;
-            const item = topDistanceMap.get(key);
-            item.push({
-              x: Math.min(topCurrentItem.left, topCurrentNextItem.left),
-              y: topCurrentNextItem.top - key,
-              w: Math.max(topCurrentItem.right, topCurrentNextItem.right) - Math.min(topCurrentItem.left, topCurrentNextItem.left),
-              h: key,
-              value: +(key / zoom).toFixed(0),
-              isSelf: true
-            });
-            if (!isTopAdsor) {
-              target.set({
-                y: target.y - realDiff
-              });
-            }
-            break;
-          }
-        }
-      }
-      if (!isTopAdsor && topCurrentPreItem && topCurrentNextItem) {
-        const centerY = (topCurrentNextItem.top + topCurrentPreItem.bottom) / 2;
-        if (this.isInRange(centerY, topCurrentItem.centerY, alignMargin)) {
-          const diff = centerY - topCurrentItem.centerY;
-          const realDiff = diff / zoom;
-          const key = +((topCurrentNextItem.top - topCurrentPreItem.bottom - topCurrentItem.h) / 2).toFixed(0);
-          const item = topDistanceMap.get(key);
-          if (key > 0) {
-            const objs2 = [
-              {
-                x: Math.min(topCurrentItem.left, topCurrentPreItem.left),
-                y: topCurrentPreItem.bottom,
-                w: Math.max(topCurrentItem.right, topCurrentPreItem.right) - Math.min(topCurrentItem.left, topCurrentPreItem.left),
-                h: key,
-                value: +(key / zoom).toFixed(0),
-                isSelf: true
-              },
-              {
-                x: Math.min(topCurrentItem.left, topCurrentNextItem.left),
-                y: topCurrentNextItem.top - key,
-                w: Math.max(topCurrentItem.right, topCurrentNextItem.right) - Math.min(topCurrentItem.left, topCurrentNextItem.left),
-                h: key,
-                value: +(key / zoom).toFixed(0)
-              }
-            ];
-            if (item) {
-              item.push(...objs2);
-            } else {
-              topDistanceMap.set(key, objs2);
-            }
-            target.set({
-              y: target.y + realDiff
-            });
-          }
-        }
-      }
-      topDistanceMap.forEach((item) => {
-        if (item.length > 1 && item.some((a) => a.isSelf)) {
-          gapHorizontalList.push(...item);
-        }
+    ["drawLines"]() {
+      const { editor: _0x3271cd, guidelineDom: _0x18f8f9, horizontalList: _0xfeb7d9, verticalList: _0x2b7229 } = this, { color: _0x39257c, width: _0x18ea17 } = _0x3271cd["config"]["guideline"];
+      let _0x5c29eb = "";
+      _0xfeb7d9["forEach"]((_0x4d0684) => {
+        const { x1: _0x5f22cb, x2: _0x4fa670, y1: _0x36299c, y2: _0x469123 } = _0x4d0684;
+        _0x5c29eb += '<line\n      x1="' + _0x5f22cb + '"\n      y1="' + _0x36299c + '"\n      x2="' + _0x4fa670 + '"\n      y2="' + _0x469123 + '"\n      stroke-width="' + _0x18ea17 + '"\n      stroke="' + _0x39257c + '"\n    />';
       });
-      this.gapHorizontalList = gapHorizontalList;
-      if (!isTopAdsor) {
-        const leftSortList = cloneDeep(objs).sort((a, b) => a.left - b.left).filter((a) => !(a.top > activeObjBounding.bottom || a.bottom < activeObjBounding.top));
-        const leftCurrentIndex = leftSortList.findIndex((item) => item.id === target.id);
-        const leftCurrentItem = leftSortList[leftCurrentIndex];
-        const leftCurrentPreItem = leftSortList[leftCurrentIndex - 1];
-        const leftCurrentNextItem = leftSortList[leftCurrentIndex + 1];
-        const leftDistanceMap = /* @__PURE__ */ new Map();
-        for (let i = 0; i < leftSortList.length; i++) {
-          const item = leftSortList[i];
-          const nextItem = leftSortList[i + 1];
-          if (item.id !== target.id && nextItem && nextItem.id !== target.id) {
-            const distance = +(nextItem.left - item.right).toFixed(0);
-            if (distance > 0) {
-              const itemObj = leftDistanceMap.get(distance);
-              let obj = {
-                x: item.right,
-                y: Math.min(item.top, nextItem.top),
-                w: distance,
-                h: Math.max(item.bottom, nextItem.bottom) - Math.min(item.top, nextItem.top),
-                value: +(distance / zoom).toFixed(0)
-              };
-              if (itemObj) {
-                itemObj.push(obj);
-              } else {
-                leftDistanceMap.set(distance, [obj]);
-              }
+      let _0x55411c = "";
+      _0x2b7229["forEach"]((_0x479e61) => {
+        const { x1: _0x47a9c4, x2: _0x2cc80c, y1: _0x87a503, y2: _0x55ff89 } = _0x479e61;
+        _0x55411c += '<line\n      x1="' + _0x47a9c4 + '"\n      y1="' + _0x87a503 + '"\n      x2="' + _0x2cc80c + '"\n      y2="' + _0x55ff89 + '"\n      stroke-width="' + _0x18ea17 + '"\n      stroke="' + _0x39257c + '"\n    />';
+      }), _0x18f8f9["innerHTML"] = "<g>" + _0x5c29eb + " " + _0x55411c + "</g>";
+    }
+    ["createGuideLines"]() {
+      const { editor: _0x265ea5 } = this, { offset: _0x1fdbb3 } = _0x265ea5["config"]["sorption"], _0x52578f = _0x265ea5["getActiveObject"]();
+      if (!_0x52578f || _0x52578f["type"] === "activeSelection")
+        return;
+      const _0x322cc3 = _0x265ea5["getZoom"](), _0x2cad2c = (_0x30ccea, _0x2e0a21 = "horizontal", _0x141091 = "left", _0x46b833 = "left") => {
+        const { left: _0x33ee62, top: _0x42424b, right: _0x1a385b, bottom: _0x52816f } = _0x30ccea, _0x182c63 = getPosition(_0xe82f7d);
+        if (!this["isInRange"](_0x30ccea[_0x141091], _0x182c63[_0x46b833], _0x1fdbb3))
+          return;
+        const _0x403760 = (_0x30ccea[_0x141091] - _0x182c63[_0x46b833]) / _0x322cc3;
+        let [_0x303518, _0x1cbd6a, _0x25d83b, _0x3ef539] = [0, 0, 0, 0];
+        _0x2e0a21 === "horizontal" ? (_0x303518 = Math["min"](_0x33ee62, _0x182c63["left"]), _0x1cbd6a = Math["max"](_0x1a385b, _0x182c63["right"]), _0x25d83b = _0x3ef539 = _0x30ccea[_0x141091]) : (_0x303518 = _0x1cbd6a = _0x30ccea[_0x141091], _0x25d83b = Math["min"](_0x42424b, _0x182c63["top"]), _0x3ef539 = Math["max"](_0x52816f, _0x182c63["bottom"]));
+        const _0x21699e = { "x": _0x303518, "y": _0x25d83b }, _0x259d73 = { "x": _0x1cbd6a, "y": _0x3ef539 }, _0xeba6bd = { "x1": +_0x21699e["x"]["toFixed"](2), "y1": +_0x21699e["y"]["toFixed"](2), "x2": +_0x259d73["x"]["toFixed"](2), "y2": +_0x259d73["y"]["toFixed"](2) };
+        _0x2e0a21 === "horizontal" ? !_0x25eb7c ? (_0x25eb7c = !![], _0x52578f["y"] += _0x403760, _0xe82f7d["y"] += _0x403760, _0x23ca01["push"](_0xeba6bd)) : _0x25d83b["toFixed"](2) === _0x182c63[_0x46b833]["toFixed"](2) && _0x23ca01["push"](_0xeba6bd) : !_0x2a458c ? (_0x2a458c = !![], _0x52578f["x"] += _0x403760, _0xe82f7d["x"] += _0x403760, _0x2af934["push"](_0xeba6bd)) : _0x303518["toFixed"](2) === _0x182c63[_0x46b833]["toFixed"](2) && _0x2af934["push"](_0xeba6bd);
+      }, _0xe82f7d = _0x52578f["getContainerPosition"](), _0x2af934 = [], _0x23ca01 = [];
+      let _0x25eb7c = ![], _0x2a458c = ![];
+      for (let _0x5af7b1 = 0; _0x5af7b1 < this["boundingList"]["length"]; _0x5af7b1++) {
+        const _0x50f7cf = this["boundingList"][_0x5af7b1];
+        _0x2cad2c(_0x50f7cf, "vertical", "left", "left"), _0x2cad2c(_0x50f7cf, "vertical", "centerX", "left"), _0x2cad2c(_0x50f7cf, "vertical", "right", "left"), _0x2cad2c(_0x50f7cf, "vertical", "left", "centerX"), _0x2cad2c(_0x50f7cf, "vertical", "centerX", "centerX"), _0x2cad2c(_0x50f7cf, "vertical", "right", "centerX"), _0x2cad2c(_0x50f7cf, "vertical", "left", "right"), _0x2cad2c(_0x50f7cf, "vertical", "centerX", "right"), _0x2cad2c(_0x50f7cf, "vertical", "right", "right"), _0x2cad2c(_0x50f7cf, "horizontal", "top", "top"), _0x2cad2c(_0x50f7cf, "horizontal", "centerY", "top"), _0x2cad2c(_0x50f7cf, "horizontal", "bottom", "top"), _0x2cad2c(_0x50f7cf, "horizontal", "top", "centerY"), _0x2cad2c(_0x50f7cf, "horizontal", "centerY", "centerY"), _0x2cad2c(_0x50f7cf, "horizontal", "bottom", "centerY"), _0x2cad2c(_0x50f7cf, "horizontal", "top", "bottom"), _0x2cad2c(_0x50f7cf, "horizontal", "centerY", "bottom"), _0x2cad2c(_0x50f7cf, "horizontal", "bottom", "bottom");
+      }
+      this["verticalList"] = Object["values"](groupBy(_0x2af934, "x1"))["map"]((_0x248a92) => {
+        const _0x2577c0 = _0x248a92[0];
+        let [_0x37783e, _0x3fd021] = [_0x2577c0["y1"], _0x2577c0["y2"]];
+        return _0x248a92["forEach"]((_0x3d0bc9) => {
+          _0x37783e = Math["min"](_0x3d0bc9["y1"], _0x3d0bc9["y2"], _0x37783e), _0x3fd021 = Math["max"](_0x3d0bc9["y1"], _0x3d0bc9["y2"], _0x3fd021);
+        }), { "x1": _0x2577c0["x1"], "y1": _0x37783e, "x2": _0x2577c0["x2"], "y2": _0x3fd021 };
+      }), this["horizontalList"] = Object["values"](groupBy(_0x23ca01, "y1"))["map"]((_0x205dff) => {
+        const _0x3b5e1f = _0x205dff[0];
+        let [_0x5db10b, _0x11473d] = [_0x3b5e1f["x1"], _0x3b5e1f["x2"]];
+        return _0x205dff["forEach"]((_0x147beb) => {
+          _0x5db10b = Math["min"](_0x147beb["x1"], _0x147beb["x2"], _0x5db10b), _0x11473d = Math["max"](_0x147beb["x1"], _0x147beb["x2"], _0x11473d);
+        }), { "x1": _0x5db10b, "y1": _0x3b5e1f["y1"], "x2": _0x11473d, "y2": _0x3b5e1f["y2"] };
+      }), this["drawLines"]();
+    }
+    ["initguideGapDom"]() {
+      const _0x3039e2 = this["editor"], _0x58887e = editorUtil["createSvgElement"]("svg", { "class": "guide-gap-dom" }, { "pointerEvents": "none", "position": "absolute", "width": "100%", "height": "100%", "left": "0px", "top": "0px", "overflow": "visible" });
+      this["guideGapDom"] = _0x58887e;
+      const _0x172327 = _0x3039e2["overLayer"];
+      setTimeout(() => {
+        _0x172327["appendChild"](this["guideGapDom"]);
+      }, 300);
+    }
+    ["clearGuideGap"]() {
+      this["guideGapDom"]["innerHTML"] = null;
+    }
+    ["createGuideGap"]() {
+      const { editor: _0x3c042f } = this, _0x2f5a58 = _0x3c042f["getActiveObject"]();
+      if (!_0x2f5a58 || _0x2f5a58["type"] === "activeSelection")
+        return;
+      const { offset: _0x5c152e } = _0x3c042f["config"]["sorption"], _0x1a0e19 = _0x3c042f["getZoom"]();
+      this["gapVerticalList"] = this["gapHorizontalList"] = [];
+      const _0x2157cf = [], _0x1ad926 = [], _0x3282ea = getPosition(_0x2f5a58["getContainerPosition"]());
+      _0x3282ea["id"] = _0x2f5a58["id"];
+      const _0x3063c7 = [...this["boundingList"], _0x3282ea], _0x5b6fc6 = cloneDeep(_0x3063c7)["sort"]((_0x247986, _0x183bd6) => _0x247986["top"] - _0x183bd6["top"])["filter"]((_0x3a983c) => !(_0x3a983c["left"] > _0x3282ea["right"] || _0x3a983c["right"] < _0x3282ea["left"])), _0x4f124f = _0x5b6fc6["findIndex"]((_0x1cb71b) => _0x1cb71b["id"] === _0x2f5a58["id"]), _0x24ae13 = _0x5b6fc6[_0x4f124f], _0x4ec791 = _0x5b6fc6[_0x4f124f - 1], _0x7f6a30 = _0x5b6fc6[_0x4f124f + 1], _0x29f471 = /* @__PURE__ */ new Map();
+      for (let _0x4854d4 = 0; _0x4854d4 < _0x5b6fc6["length"]; _0x4854d4++) {
+        const _0x4ef4b9 = _0x5b6fc6[_0x4854d4], _0x7f07b3 = _0x5b6fc6[_0x4854d4 + 1];
+        if (_0x4ef4b9["id"] !== _0x2f5a58["id"] && _0x7f07b3 && _0x7f07b3["id"] !== _0x2f5a58["id"]) {
+          const _0x76ee80 = +(_0x7f07b3["top"] - _0x4ef4b9["bottom"])["toFixed"](0);
+          if (_0x76ee80 > 0) {
+            const _0xd0d3b2 = _0x29f471["get"](_0x76ee80);
+            let _0x5e34f4 = { "x": Math["min"](_0x4ef4b9["left"], _0x7f07b3["left"]), "y": _0x4ef4b9["bottom"], "w": Math["max"](_0x4ef4b9["right"], _0x7f07b3["right"]) - Math["min"](_0x4ef4b9["left"], _0x7f07b3["left"]), "h": _0x76ee80, "value": +(_0x76ee80 / _0x1a0e19)["toFixed"](0) };
+            _0xd0d3b2 ? _0xd0d3b2["push"](_0x5e34f4) : _0x29f471["set"](_0x76ee80, [_0x5e34f4]);
+          }
+        }
+      }
+      const _0x19ec73 = Array["from"](_0x29f471["keys"]());
+      _0x19ec73["sort"]();
+      let _0x5212df = ![];
+      if (_0x4ec791) {
+        const _0x106d34 = +(_0x24ae13["top"] - _0x4ec791["bottom"])["toFixed"](0);
+        for (let _0x2cf9de = 0; _0x2cf9de < _0x19ec73["length"]; _0x2cf9de++) {
+          const _0x2b34f6 = _0x19ec73[_0x2cf9de];
+          if (this["isInRange"](_0x2b34f6, _0x106d34, _0x5c152e)) {
+            const _0x1358aa = _0x2b34f6 - _0x106d34, _0x263ff6 = _0x1358aa / _0x1a0e19, _0x31c177 = _0x29f471["get"](_0x2b34f6);
+            _0x31c177["push"]({ "x": Math["min"](_0x24ae13["left"], _0x4ec791["left"]), "y": _0x4ec791["bottom"], "w": Math["max"](_0x24ae13["right"], _0x4ec791["right"]) - Math["min"](_0x24ae13["left"], _0x4ec791["left"]), "h": _0x2b34f6, "value": +(_0x2b34f6 / _0x1a0e19)["toFixed"](0), "isSelf": !![] }), _0x2f5a58["set"]({ "y": _0x2f5a58["y"] + _0x263ff6 }), _0x5212df = !![];
+            break;
+          }
+        }
+      }
+      if (_0x7f6a30) {
+        const _0x4f091c = +(_0x7f6a30["top"] - _0x24ae13["bottom"])["toFixed"](0);
+        for (let _0x218691 = 0; _0x218691 < _0x19ec73["length"]; _0x218691++) {
+          const _0x1b5614 = _0x19ec73[_0x218691];
+          if (this["isInRange"](_0x1b5614, _0x4f091c, _0x5c152e)) {
+            const _0x85dc07 = _0x1b5614 - _0x4f091c, _0x337897 = _0x85dc07 / _0x1a0e19, _0x4c6e3c = _0x29f471["get"](_0x1b5614);
+            _0x4c6e3c["push"]({ "x": Math["min"](_0x24ae13["left"], _0x7f6a30["left"]), "y": _0x7f6a30["top"] - _0x1b5614, "w": Math["max"](_0x24ae13["right"], _0x7f6a30["right"]) - Math["min"](_0x24ae13["left"], _0x7f6a30["left"]), "h": _0x1b5614, "value": +(_0x1b5614 / _0x1a0e19)["toFixed"](0), "isSelf": !![] });
+            !_0x5212df && _0x2f5a58["set"]({ "y": _0x2f5a58["y"] - _0x337897 });
+            break;
+          }
+        }
+      }
+      if (!_0x5212df && _0x4ec791 && _0x7f6a30) {
+        const _0x4b51de = (_0x7f6a30["top"] + _0x4ec791["bottom"]) / 2;
+        if (this["isInRange"](_0x4b51de, _0x24ae13["centerY"], _0x5c152e)) {
+          const _0x382dfa = _0x4b51de - _0x24ae13["centerY"], _0x7e0d7d = _0x382dfa / _0x1a0e19, _0x2adfe4 = +((_0x7f6a30["top"] - _0x4ec791["bottom"] - _0x24ae13["h"]) / 2)["toFixed"](0), _0x24e574 = _0x29f471["get"](_0x2adfe4);
+          if (_0x2adfe4 > 0) {
+            const _0x1b17df = [{ "x": Math["min"](_0x24ae13["left"], _0x4ec791["left"]), "y": _0x4ec791["bottom"], "w": Math["max"](_0x24ae13["right"], _0x4ec791["right"]) - Math["min"](_0x24ae13["left"], _0x4ec791["left"]), "h": _0x2adfe4, "value": +(_0x2adfe4 / _0x1a0e19)["toFixed"](0), "isSelf": !![] }, { "x": Math["min"](_0x24ae13["left"], _0x7f6a30["left"]), "y": _0x7f6a30["top"] - _0x2adfe4, "w": Math["max"](_0x24ae13["right"], _0x7f6a30["right"]) - Math["min"](_0x24ae13["left"], _0x7f6a30["left"]), "h": _0x2adfe4, "value": +(_0x2adfe4 / _0x1a0e19)["toFixed"](0) }];
+            _0x24e574 ? _0x24e574["push"](..._0x1b17df) : _0x29f471["set"](_0x2adfe4, _0x1b17df), _0x2f5a58["set"]({ "y": _0x2f5a58["y"] + _0x7e0d7d });
+          }
+        }
+      }
+      _0x29f471["forEach"]((_0x1efd15) => {
+        _0x1efd15["length"] > 1 && _0x1efd15["some"]((_0x54f7a5) => _0x54f7a5["isSelf"]) && _0x2157cf["push"](..._0x1efd15);
+      }), this["gapHorizontalList"] = _0x2157cf;
+      if (!_0x5212df) {
+        const _0x49f87d = cloneDeep(_0x3063c7)["sort"]((_0x24b5df, _0x3f3518) => _0x24b5df["left"] - _0x3f3518["left"])["filter"]((_0x427863) => !(_0x427863["top"] > _0x3282ea["bottom"] || _0x427863["bottom"] < _0x3282ea["top"])), _0x287c37 = _0x49f87d["findIndex"]((_0x22dcba) => _0x22dcba["id"] === _0x2f5a58["id"]), _0x11fb1e = _0x49f87d[_0x287c37], _0x5ef9f0 = _0x49f87d[_0x287c37 - 1], _0xea4321 = _0x49f87d[_0x287c37 + 1], _0x3a2eae = /* @__PURE__ */ new Map();
+        for (let _0x4e5233 = 0; _0x4e5233 < _0x49f87d["length"]; _0x4e5233++) {
+          const _0x5c097f = _0x49f87d[_0x4e5233], _0x286b38 = _0x49f87d[_0x4e5233 + 1];
+          if (_0x5c097f["id"] !== _0x2f5a58["id"] && _0x286b38 && _0x286b38["id"] !== _0x2f5a58["id"]) {
+            const _0x4261ad = +(_0x286b38["left"] - _0x5c097f["right"])["toFixed"](0);
+            if (_0x4261ad > 0) {
+              const _0x234f67 = _0x3a2eae["get"](_0x4261ad);
+              let _0x1f72f7 = { "x": _0x5c097f["right"], "y": Math["min"](_0x5c097f["top"], _0x286b38["top"]), "w": _0x4261ad, "h": Math["max"](_0x5c097f["bottom"], _0x286b38["bottom"]) - Math["min"](_0x5c097f["top"], _0x286b38["top"]), "value": +(_0x4261ad / _0x1a0e19)["toFixed"](0) };
+              _0x234f67 ? _0x234f67["push"](_0x1f72f7) : _0x3a2eae["set"](_0x4261ad, [_0x1f72f7]);
             }
           }
         }
-        const leftKeys = Array.from(leftDistanceMap.keys());
-        leftKeys.sort();
-        let isLeftAdsor = false;
-        if (leftCurrentPreItem) {
-          const distance = +(leftCurrentItem.left - leftCurrentPreItem.right).toFixed(0);
-          for (let i = 0; i < leftKeys.length; i++) {
-            const key = leftKeys[i];
-            if (this.isInRange(key, distance, alignMargin)) {
-              const diff = key - distance;
-              const realDiff = diff / zoom;
-              const item = leftDistanceMap.get(key);
-              item.push({
-                x: leftCurrentPreItem.right,
-                y: Math.min(leftCurrentItem.top, leftCurrentPreItem.top),
-                w: key,
-                h: Math.max(leftCurrentItem.bottom, leftCurrentPreItem.bottom) - Math.min(leftCurrentItem.top, leftCurrentPreItem.top),
-                value: +(key / zoom).toFixed(0),
-                isSelf: true
-              });
-              target.set({
-                x: target.x + realDiff
-              });
-              isLeftAdsor = true;
+        const _0x3dbbd1 = Array["from"](_0x3a2eae["keys"]());
+        _0x3dbbd1["sort"]();
+        let _0x1c047f = ![];
+        if (_0x5ef9f0) {
+          const _0x2e03ca = +(_0x11fb1e["left"] - _0x5ef9f0["right"])["toFixed"](0);
+          for (let _0x359fd1 = 0; _0x359fd1 < _0x3dbbd1["length"]; _0x359fd1++) {
+            const _0x2ba3bf = _0x3dbbd1[_0x359fd1];
+            if (this["isInRange"](_0x2ba3bf, _0x2e03ca, _0x5c152e)) {
+              const _0x15b57a = _0x2ba3bf - _0x2e03ca, _0x4243f7 = _0x15b57a / _0x1a0e19, _0x47f84d = _0x3a2eae["get"](_0x2ba3bf);
+              _0x47f84d["push"]({ "x": _0x5ef9f0["right"], "y": Math["min"](_0x11fb1e["top"], _0x5ef9f0["top"]), "w": _0x2ba3bf, "h": Math["max"](_0x11fb1e["bottom"], _0x5ef9f0["bottom"]) - Math["min"](_0x11fb1e["top"], _0x5ef9f0["top"]), "value": +(_0x2ba3bf / _0x1a0e19)["toFixed"](0), "isSelf": !![] }), _0x2f5a58["set"]({ "x": _0x2f5a58["x"] + _0x4243f7 }), _0x1c047f = !![];
               break;
             }
           }
         }
-        if (leftCurrentNextItem) {
-          const distance = +(leftCurrentNextItem.left - leftCurrentItem.right).toFixed(0);
-          for (let i = 0; i < leftKeys.length; i++) {
-            const key = leftKeys[i];
-            if (this.isInRange(key, distance, alignMargin)) {
-              const diff = key - distance;
-              const realDiff = diff / zoom;
-              const item = leftDistanceMap.get(key);
-              item.push({
-                x: leftCurrentNextItem.left - key,
-                y: Math.min(leftCurrentItem.top, leftCurrentNextItem.top),
-                w: key,
-                h: Math.max(leftCurrentItem.bottom, leftCurrentNextItem.bottom) - Math.min(leftCurrentItem.top, leftCurrentNextItem.top),
-                value: +(key / zoom).toFixed(0),
-                isSelf: true
-              });
-              if (!isLeftAdsor) {
-                target.set({
-                  x: target.x - realDiff
-                });
-              }
+        if (_0xea4321) {
+          const _0x88a24e = +(_0xea4321["left"] - _0x11fb1e["right"])["toFixed"](0);
+          for (let _0x1a17b1 = 0; _0x1a17b1 < _0x3dbbd1["length"]; _0x1a17b1++) {
+            const _0xf48a47 = _0x3dbbd1[_0x1a17b1];
+            if (this["isInRange"](_0xf48a47, _0x88a24e, _0x5c152e)) {
+              const _0x454c5e = _0xf48a47 - _0x88a24e, _0x5161be = _0x454c5e / _0x1a0e19, _0x4d5111 = _0x3a2eae["get"](_0xf48a47);
+              _0x4d5111["push"]({ "x": _0xea4321["left"] - _0xf48a47, "y": Math["min"](_0x11fb1e["top"], _0xea4321["top"]), "w": _0xf48a47, "h": Math["max"](_0x11fb1e["bottom"], _0xea4321["bottom"]) - Math["min"](_0x11fb1e["top"], _0xea4321["top"]), "value": +(_0xf48a47 / _0x1a0e19)["toFixed"](0), "isSelf": !![] }), !_0x1c047f && _0x2f5a58["set"]({ "x": _0x2f5a58["x"] - _0x5161be });
             }
           }
         }
-        if (!isLeftAdsor && leftCurrentPreItem && leftCurrentNextItem) {
-          const centerX = (leftCurrentNextItem.left + leftCurrentPreItem.right) / 2;
-          if (this.isInRange(centerX, leftCurrentItem.centerX, alignMargin)) {
-            const diff = centerX - leftCurrentItem.centerX;
-            const realDiff = diff / zoom;
-            const key = +((leftCurrentNextItem.left - leftCurrentPreItem.right - leftCurrentItem.w) / 2).toFixed(0);
-            if (key > 0) {
-              const item = leftDistanceMap.get(key);
-              const objs2 = [
-                {
-                  x: leftCurrentPreItem.right,
-                  y: Math.min(leftCurrentItem.top, leftCurrentPreItem.top),
-                  w: key,
-                  h: Math.max(leftCurrentItem.bottom, leftCurrentPreItem.bottom) - Math.min(leftCurrentItem.top, leftCurrentPreItem.top),
-                  value: +(key / zoom).toFixed(0),
-                  isSelf: true
-                },
-                {
-                  x: leftCurrentNextItem.left - key,
-                  y: Math.min(leftCurrentItem.top, leftCurrentNextItem.top),
-                  w: key,
-                  h: Math.max(leftCurrentItem.bottom, leftCurrentNextItem.bottom) - Math.min(leftCurrentItem.top, leftCurrentNextItem.top),
-                  value: +(key / zoom).toFixed(0)
-                }
-              ];
-              if (item) {
-                item.push(...objs2);
-              } else {
-                leftDistanceMap.set(key, objs2);
-              }
-              target.set({
-                x: target.x + realDiff
-              });
+        if (!_0x1c047f && _0x5ef9f0 && _0xea4321) {
+          const _0x56f804 = (_0xea4321["left"] + _0x5ef9f0["right"]) / 2;
+          if (this["isInRange"](_0x56f804, _0x11fb1e["centerX"], _0x5c152e)) {
+            const _0x2c16ab = _0x56f804 - _0x11fb1e["centerX"], _0x2f48cb = _0x2c16ab / _0x1a0e19, _0x2a262d = +((_0xea4321["left"] - _0x5ef9f0["right"] - _0x11fb1e["w"]) / 2)["toFixed"](0);
+            if (_0x2a262d > 0) {
+              const _0x4af1a4 = _0x3a2eae["get"](_0x2a262d), _0x3d9b0d = [{ "x": _0x5ef9f0["right"], "y": Math["min"](_0x11fb1e["top"], _0x5ef9f0["top"]), "w": _0x2a262d, "h": Math["max"](_0x11fb1e["bottom"], _0x5ef9f0["bottom"]) - Math["min"](_0x11fb1e["top"], _0x5ef9f0["top"]), "value": +(_0x2a262d / _0x1a0e19)["toFixed"](0), "isSelf": !![] }, { "x": _0xea4321["left"] - _0x2a262d, "y": Math["min"](_0x11fb1e["top"], _0xea4321["top"]), "w": _0x2a262d, "h": Math["max"](_0x11fb1e["bottom"], _0xea4321["bottom"]) - Math["min"](_0x11fb1e["top"], _0xea4321["top"]), "value": +(_0x2a262d / _0x1a0e19)["toFixed"](0) }];
+              _0x4af1a4 ? _0x4af1a4["push"](..._0x3d9b0d) : _0x3a2eae["set"](_0x2a262d, _0x3d9b0d), _0x2f5a58["set"]({ "x": _0x2f5a58["x"] + _0x2f48cb });
             }
           }
         }
-        leftDistanceMap.forEach((item) => {
-          if (item.length > 1 && item.some((a) => a.isSelf)) {
-            gapVerticalList.push(...item);
-          }
-        });
-        this.gapVerticalList = gapVerticalList;
+        _0x3a2eae["forEach"]((_0x1ed559) => {
+          _0x1ed559["length"] > 1 && _0x1ed559["some"]((_0x136be6) => _0x136be6["isSelf"]) && _0x1ad926["push"](..._0x1ed559);
+        }), this["gapVerticalList"] = _0x1ad926;
       }
-      this.drawGap();
+      this["drawGap"]();
     }
-    // 绘制辅助间隔
-    drawGap() {
-      const { guideGapDom, gapHorizontalList, gapVerticalList } = this;
-      let hgap = "";
-      const getRectString = ({ x, y, w, h }) => {
-        return `<rect
-      x="${x}"
-      y="${y}"
-      width="${w}"
-      height="${h}"
-      stroke="none"
-      fill="rgba(242, 61, 209, 0.3)"
-    />`;
+    ["drawGap"]() {
+      const { guideGapDom: _0x1fad5f, gapHorizontalList: _0x20d65b, gapVerticalList: _0x15e2be } = this;
+      let _0x5304e8 = "";
+      const _0x187355 = ({ x: _0x41a6ec, y: _0x56ce40, w: _0x1f398b, h: _0x31caf4 }) => {
+        return '<rect\n      x="' + _0x41a6ec + '"\n      y="' + _0x56ce40 + '"\n      width="' + _0x1f398b + '"\n      height="' + _0x31caf4 + '"\n      stroke="none"\n      fill="rgba(242, 61, 209, 0.3)"\n    />';
       };
-      gapHorizontalList.forEach((item) => {
-        const { x, y, h, value } = item;
-        hgap += getRectString(item);
-        hgap += ` <text x="${x - 16}" y="${y + h / 2 + 3}" text-anchor="right" fill="rgba(242, 61, 209)" font-size="10" style="user-select:none">${value}</text>
-    `;
-      });
-      gapVerticalList.forEach((item) => {
-        const { x, y, w, value } = item;
-        hgap += getRectString(item);
-        hgap += ` <text x="${x + w / 2}" y="${y - 6}" text-anchor="middle" fill="rgba(242, 61, 209)" font-size="10" style="user-select:none">${value}</text>
-    `;
-      });
-      guideGapDom.innerHTML = `<g>${hgap}</g>`;
+      _0x20d65b["forEach"]((_0x324935) => {
+        const { x: _0x54dbd2, y: _0x1662c1, h: _0x2e87ca, value: _0x1d1c70 } = _0x324935;
+        _0x5304e8 += _0x187355(_0x324935), _0x5304e8 += ' <text x="' + (_0x54dbd2 - 16) + '" y="' + (_0x1662c1 + _0x2e87ca / 2 + 3) + '" text-anchor="right" fill="rgba(242, 61, 209)" font-size="10" style="user-select:none">' + _0x1d1c70 + "</text>\n    ";
+      }), _0x15e2be["forEach"]((_0x4d0d83) => {
+        const { x: _0x523718, y: _0xd5f8a1, w: _0x280619, value: _0x1b9d49 } = _0x4d0d83;
+        _0x5304e8 += _0x187355(_0x4d0d83), _0x5304e8 += ' <text x="' + (_0x523718 + _0x280619 / 2) + '" y="' + (_0xd5f8a1 - 6) + '" text-anchor="middle" fill="rgba(242, 61, 209)" font-size="10" style="user-select:none">' + _0x1b9d49 + "</text>\n    ";
+      }), _0x1fad5f["innerHTML"] = "<g>" + _0x5304e8 + "</g>";
     }
   }
-  const getPosition = (bounding) => {
-    const { x, y, w, h, id } = bounding;
-    return {
-      id,
-      left: x,
-      right: x + w,
-      top: y,
-      bottom: y + h,
-      centerX: x + w / 2,
-      centerY: y + h / 2,
-      w,
-      h
-    };
+  const getPosition = (_0x24d8b5) => {
+    const { x: _0x146053, y: _0x312923, w: _0x16818e, h: _0x474868, id: _0x4d7f69 } = _0x24d8b5;
+    return { "id": _0x4d7f69, "left": _0x146053, "right": _0x146053 + _0x16818e, "top": _0x312923, "bottom": _0x312923 + _0x474868, "centerX": _0x146053 + _0x16818e / 2, "centerY": _0x312923 + _0x474868 / 2, "w": _0x16818e, "h": _0x474868 };
   };
   class SelectionHandler {
-    constructor(editor) {
-      this.selectAreaDom = null;
-      this.position = {
-        width: 0,
-        height: 0,
-        startX: 0,
-        startY: 0
-      };
-      this.editor = editor;
-      this.initialize();
+    constructor(_0x2d5b01) {
+      this["selectAreaDom"] = null, this["position"] = { "width": 0, "height": 0, "startX": 0, "startY": 0 }, this["editor"] = _0x2d5b01, this["initialize"]();
     }
-    initialize() {
-      this.initselectAreaDom();
-      this.initEvent();
+    ["initialize"]() {
+      this["initselectAreaDom"](), this["initEvent"]();
     }
-    initEvent() {
-      const self2 = this;
-      const { editor } = self2;
-      const editorDom = editor.getEditorDom();
-      const { selectionBackground, selectionBorderColor } = editor.config;
-      editor.on("editor:mousedown", (event) => {
-        const { e, target } = event;
-        if (editor.grabing || e.button === 2) {
-          editor.zoomHandler.zoomMoveTo(e);
+    ["initEvent"]() {
+      const _0x10d33a = this, { editor: _0x15c815 } = _0x10d33a, _0x261146 = _0x15c815["getEditorDom"](), { selectionBackground: _0x4a6a53, selectionBorderColor: _0xfca97f } = _0x15c815["config"];
+      _0x15c815["on"]("editor:mousedown", (_0x452394) => {
+        const { e: _0x9ac6c0, target: _0x56664f } = _0x452394;
+        if (_0x15c815["grabing"] || _0x9ac6c0["button"] === 2) {
+          _0x15c815["zoomHandler"]["zoomMoveTo"](_0x9ac6c0);
           return;
         }
-        if (!editor.selection || editor.mode === "draw")
+        if (!_0x15c815["selection"] || _0x15c815["mode"] === "draw")
           return;
-        let isFrameSelect = false;
-        let mousedownState;
-        let everAltKey = false;
-        const { x: areaStartX, y: areaStartY } = editor.getMousePosition(e);
-        const oldTarget = editor.getActiveObject();
-        if (target) {
-          if (e.altKey) {
-            everAltKey = true;
-            mousedownState = editor.getActiveObjectPositionState(ObjectAttrsEnum.all);
-            editor.objectHandler.multiplex(target).then(() => {
-              editor.layerChange();
+        let _0xb5890e = ![], _0x3ad0ff, _0x4435fd = ![];
+        const { x: _0x3a0ad4, y: _0x25dc91 } = _0x15c815["getMousePosition"](_0x9ac6c0), _0x462271 = _0x15c815["getActiveObject"]();
+        if (_0x56664f) {
+          if (_0x9ac6c0["altKey"])
+            _0x4435fd = !![], _0x3ad0ff = _0x15c815["getActiveObjectPositionState"](ObjectAttrsEnum["all"]), _0x15c815["objectHandler"]["multiplex"](_0x56664f)["then"](() => {
+              _0x15c815["layerChange"]();
             });
-          } else if (oldTarget && oldTarget.id !== target.id || !oldTarget) {
-            let newTargets = [];
-            if (e.ctrlKey || e.metaKey || e.shiftKey) {
-              const objs = editor.getActiveObjects();
-              const index = objs.findIndex((a) => a.id === target.id);
-              if (index > -1) {
-                newTargets = objs.slice(0, index).concat(objs.slice(index + 1));
-              } else {
-                newTargets = objs.concat([target]);
-              }
-              editor.setActiveObjects(newTargets);
-            } else {
-              editor.setActiveObjects([target]);
+          else {
+            if (_0x462271 && _0x462271["id"] !== _0x56664f["id"] || !_0x462271) {
+              let _0xf6bb27 = [];
+              if (_0x9ac6c0["ctrlKey"] || _0x9ac6c0["metaKey"] || _0x9ac6c0["shiftKey"]) {
+                const _0x31b3b1 = _0x15c815["getActiveObjects"](), _0x32fada = _0x31b3b1["findIndex"]((_0x647286) => _0x647286["id"] === _0x56664f["id"]);
+                _0x32fada > -1 ? _0xf6bb27 = _0x31b3b1["slice"](0, _0x32fada)["concat"](_0x31b3b1["slice"](_0x32fada + 1)) : _0xf6bb27 = _0x31b3b1["concat"]([_0x56664f]), _0x15c815["setActiveObjects"](_0xf6bb27);
+              } else
+                _0x15c815["setActiveObjects"]([_0x56664f]);
             }
           }
-        } else if (oldTarget) {
-          editor.discardActiveObject();
-        }
-        let [areaEndX, areaEndY] = [areaStartX, areaStartY];
-        const activeObj = editor.getActiveObject();
-        if (activeObj && !everAltKey) {
-          mousedownState = editor.getActiveObjectPositionState();
-        }
-        const positionMap = editor.getPositionMap();
-        const getTotalAngle = (obj) => {
-          let angle = 0;
-          const recursion = (item) => {
-            if (item.group) {
-              angle += item.group.angle;
-              recursion(item.group);
-            }
+        } else
+          _0x462271 && _0x15c815["discardActiveObject"]();
+        let [_0x357ab5, _0x17ad42] = [_0x3a0ad4, _0x25dc91];
+        const _0x314fc6 = _0x15c815["getActiveObject"]();
+        _0x314fc6 && !_0x4435fd && (_0x3ad0ff = _0x15c815["getActiveObjectPositionState"]());
+        const _0x34ecb3 = _0x15c815["getPositionMap"](), _0x460b39 = (_0x4c64ff) => {
+          let _0x2793eb = 0;
+          const _0xb7b7c7 = (_0x21b54d) => {
+            _0x21b54d["group"] && (_0x2793eb += _0x21b54d["group"]["angle"], _0xb7b7c7(_0x21b54d["group"]));
           };
-          recursion(obj);
-          return angle;
-        };
-        const mousemove = (moveEvent) => {
-          if (!moveEvent.ctrlKey && editor.mode !== "draw") {
-            const mousePoint = editor.getMousePosition(moveEvent);
-            areaEndX = mousePoint.x;
-            areaEndY = mousePoint.y;
-            const activeObject = editor.getActiveObject();
-            if (activeObject) {
-              const interrupt = activeObject.locked || activeObj.editing || areaStartX === areaEndX && areaStartY === areaEndY;
-              if (!interrupt) {
-                const { a: scale2 } = editor.viewportTransform;
-                const totalAngle = getTotalAngle(activeObject);
-                const origin = positionMap.get(activeObject.id);
-                let [diffX, diffY] = [(areaEndX - areaStartX) / scale2, (areaEndY - areaStartY) / scale2];
-                const { xLength, yLength } = editorUtil.getProjection({ x: diffX, y: diffY }, totalAngle);
-                diffX = xLength;
-                diffY = yLength;
-                if (moveEvent.shiftKey || moveEvent.altKey) {
-                  const isHorizontal = Math.abs(diffX) > Math.abs(diffY);
-                  if (isHorizontal) {
-                    diffY = 0;
-                  } else {
-                    diffX = 0;
-                  }
+          return _0xb7b7c7(_0x4c64ff), _0x2793eb;
+        }, _0x26d264 = (_0x3562df) => {
+          if (!_0x3562df["ctrlKey"] && _0x15c815["mode"] !== "draw") {
+            const _0x5a6fcd = _0x15c815["getMousePosition"](_0x3562df);
+            _0x357ab5 = _0x5a6fcd["x"], _0x17ad42 = _0x5a6fcd["y"];
+            const _0x4ddfd1 = _0x15c815["getActiveObject"]();
+            if (_0x4ddfd1) {
+              const _0x508aac = _0x4ddfd1["locked"] || _0x314fc6["editing"] || _0x3a0ad4 === _0x357ab5 && _0x25dc91 === _0x17ad42;
+              if (!_0x508aac) {
+                const { a: _0x7078f1 } = _0x15c815["viewportTransform"], _0x367772 = _0x460b39(_0x4ddfd1), _0x640a45 = _0x34ecb3["get"](_0x4ddfd1["id"]);
+                let [_0x2eb76, _0x5f3b2f] = [(_0x357ab5 - _0x3a0ad4) / _0x7078f1, (_0x17ad42 - _0x25dc91) / _0x7078f1];
+                const { xLength: _0x341b4b, yLength: _0xbdf07a } = editorUtil["getProjection"]({ "x": _0x2eb76, "y": _0x5f3b2f }, _0x367772);
+                _0x2eb76 = _0x341b4b, _0x5f3b2f = _0xbdf07a;
+                if (_0x3562df["shiftKey"] || _0x3562df["altKey"]) {
+                  const _0x2e3cf0 = Math["abs"](_0x2eb76) > Math["abs"](_0x5f3b2f);
+                  _0x2e3cf0 ? _0x5f3b2f = 0 : _0x2eb76 = 0;
                 }
-                activeObject.x = origin.x + diffX;
-                activeObject.y = origin.y + diffY;
-                if (activeObject.type === "activeSelection") {
-                  activeObject.objects.forEach((item) => {
-                    const originItem = positionMap.get(item.id);
-                    item.x = originItem.x + diffX;
-                    item.y = originItem.y + diffY;
-                  });
-                }
-                editor.zoomHandler.setHighPerformance(true);
-                editor.fire("object:moving", { e: moveEvent, target: activeObject });
-                activeObject.updateControlsPosition();
+                _0x4ddfd1["x"] = _0x640a45["x"] + _0x2eb76, _0x4ddfd1["y"] = _0x640a45["y"] + _0x5f3b2f, _0x4ddfd1["type"] === "activeSelection" && _0x4ddfd1["objects"]["forEach"]((_0x3aeb36) => {
+                  const _0x5e1250 = _0x34ecb3["get"](_0x3aeb36["id"]);
+                  _0x3aeb36["x"] = _0x5e1250["x"] + _0x2eb76, _0x3aeb36["y"] = _0x5e1250["y"] + _0x5f3b2f;
+                }), _0x15c815["zoomHandler"]["setHighPerformance"](!![]), _0x15c815["fire"]("object:moving", { "e": _0x3562df, "target": _0x4ddfd1 }), _0x4ddfd1["updateControlsPosition"]();
               }
-            } else if (!editor.group) {
-              const [width, height] = [Math.abs(areaStartX - areaEndX), Math.abs(areaStartY - areaEndY)];
-              if (width > 5 || height > 5) {
-                const center = { x: (areaStartX + areaEndX) / 2, y: (areaStartY + areaEndY) / 2 };
-                const [startX, startY] = [center.x - width / 2, center.y - height / 2];
-                self2.position = { startX, startY, width, height };
-                isFrameSelect = true;
-                self2.selectAreaDom.innerHTML = `
-            <path
-              fill="${selectionBackground || "rgba(44, 131, 251, 0.1)"}"
-              stroke="${selectionBorderColor || "rgba(44, 131, 251, 1)"}"
-              d="M ${startX},${startY}
-              L ${startX},${startY + height}
-              L ${startX + width},${startY + height}
-              L ${startX + width},${startY} Z"
-              style="stroke-width: 1;"
-            />
-          `;
-              }
-            }
-          }
-        };
-        const mouseup = (mouseEv) => {
-          if (editor.mode !== "draw") {
-            if (isFrameSelect) {
-              const inverseMatrix = inverse(editor.viewportTransform);
-              const { startX, startY, width, height } = self2.position;
-              const startPos = applyToPoint(inverseMatrix, { x: startX, y: startY });
-              const endPos = applyToPoint(inverseMatrix, { x: startX + width, y: startY + height });
-              const box = { x: startPos.x, y: startPos.y, w: endPos.x - startPos.x, h: endPos.y - startPos.y };
-              const objs = editor.getIntersectObjs(box, editor.objects);
-              editor.setActiveObjects(objs);
-            }
-            self2.position.width = 0;
-            self2.position.height = 0;
-            self2.selectAreaDom.innerHTML = null;
-            if (!isFrameSelect && (areaEndX !== areaStartX || areaEndY !== areaStartY)) {
-              const activeObj2 = editor.getActiveObject();
-              if (activeObj2 && !activeObj2.editing) {
-                editor.zoomHandler.setHighPerformance(false);
-                editor.fire("object:move:end", { e: mouseEv, target: activeObj2 });
-                if (mousedownState) {
-                  if (everAltKey) {
-                    editor.historyHandler.store({
-                      type: HistoryTypesEnum.add,
-                      from: mousedownState,
-                      to: editor.getActiveObjectPositionState(ObjectAttrsEnum.all)
-                    });
-                  } else {
-                    editor.historyHandler.store({
-                      type: HistoryTypesEnum.attrs,
-                      from: mousedownState,
-                      to: editor.getActiveObjectPositionState()
-                    });
-                  }
+            } else {
+              if (!_0x15c815["group"]) {
+                const [_0x469f1e, _0x186468] = [Math["abs"](_0x3a0ad4 - _0x357ab5), Math["abs"](_0x25dc91 - _0x17ad42)];
+                if (_0x469f1e > 5 || _0x186468 > 5) {
+                  const _0x234024 = { "x": (_0x3a0ad4 + _0x357ab5) / 2, "y": (_0x25dc91 + _0x17ad42) / 2 }, [_0x223a78, _0x4a136b] = [_0x234024["x"] - _0x469f1e / 2, _0x234024["y"] - _0x186468 / 2];
+                  _0x10d33a["position"] = { "startX": _0x223a78, "startY": _0x4a136b, "width": _0x469f1e, "height": _0x186468 }, _0xb5890e = !![], _0x10d33a["selectAreaDom"]["innerHTML"] = '\n            <path\n              fill="' + (_0x4a6a53 || "rgba(44, 131, 251, 0.1)") + '"\n              stroke="' + (_0xfca97f || "rgba(44, 131, 251, 1)") + '"\n              d="M ' + _0x223a78 + "," + _0x4a136b + "\n              L " + _0x223a78 + "," + (_0x4a136b + _0x186468) + "\n              L " + (_0x223a78 + _0x469f1e) + "," + (_0x4a136b + _0x186468) + "\n              L " + (_0x223a78 + _0x469f1e) + "," + _0x4a136b + ' Z"\n              style="stroke-width: 1;"\n            />\n          ';
                 }
               }
             }
           }
-          document.removeEventListener("mousemove", mousemove);
-          document.removeEventListener("mouseup", mouseup);
-        };
-        document.addEventListener("mousemove", mousemove);
-        document.addEventListener("mouseup", mouseup);
-      });
-      editorDom.addEventListener("dblclick", (e) => {
-        const target = editor.findTarget(e);
-        if (target && target.type === "group") {
-          editor.group = target;
-          const subTarget = editor.findTarget(e);
-          if (subTarget) {
-            editor.setActiveObjects([subTarget]);
-          } else {
-            editor.discardActiveObject();
+        }, _0x1888b8 = (_0x84266b) => {
+          if (_0x15c815["mode"] !== "draw") {
+            if (_0xb5890e) {
+              const _0x5acbb = inverse(_0x15c815["viewportTransform"]), { startX: _0x180de9, startY: _0x540b15, width: _0x497e59, height: _0x3196fd } = _0x10d33a["position"], _0xe78bf0 = applyToPoint(_0x5acbb, { "x": _0x180de9, "y": _0x540b15 }), _0x5c3316 = applyToPoint(_0x5acbb, { "x": _0x180de9 + _0x497e59, "y": _0x540b15 + _0x3196fd }), _0x3f898a = { "x": _0xe78bf0["x"], "y": _0xe78bf0["y"], "w": _0x5c3316["x"] - _0xe78bf0["x"], "h": _0x5c3316["y"] - _0xe78bf0["y"] }, _0x33d5d5 = _0x15c815["getIntersectObjs"](_0x3f898a, _0x15c815["objects"]);
+              _0x15c815["setActiveObjects"](_0x33d5d5);
+            }
+            _0x10d33a["position"]["width"] = 0, _0x10d33a["position"]["height"] = 0, _0x10d33a["selectAreaDom"]["innerHTML"] = null;
+            if (!_0xb5890e && (_0x357ab5 !== _0x3a0ad4 || _0x17ad42 !== _0x25dc91)) {
+              const _0x5d57df = _0x15c815["getActiveObject"]();
+              _0x5d57df && !_0x5d57df["editing"] && (_0x15c815["zoomHandler"]["setHighPerformance"](![]), _0x15c815["fire"]("object:move:end", { "e": _0x84266b, "target": _0x5d57df }), _0x3ad0ff && (_0x4435fd ? _0x15c815["historyHandler"]["store"]({ "type": HistoryTypesEnum["add"], "from": _0x3ad0ff, "to": _0x15c815["getActiveObjectPositionState"](ObjectAttrsEnum["all"]) }) : _0x15c815["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0x3ad0ff, "to": _0x15c815["getActiveObjectPositionState"]() })));
+            }
           }
-        } else if (target && !e.ctrlKey) {
-          target.emitter.emit("dblclick", { e });
-          target.updateControlsPosition();
-        } else if (!target && editor.group) {
-          editor.shortcutHandler.handleEsc();
+          document["removeEventListener"]("mousemove", _0x26d264), document["removeEventListener"]("mouseup", _0x1888b8);
+        };
+        document["addEventListener"]("mousemove", _0x26d264), document["addEventListener"]("mouseup", _0x1888b8);
+      }), _0x261146["addEventListener"]("dblclick", (_0x3432b4) => {
+        const _0x48d993 = _0x15c815["findTarget"](_0x3432b4);
+        if (_0x48d993 && _0x48d993["type"] === "group") {
+          _0x15c815["group"] = _0x48d993;
+          const _0x1f4490 = _0x15c815["findTarget"](_0x3432b4);
+          _0x1f4490 ? _0x15c815["setActiveObjects"]([_0x1f4490]) : _0x15c815["discardActiveObject"]();
+        } else {
+          if (_0x48d993 && !_0x3432b4["ctrlKey"])
+            _0x48d993["emitter"]["emit"]("dblclick", { "e": _0x3432b4 }), _0x48d993["updateControlsPosition"]();
+          else
+            !_0x48d993 && _0x15c815["group"] && _0x15c815["shortcutHandler"]["handleEsc"]();
         }
-      });
-      editorDom.addEventListener("contextmenu", (e) => {
-        let target = editor.findTarget(e, true);
-        const objs = target && target.type === "activeSelection" ? target.objects : [target];
-        editor.setActiveObjects(objs);
-        editor.fire("mouse:contextmenu", { e, target });
+      }), _0x261146["addEventListener"]("contextmenu", (_0x9a4ebb) => {
+        let _0x52ee98 = _0x15c815["findTarget"](_0x9a4ebb, !![]);
+        const _0x3e555d = _0x52ee98 && _0x52ee98["type"] === "activeSelection" ? _0x52ee98["objects"] : [_0x52ee98];
+        _0x15c815["setActiveObjects"](_0x3e555d), _0x15c815["fire"]("mouse:contextmenu", { "e": _0x9a4ebb, "target": _0x52ee98 });
       });
     }
-    initselectAreaDom() {
-      const { editor } = this;
-      const selectAreaDom = editorUtil.createSvgElement(
-        "svg",
-        {},
-        {
-          pointerEvents: "none",
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          left: "0px",
-          top: "0px",
-          overflow: "visible"
-        }
-      );
-      this.selectAreaDom = selectAreaDom;
-      const overLayerDom = editor.overLayer;
-      overLayerDom.appendChild(this.selectAreaDom);
+    ["initselectAreaDom"]() {
+      const { editor: _0x2000fc } = this, _0x3c13f5 = editorUtil["createSvgElement"]("svg", {}, { "pointerEvents": "none", "position": "absolute", "width": "100%", "height": "100%", "left": "0px", "top": "0px", "overflow": "visible" });
+      this["selectAreaDom"] = _0x3c13f5;
+      const _0x32e037 = _0x2000fc["overLayer"];
+      _0x32e037["appendChild"](this["selectAreaDom"]);
     }
   }
   var mousetrap = { exports: {} };
@@ -9211,11 +6683,11 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
         }
         return _belongsTo(element.parentNode, ancestor);
       }
-      function Mousetrap2(targetElement) {
+      function Mousetrap(targetElement) {
         var self2 = this;
         targetElement = targetElement || document2;
-        if (!(self2 instanceof Mousetrap2)) {
-          return new Mousetrap2(targetElement);
+        if (!(self2 instanceof Mousetrap)) {
+          return new Mousetrap(targetElement);
         }
         self2.target = targetElement;
         self2._callbacks = {};
@@ -9379,31 +6851,31 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
         _addEvent(targetElement, "keydown", _handleKeyEvent);
         _addEvent(targetElement, "keyup", _handleKeyEvent);
       }
-      Mousetrap2.prototype.bind = function(keys2, callback, action) {
+      Mousetrap.prototype.bind = function(keys2, callback, action) {
         var self2 = this;
         keys2 = keys2 instanceof Array ? keys2 : [keys2];
         self2._bindMultiple.call(self2, keys2, callback, action);
         return self2;
       };
-      Mousetrap2.prototype.unbind = function(keys2, action) {
+      Mousetrap.prototype.unbind = function(keys2, action) {
         var self2 = this;
         return self2.bind.call(self2, keys2, function() {
         }, action);
       };
-      Mousetrap2.prototype.trigger = function(keys2, action) {
+      Mousetrap.prototype.trigger = function(keys2, action) {
         var self2 = this;
         if (self2._directMap[keys2 + ":" + action]) {
           self2._directMap[keys2 + ":" + action]({}, keys2);
         }
         return self2;
       };
-      Mousetrap2.prototype.reset = function() {
+      Mousetrap.prototype.reset = function() {
         var self2 = this;
         self2._callbacks = {};
         self2._directMap = {};
         return self2;
       };
-      Mousetrap2.prototype.stopCallback = function(e, element) {
+      Mousetrap.prototype.stopCallback = function(e, element) {
         var self2 = this;
         if ((" " + element.className + " ").indexOf(" mousetrap ") > -1) {
           return false;
@@ -9419,11 +6891,11 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
         }
         return element.tagName == "INPUT" || element.tagName == "SELECT" || element.tagName == "TEXTAREA" || element.isContentEditable;
       };
-      Mousetrap2.prototype.handleKey = function() {
+      Mousetrap.prototype.handleKey = function() {
         var self2 = this;
         return self2._handleKey.apply(self2, arguments);
       };
-      Mousetrap2.addKeycodes = function(object) {
+      Mousetrap.addKeycodes = function(object) {
         for (var key in object) {
           if (object.hasOwnProperty(key)) {
             _MAP[key] = object[key];
@@ -9431,11 +6903,11 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
         }
         _REVERSE_MAP = null;
       };
-      Mousetrap2.init = function() {
-        var documentMousetrap = Mousetrap2(document2);
+      Mousetrap.init = function() {
+        var documentMousetrap = Mousetrap(document2);
         for (var method in documentMousetrap) {
           if (method.charAt(0) !== "_") {
-            Mousetrap2[method] = /* @__PURE__ */ function(method2) {
+            Mousetrap[method] = /* @__PURE__ */ function(method2) {
               return function() {
                 return documentMousetrap[method2].apply(documentMousetrap, arguments);
               };
@@ -9443,2741 +6915,1367 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
           }
         }
       };
-      Mousetrap2.init();
-      window2.Mousetrap = Mousetrap2;
+      Mousetrap.init();
+      window2.Mousetrap = Mousetrap;
       if (module2.exports) {
-        module2.exports = Mousetrap2;
+        module2.exports = Mousetrap;
       }
       if (typeof undefined$1 === "function" && undefined$1.amd) {
         undefined$1(function() {
-          return Mousetrap2;
+          return Mousetrap;
         });
       }
     })(typeof window !== "undefined" ? window : null, typeof window !== "undefined" ? document : null);
   })(mousetrap);
   var mousetrapExports = mousetrap.exports;
-  const Mousetrap = /* @__PURE__ */ getDefaultExportFromCjs(mousetrapExports);
+  const _0x56be68 = /* @__PURE__ */ getDefaultExportFromCjs(mousetrapExports);
+  var operationTypes = ((_0x1b9106) => {
+    return _0x1b9106["selectAll"] = "selectAll", _0x1b9106["group"] = "group", _0x1b9106["ungroup"] = "ungroup", _0x1b9106["arrowLeft"] = "arrowLeft", _0x1b9106["arrowRight"] = "arrowRight", _0x1b9106["arrowUp"] = "arrowUp", _0x1b9106["arrowDown"] = "arrowDown", _0x1b9106["copy"] = "copy", _0x1b9106["paste"] = "paste", _0x1b9106["cut"] = "cut", _0x1b9106["reuse"] = "reuse", _0x1b9106["esc"] = "esc", _0x1b9106["add"] = "add", _0x1b9106["delete"] = "delete", _0x1b9106["bringForward"] = "bringForward", _0x1b9106["sendBackwards"] = "sendBackwards", _0x1b9106["bringToFront"] = "bringToFront", _0x1b9106["sendToBack"] = "sendToBack", _0x1b9106["undo"] = "undo", _0x1b9106["redo"] = "redo", _0x1b9106["align"] = "align", _0x1b9106["lock"] = "lock", _0x1b9106["unlock"] = "unlock", _0x1b9106["visible"] = "visible", _0x1b9106["attribute"] = "attribute", _0x1b9106["updateLayer"] = "updateLayer", _0x1b9106["setZoom"] = "setZoom", _0x1b9106["zoomToFit"] = "zoomToFit", _0x1b9106["editorConfig"] = "editorConfig", _0x1b9106["discard"] = "discard", _0x1b9106["zoomIn"] = "zoomIn", _0x1b9106["zoomOut"] = "zoomOut", _0x1b9106["zoomToReset"] = "zoomToReset", _0x1b9106["alignEqual"] = "alignEqual", _0x1b9106["setSelection"] = "setSelection", _0x1b9106;
+  })(operationTypes || {});
   class ShortcutHandler {
-    constructor(editor) {
-      this.editor = editor;
-      this.initEvent();
+    constructor(_0xe2a94b) {
+      this["editor"] = _0xe2a94b, this["initEvent"]();
     }
-    initEvent() {
-      const self2 = this;
-      const shortcutkeysList = [
-        // repeat表示长按按键是否重复触发快捷键功能，shortcut表示快捷键，method表示要调用的方法
-        // preventDefault表示是否阻止浏览器快捷键，不应该阻止浏览器的复制功能，否则无法复制文本
-        // params表示要传递的额外参数
-        { repeat: false, shortcut: "mod+c", method: this.handleCopy, preventDefault: false, params: [] },
-        // 复制
-        { repeat: false, shortcut: "mod+v", method: this.handlePaste, preventDefault: false, params: [] },
-        // 粘贴
-        { repeat: false, shortcut: "mod+x", method: this.handleCut, preventDefault: false, params: [] },
-        // 剪切
-        { repeat: false, shortcut: "mod+z", method: this.handleUndo, preventDefault: true, params: [] },
-        // 撤销
-        { repeat: false, shortcut: "mod+y", method: this.handleRedo, preventDefault: true, params: [] },
-        // 重做
-        { repeat: false, shortcut: "mod+a", method: this.handleSelectAll, preventDefault: true, params: [] },
-        // 全选
-        { repeat: false, shortcut: "mod+g", method: this.handleGroup, preventDefault: true, params: [] },
-        // 组合
-        { repeat: false, shortcut: "mod+shift+g", method: this.handleUngroup, preventDefault: true, params: [] },
-        // 取消组合
-        { repeat: false, shortcut: "mod+l", method: this.handleLock, preventDefault: true, params: [true] },
-        // 锁定
-        { repeat: false, shortcut: "mod+shift+l", method: this.handleLock, preventDefault: true, params: [false] },
-        // 取消锁定
-        { repeat: true, shortcut: "left", method: this.handleShortcutPosition, preventDefault: true, params: ["x", -1] },
-        // 左移1像素
-        { repeat: true, shortcut: "shift+left", method: this.handleShortcutPosition, preventDefault: true, params: ["x", -10] },
-        // 左移10像素
-        { repeat: true, shortcut: "right", method: this.handleShortcutPosition, preventDefault: true, params: ["x", 1] },
-        // 右移1像素
-        { repeat: true, shortcut: "shift+right", method: this.handleShortcutPosition, preventDefault: true, params: ["x", 10] },
-        // 右移10像素
-        { repeat: true, shortcut: "up", method: this.handleShortcutPosition, preventDefault: true, params: ["y", -1] },
-        // 上移1像素
-        { repeat: true, shortcut: "shift+up", method: this.handleShortcutPosition, preventDefault: true, params: ["y", -10] },
-        // 上移10像素
-        { repeat: true, shortcut: "down", method: this.handleShortcutPosition, preventDefault: true, params: ["y", 1] },
-        // 下移1像素
-        { repeat: true, shortcut: "shift+down", method: this.handleShortcutPosition, preventDefault: true, params: ["y", 10] },
-        // 下移10像素
-        { repeat: false, shortcut: "mod+e", method: this.handleReuse, preventDefault: true, params: [] },
-        // 复用
-        { repeat: false, shortcut: "mod+d", method: this.handleDiscard, preventDefault: true, params: [] },
-        // 取消选中
-        { repeat: false, shortcut: "mod+h", method: this.handleVisible, preventDefault: true, params: [false] },
-        // 隐藏
-        { repeat: false, shortcut: "mod+shift+h", method: this.handleVisible, preventDefault: true, params: [true] },
-        // 显示
-        { repeat: false, shortcut: ["mod++", "mod+="], method: this.handleSetZoom, preventDefault: true, params: [{ type: "zoomIn" }] },
-        // 放大画布
-        { repeat: false, shortcut: "mod+-", method: this.handleSetZoom, preventDefault: true, params: [{ type: "zoomOut" }] },
-        // 缩小画布
-        { repeat: false, shortcut: "mod+1", method: this.handleSetZoom, preventDefault: true, params: [{ type: "fitView" }] },
-        // 适应画布
-        { repeat: false, shortcut: "mod+0", method: this.handleSetZoom, preventDefault: true, params: [{ type: "reset" }] },
-        // 回到原点
-        { repeat: false, shortcut: ["del", "backspace"], method: this.handleDelete, preventDefault: true, params: [] },
-        // 删除选中
-        { repeat: false, shortcut: "mod+alt+up", method: this.handleLayer, preventDefault: true, params: ["bringForward"] },
-        // 上移
-        { repeat: false, shortcut: "mod+alt+down", method: this.handleLayer, preventDefault: true, params: ["sendBackwards"] },
-        // 下移
-        { repeat: false, shortcut: "mod+shift+up", method: this.handleLayer, preventDefault: true, params: ["bringToFront"] },
-        // 置顶
-        { repeat: false, shortcut: "mod+shift+down", method: this.handleLayer, preventDefault: true, params: ["sendToBack"] },
-        // 置底
-        { repeat: false, shortcut: "esc", method: this.handleEsc, preventDefault: true, params: [] }
-        // 退出编辑
-      ];
-      let activeShortcutKeys;
-      shortcutkeysList.forEach((item) => {
-        const { repeat, shortcut, method, preventDefault, params = [] } = item;
-        Mousetrap.bind(
-          shortcut,
-          function(e) {
-            const stopFlag = activeShortcutKeys === shortcut && !repeat;
-            if (stopFlag) {
-              return;
-            }
-            if (preventDefault) {
-              e.preventDefault();
-            }
-            activeShortcutKeys = shortcut;
-            method.apply(self2, params);
-          },
-          "keydown"
-        );
-      });
-      document.addEventListener("keyup", (e) => {
-        const findObj = shortcutkeysList.find((item) => item.shortcut === activeShortcutKeys);
-        if (findObj && findObj.repeat) {
-          findObj.method.apply(self2, [...findObj.params, true]);
-        }
-        activeShortcutKeys = "";
+    ["initEvent"]() {
+      const _0x564f5b = this, _0x48ab6f = [{ "repeat": ![], "shortcut": "mod+c", "method": this["handleCopy"], "preventDefault": ![], "params": [] }, { "repeat": ![], "shortcut": "mod+v", "method": this["handlePaste"], "preventDefault": ![], "params": [] }, { "repeat": ![], "shortcut": "mod+x", "method": this["handleCut"], "preventDefault": ![], "params": [] }, { "repeat": ![], "shortcut": "mod+z", "method": this["handleUndo"], "preventDefault": !![], "params": [] }, { "repeat": ![], "shortcut": "mod+y", "method": this["handleRedo"], "preventDefault": !![], "params": [] }, { "repeat": ![], "shortcut": "mod+a", "method": this["handleSelectAll"], "preventDefault": !![], "params": [] }, { "repeat": ![], "shortcut": "mod+g", "method": this["handleGroup"], "preventDefault": !![], "params": [] }, { "repeat": ![], "shortcut": "mod+shift+g", "method": this["handleUngroup"], "preventDefault": !![], "params": [] }, { "repeat": ![], "shortcut": "mod+l", "method": this["handleLock"], "preventDefault": !![], "params": [!![]] }, { "repeat": ![], "shortcut": "mod+shift+l", "method": this["handleLock"], "preventDefault": !![], "params": [![]] }, { "repeat": !![], "shortcut": "left", "method": this["handleShortcutPosition"], "preventDefault": !![], "params": ["x", -1] }, { "repeat": !![], "shortcut": "shift+left", "method": this["handleShortcutPosition"], "preventDefault": !![], "params": ["x", -10] }, { "repeat": !![], "shortcut": "right", "method": this["handleShortcutPosition"], "preventDefault": !![], "params": ["x", 1] }, { "repeat": !![], "shortcut": "shift+right", "method": this["handleShortcutPosition"], "preventDefault": !![], "params": ["x", 10] }, { "repeat": !![], "shortcut": "up", "method": this["handleShortcutPosition"], "preventDefault": !![], "params": ["y", -1] }, { "repeat": !![], "shortcut": "shift+up", "method": this["handleShortcutPosition"], "preventDefault": !![], "params": ["y", -10] }, { "repeat": !![], "shortcut": "down", "method": this["handleShortcutPosition"], "preventDefault": !![], "params": ["y", 1] }, { "repeat": !![], "shortcut": "shift+down", "method": this["handleShortcutPosition"], "preventDefault": !![], "params": ["y", 10] }, { "repeat": ![], "shortcut": "mod+e", "method": this["handleReuse"], "preventDefault": !![], "params": [] }, { "repeat": ![], "shortcut": "mod+d", "method": this["handleDiscard"], "preventDefault": !![], "params": [] }, { "repeat": ![], "shortcut": "mod+h", "method": this["handleVisible"], "preventDefault": !![], "params": [![]] }, { "repeat": ![], "shortcut": "mod+shift+h", "method": this["handleVisible"], "preventDefault": !![], "params": [!![]] }, { "repeat": ![], "shortcut": ["mod++", "mod+="], "method": this["handleSetZoom"], "preventDefault": !![], "params": [{ "type": "zoomIn" }] }, { "repeat": ![], "shortcut": "mod+-", "method": this["handleSetZoom"], "preventDefault": !![], "params": [{ "type": "zoomOut" }] }, { "repeat": ![], "shortcut": "mod+1", "method": this["handleSetZoom"], "preventDefault": !![], "params": [{ "type": "fitView" }] }, { "repeat": ![], "shortcut": "mod+0", "method": this["handleSetZoom"], "preventDefault": !![], "params": [{ "type": "reset" }] }, { "repeat": ![], "shortcut": ["del", "backspace"], "method": this["handleDelete"], "preventDefault": !![], "params": [] }, { "repeat": ![], "shortcut": "mod+alt+up", "method": this["handleLayer"], "preventDefault": !![], "params": ["bringForward"] }, { "repeat": ![], "shortcut": "mod+alt+down", "method": this["handleLayer"], "preventDefault": !![], "params": ["sendBackwards"] }, { "repeat": ![], "shortcut": "mod+shift+up", "method": this["handleLayer"], "preventDefault": !![], "params": ["bringToFront"] }, { "repeat": ![], "shortcut": "mod+shift+down", "method": this["handleLayer"], "preventDefault": !![], "params": ["sendToBack"] }, { "repeat": ![], "shortcut": "esc", "method": this["handleEsc"], "preventDefault": !![], "params": [] }];
+      let _0x293945;
+      _0x48ab6f["forEach"]((_0x5cb5a3) => {
+        const { repeat: _0x5ceef8, shortcut: _0x59dda2, method: _0x5dd6fd, preventDefault: _0xe3f6ba, params = [] } = _0x5cb5a3;
+        _0x56be68["bind"](_0x59dda2, function(_0x368add) {
+          const _0x893b4a = _0x293945 === _0x59dda2 && !_0x5ceef8;
+          if (_0x893b4a)
+            return;
+          _0xe3f6ba && _0x368add["preventDefault"](), _0x293945 = _0x59dda2, _0x5dd6fd["apply"](_0x564f5b, params);
+        }, "keydown");
+      }), document["addEventListener"]("keyup", (_0x243aab) => {
+        const _0x2b3505 = _0x48ab6f["find"]((_0x409978) => _0x409978["shortcut"] === _0x293945);
+        _0x2b3505 && _0x2b3505["repeat"] && _0x2b3505["method"]["apply"](_0x564f5b, [..._0x2b3505["params"], !![]]), _0x293945 = "";
       });
     }
-    handleOperation({ action, param, value }) {
-      switch (action) {
+    ["handleOperation"]({ action: _0x5febdc, param: _0x4a1f71, value: _0x683310 }) {
+      switch (_0x5febdc) {
         case "selectAll":
-          this.handleSelectAll();
+          this["handleSelectAll"]();
           break;
         case "group":
-          this.handleGroup();
+          this["handleGroup"]();
           break;
         case "ungroup":
-          this.handleUngroup();
+          this["handleUngroup"]();
           break;
         case "arrowLeft":
         case "arrowRight":
-          this.handleMoveHorizontal(param);
+          this["handleMoveHorizontal"](_0x4a1f71);
           break;
         case "arrowUp":
         case "arrowDown":
-          this.handleMoveVertical(param);
+          this["handleMoveVertical"](_0x4a1f71);
           break;
         case "copy":
-          this.handleCopy();
+          this["handleCopy"]();
           break;
         case "paste":
-          this.handlePaste(param);
+          this["handlePaste"](_0x4a1f71);
           break;
         case "cut":
-          this.handleCut();
+          this["handleCut"]();
           break;
         case "reuse":
-          this.handleReuse();
+          this["handleReuse"]();
           break;
         case "esc":
-          this.handleEsc();
+          this["handleEsc"]();
           break;
         case "add":
-          this.handleAddObject(param);
+          this["handleAddObject"](_0x4a1f71);
           break;
         case "delete":
-          this.handleDelete();
+          this["handleDelete"]();
           break;
         case "bringForward":
         case "sendBackwards":
         case "bringToFront":
         case "sendToBack":
-          this.handleLayer(action);
+          this["handleLayer"](_0x5febdc);
           break;
         case "undo":
-          this.handleUndo();
+          this["handleUndo"]();
           break;
         case "redo":
-          this.handleRedo();
+          this["handleRedo"]();
           break;
         case "align":
-          this.handleAlign(param);
+          this["handleAlign"](_0x4a1f71);
           break;
         case "lock":
-          this.handleLock(true);
+          this["handleLock"](!![]);
           break;
         case "unlock":
-          this.handleLock(false);
+          this["handleLock"](![]);
           break;
         case "attribute":
-          this.handleAttribute(param);
+          this["handleAttribute"](_0x4a1f71);
           break;
         case "updateLayer":
-          this.handleUpdateLayer(param);
+          this["handleUpdateLayer"](_0x4a1f71);
           break;
         case "setZoom":
-          this.handleSetZoom(param);
+          this["handleSetZoom"](_0x4a1f71);
           break;
         case "zoomToFit":
-          this.handleZoomToFit();
+          this["handleZoomToFit"]();
           break;
         case "editorConfig":
-          this.handleEditorConfig(param);
+          this["handleEditorConfig"](_0x4a1f71);
           break;
         case "visible":
-          this.handleVisible(param);
+          this["handleVisible"](_0x4a1f71);
           break;
         case "alignEqual":
-          this.handleAlignEqual(param, value);
+          this["handleAlignEqual"](_0x4a1f71, _0x683310);
           break;
         case "setSelection":
-          this.handleSetSelection(param);
+          this["handleSetSelection"](_0x4a1f71);
           break;
       }
     }
-    /**
-     * 设置对象锁定
-     * @param locked 是否锁定
-     */
-    handleLock(locked) {
-      const { editor } = this;
-      const objs = editor.getActiveObjects();
-      const activeSelection = editor.getActiveSelectionPosition();
-      let toData = [];
-      let fromData = [];
-      objs.forEach((item) => {
-        const { id } = item;
-        toData.push({ data: { id, locked } });
-        fromData.push({ data: { id, locked: !locked } });
+    ["handleLock"](_0x5d5f6b) {
+      const { editor: _0x53e0cc } = this, _0x39d46b = _0x53e0cc["getActiveObjects"](), _0x44480d = _0x53e0cc["getActiveSelectionPosition"]();
+      let _0x2523d4 = [], _0x34703d = [];
+      _0x39d46b["forEach"]((_0xfa86b6) => {
+        const { id: _0x3eafaf } = _0xfa86b6;
+        _0x2523d4["push"]({ "data": { "id": _0x3eafaf, "locked": _0x5d5f6b } }), _0x34703d["push"]({ "data": { "id": _0x3eafaf, "locked": !_0x5d5f6b } });
       });
-      const data = {
-        type: HistoryTypesEnum.attrs,
-        to: {
-          activeSelection,
-          data: toData
-        },
-        from: {
-          activeSelection,
-          data: fromData
-        }
-      };
-      this.handleAttribute(data);
+      const _0x58c0ce = { "type": HistoryTypesEnum["attrs"], "to": { "activeSelection": _0x44480d, "data": _0x2523d4 }, "from": { "activeSelection": _0x44480d, "data": _0x34703d } };
+      this["handleAttribute"](_0x58c0ce);
     }
-    handleUndo() {
-      const { editor } = this;
-      editor.historyHandler.undo();
+    ["handleUndo"]() {
+      const { editor: _0x47a75d } = this;
+      _0x47a75d["historyHandler"]["undo"]();
     }
-    handleRedo() {
-      const { editor } = this;
-      editor.historyHandler.redo();
+    ["handleRedo"]() {
+      const { editor: _0x2d38a3 } = this;
+      _0x2d38a3["historyHandler"]["redo"]();
     }
-    /**
-     * 层级操作
-     * @param {String} type。bringForward 上移；sendBackwards 下移；bringToFront 置顶；sendToBack 置底
-     */
-    handleLayer(type) {
-      const { editor } = this;
-      const objs = editor.getActiveObjects();
-      if (objs.length) {
-        const firstObj = objs[0];
-        const parent = firstObj.group || editor;
-        const parentId = firstObj.group ? firstObj.group.id : "";
-        const sameLevelCount = parent.objects.length;
-        if (objs.some((item) => {
-          const itemParentId = item.group ? item.group.id : "";
-          return parentId !== itemParentId;
-        })) {
-          return editorUtil.logError("can not operate different group object");
-        }
-        if (sameLevelCount === objs.length) {
-          return editorUtil.logError("dont operate all object in same level");
-        }
-        const relationship = editor.getObjectsParentRelationship(objs);
-        relationship.sort((a, b) => a.path - b.path);
-        const firstObjIndex = relationship[0].index;
-        let finalIndex = 0;
-        switch (type) {
+    ["handleLayer"](_0x40c0a9) {
+      const { editor: _0x3161c7 } = this, _0x5bc002 = _0x3161c7["getActiveObjects"]();
+      if (_0x5bc002["length"]) {
+        const _0x5017f1 = _0x5bc002[0], _0x24a546 = _0x5017f1["group"] || _0x3161c7, _0x5ebe4d = _0x5017f1["group"] ? _0x5017f1["group"]["id"] : "", _0x4a7db1 = _0x24a546["objects"]["length"];
+        if (_0x5bc002["some"]((_0x6487c7) => {
+          const _0x1255b1 = _0x6487c7["group"] ? _0x6487c7["group"]["id"] : "";
+          return _0x5ebe4d !== _0x1255b1;
+        }))
+          return editorUtil["logError"]("can not operate different group object");
+        if (_0x4a7db1 === _0x5bc002["length"])
+          return editorUtil["logError"]("dont operate all object in same level");
+        const _0x2f3272 = _0x3161c7["getObjectsParentRelationship"](_0x5bc002);
+        _0x2f3272["sort"]((_0x2362b8, _0x2b9a6b) => _0x2362b8["path"] - _0x2b9a6b["path"]);
+        const _0x10d1be = _0x2f3272[0]["index"];
+        let _0x5a5ff2 = 0;
+        switch (_0x40c0a9) {
           case "bringForward":
-            finalIndex = firstObjIndex + 1;
-            if (finalIndex > sameLevelCount) {
+            _0x5a5ff2 = _0x10d1be + _0x2f3272["length"] + 1;
+            if (_0x5a5ff2 > _0x4a7db1)
               return;
-            }
             break;
           case "sendBackwards":
-            finalIndex = firstObjIndex - 1;
-            if (finalIndex < 0) {
+            _0x5a5ff2 = _0x10d1be - 1;
+            if (_0x5a5ff2 < 0)
               return;
-            }
             break;
           case "bringToFront":
-            finalIndex = sameLevelCount;
+            _0x5a5ff2 = _0x4a7db1;
             break;
           case "sendToBack":
-            finalIndex = 0;
+            _0x5a5ff2 = 0;
             break;
         }
-        const data = { idList: objs.map((a) => a.id), parentId, index: finalIndex };
-        this.handleUpdateLayer(data);
+        const _0x30ca20 = { "idList": _0x5bc002["map"]((_0x15d70b) => _0x15d70b["id"]), "parentId": _0x5ebe4d, "index": _0x5a5ff2 };
+        this["handleUpdateLayer"](_0x30ca20);
       }
     }
-    handleDelete() {
-      const { editor } = this;
-      const activeObjs = editor.getActiveObjects();
-      const activeObj = editor.getActiveObject();
-      let isDeleteControlPoint = false;
-      if (activeObj && activeObj.controls && activeObj.controls.deleteActiveControlPoint) {
-        isDeleteControlPoint = activeObj.controls.deleteActiveControlPoint();
-      }
-      if (!isDeleteControlPoint) {
-        if (activeObjs.length) {
-          const activePositionState = editor.getActiveObjectPositionState(ObjectAttrsEnum.all);
-          editor.objectHandler.remove(activeObjs);
-          editor.historyHandler.store({
-            type: HistoryTypesEnum.delete,
-            from: activePositionState,
-            to: {
-              activeSelection: null,
-              data: []
-            }
-          });
-          editor.layerChange();
+    ["handleDelete"]() {
+      const { editor: _0x43a955 } = this, _0x41dc22 = _0x43a955["getActiveObjects"](), _0x5ad071 = _0x43a955["getActiveObject"]();
+      let _0x507f85 = ![];
+      _0x5ad071 && _0x5ad071["controls"] && _0x5ad071["controls"]["deleteActiveControlPoint"] && (_0x507f85 = _0x5ad071["controls"]["deleteActiveControlPoint"]());
+      if (!_0x507f85) {
+        if (_0x41dc22["length"]) {
+          const _0x38b6c0 = _0x43a955["getActiveObjectPositionState"](ObjectAttrsEnum["all"]);
+          _0x43a955["objectHandler"]["remove"](_0x41dc22), _0x43a955["historyHandler"]["store"]({ "type": HistoryTypesEnum["delete"], "from": _0x38b6c0, "to": { "activeSelection": null, "data": [] } }), _0x43a955["layerChange"]();
         }
       }
     }
-    /**
-     * 退到上一层
-     */
-    handleEsc() {
-      const { editor } = this;
-      if (editor.group) {
-        const { group } = editor;
-        const { x, y, w, h, angle } = editor.calcGroupPositionBySubs(group);
-        let [diffX, diffY] = [group.x - x, group.y - y];
-        const groupOldLeftTop = { x: group.x, y: group.y };
-        const groupOldCenter = { x: group.x + group.w / 2, y: group.y + group.h / 2 };
-        const groupNewCenter = { x: x + w / 2, y: y + h / 2 };
-        const groupNewLeftTop = { x, y };
-        const p1 = editorUtil.rotatePoint(groupOldLeftTop, groupOldCenter, angle);
-        const p2 = editorUtil.rotatePoint(groupNewLeftTop, groupNewCenter, angle);
-        diffX = p1.x - p2.x;
-        diffY = p1.y - p2.y;
-        const { xLength, yLength } = editorUtil.getProjection({ x: diffX, y: diffY }, angle);
-        diffX = xLength;
-        diffY = yLength;
-        group.objects.forEach((item) => {
-          item.x += diffX;
-          item.y += diffY;
-        });
-        group.x = x;
-        group.y = y;
-        group.w = w;
-        group.h = h;
-        group.angle = angle;
-        editor.group = group.group || null;
-        editor.setActiveObjects([group]);
+    ["handleEsc"]() {
+      const { editor: _0x81e6c } = this;
+      if (_0x81e6c["group"]) {
+        const { group: _0x24e271 } = _0x81e6c, { x: _0x103289, y: _0x19b73f, w: _0x46a794, h: _0x223b83, angle: _0x574ee2 } = _0x81e6c["calcGroupPositionBySubs"](_0x24e271);
+        let [_0xb7ee94, _0x557413] = [_0x24e271["x"] - _0x103289, _0x24e271["y"] - _0x19b73f];
+        const _0x54e0c9 = { "x": _0x24e271["x"], "y": _0x24e271["y"] }, _0x51127f = { "x": _0x24e271["x"] + _0x24e271["w"] / 2, "y": _0x24e271["y"] + _0x24e271["h"] / 2 }, _0x2b98a0 = { "x": _0x103289 + _0x46a794 / 2, "y": _0x19b73f + _0x223b83 / 2 }, _0x3f33da = { "x": _0x103289, "y": _0x19b73f }, _0xc2f307 = editorUtil["rotatePoint"](_0x54e0c9, _0x51127f, _0x574ee2), _0x31c216 = editorUtil["rotatePoint"](_0x3f33da, _0x2b98a0, _0x574ee2);
+        _0xb7ee94 = _0xc2f307["x"] - _0x31c216["x"], _0x557413 = _0xc2f307["y"] - _0x31c216["y"];
+        const { xLength: _0x16e913, yLength: _0x10b0e8 } = editorUtil["getProjection"]({ "x": _0xb7ee94, "y": _0x557413 }, _0x574ee2);
+        _0xb7ee94 = _0x16e913, _0x557413 = _0x10b0e8, _0x24e271["objects"]["forEach"]((_0x2b7717) => {
+          _0x2b7717["x"] += _0xb7ee94, _0x2b7717["y"] += _0x557413;
+        }), _0x24e271["x"] = _0x103289, _0x24e271["y"] = _0x19b73f, _0x24e271["w"] = _0x46a794, _0x24e271["h"] = _0x223b83, _0x24e271["angle"] = _0x574ee2, _0x81e6c["group"] = _0x24e271["group"] || null, _0x81e6c["setActiveObjects"]([_0x24e271]);
       }
     }
-    handleCopy() {
-      const { editor } = this;
-      editor.objectHandler.copy(false);
+    ["handleCopy"]() {
+      const { editor: _0x5ae37b } = this;
+      _0x5ae37b["objectHandler"]["copy"](![]);
     }
-    handleCut() {
-      const { editor } = this;
-      const activePositionState = editor.getActiveObjectPositionState(ObjectAttrsEnum.all);
-      editor.objectHandler.copy(true).then(() => {
-        const nowState = editor.getActiveObjectPositionState();
-        editor.historyHandler.store({
-          type: HistoryTypesEnum.delete,
-          from: activePositionState,
-          to: nowState
-        });
-        editor.layerChange();
+    ["handleCut"]() {
+      const { editor: _0x37a41b } = this, _0x5d4a7d = _0x37a41b["getActiveObjectPositionState"](ObjectAttrsEnum["all"]);
+      _0x37a41b["objectHandler"]["copy"](!![])["then"](() => {
+        const _0x465d69 = _0x37a41b["getActiveObjectPositionState"]();
+        _0x37a41b["historyHandler"]["store"]({ "type": HistoryTypesEnum["delete"], "from": _0x5d4a7d, "to": _0x465d69 }), _0x37a41b["layerChange"]();
       });
     }
-    handleReuse() {
-      const { editor } = this;
-      const activeObj = editor.getActiveObject();
-      if (activeObj) {
-        const activePositionState = editor.getActiveObjectPositionState(ObjectAttrsEnum.all);
-        editor.objectHandler.multiplex(activeObj, editor.config.multiplexOffset).then(() => {
-          const nowState = editor.getActiveObjectPositionState(ObjectAttrsEnum.all);
-          editor.historyHandler.store({
-            type: HistoryTypesEnum.add,
-            from: activePositionState,
-            to: nowState
-          });
-          editor.layerChange();
+    ["handleReuse"]() {
+      const { editor: _0x44827f } = this, _0x1bbdaf = _0x44827f["getActiveObject"]();
+      if (_0x1bbdaf) {
+        const _0x346ab2 = _0x44827f["getActiveObjectPositionState"](ObjectAttrsEnum["all"]);
+        _0x44827f["objectHandler"]["multiplex"](_0x1bbdaf)["then"](() => {
+          const _0x276e41 = _0x44827f["getActiveObjectPositionState"](ObjectAttrsEnum["all"]);
+          _0x44827f["historyHandler"]["store"]({ "type": HistoryTypesEnum["add"], "from": _0x346ab2, "to": _0x276e41 }), _0x44827f["layerChange"]();
         });
       }
     }
-    handlePaste(mousePosition) {
-      const { editor } = this;
-      const activePositionState = editor.getActiveObjectPositionState(ObjectAttrsEnum.all);
-      editor.objectHandler.paste(mousePosition).then(() => {
-        const data = {
-          type: HistoryTypesEnum.add,
-          from: activePositionState,
-          to: editor.getActiveObjectPositionState(ObjectAttrsEnum.all)
-        };
-        editor.historyHandler.store(data);
-        editor.layerChange();
-      });
-    }
-    handleMoveHorizontal(value) {
-      const { editor } = this;
-      const activePositionState = editor.getActiveObjectPositionState();
-      editor.objectHandler.move("left", value).then(() => {
-        editor.historyHandler.store({
-          type: HistoryTypesEnum.attrs,
-          from: activePositionState,
-          to: editor.getActiveObjectPositionState()
-        });
-      });
-    }
-    handleMoveVertical(value) {
-      const { editor } = this;
-      const activePositionState = editor.getActiveObjectPositionState();
-      editor.objectHandler.move("top", value).then(() => {
-        editor.historyHandler.store({
-          type: HistoryTypesEnum.attrs,
-          from: activePositionState,
-          to: editor.getActiveObjectPositionState()
-        });
-      });
-    }
-    handleGroup() {
-      const { editor } = this;
-      const activePositionState = editor.getActiveObjectPositionState(ObjectAttrsEnum.all);
-      editor.objectHandler.group().then(() => {
-        editor.historyHandler.store({
-          type: HistoryTypesEnum.inversion,
-          from: activePositionState,
-          to: editor.getActiveObjectPositionState(ObjectAttrsEnum.all)
-        });
-        editor.layerChange();
-      });
-    }
-    handleUngroup() {
-      const { editor } = this;
-      const activePositionState = editor.getActiveObjectPositionState(ObjectAttrsEnum.all);
-      editor.objectHandler.ungroup().then(() => {
-        editor.historyHandler.store({
-          type: HistoryTypesEnum.inversion,
-          from: activePositionState,
-          to: editor.getActiveObjectPositionState(ObjectAttrsEnum.all)
-        });
-        editor.layerChange();
-      });
-    }
-    handleSelectAll() {
-      const { editor } = this;
-      let objs = [];
-      if (editor.group) {
-        objs = editor.group.objects;
-      } else {
-        objs = editor.objects.filter((a) => !a.locked && a.visible);
-      }
-      editor.setActiveObjects(objs);
-    }
-    handleAlign(type) {
-      const { editor } = this;
-      const activePositionState = editor.getActiveObjectPositionState();
-      editor.alignHandler.align(type).then(() => {
-        editor.historyHandler.store({
-          type: HistoryTypesEnum.attrs,
-          from: activePositionState,
-          to: editor.getActiveObjectPositionState()
-        });
-      });
-    }
-    /**
-     * 处理对象属性变化
-     * @param from: {activeSelection: null, data:[{index: 0, parentId: null, data:{id: '',x:12,y:0}}]}
-     * @param to: {activeSelection: null, data: [index: 0, parentId: null, data:{id: '',x:32,y:9}]}
-     *
-     */
-    handleAttribute(e = { from: {}, to: {} }) {
-      const { editor } = this;
-      const { from, to } = e;
-      const data = to.data.map((a) => a.data);
-      editor.objectHandler.attribute(data).then(() => {
-        const obj = data[0];
-        const keyList = Object.keys(obj);
-        const activeObj = editor.getActiveObject();
-        const layerTriggerKeys = ["locked", "visible"];
-        const positionKeys = ["x", "y", "w", "h", "angle"];
-        if (xor(keyList, layerTriggerKeys).length) {
-          editor.layerChange();
-          activeObj.updateControlsPosition();
-        }
-        if (xor(keyList, positionKeys).length) {
-          if (activeObj.type === "activeSelection") {
-            editor.setActiveObjects(activeObj.objects);
-          }
-        }
-        if (from) {
-          editor.historyHandler.store({
-            type: HistoryTypesEnum.attrs,
-            from,
-            to
-          });
-        }
-      });
-    }
-    /**
-     * 更新层级
-     */
-    handleUpdateLayer({ idList = [], parentId = "", index = 0 }) {
-      const { editor } = this;
-      const parentObj = parentId ? editor.getObjectById(parentId) : editor;
-      const objs = editor.getObjectsByCondition((a) => idList.includes(a.id));
-      if (!objs.length) {
-        return editorUtil.logError("no object found");
-      }
-      const relationship = editor.getObjectsParentRelationship(objs);
-      relationship.sort((a, b) => a.path - b.path);
-      let parentIdList = relationship.reduce((pre, cur) => {
-        pre.push(...cur.parentIdList);
-        return pre;
-      }, []);
-      parentIdList = [...new Set(parentIdList)];
-      if (parentIdList.some((a) => idList.includes(a))) {
-        return editorUtil.logError("cannot operate parent and children at the same time");
-      }
-      let isAllSameParent = true;
-      let isEverySameStep = true;
-      for (let i = relationship.length - 1; i >= 0; i--) {
-        const item = relationship[i];
-        if (item.parentId === parentId && item.index < index) {
-          index--;
-        }
-        if (item.parentId !== parentId) {
-          isAllSameParent = false;
-        }
-        if (i > 0) {
-          const preItem = relationship[i - 1];
-          if (item.index - preItem.index !== 1) {
-            isEverySameStep = false;
-          }
-        }
-      }
-      if (isAllSameParent && isEverySameStep && index === relationship[0].index) {
-        return editorUtil.logError("no need to move");
-      }
-      const activePositionState = editor.getActiveObjectPositionState(ObjectAttrsEnum.all);
-      const objsGlobalPosList = objs.map((a) => {
-        return __spreadValues({ id: a.id }, a.getGlobalPosition());
-      });
-      objs.forEach((item) => {
-        removeObject(item);
-        const position = objsGlobalPosList.find((a) => a.id === item.id);
-        Object.assign(item, position);
-      });
-      const toResetGroupList = [];
-      objs.forEach((item, itemIndex) => {
-        if (parentObj.type === "group") {
-          const parentMatrix = editorUtil.getTotalMatrix(parentObj, false, true);
-          editorUtil.applyMatrix(item, inverse(parentMatrix));
-          item.group = parentObj;
-          if (!toResetGroupList.find((a) => a.id === parentObj.id)) {
-            toResetGroupList.push(parentObj);
-          }
-        }
-        parentObj.objects.splice(index + itemIndex, 0, item);
-      });
-      toResetGroupList.forEach((item) => {
-        editorUtil.resetGroupPosition(item);
-      });
-      editor.setActiveObjects(objs);
-      editor.historyHandler.store({
-        type: HistoryTypesEnum.inversion,
-        from: activePositionState,
-        to: editor.getActiveObjectPositionState(ObjectAttrsEnum.all)
-      });
-      editor.layerChange();
-    }
-    handleAddObject(obj) {
-      const { editor } = this;
-      const activePositionState = editor.getActiveObjectPositionState(ObjectAttrsEnum.all);
-      const objList = Array.isArray(obj) ? obj : [obj];
-      editor.add(objList).then(() => {
-        editor.setActiveObjects(objList);
-        editor.historyHandler.store({
-          type: HistoryTypesEnum.add,
-          from: activePositionState,
-          to: editor.getActiveObjectPositionState(ObjectAttrsEnum.all)
-        });
-        editor.layerChange();
-      });
-    }
-    handleSetZoom(value) {
-      const { editor } = this;
-      editor.zoomHandler.setZoom(value);
-    }
-    handleZoomToFit() {
-      const { editor } = this;
-      editor.zoomHandler.zoomFitView();
-    }
-    handleEditorConfig(e = { from: {}, to: {} }) {
-      const { editor } = this;
-      const { from, to } = e;
-      Object.assign(editor.config, to);
-      if (from) {
-        editor.historyHandler.store({
-          type: HistoryTypesEnum.config,
-          from,
-          to
-        });
-      }
-    }
-    /**
-     * 设置选中对象可见性
-     * @param visible 是否可见
-     */
-    handleVisible(visible) {
-      const { editor } = this;
-      const objs = editor.getActiveObjects();
-      const activeSelection = editor.getActiveSelectionPosition();
-      let toData = [];
-      let fromData = [];
-      objs.forEach((item) => {
-        const { id } = item;
-        toData.push({ data: { id, visible } });
-        fromData.push({ data: { id, visible: !visible } });
-      });
-      const data = {
-        type: HistoryTypesEnum.attrs,
-        to: {
-          activeSelection,
-          data: toData
-        },
-        from: {
-          activeSelection,
-          data: fromData
-        }
-      };
-      this.handleAttribute(data);
-    }
-    /**
-     * 丢弃选中
-     */
-    handleDiscard() {
-      const { editor } = this;
-      editor.discardActiveObject();
-    }
-    /**
-     * 处理快捷键上下左右移动
-     * @param key 对象key
-     * @param distance 方位移动距离
-     * @param isSaveAction 是否保存到历史记录
-     */
-    handleShortcutPosition(key, distance, isSaveAction) {
-      const { editor } = this;
-      const activeSelection = editor.getActiveSelectionPosition();
-      let toData = [];
-      let fromData = [];
-      const objs = editor.getActiveObjects();
-      const hasLockedObj = objs.some((item) => item.locked);
-      if (hasLockedObj) {
+    ["handlePaste"]() {
+      const { editor: _0x1168c1 } = this;
+      if (_0x1168c1["enableCustomPaste"])
         return;
-      }
-      objs.forEach((item) => {
-        const value = Reflect.get(item, key);
-        const tempValue = Reflect.get(item, `__${key}`);
-        if (tempValue === void 0) {
-          Reflect.set(item, `__${key}`, value);
+      const _0x179d9e = _0x1168c1["getActiveObjectPositionState"](ObjectAttrsEnum["all"]);
+      _0x1168c1["objectHandler"]["paste"]()["then"](() => {
+        const _0x195917 = { "type": HistoryTypesEnum["add"], "from": _0x179d9e, "to": _0x1168c1["getActiveObjectPositionState"](ObjectAttrsEnum["all"]) };
+        _0x1168c1["historyHandler"]["store"](_0x195917), _0x1168c1["layerChange"]();
+      });
+    }
+    ["handleMoveHorizontal"](_0x18dc25) {
+      const { editor: _0x3e90c7 } = this, _0x1a245a = _0x3e90c7["getActiveObjectPositionState"]();
+      _0x3e90c7["objectHandler"]["move"]("left", _0x18dc25)["then"](() => {
+        _0x3e90c7["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0x1a245a, "to": _0x3e90c7["getActiveObjectPositionState"]() });
+      });
+    }
+    ["handleMoveVertical"](_0x26d86f) {
+      const { editor: _0x11b59a } = this, _0xf4ecc7 = _0x11b59a["getActiveObjectPositionState"]();
+      _0x11b59a["objectHandler"]["move"]("top", _0x26d86f)["then"](() => {
+        _0x11b59a["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0xf4ecc7, "to": _0x11b59a["getActiveObjectPositionState"]() });
+      });
+    }
+    ["handleGroup"]() {
+      const { editor: _0x1b2b91 } = this, _0x451a57 = _0x1b2b91["getActiveObjectPositionState"](ObjectAttrsEnum["all"]);
+      _0x1b2b91["objectHandler"]["group"]()["then"](() => {
+        _0x1b2b91["historyHandler"]["store"]({ "type": HistoryTypesEnum["inversion"], "from": _0x451a57, "to": _0x1b2b91["getActiveObjectPositionState"](ObjectAttrsEnum["all"]) }), _0x1b2b91["layerChange"]();
+      });
+    }
+    ["handleUngroup"]() {
+      const { editor: _0x1c100a } = this, _0x40a952 = _0x1c100a["getActiveObjectPositionState"](ObjectAttrsEnum["all"]);
+      _0x1c100a["objectHandler"]["ungroup"]()["then"](() => {
+        _0x1c100a["historyHandler"]["store"]({ "type": HistoryTypesEnum["inversion"], "from": _0x40a952, "to": _0x1c100a["getActiveObjectPositionState"](ObjectAttrsEnum["all"]) }), _0x1c100a["layerChange"]();
+      });
+    }
+    ["handleSelectAll"]() {
+      const { editor: _0x143ec5 } = this;
+      let _0x5f36c6 = [];
+      _0x143ec5["group"] ? _0x5f36c6 = _0x143ec5["group"]["objects"] : _0x5f36c6 = _0x143ec5["objects"]["filter"]((_0x5ae891) => !_0x5ae891["locked"] && _0x5ae891["visible"]), _0x143ec5["setActiveObjects"](_0x5f36c6);
+    }
+    ["handleAlign"](_0x3953b8) {
+      const { editor: _0x592f39 } = this, _0x53ed0b = _0x592f39["getActiveObjectPositionState"]();
+      _0x592f39["alignHandler"]["align"](_0x3953b8)["then"](() => {
+        _0x592f39["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0x53ed0b, "to": _0x592f39["getActiveObjectPositionState"]() });
+      });
+    }
+    ["handleAttribute"](_0x26346a = { "from": {}, "to": {} }) {
+      const { editor: _0x5d76f9 } = this, { from: _0x2fbcde, to: _0x4bf993 } = _0x26346a, _0x5c17c0 = _0x4bf993["data"]["map"]((_0x50b492) => _0x50b492["data"]);
+      _0x5d76f9["objectHandler"]["attribute"](_0x5c17c0)["then"](() => {
+        const _0x56f508 = _0x5c17c0[0], _0x315180 = Object["keys"](_0x56f508), _0x5e2f6b = _0x5d76f9["getActiveObject"](), _0x5131aa = ["locked", "visible"], _0x4e1338 = ["x", "y", "w", "h", "angle"];
+        _0x315180["some"]((_0x34d3e0) => _0x5131aa["includes"](_0x34d3e0)) && (_0x5d76f9["layerChange"](), _0x5e2f6b["updateControlsPosition"]()), _0x315180["some"]((_0x1509cf) => _0x4e1338["includes"](_0x1509cf)) && (_0x5e2f6b["type"] === "activeSelection" && _0x5d76f9["setActiveObjects"](_0x5e2f6b["objects"])), _0x2fbcde && _0x5d76f9["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0x2fbcde, "to": _0x4bf993 });
+      });
+    }
+    ["handleUpdateLayer"]({ idList = [], parentId = "", index = 0 }) {
+      const { editor: _0x2659dc } = this, _0x22e669 = parentId ? _0x2659dc["getObjectById"](parentId) : _0x2659dc, _0x582b91 = _0x2659dc["getObjectsByCondition"]((_0x4c2c56) => idList["includes"](_0x4c2c56["id"]));
+      if (!_0x582b91["length"])
+        return editorUtil["logError"]("no object found");
+      const _0x23d673 = _0x2659dc["getObjectsParentRelationship"](_0x582b91);
+      _0x23d673["sort"]((_0x3a2b8f, _0x4a3920) => _0x3a2b8f["path"] - _0x4a3920["path"]);
+      let _0x217b53 = _0x23d673["reduce"]((_0xcb5d3d, _0x4cfde0) => {
+        return _0xcb5d3d["push"](..._0x4cfde0["parentIdList"]), _0xcb5d3d;
+      }, []);
+      _0x217b53 = [...new Set(_0x217b53)];
+      if (_0x217b53["some"]((_0x5b3cc4) => idList["includes"](_0x5b3cc4)))
+        return editorUtil["logError"]("cannot operate parent and children at the same time");
+      let _0x4dc950 = !![], _0xb6dd5a = !![];
+      for (let _0x537e07 = _0x23d673["length"] - 1; _0x537e07 >= 0; _0x537e07--) {
+        const _0x51ef8c = _0x23d673[_0x537e07];
+        _0x51ef8c["parentId"] === parentId && _0x51ef8c["index"] < index && index--;
+        _0x51ef8c["parentId"] !== parentId && (_0x4dc950 = ![]);
+        if (_0x537e07 > 0) {
+          const _0x304b04 = _0x23d673[_0x537e07 - 1];
+          _0x51ef8c["index"] - _0x304b04["index"] !== 1 && (_0xb6dd5a = ![]);
         }
-        const { id } = item;
-        const obj = { id };
-        Reflect.set(obj, key, isSaveAction ? value : value + distance);
-        toData.push({ data: obj });
-        if (isSaveAction) {
-          const obj2 = { id };
-          Reflect.set(obj2, key, tempValue);
-          fromData.push({ data: obj2 });
-          Reflect.deleteProperty(item, `__${key}`);
+      }
+      if (_0x4dc950 && _0xb6dd5a && index === _0x23d673[0]["index"])
+        return editorUtil["logError"]("no need to move");
+      const _0x228900 = _0x2659dc["getActiveObjectPositionState"](ObjectAttrsEnum["all"]), _0x5eb074 = _0x582b91["map"]((_0x1b6056) => {
+        return __spreadValues({ "id": _0x1b6056["id"] }, _0x1b6056["getGlobalPosition"]());
+      });
+      _0x582b91["forEach"]((_0x20a9cf) => {
+        removeObject(_0x20a9cf);
+        const _0x1c2ad3 = _0x5eb074["find"]((_0x4c5d53) => _0x4c5d53["id"] === _0x20a9cf["id"]);
+        Object["assign"](_0x20a9cf, _0x1c2ad3);
+      });
+      const _0x3affb4 = [];
+      _0x582b91["forEach"]((_0x4219c6, _0x7d6314) => {
+        if (_0x22e669["type"] === "group") {
+          const _0x8d97bd = editorUtil["getTotalMatrix"](_0x22e669, ![], !![]);
+          editorUtil["applyMatrix"](_0x4219c6, inverse(_0x8d97bd)), _0x4219c6["group"] = _0x22e669, !_0x3affb4["find"]((_0x25c2e1) => _0x25c2e1["id"] === _0x22e669["id"]) && _0x3affb4["push"](_0x22e669);
+        }
+        _0x22e669["objects"]["splice"](index + _0x7d6314, 0, _0x4219c6);
+      }), _0x3affb4["forEach"]((_0x20e248) => {
+        editorUtil["resetGroupPosition"](_0x20e248);
+      }), _0x2659dc["setActiveObjects"](_0x582b91), _0x2659dc["historyHandler"]["store"]({ "type": HistoryTypesEnum["inversion"], "from": _0x228900, "to": _0x2659dc["getActiveObjectPositionState"](ObjectAttrsEnum["all"]) }), _0x2659dc["layerChange"]();
+    }
+    ["handleAddObject"](_0x3fafb4) {
+      const { editor: _0x554ef3 } = this, _0x59656a = _0x554ef3["getActiveObjectPositionState"](ObjectAttrsEnum["all"]), _0x50771b = Array["isArray"](_0x3fafb4) ? _0x3fafb4 : [_0x3fafb4];
+      _0x554ef3["add"](_0x50771b)["then"](() => {
+        _0x554ef3["setActiveObjects"](_0x50771b), _0x554ef3["historyHandler"]["store"]({ "type": HistoryTypesEnum["add"], "from": _0x59656a, "to": _0x554ef3["getActiveObjectPositionState"](ObjectAttrsEnum["all"]) }), _0x554ef3["layerChange"]();
+      });
+    }
+    ["handleSetZoom"](_0x29c283) {
+      const { editor: _0x421f87 } = this;
+      _0x421f87["zoomHandler"]["setZoom"](_0x29c283);
+    }
+    ["handleZoomToFit"]() {
+      const { editor: _0x43c8bd } = this;
+      _0x43c8bd["zoomHandler"]["zoomFitView"]();
+    }
+    ["handleEditorConfig"](_0x4d2cfb = { "from": {}, "to": {} }) {
+      const { editor: _0x352c7f } = this, { from: _0x402e54, to: _0x7c1ca5 } = _0x4d2cfb;
+      Object["assign"](_0x352c7f["config"], _0x7c1ca5), _0x402e54 && _0x352c7f["historyHandler"]["store"]({ "type": HistoryTypesEnum["config"], "from": _0x402e54, "to": _0x7c1ca5 });
+    }
+    ["handleVisible"](_0x5db713) {
+      const { editor: _0x22b681 } = this, _0x3ebcfc = _0x22b681["getActiveObjects"](), _0x40cfcd = _0x22b681["getActiveSelectionPosition"]();
+      let _0x1b7aa6 = [], _0xceaee5 = [];
+      _0x3ebcfc["forEach"]((_0x1eb788) => {
+        const { id: _0x304a33 } = _0x1eb788;
+        _0x1b7aa6["push"]({ "data": { "id": _0x304a33, "visible": _0x5db713 } }), _0xceaee5["push"]({ "data": { "id": _0x304a33, "visible": !_0x5db713 } });
+      });
+      const _0x490a23 = { "type": HistoryTypesEnum["attrs"], "to": { "activeSelection": _0x40cfcd, "data": _0x1b7aa6 }, "from": { "activeSelection": _0x40cfcd, "data": _0xceaee5 } };
+      this["handleAttribute"](_0x490a23);
+    }
+    ["handleDiscard"]() {
+      const { editor: _0x3a2914 } = this;
+      _0x3a2914["discardActiveObject"]();
+    }
+    ["handleShortcutPosition"](_0x4a1684, _0x4be5fa, _0x480165) {
+      const { editor: _0x5c76de } = this, _0x2293c3 = _0x5c76de["getActiveSelectionPosition"]();
+      let _0x4e86ca = [], _0x496a40 = [];
+      const _0x13edae = _0x5c76de["getActiveObjects"](), _0x32a9bd = _0x13edae["some"]((_0x512ae3) => _0x512ae3["locked"]);
+      if (_0x32a9bd)
+        return;
+      _0x13edae["forEach"]((_0x59f5bf) => {
+        const _0x4e8ad5 = Reflect["get"](_0x59f5bf, _0x4a1684), _0x3eef56 = Reflect["get"](_0x59f5bf, "__" + _0x4a1684);
+        _0x3eef56 === void 0 && Reflect["set"](_0x59f5bf, "__" + _0x4a1684, _0x4e8ad5);
+        const { id: _0x564bab } = _0x59f5bf, _0x273b97 = { "id": _0x564bab };
+        Reflect["set"](_0x273b97, _0x4a1684, _0x480165 ? _0x4e8ad5 : _0x4e8ad5 + _0x4be5fa), _0x4e86ca["push"]({ "data": _0x273b97 });
+        if (_0x480165) {
+          const _0x503e5c = { "id": _0x564bab };
+          Reflect["set"](_0x503e5c, _0x4a1684, _0x3eef56), _0x496a40["push"]({ "data": _0x503e5c }), Reflect["deleteProperty"](_0x59f5bf, "__" + _0x4a1684);
         }
       });
-      const data = {
-        type: HistoryTypesEnum.attrs,
-        to: {
-          activeSelection,
-          data: toData
-        }
-      };
-      if (isSaveAction) {
-        Reflect.set(data, "from", { activeSelection, data: fromData });
-      }
-      this.handleAttribute(data);
-      editor.fire("object:modified", { target: editor.getActiveObject() });
+      const _0x5a4469 = { "type": HistoryTypesEnum["attrs"], "to": { "activeSelection": _0x2293c3, "data": _0x4e86ca } };
+      _0x480165 && Reflect["set"](_0x5a4469, "from", { "activeSelection": _0x2293c3, "data": _0x496a40 }), this["handleAttribute"](_0x5a4469), _0x5c76de["fire"]("object:modified", { "target": _0x5c76de["getActiveObject"]() });
     }
-    handleAlignEqual(params, value) {
-      const { editor } = this;
-      const fromState = editor.getActiveObjectPositionState(ObjectAttrsEnum.position);
-      let saveFlag = true;
-      switch (params) {
+    ["handleAlignEqual"](_0x167e0a, _0x184b35) {
+      const { editor: _0x508d4c } = this, _0x4411c9 = _0x508d4c["getActiveObjectPositionState"](ObjectAttrsEnum["position"]);
+      let _0x14285e = !![];
+      switch (_0x167e0a) {
         case "width":
-          this.handleEqualSize("width");
+          this["handleEqualSize"]("width");
           break;
         case "height":
-          this.handleEqualSize("height");
+          this["handleEqualSize"]("height");
           break;
         case "widthAndHeight":
-          this.handleEqualSize("widthAndHeight");
+          this["handleEqualSize"]("widthAndHeight");
           break;
         case "horizontalDistance":
-          this.handleEqualDistance("horizontalDistance", value);
+          this["handleEqualDistance"]("horizontalDistance", _0x184b35);
           break;
         case "verticalDistance":
-          this.handleEqualDistance("verticalDistance", value);
+          this["handleEqualDistance"]("verticalDistance", _0x184b35);
           break;
         default:
-          saveFlag = false;
+          _0x14285e = ![];
           break;
       }
-      if (saveFlag) {
-        const toState = editor.getActiveObjectPositionState(ObjectAttrsEnum.position);
-        if (JSON.stringify(fromState) !== JSON.stringify(toState)) {
-          editor.historyHandler.store({
-            type: HistoryTypesEnum.attrs,
-            from: fromState,
-            to: toState
-          });
-        }
+      if (_0x14285e) {
+        const _0x1af678 = _0x508d4c["getActiveObjectPositionState"](ObjectAttrsEnum["position"]);
+        JSON["stringify"](_0x4411c9) !== JSON["stringify"](_0x1af678) && _0x508d4c["historyHandler"]["store"]({ "type": HistoryTypesEnum["attrs"], "from": _0x4411c9, "to": _0x1af678 });
       }
     }
-    // 等宽等高。等宽以最左边元素为基准；等高以最上边元素为基准。等宽等高优先判断最左其次判断最上
-    handleEqualSize(type) {
-      const { editor } = this;
-      const objs = editor.getActiveObjects();
-      if (!objs || objs.length === 0)
+    ["handleEqualSize"](_0x5551bf) {
+      const { editor: _0x32eb29 } = this, _0x47bded = _0x32eb29["getActiveObjects"]();
+      if (!_0x47bded || _0x47bded["length"] === 0)
         return;
-      let minItem = null;
-      objs.sort((a, b) => a.x - b.x);
-      objs.forEach((item) => {
-        if (minItem === null) {
-          minItem = item;
-        } else {
-          switch (type) {
+      let _0x1172a8 = null;
+      _0x47bded["sort"]((_0xf14081, _0x4506a5) => _0xf14081["x"] - _0x4506a5["x"]), _0x47bded["forEach"]((_0x490b33) => {
+        if (_0x1172a8 === null)
+          _0x1172a8 = _0x490b33;
+        else
+          switch (_0x5551bf) {
             case "widthAndHeight":
-              minItem = item.x < minItem.x && item.y < minItem.y ? item : minItem;
+              _0x1172a8 = _0x490b33["x"] < _0x1172a8["x"] && _0x490b33["y"] < _0x1172a8["y"] ? _0x490b33 : _0x1172a8;
               break;
             case "width":
-              minItem = item.x < minItem.x ? item : minItem;
+              _0x1172a8 = _0x490b33["x"] < _0x1172a8["x"] ? _0x490b33 : _0x1172a8;
               break;
             case "height":
-              minItem = item.y < minItem.y ? item : minItem;
+              _0x1172a8 = _0x490b33["y"] < _0x1172a8["y"] ? _0x490b33 : _0x1172a8;
               break;
           }
-        }
       });
-      const { id, w, h } = minItem;
-      let obj = {};
-      switch (type) {
+      const { id: _0x3f83ec, w: _0x40c438, h: _0x2f5427 } = _0x1172a8;
+      let _0x17cf42 = {};
+      switch (_0x5551bf) {
         case "widthAndHeight":
-          obj = {
-            w,
-            h
-          };
+          _0x17cf42 = { "w": _0x40c438, "h": _0x2f5427 };
           break;
         case "width":
-          obj = {
-            w
-          };
+          _0x17cf42 = { "w": _0x40c438 };
           break;
         case "height":
-          obj = {
-            h
-          };
+          _0x17cf42 = { "h": _0x2f5427 };
           break;
       }
-      objs.forEach((item) => {
-        if (item.id !== id && item.set) {
-          item.set(obj);
-        }
-      });
-      editor.setActiveObjects(objs);
+      _0x47bded["forEach"]((_0x362380) => {
+        _0x362380["id"] !== _0x3f83ec && _0x362380["set"] && _0x362380["set"](_0x17cf42);
+      }), _0x32eb29["setActiveObjects"](_0x47bded);
     }
-    // 等距离
-    handleEqualDistance(params, distance) {
-      this.editor.alignHandler.align(params, distance);
+    ["handleEqualDistance"](_0x3fb58d, _0x2b276d) {
+      this["editor"]["alignHandler"]["align"](_0x3fb58d, _0x2b276d);
     }
-    // 批量设置选中
-    handleSetSelection(idList = []) {
-      const objs = this.editor.getObjectsByCondition((item) => idList.includes(item.id));
-      this.editor.setActiveObjects(objs);
+    ["handleSetSelection"](_0x426527 = []) {
+      const _0xf4f1ef = this["editor"]["getObjectsByCondition"]((_0x5dd3f2) => _0x426527["includes"](_0x5dd3f2["id"]));
+      this["editor"]["setActiveObjects"](_0xf4f1ef);
     }
   }
-  const removeObject = (obj) => {
-    const parent = obj.group || obj.editor;
-    const findIndex2 = parent.objects.findIndex((item) => item.id === obj.id);
-    if (findIndex2 > -1) {
-      parent.objects.splice(findIndex2, 1);
-    }
-    delete obj.group;
+  const removeObject = (_0x5e49c7) => {
+    const _0x4cb4e9 = _0x5e49c7["group"] || _0x5e49c7["editor"], _0x35f9a2 = _0x4cb4e9["objects"]["findIndex"]((_0x576e2f) => _0x576e2f["id"] === _0x5e49c7["id"]);
+    _0x35f9a2 > -1 && _0x4cb4e9["objects"]["splice"](_0x35f9a2, 1), delete _0x5e49c7["group"];
   };
-  const drawLine = (editor, option = {}, callback) => {
-    return new Promise((resolve) => {
-      const points = [];
-      const fill = option.fill || "rgba(0,0,0,0)";
-      const stroke = option.stroke || "#000";
-      const strokeWidth = option.strokeWidth || 2;
-      let drawingRefDom = null;
-      const editorDom = editor.getEditorDom();
-      editor.mode = "draw";
-      editor.discardActiveObject();
-      const handleMouseDown = (e) => {
-        const { x, y } = editor.getMouseInnerPosition(e);
-        points.push({ x, y });
-        const rect = editorUtil.createSvgElement("line", {
-          stroke,
-          "stroke-width": strokeWidth,
-          x1: x,
-          y1: y,
-          x2: x,
-          y2: y
-        });
-        drawingRefDom = rect;
-        editor.drawLayer.innerHTML = "";
-        editor.drawLayer.appendChild(rect);
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseup", handleMouseUp);
-      };
-      const handleMouseMove = (e) => {
-        let { x, y } = editor.getMouseInnerPosition(e);
-        if (e.shiftKey) {
-          const disX = Math.abs(x - points[0].x);
-          const disY = Math.abs(y - points[0].y);
-          if (disX > disY)
-            y = points[0].y;
+  const drawLine = (_0x32978f, _0x2ff488 = {}, _0x8300fa) => {
+    return new Promise((_0x2ed94c) => {
+      const _0x336df8 = [], _0x6c6845 = _0x2ff488["fill"] || "rgba(0,0,0,0)", _0x211c96 = _0x2ff488["stroke"] || "#000", _0x1f06b9 = _0x2ff488["strokeWidth"] || 2;
+      let _0x4550c3 = null;
+      const _0x252536 = _0x32978f["getEditorDom"]();
+      _0x32978f["mode"] = "draw", _0x32978f["discardActiveObject"]();
+      const _0x1a8a43 = (_0x1dc365) => {
+        const { x: _0x3d507e, y: _0x4d2df0 } = _0x32978f["getMouseInnerPosition"](_0x1dc365);
+        _0x336df8["push"]({ "x": _0x3d507e, "y": _0x4d2df0 });
+        const _0x3073e5 = editorUtil["createSvgElement"]("line", { "stroke": _0x211c96, "stroke-width": _0x1f06b9, "x1": _0x3d507e, "y1": _0x4d2df0, "x2": _0x3d507e, "y2": _0x4d2df0 });
+        _0x4550c3 = _0x3073e5, _0x32978f["drawLayer"]["innerHTML"] = "", _0x32978f["drawLayer"]["appendChild"](_0x3073e5), document["addEventListener"]("mousemove", _0x23bfe2), document["addEventListener"]("mouseup", _0x4b9e68);
+      }, _0x23bfe2 = (_0x726ce4) => {
+        let { x: _0x4c97c4, y: _0xb578c3 } = _0x32978f["getMouseInnerPosition"](_0x726ce4);
+        if (_0x726ce4["shiftKey"]) {
+          const _0x206c63 = Math["abs"](_0x4c97c4 - _0x336df8[0]["x"]), _0x3a711e = Math["abs"](_0xb578c3 - _0x336df8[0]["y"]);
+          if (_0x206c63 > _0x3a711e)
+            _0xb578c3 = _0x336df8[0]["y"];
           else
-            x = points[0].x;
+            _0x4c97c4 = _0x336df8[0]["x"];
         }
-        drawingRefDom.setAttribute("x2", x);
-        drawingRefDom.setAttribute("y2", y);
+        _0x4550c3["setAttribute"]("x2", _0x4c97c4), _0x4550c3["setAttribute"]("y2", _0xb578c3);
+      }, _0x4b9e68 = (_0x56ff4c) => {
+        const { x: _0x165ad6, y: _0x10f941 } = _0x336df8[0], { x: _0x31bb75, y: _0x523490 } = _0x32978f["getMouseInnerPosition"](_0x56ff4c), _0x42c00b = Math["abs"](_0x165ad6 - _0x31bb75), _0x17c684 = Math["abs"](_0x10f941 - _0x523490), _0x2eb7e6 = Math["min"](_0x165ad6, _0x31bb75), _0x5492cd = Math["min"](_0x10f941, _0x523490);
+        _0x189025(), _0x2ed94c({ "type": "line", "x": _0x2eb7e6, "y": _0x5492cd, "w": _0x42c00b, "h": _0x17c684, "x1": _0x165ad6 - _0x2eb7e6, "y1": _0x10f941 - _0x5492cd, "x2": _0x31bb75 - _0x2eb7e6, "y2": _0x523490 - _0x5492cd, "fill": _0x6c6845, "stroke": _0x211c96, "strokeWidth": _0x1f06b9 });
+      }, _0x189025 = () => {
+        _0x252536["removeEventListener"]("mousedown", _0x1a8a43), document["removeEventListener"]("mousemove", _0x23bfe2), document["removeEventListener"]("mouseup", _0x4b9e68), _0x32978f["mode"] = "select", _0x32978f["drawLayer"]["innerHTML"] = "";
       };
-      const handleMouseUp = (e) => {
-        const { x: x1, y: y1 } = points[0];
-        const { x: x2, y: y2 } = editor.getMouseInnerPosition(e);
-        const w = Math.abs(x1 - x2);
-        const h = Math.abs(y1 - y2);
-        const x = Math.min(x1, x2);
-        const y = Math.min(y1, y2);
-        disposeEvents();
-        resolve({
-          type: "line",
-          x,
-          y,
-          w,
-          h,
-          x1: x1 - x,
-          y1: y1 - y,
-          x2: x2 - x,
-          y2: y2 - y,
-          fill,
-          stroke,
-          strokeWidth
-        });
-      };
-      const disposeEvents = () => {
-        editorDom.removeEventListener("mousedown", handleMouseDown);
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-        editor.mode = "select";
-        editor.drawLayer.innerHTML = "";
-      };
-      editorDom.addEventListener("mousedown", handleMouseDown);
-      if (typeof callback === "function") {
-        callback({ disposeEvents });
-      }
+      _0x252536["addEventListener"]("mousedown", _0x1a8a43), typeof _0x8300fa === "function" && _0x8300fa({ "disposeEvents": _0x189025 });
     });
   };
-  const drawRect = (editor, option = {}, callback) => {
-    return new Promise((resolve) => {
-      const points = [];
-      const fill = option.fill || "rgba(0,0,0,0)";
-      const stroke = option.stroke || "#000";
-      const strokeWidth = option.strokeWidth || 2;
-      let drawingRefDom = null;
-      const editorDom = editor.getEditorDom();
-      editor.mode = "draw";
-      editor.discardActiveObject();
-      const handleMouseDown = (e) => {
-        const { x, y } = editor.getMouseInnerPosition(e);
-        const [w, h] = ["0", "0", "0", "0"];
-        points.push({ x, y });
-        const rect = editorUtil.createSvgElement("rect", {
-          fill,
-          stroke,
-          "stroke-width": strokeWidth,
-          x,
-          y,
-          width: w,
-          height: h
-        });
-        drawingRefDom = rect;
-        editor.drawLayer.innerHTML = "";
-        editor.drawLayer.appendChild(rect);
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseup", handleMouseUp);
+  const drawRect = (_0x2d4521, _0x300396 = {}, _0x29593d) => {
+    return new Promise((_0x3b09b7) => {
+      const _0x412d1d = [], _0x3d57b0 = _0x300396["fill"] || "rgba(0,0,0,0)", _0x319bcf = _0x300396["stroke"] || "#000", _0x167d29 = _0x300396["strokeWidth"] || 2;
+      let _0x19f4fa = null;
+      const _0x3d153b = _0x2d4521["getEditorDom"]();
+      _0x2d4521["mode"] = "draw", _0x2d4521["discardActiveObject"]();
+      const _0x5728b2 = (_0x10b904) => {
+        const { x: _0xaff260, y: _0x22d75c } = _0x2d4521["getMouseInnerPosition"](_0x10b904), [_0x1afa5a, _0x31e707] = ["0", "0", "0", "0"];
+        _0x412d1d["push"]({ "x": _0xaff260, "y": _0x22d75c });
+        const _0x309406 = editorUtil["createSvgElement"]("rect", { "fill": _0x3d57b0, "stroke": _0x319bcf, "stroke-width": _0x167d29, "x": _0xaff260, "y": _0x22d75c, "width": _0x1afa5a, "height": _0x31e707 });
+        _0x19f4fa = _0x309406, _0x2d4521["drawLayer"]["innerHTML"] = "", _0x2d4521["drawLayer"]["appendChild"](_0x309406), document["addEventListener"]("mousemove", _0x3d1006), document["addEventListener"]("mouseup", _0x176e44);
+      }, _0x3d1006 = (_0x85bc0c) => {
+        const { x: _0x546c59, y: _0x3f5458 } = _0x2d4521["getMouseInnerPosition"](_0x85bc0c), { x: _0x5a7079, y: _0x34245a } = _0x412d1d[0], _0x4c1c33 = Math["abs"](_0x5a7079 - _0x546c59), _0x2adeee = Math["abs"](_0x34245a - _0x3f5458), _0x28561e = Math["min"](_0x5a7079, _0x546c59), _0x461772 = Math["min"](_0x34245a, _0x3f5458);
+        _0x19f4fa["setAttribute"]("x", _0x28561e), _0x19f4fa["setAttribute"]("y", _0x461772), _0x19f4fa["setAttribute"]("width", _0x4c1c33), _0x19f4fa["setAttribute"]("height", _0x2adeee);
+      }, _0x176e44 = (_0x32983f) => {
+        const { x: _0x3bedb5, y: _0x2a181b } = _0x412d1d[0], { x: _0x3afcea, y: _0x54449f } = _0x2d4521["getMouseInnerPosition"](_0x32983f), _0x7cc284 = Math["abs"](_0x3bedb5 - _0x3afcea), _0x516497 = Math["abs"](_0x2a181b - _0x54449f), _0x47d70f = Math["min"](_0x3bedb5, _0x3afcea), _0x551f13 = Math["min"](_0x2a181b, _0x54449f);
+        _0xaef792(), _0x3b09b7({ "type": "rect", "x": _0x47d70f, "y": _0x551f13, "w": _0x7cc284, "h": _0x516497, "fill": _0x3d57b0, "stroke": _0x319bcf, "strokeWidth": _0x167d29 });
+      }, _0xaef792 = () => {
+        _0x3d153b["removeEventListener"]("mousedown", _0x5728b2), document["removeEventListener"]("mousemove", _0x3d1006), document["removeEventListener"]("mouseup", _0x176e44), _0x2d4521["mode"] = "select", _0x2d4521["drawLayer"]["innerHTML"] = "";
       };
-      const handleMouseMove = (e) => {
-        const { x, y } = editor.getMouseInnerPosition(e);
-        const { x: x1, y: y1 } = points[0];
-        const w = Math.abs(x1 - x);
-        const h = Math.abs(y1 - y);
-        const startX = Math.min(x1, x);
-        const startY = Math.min(y1, y);
-        drawingRefDom.setAttribute("x", startX);
-        drawingRefDom.setAttribute("y", startY);
-        drawingRefDom.setAttribute("width", w);
-        drawingRefDom.setAttribute("height", h);
-      };
-      const handleMouseUp = (e) => {
-        const { x: x1, y: y1 } = points[0];
-        const { x: x2, y: y2 } = editor.getMouseInnerPosition(e);
-        const w = Math.abs(x1 - x2);
-        const h = Math.abs(y1 - y2);
-        const x = Math.min(x1, x2);
-        const y = Math.min(y1, y2);
-        disposeEvents();
-        resolve({
-          type: "rect",
-          x,
-          y,
-          w,
-          h,
-          fill,
-          stroke,
-          strokeWidth
-        });
-      };
-      const disposeEvents = () => {
-        editorDom.removeEventListener("mousedown", handleMouseDown);
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-        editor.mode = "select";
-        editor.drawLayer.innerHTML = "";
-      };
-      editorDom.addEventListener("mousedown", handleMouseDown);
-      if (typeof callback === "function") {
-        callback({ disposeEvents });
-      }
+      _0x3d153b["addEventListener"]("mousedown", _0x5728b2), typeof _0x29593d === "function" && _0x29593d({ "disposeEvents": _0xaef792 });
     });
   };
-  const object2String = (obj) => {
-    let str = "";
-    Object.keys(obj).forEach((key) => {
-      const newKey = key.replace(/([A-Z])/g, "-$1").toLowerCase();
-      if (obj[key]) {
-        if (typeof obj[key] === "number") {
-          str += `${newKey}:${obj[key]}px;`;
-        } else {
-          str += `${newKey}:${obj[key]};`;
-        }
-      }
-    });
-    return str;
+  const object2String = (_0x485890) => {
+    let _0x420e0e = "";
+    return Object["keys"](_0x485890)["forEach"]((_0x1a7a5f) => {
+      const _0x362b20 = _0x1a7a5f["replace"](/([A-Z])/g, "-$1")["toLowerCase"]();
+      _0x485890[_0x1a7a5f] && (typeof _0x485890[_0x1a7a5f] === "number" ? _0x420e0e += _0x362b20 + ":" + _0x485890[_0x1a7a5f] + "px;" : _0x420e0e += _0x362b20 + ":" + _0x485890[_0x1a7a5f] + ";");
+    }), _0x420e0e;
   };
-  const drawText = (editor, option = {}, callback) => {
-    return new Promise((resolve) => {
-      const style = {
-        fontFamily: "",
-        backgroundColor: "rgba(0,0,0,0)",
-        fontSize: 28,
-        color: "#ffffff",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        lineHeight: 32,
-        letterSpacing: 0,
-        textDecoration: "none",
-        fontWeight: "normal",
-        fontStyle: "normal",
-        paddingLeft: 6,
-        paddingRight: 6
-      };
-      Object.assign(style, option);
-      const editorDom = editor.getEditorDom();
-      editor.mode = "draw";
-      editor.discardActiveObject();
-      const handleMouseDown = (e) => {
-        const { x, y } = editor.getMouseInnerPosition(e);
-        const dom = editorUtil.createSvgElement("g", { transform: `translate(${x}, ${y})` }, { pointerEvents: "auto" });
-        dom.innerHTML = `<foreignObject style="overflow: visible;">
-                        <div contenteditable="true" class="editable-text" style="${object2String(style)}">输入文本</div>
-                       </foreignObject>`;
-        editor.drawLayer.innerHTML = "";
-        editor.drawLayer.appendChild(dom);
-        const text = editor.drawLayer.querySelector(".editable-text");
+  const drawText = (_0x469197, _0x2cc14b = {}, _0x3ae3d4) => {
+    return new Promise((_0x3eba1d) => {
+      const _0x22419f = { "fontFamily": "", "backgroundColor": "rgba(0,0,0,0)", "fontSize": 28, "color": "#ffffff", "alignItems": "center", "justifyContent": "flex-start", "lineHeight": 32, "letterSpacing": 0, "textDecoration": "none", "fontWeight": "normal", "fontStyle": "normal", "paddingLeft": 6, "paddingRight": 6 };
+      Object["assign"](_0x22419f, _0x2cc14b);
+      const _0x513077 = _0x469197["getEditorDom"]();
+      _0x469197["mode"] = "draw", _0x469197["discardActiveObject"]();
+      const _0x4a1357 = (_0x2560e3) => {
+        const { x: _0x815856, y: _0x398b40 } = _0x469197["getMouseInnerPosition"](_0x2560e3);
+        const _0x445991 = editorUtil["createSvgElement"]("g", { "transform": "translate(" + _0x815856 + ", " + _0x398b40 + ")" }, { "pointerEvents": "auto" });
+        _0x445991["innerHTML"] = '<foreignObject style="overflow: visible;">\n                        <div contenteditable="true" class="editable-text" style="' + object2String(_0x22419f) + '">输入文本</div>\n                       </foreignObject>', _0x469197["drawLayer"]["innerHTML"] = "", _0x469197["drawLayer"]["appendChild"](_0x445991);
+        const _0x34af75 = _0x469197["drawLayer"]["querySelector"](".editable-text");
         setTimeout(() => {
-          const range = document.createRange();
-          range.selectNodeContents(text);
-          const selection = window.getSelection();
-          selection.removeAllRanges();
-          selection.addRange(range);
-          text.addEventListener("blur", () => {
-            const { width, height } = text.getBoundingClientRect();
-            const { innerText } = text;
-            disposeEvents();
-            const { a: scale2 } = editor.viewportTransform;
-            resolve({
-              type: "object",
-              x,
-              y,
-              w: width / scale2,
-              h: height / scale2,
-              text: innerText,
-              style
-            });
+          const _0x210748 = () => {
+            const _0x4349db = document["createRange"]();
+            _0x4349db["selectNodeContents"](_0x34af75);
+            const _0x23b136 = window["getSelection"]();
+            _0x23b136["removeAllRanges"](), _0x23b136["addRange"](_0x4349db);
+          };
+          _0x34af75["onpaste"] = function(_0x11b66a) {
+            _0x11b66a["preventDefault"]();
+            const _0x395efc = _0x11b66a["clipboardData"]["getData"]("text");
+            _0x34af75["innerHTML"] = _0x395efc, _0x210748();
+          }, _0x210748(), _0x34af75["addEventListener"]("blur", () => {
+            const { width: _0x169994, height: _0x50fcac } = _0x34af75["getBoundingClientRect"](), { innerText: _0x3517c6 } = _0x34af75;
+            _0x358e8();
+            const { a: _0x1b1cc4 } = _0x469197["viewportTransform"];
+            _0x3eba1d({ "type": "object", "x": _0x815856, "y": _0x398b40, "w": _0x169994 / _0x1b1cc4, "h": _0x50fcac / _0x1b1cc4, "text": _0x3517c6, "style": _0x22419f });
           });
-        }, 0);
-        editorDom.removeEventListener("mousedown", handleMouseDown);
+        }, 0), _0x513077["removeEventListener"]("mousedown", _0x4a1357);
+      }, _0x358e8 = () => {
+        _0x513077["removeEventListener"]("mousedown", _0x4a1357), _0x469197["mode"] = "select", _0x469197["drawLayer"]["innerHTML"] = "";
       };
-      const disposeEvents = () => {
-        editorDom.removeEventListener("mousedown", handleMouseDown);
-        editor.mode = "select";
-        editor.drawLayer.innerHTML = "";
-      };
-      editorDom.addEventListener("mousedown", handleMouseDown);
-      if (typeof callback === "function") {
-        callback({ disposeEvents });
-      }
+      _0x513077["addEventListener"]("mousedown", _0x4a1357), typeof _0x3ae3d4 === "function" && _0x3ae3d4({ "disposeEvents": _0x358e8 });
     });
   };
-  const getPointsStr = (points) => points.map((point) => `${point.x},${point.y}`).join(" ");
-  const drawPolyline = (editor, option = {}, callback) => {
-    return new Promise((resolve) => {
-      const points = [];
-      const fill = option.fill || "rgba(0,0,0,0)";
-      const stroke = option.stroke || "#000";
-      const strokeWidth = option.strokeWidth || 2;
-      const editorDom = editor.getEditorDom();
-      editor.mode = "draw";
-      editor.discardActiveObject();
-      const drawingRefDom = editorUtil.createSvgElement("polyline", {
-        fill,
-        stroke,
-        "stroke-width": strokeWidth
-      });
-      editor.drawLayer.innerHTML = "";
-      editor.drawLayer.appendChild(drawingRefDom);
-      const handleMouseDown = (e) => {
-        const { x, y } = editor.getMouseInnerPosition(e);
-        points.push({ x, y });
-        drawingRefDom.setAttribute("points", getPointsStr(points));
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("keydown", handleKeyDown);
+  const getPointsStr = (_0x313b27) => _0x313b27["map"]((_0x1010fc) => _0x1010fc["x"] + "," + _0x1010fc["y"])["join"](" ");
+  const drawPolyline = (_0x37268c, _0x41f7de = {}, _0x1840e8) => {
+    return new Promise((_0x48ff2f) => {
+      const _0x51cacf = [], _0x2afd09 = _0x41f7de["fill"] || "rgba(0,0,0,0)", _0x4a0d26 = _0x41f7de["stroke"] || "#000", _0x4528d2 = _0x41f7de["strokeWidth"] || 2, _0x3b7fdd = _0x37268c["getEditorDom"]();
+      _0x37268c["mode"] = "draw", _0x37268c["discardActiveObject"]();
+      const _0x210402 = editorUtil["createSvgElement"]("polyline", { "fill": _0x2afd09, "stroke": _0x4a0d26, "stroke-width": _0x4528d2 });
+      _0x37268c["drawLayer"]["innerHTML"] = "", _0x37268c["drawLayer"]["appendChild"](_0x210402);
+      const _0x58bfdf = (_0xf20bd5) => {
+        const { x: _0x494cbd, y: _0xa6610c } = _0x37268c["getMouseInnerPosition"](_0xf20bd5);
+        _0x51cacf["push"]({ "x": _0x494cbd, "y": _0xa6610c }), _0x210402["setAttribute"]("points", getPointsStr(_0x51cacf)), document["addEventListener"]("mousemove", _0x45d21f), document["addEventListener"]("keydown", _0x2c5261);
+      }, _0x45d21f = (_0x3f5fa7) => {
+        const { x: _0x2c2956, y: _0x5404ac } = _0x37268c["getMouseInnerPosition"](_0x3f5fa7);
+        _0x210402["setAttribute"]("points", getPointsStr(_0x51cacf["concat"]([{ "x": _0x2c2956, "y": _0x5404ac }])));
+      }, _0x2c5261 = (_0x59f79f) => {
+        _0x59f79f["key"] === "Escape" && _0x244d76();
+      }, _0x244d76 = () => {
+        const { minX: _0x37ff58, minY: _0x2c1530, maxX: _0x2a0187, maxY: _0x852fa2 } = _0x51cacf["reduce"]((_0x23e766, _0x20949f) => {
+          return _0x23e766["minX"] = Math["min"](_0x23e766["minX"], _0x20949f["x"]), _0x23e766["minY"] = Math["min"](_0x23e766["minY"], _0x20949f["y"]), _0x23e766["maxX"] = Math["max"](_0x23e766["maxX"], _0x20949f["x"]), _0x23e766["maxY"] = Math["max"](_0x23e766["maxY"], _0x20949f["y"]), _0x23e766;
+        }, { "minX": _0x51cacf[0]["x"], "minY": _0x51cacf[0]["y"], "maxX": _0x51cacf[0]["x"], "maxY": _0x51cacf[0]["y"] }), _0xd4fa58 = _0x2a0187 - _0x37ff58, _0x3f658d = _0x852fa2 - _0x2c1530;
+        _0x51cacf["forEach"]((_0x27298f) => {
+          _0x27298f["x"] -= _0x37ff58, _0x27298f["y"] -= _0x2c1530;
+        }), _0x1ec060(), _0x48ff2f({ "type": "polyline", "x": _0x37ff58, "y": _0x2c1530, "w": _0xd4fa58, "h": _0x3f658d, "points": _0x51cacf, "fill": _0x2afd09, "stroke": _0x4a0d26, "strokeWidth": _0x4528d2 });
+      }, _0x1ec060 = () => {
+        _0x3b7fdd["removeEventListener"]("mousedown", _0x58bfdf), document["removeEventListener"]("mousemove", _0x45d21f), document["removeEventListener"]("keydown", _0x2c5261), _0x37268c["mode"] = "select", _0x37268c["drawLayer"]["innerHTML"] = "";
       };
-      const handleMouseMove = (e) => {
-        const { x, y } = editor.getMouseInnerPosition(e);
-        drawingRefDom.setAttribute("points", getPointsStr(points.concat([{ x, y }])));
-      };
-      const handleKeyDown = (e) => {
-        if (e.key === "Escape") {
-          finishDraw();
-        }
-      };
-      const finishDraw = () => {
-        const { minX, minY, maxX, maxY } = points.reduce(
-          (pre, cur) => {
-            pre.minX = Math.min(pre.minX, cur.x);
-            pre.minY = Math.min(pre.minY, cur.y);
-            pre.maxX = Math.max(pre.maxX, cur.x);
-            pre.maxY = Math.max(pre.maxY, cur.y);
-            return pre;
-          },
-          { minX: points[0].x, minY: points[0].y, maxX: points[0].x, maxY: points[0].y }
-        );
-        const w = maxX - minX;
-        const h = maxY - minY;
-        points.forEach((item) => {
-          item.x -= minX;
-          item.y -= minY;
-        });
-        disposeEvents();
-        resolve({
-          type: "polyline",
-          x: minX,
-          y: minY,
-          w,
-          h,
-          points,
-          fill,
-          stroke,
-          strokeWidth
-        });
-      };
-      const disposeEvents = () => {
-        editorDom.removeEventListener("mousedown", handleMouseDown);
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("keydown", handleKeyDown);
-        editor.mode = "select";
-        editor.drawLayer.innerHTML = "";
-      };
-      editorDom.addEventListener("mousedown", handleMouseDown);
-      if (typeof callback === "function") {
-        callback({ disposeEvents });
-      }
+      _0x3b7fdd["addEventListener"]("mousedown", _0x58bfdf), typeof _0x1840e8 === "function" && _0x1840e8({ "disposeEvents": _0x1ec060 });
     });
   };
-  const drawBezierCurve = (editor, option = {}, callback) => {
-    return new Promise((resolve) => {
-      const path = [];
-      const fill = option.fill || "rgba(0,0,0,0)";
-      const stroke = option.stroke || "#000";
-      const strokeWidth = option.strokeWidth || 2;
-      let isDragging = false;
-      const editorDom = editor.getEditorDom();
-      editor.mode = "draw";
-      editor.discardActiveObject();
-      const drawingRefDom = editorUtil.createSvgElement("path", {
-        fill,
-        stroke,
-        "stroke-width": strokeWidth
-      });
-      editor.drawLayer.innerHTML = "";
-      editor.drawLayer.appendChild(drawingRefDom);
-      const handleMouseDown = (e) => {
-        isDragging = true;
-        const { x, y } = editor.getMouseInnerPosition(e);
-        if (path.length === 0) {
-          path.push(["M", x, y], ["C", x, y, x, y, x, y]);
-        } else {
-          const distance = editorUtil.getDistance({ x: path[0][1], y: path[0][2] }, { x, y });
-          if (distance < 3) {
-            path.pop();
-            path.push(["Z"]);
-            finishDraw();
+  const drawBezierCurve = (_0xb86b77, _0x2b51ce = {}, _0x3c3465) => {
+    return new Promise((_0x59edad) => {
+      const _0x40f843 = [], _0xcce82c = _0x2b51ce["fill"] || "rgba(0,0,0,0)", _0x5682ce = _0x2b51ce["stroke"] || "#000", _0x2ba2f5 = _0x2b51ce["strokeWidth"] || 2;
+      let _0x11ea74 = ![];
+      const _0x154966 = _0xb86b77["getEditorDom"]();
+      _0xb86b77["mode"] = "draw", _0xb86b77["discardActiveObject"]();
+      const _0x56b7dd = editorUtil["createSvgElement"]("path", { "fill": _0xcce82c, "stroke": _0x5682ce, "stroke-width": _0x2ba2f5 });
+      _0xb86b77["drawLayer"]["innerHTML"] = "", _0xb86b77["drawLayer"]["appendChild"](_0x56b7dd);
+      const _0x6187bb = (_0x7fdc2a) => {
+        _0x11ea74 = !![];
+        const { x: _0x3d34fe, y: _0x4b0f1f } = _0xb86b77["getMouseInnerPosition"](_0x7fdc2a);
+        if (_0x40f843["length"] === 0)
+          _0x40f843["push"](["M", _0x3d34fe, _0x4b0f1f], ["C", _0x3d34fe, _0x4b0f1f, _0x3d34fe, _0x4b0f1f, _0x3d34fe, _0x4b0f1f]);
+        else {
+          const _0x544051 = editorUtil["getDistance"]({ "x": _0x40f843[0][1], "y": _0x40f843[0][2] }, { "x": _0x3d34fe, "y": _0x4b0f1f });
+          if (_0x544051 < 3) {
+            _0x40f843["pop"](), _0x40f843["push"](["Z"]), _0x4cbfbe();
             return;
           }
-          const last = path[path.length - 1];
-          const p = ["C", 2 * last[5] - last[3], 2 * last[6] - last[4], x, y, x, y];
-          path.push(p);
+          const _0x605ab8 = _0x40f843[_0x40f843["length"] - 1], _0x132868 = ["C", 2 * _0x605ab8[5] - _0x605ab8[3], 2 * _0x605ab8[6] - _0x605ab8[4], _0x3d34fe, _0x4b0f1f, _0x3d34fe, _0x4b0f1f];
+          _0x40f843["push"](_0x132868);
         }
-        drawingRefDom.setAttribute("d", editorUtil.getPathStr(path));
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseup", handleMouseUp);
-        document.addEventListener("keydown", handleKeyDown);
-      };
-      const handleMouseMove = (e) => {
-        let { x, y } = editor.getMouseInnerPosition(e);
-        const type = path[path.length - 2][0];
-        for (let i = 0; i < path.length - 1; i++) {
-          const p = path[i];
-          const [lastX, lastY] = [p[p.length - 2], p[p.length - 1]];
-          const distance = editorUtil.getDistance({ x, y }, { x: lastX, y: lastY });
-          if (distance < 5) {
-            x = lastX;
-            y = lastY;
+        _0x56b7dd["setAttribute"]("d", editorUtil["getPathStr"](_0x40f843)), document["addEventListener"]("mousemove", _0xcd478d), document["addEventListener"]("mouseup", _0x47fe9a), document["addEventListener"]("keydown", _0x26ff8c);
+      }, _0xcd478d = (_0x3fc166) => {
+        let { x: _0x4e8234, y: _0x3b8942 } = _0xb86b77["getMouseInnerPosition"](_0x3fc166);
+        const _0x3334eb = _0x40f843[_0x40f843["length"] - 2][0];
+        for (let _0x3abd1f = 0; _0x3abd1f < _0x40f843["length"] - 1; _0x3abd1f++) {
+          const _0x5b9cf9 = _0x40f843[_0x3abd1f], [_0x2ee1b7, _0x326706] = [_0x5b9cf9[_0x5b9cf9["length"] - 2], _0x5b9cf9[_0x5b9cf9["length"] - 1]], _0x37a0fd = editorUtil["getDistance"]({ "x": _0x4e8234, "y": _0x3b8942 }, { "x": _0x2ee1b7, "y": _0x326706 });
+          if (_0x37a0fd < 5) {
+            _0x4e8234 = _0x2ee1b7, _0x3b8942 = _0x326706;
             break;
           }
         }
-        if (isDragging) {
-          switch (type) {
+        if (_0x11ea74)
+          switch (_0x3334eb) {
             case "M":
               break;
             case "C":
-              path[path.length - 1][1] = x;
-              path[path.length - 1][2] = y;
-              path[path.length - 2][3] = 2 * path[path.length - 2][5] - x;
-              path[path.length - 2][4] = 2 * path[path.length - 2][6] - y;
+              _0x40f843[_0x40f843["length"] - 1][1] = _0x4e8234, _0x40f843[_0x40f843["length"] - 1][2] = _0x3b8942, _0x40f843[_0x40f843["length"] - 2][3] = 2 * _0x40f843[_0x40f843["length"] - 2][5] - _0x4e8234, _0x40f843[_0x40f843["length"] - 2][4] = 2 * _0x40f843[_0x40f843["length"] - 2][6] - _0x3b8942;
           }
-        }
-        path[path.length - 1][3] = x;
-        path[path.length - 1][4] = y;
-        path[path.length - 1][5] = x;
-        path[path.length - 1][6] = y;
-        drawingRefDom.setAttribute("d", editorUtil.getPathStr(path));
-      };
-      const handleKeyDown = (e) => {
-        if (e.key === "Escape") {
-          path.pop();
-          finishDraw();
-        }
-      };
-      const handleMouseUp = () => {
-        isDragging = false;
-      };
-      const finishDraw = () => {
-        const { x, y, width, height } = editorUtil.getPathBoundingBox(path);
-        path.forEach((p) => {
-          p.forEach((item, index) => {
-            if (index > 0) {
-              p[index] = index % 2 === 0 ? item - y : item - x;
-            }
+        _0x40f843[_0x40f843["length"] - 1][3] = _0x4e8234, _0x40f843[_0x40f843["length"] - 1][4] = _0x3b8942, _0x40f843[_0x40f843["length"] - 1][5] = _0x4e8234, _0x40f843[_0x40f843["length"] - 1][6] = _0x3b8942, _0x56b7dd["setAttribute"]("d", editorUtil["getPathStr"](_0x40f843));
+      }, _0x26ff8c = (_0xd1d664) => {
+        _0xd1d664["key"] === "Escape" && (_0x40f843["pop"](), _0x4cbfbe());
+      }, _0x47fe9a = () => {
+        _0x11ea74 = ![];
+      }, _0x4cbfbe = () => {
+        const { x: _0x310d0d, y: _0x1e9cfb, width: _0x1cc2c8, height: _0x356107 } = editorUtil["getPathBoundingBox"](_0x40f843);
+        _0x40f843["forEach"]((_0x2cf0ea) => {
+          _0x2cf0ea["forEach"]((_0x4cf7ed, _0x12e8a6) => {
+            _0x12e8a6 > 0 && (_0x2cf0ea[_0x12e8a6] = _0x12e8a6 % 2 === 0 ? _0x4cf7ed - _0x1e9cfb : _0x4cf7ed - _0x310d0d);
           });
-        });
-        disposeEvents();
-        resolve({
-          type: "bezierCurve",
-          x,
-          y,
-          w: width,
-          h: height,
-          path,
-          fill,
-          stroke,
-          strokeWidth
-        });
+        }), _0x4a7ece(), _0x59edad({ "type": "bezierCurve", "x": _0x310d0d, "y": _0x1e9cfb, "w": _0x1cc2c8, "h": _0x356107, "path": _0x40f843, "fill": _0xcce82c, "stroke": _0x5682ce, "strokeWidth": _0x2ba2f5 });
+      }, _0x4a7ece = () => {
+        _0x154966["removeEventListener"]("mousedown", _0x6187bb), document["removeEventListener"]("mousemove", _0xcd478d), document["removeEventListener"]("mouseup", _0x47fe9a), document["removeEventListener"]("keydown", _0x26ff8c), _0xb86b77["mode"] = "select", _0xb86b77["drawLayer"]["innerHTML"] = "";
       };
-      const disposeEvents = () => {
-        editorDom.removeEventListener("mousedown", handleMouseDown);
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-        document.removeEventListener("keydown", handleKeyDown);
-        editor.mode = "select";
-        editor.drawLayer.innerHTML = "";
-      };
-      editorDom.addEventListener("mousedown", handleMouseDown);
-      if (typeof callback === "function") {
-        callback({ disposeEvents });
-      }
+      _0x154966["addEventListener"]("mousedown", _0x6187bb), typeof _0x3c3465 === "function" && _0x3c3465({ "disposeEvents": _0x4a7ece });
     });
   };
-  const drawCircle = (editor, option = {}, callback) => {
-    return new Promise((resolve) => {
-      const points = [];
-      const fill = option.fill || "rgba(0,0,0,0)";
-      const stroke = option.stroke || "#000";
-      const strokeWidth = option.strokeWidth || 2;
-      let drawingRefDom = null;
-      editor.mode = "draw";
-      editor.discardActiveObject();
-      const handleMouseDown = (ev) => {
-        const { x, y } = editor.getMouseInnerPosition(ev.e);
-        console.log(x, y);
-        points.push({ x, y });
-        const rect = editorUtil.createSvgElement("circle", {
-          stroke,
-          fill,
-          "stroke-width": strokeWidth,
-          cx: x,
-          cy: y,
-          r: 0
-        });
-        drawingRefDom = rect;
-        editor.drawLayer.innerHTML = "";
-        editor.drawLayer.appendChild(rect);
-      };
-      const handleMouseMove = (ev) => {
-        if (points.length) {
-          let { x, y } = editor.getMouseInnerPosition(ev.e);
-          const r1 = Math.abs(x - points[0].x) - strokeWidth / 2;
-          const r2 = Math.abs(y - points[0].y) - strokeWidth / 2;
-          drawingRefDom.setAttribute("r", Math.max(0, r1, r2));
+  const drawCircle = (_0x34eb65, _0x4ea61d = {}, _0x7fb3cf) => {
+    return new Promise((_0x2009c3) => {
+      const _0x1a3604 = [], _0x59556c = _0x4ea61d["fill"] || "rgba(0,0,0,0)", _0x283931 = _0x4ea61d["stroke"] || "#000", _0x3a43e7 = _0x4ea61d["strokeWidth"] || 2;
+      let _0x5ecc44 = null;
+      _0x34eb65["mode"] = "draw", _0x34eb65["discardActiveObject"]();
+      const _0x200bba = (_0xf433a1) => {
+        const { x: _0x24936c, y: _0x3e033d } = _0x34eb65["getMouseInnerPosition"](_0xf433a1["e"]);
+        console["log"](_0x24936c, _0x3e033d), _0x1a3604["push"]({ "x": _0x24936c, "y": _0x3e033d });
+        const _0x4637b5 = editorUtil["createSvgElement"]("circle", { "stroke": _0x283931, "fill": _0x59556c, "stroke-width": _0x3a43e7, "cx": _0x24936c, "cy": _0x3e033d, "r": 0 });
+        _0x5ecc44 = _0x4637b5, _0x34eb65["drawLayer"]["innerHTML"] = "", _0x34eb65["drawLayer"]["appendChild"](_0x4637b5);
+      }, _0x56b787 = (_0x4372d2) => {
+        if (_0x1a3604["length"]) {
+          let { x: _0x13a5ae, y: _0x28649a } = _0x34eb65["getMouseInnerPosition"](_0x4372d2["e"]);
+          const _0x548401 = Math["abs"](_0x13a5ae - _0x1a3604[0]["x"]) - _0x3a43e7 / 2, _0x335167 = Math["abs"](_0x28649a - _0x1a3604[0]["y"]) - _0x3a43e7 / 2;
+          _0x5ecc44["setAttribute"]("r", Math["max"](0, _0x548401, _0x335167));
         }
+      }, _0x29810d = (_0x597767) => {
+        const { x: _0x35ff57, y: _0x5095bb } = _0x34eb65["getMouseInnerPosition"](_0x597767["e"]), _0x2506cb = Math["abs"](_0x35ff57 - _0x1a3604[0]["x"]) - _0x3a43e7 / 2, _0x41f86b = Math["abs"](_0x5095bb - _0x1a3604[0]["y"]) - _0x3a43e7 / 2, _0x1aa5c5 = Math["max"](0, _0x2506cb, _0x41f86b);
+        _0x143736(), _0x2009c3({ "type": "circle", "x": _0x1a3604[0]["x"] - _0x1aa5c5 - _0x3a43e7 / 2, "y": _0x1a3604[0]["y"] - _0x1aa5c5 - _0x3a43e7 / 2, "w": _0x1aa5c5 * 2 + _0x3a43e7, "h": _0x1aa5c5 * 2 + _0x3a43e7, "r": _0x1aa5c5, "fill": _0x59556c, "stroke": _0x283931, "strokeWidth": _0x3a43e7 });
+      }, _0x4f77bc = ({ isDispose = ![] }) => {
+        const _0x2b8021 = isDispose ? "off" : "on";
+        _0x34eb65[_0x2b8021]("editor:mousedown", _0x200bba), _0x34eb65[_0x2b8021]("editor:mousemove", _0x56b787), _0x34eb65[_0x2b8021]("editor:mouseup", _0x29810d);
+      }, _0x143736 = () => {
+        _0x4f77bc({ "isDispose": !![] }), _0x34eb65["mode"] = "select", _0x34eb65["drawLayer"]["innerHTML"] = "";
       };
-      const handleMouseUp = (ev) => {
-        const { x, y } = editor.getMouseInnerPosition(ev.e);
-        const r1 = Math.abs(x - points[0].x) - strokeWidth / 2;
-        const r2 = Math.abs(y - points[0].y) - strokeWidth / 2;
-        const r = Math.max(0, r1, r2);
-        disposeEvents();
-        resolve({
-          type: "circle",
-          x: points[0].x - r - strokeWidth / 2,
-          y: points[0].y - r - strokeWidth / 2,
-          w: r * 2 + strokeWidth,
-          h: r * 2 + strokeWidth,
-          r,
-          fill,
-          stroke,
-          strokeWidth
-        });
-      };
-      const handleEvents = ({ isDispose = false }) => {
-        const key = isDispose ? "off" : "on";
-        editor[key]("editor:mousedown", handleMouseDown);
-        editor[key]("editor:mousemove", handleMouseMove);
-        editor[key]("editor:mouseup", handleMouseUp);
-      };
-      const disposeEvents = () => {
-        handleEvents({ isDispose: true });
-        editor.mode = "select";
-        editor.drawLayer.innerHTML = "";
-      };
-      handleEvents({ isDispose: false });
-      if (typeof callback === "function") {
-        callback({ disposeEvents });
-      }
+      _0x4f77bc({ "isDispose": ![] }), typeof _0x7fb3cf === "function" && _0x7fb3cf({ "disposeEvents": _0x143736 });
     });
   };
-  const DrawMethods = {
-    drawLine,
-    drawRect,
-    drawText,
-    drawPolyline,
-    drawBezierCurve,
-    drawCircle
-  };
-  const firstKeyUpperCase = (str) => str.slice(0, 1).toUpperCase() + str.slice(1);
+  const _0x4dd40c = { "drawLine": drawLine, "drawRect": drawRect, "drawText": drawText, "drawPolyline": drawPolyline, "drawBezierCurve": drawBezierCurve, "drawCircle": drawCircle };
+  const firstKeyUpperCase = (_0x4279f5) => _0x4279f5["slice"](0, 1)["toUpperCase"]() + _0x4279f5["slice"](1);
   class DrawHandler {
-    constructor(editor) {
-      this.editor = editor;
+    constructor(_0x48aa0d) {
+      this["editor"] = _0x48aa0d;
     }
-    /**
-     * 绘制图形
-     * @param type 绘制类型 bezierCurve、polyline、line、rect、text、circle、ellipse、triangle、polygon
-     * @param options 绘制参数
-     * @returns
-     */
-    draw(type, options) {
-      const methodKey = `draw${firstKeyUpperCase(type)}`;
-      const method = DrawMethods[methodKey];
-      if (!method) {
+    ["draw"](_0x3dead1, _0x3d83fa) {
+      const _0x2f5af3 = "draw" + firstKeyUpperCase(_0x3dead1), _0x1c41a1 = _0x4dd40c[_0x2f5af3];
+      if (!_0x1c41a1)
         return null;
-      }
-      return method(this.editor, options, (e) => {
-        this.target = e;
+      return _0x1c41a1(this["editor"], _0x3d83fa, (_0x6695bd) => {
+        this["target"] = _0x6695bd;
       });
     }
-    /**
-     * 取消绘制
-     */
-    cacelDraw() {
-      this.target && this.target.disposeEvents && this.target.disposeEvents();
-      this.target = null;
+    ["cacelDraw"]() {
+      this["target"] && this["target"]["disposeEvents"] && this["target"]["disposeEvents"](), this["target"] = null;
     }
   }
   class RulerHandler {
-    constructor(editor) {
-      this.classNamePrefix = "";
-      this.isDragging = false;
-      this.config = {
-        enable: false,
-        shadowEnable: false,
-        width: 0,
-        height: 0,
-        scale: 1,
-        startX: 0,
-        startY: 0,
-        thick: 21,
-        select: {
-          x: 0,
-          y: 0,
-          w: 0,
-          h: 0
-        },
-        ratio: window.devicePixelRatio || 1
-      };
-      this.style = {
-        bgColor: "rgb(225,225,225)",
-        // ruler bg color
-        longfgColor: "#BABBBC",
-        // ruler longer mark color
-        shortfgColor: "#C8CDD0",
-        // ruler shorter mark color
-        fontColor: "#7D8694",
-        // ruler font color
-        shadowColor: "#f9f9f9",
-        // ruler shadow color
-        shadowFontColor: "#f00",
-        // 阴影文字颜色
-        lineColor: "#EB5648",
-        //对齐线颜色
-        lineNormalColor: "#f00",
-        lineActiveColor: "#246dff",
-        borderColor: "#DADADC",
-        // 边框颜色
-        cornerActiveColor: "rgb(225,225,225)"
-        // ruler corner active color
-      };
-      this.styleDark = {
-        bgColor: "#0E0E0E",
-        // ruler bg color
-        longfgColor: "#3D3D3E",
-        // ruler longer mark color
-        shortfgColor: "#3D3D3E",
-        // ruler shorter mark color
-        fontColor: "#999999",
-        // ruler font color
-        shadowColor: "orange",
-        // ruler shadow color
-        shadowFontColor: "#f00",
-        // 阴影文字颜色
-        lineColor: "orange",
-        //对齐线颜色
-        lineNormalColor: "#f00",
-        lineActiveColor: "#246dff",
-        borderColor: "transparent",
-        // 边框颜色
-        cornerActiveColor: "#B2C7DB"
-        // ruler corner active color
-      };
-      this.lines = {
-        v: [],
-        h: []
-      };
-      this.rulerDom = null;
-      this.canvasDom = null;
-      this.lineDom = null;
-      this.editor = editor;
-      this.classNamePrefix = editor.classNamePrefix;
-      Object.assign(this.config, editor.config.ruler);
-      if (!editor.config.ruler || !editor.config.ruler.enable)
+    constructor(_0x1852b1) {
+      this["classNamePrefix"] = "", this["isDragging"] = ![], this["config"] = { "enable": ![], "shadowEnable": ![], "width": 0, "height": 0, "scale": 1, "startX": 0, "startY": 0, "thick": 21, "select": { "x": 0, "y": 0, "w": 0, "h": 0 }, "ratio": window["devicePixelRatio"] || 1 }, this["style"] = { "bgColor": "rgb(225,225,225)", "longfgColor": "#BABBBC", "shortfgColor": "#C8CDD0", "fontColor": "#7D8694", "shadowColor": "#f9f9f9", "shadowFontColor": "#f00", "lineColor": "#EB5648", "lineNormalColor": "#f00", "lineActiveColor": "#246dff", "borderColor": "#DADADC", "cornerActiveColor": "rgb(225,225,225)" }, this["styleDark"] = { "bgColor": "#0E0E0E", "longfgColor": "#3D3D3E", "shortfgColor": "#3D3D3E", "fontColor": "#999999", "shadowColor": "orange", "shadowFontColor": "#f00", "lineColor": "orange", "lineNormalColor": "#f00", "lineActiveColor": "#246dff", "borderColor": "transparent", "cornerActiveColor": "#B2C7DB" }, this["lines"] = { "v": [], "h": [] }, this["rulerDom"] = null, this["canvasDom"] = null, this["lineDom"] = null, this["editor"] = _0x1852b1, this["classNamePrefix"] = _0x1852b1["classNamePrefix"], Object["assign"](this["config"], _0x1852b1["config"]["ruler"]);
+      if (!_0x1852b1["config"]["ruler"] || !_0x1852b1["config"]["ruler"]["enable"])
         return;
-      if (editor.config.ruler.lines) {
-        Object.assign(this.lines, editor.config.ruler.lines);
-      }
-      if (editor.config.ruler.style) {
-        Object.assign(this.style, editor.config.ruler.style);
-      }
-      this.initialize();
+      _0x1852b1["config"]["ruler"]["lines"] && Object["assign"](this["lines"], _0x1852b1["config"]["ruler"]["lines"]), _0x1852b1["config"]["ruler"]["style"] && Object["assign"](this["style"], _0x1852b1["config"]["ruler"]["style"]), this["initialize"]();
     }
-    initialize() {
-      this.initSize();
-      this.initRulerDom();
-      this.initEvent();
+    ["initialize"]() {
+      this["initSize"](), this["initRulerDom"](), this["initEvent"]();
     }
-    initEvent() {
-      const { editor } = this;
-      editor.on({
-        "editor:panzoom": (transform2) => {
-          this.initTransform(transform2);
-          this.changeRuler();
-        },
-        "selection:updated": () => {
-          const activeObject = editor.getActiveObject();
-          this.initRulerActiveShadow(activeObject);
-        },
-        "object:moving": (e) => {
-          const activeObject = editor.getActiveObject();
-          this.initRulerActiveShadow(activeObject);
-        },
-        "object:resizing": (e) => {
-          const activeObject = editor.getActiveObject();
-          this.initRulerActiveShadow(activeObject);
-        },
-        "object:rotating": (e) => {
-          const activeObject = editor.getActiveObject();
-          this.initRulerActiveShadow(activeObject);
-        },
-        "object:modified": (e) => {
-          const activeObject = editor.getActiveObject();
-          this.initRulerActiveShadow(activeObject);
+    ["initEvent"]() {
+      const { editor: _0x56036e } = this;
+      _0x56036e["on"]({ "editor:panzoom": (_0x41d26b) => {
+        this["initTransform"](_0x41d26b), this["changeRuler"]();
+      }, "selection:updated": () => {
+        const _0x51f511 = _0x56036e["getActiveObject"]();
+        this["initRulerActiveShadow"](_0x51f511);
+      }, "object:moving": (_0x22d162) => {
+        const _0x5382e3 = _0x56036e["getActiveObject"]();
+        this["initRulerActiveShadow"](_0x5382e3);
+      }, "object:resizing": (_0x1f8970) => {
+        const _0x196a7c = _0x56036e["getActiveObject"]();
+        this["initRulerActiveShadow"](_0x196a7c);
+      }, "object:rotating": (_0x3a0be0) => {
+        const _0x3b59c2 = _0x56036e["getActiveObject"]();
+        this["initRulerActiveShadow"](_0x3b59c2);
+      }, "object:modified": (_0x4e04cd) => {
+        const _0x524486 = _0x56036e["getActiveObject"]();
+        this["initRulerActiveShadow"](_0x524486);
+      } });
+    }
+    ["initSize"]() {
+      const { editor: _0x1c9998 } = this, _0x290b39 = _0x1c9998["getEditorBoundingClientRect"]();
+      this["config"]["width"] = _0x290b39["width"], this["config"]["height"] = _0x290b39["height"], this["initTransform"](_0x1c9998["viewportTransform"]);
+    }
+    ["initTransform"](_0x286ae8) {
+      const { thick: _0x4e6ca5 } = this["config"];
+      this["config"]["startX"] = -(_0x286ae8["e"] - _0x4e6ca5) / _0x286ae8["a"], this["config"]["startY"] = -(_0x286ae8["f"] - _0x4e6ca5) / _0x286ae8["a"], this["config"]["scale"] = _0x286ae8["a"];
+    }
+    ["initRulerActiveShadow"](_0x138708) {
+      this["config"]["select"] = { "x": 0, "y": 0, "w": 0, "h": 0 };
+      if (_0x138708) {
+        const { x: _0x296f78, y: _0x33b5a9, w: _0x29cd8e, h: _0x1e222c } = editorUtil["getBoundingRect"]([_0x138708]);
+        this["config"]["select"] = { "x": _0x296f78, "y": _0x33b5a9, "w": _0x29cd8e, "h": _0x1e222c };
+      }
+      this["drawRulerDivision"]();
+    }
+    ["toggleRuler"]() {
+      const { editor: _0x218fb8 } = this, _0x40895c = _0x218fb8["overLayer"];
+      return this["config"]["enable"] = !this["config"]["enable"], this["config"]["enable"] ? this["initialize"]() : _0x40895c["removeChild"](this["rulerDom"]), this["config"]["enable"];
+    }
+    ["setStyle"](_0x25a472, _0x4d8055) {
+      if (typeof _0x4d8055 === "object")
+        for (const _0x16b4d9 in _0x4d8055) {
+          _0x25a472["style"]["setProperty"](_0x16b4d9, _0x4d8055[_0x16b4d9]);
         }
-      });
     }
-    initSize() {
-      const { editor } = this;
-      const editorRect = editor.getEditorBoundingClientRect();
-      this.config.width = editorRect.width;
-      this.config.height = editorRect.height;
-      this.initTransform(editor.viewportTransform);
+    ["initRulerDom"]() {
+      const { editor: _0x3e2b31, classNamePrefix: _0x5e1462 } = this, _0x3a32ee = _0x3e2b31["overLayer"], _0x3f5e30 = document["createElement"]("div");
+      _0x3f5e30["className"] = _0x5e1462 + "-ruler", this["rulerDom"] = _0x3f5e30;
+      const _0x31dcf6 = { "--datavis--r-bgColor": this["style"]["bgColor"], "--datavis--r-lineColor": this["style"]["lineColor"], "--datavis--r-lineNormalColor": this["style"]["lineNormalColor"], "--datavis--r-lineActiveColor": this["style"]["lineActiveColor"], "--datavis--r-longfgColor": this["style"]["longfgColor"], "--datavis--r-shortfgColor": this["style"]["shortfgColor"], "--datavis--r-fontColor": this["style"]["fontColor"], "--datavis--r-shadowColor": this["style"]["shadowColor"], "--datavis--r-shadowFontColor": this["style"]["shadowFontColor"], "--datavis--r-borderColor": this["style"]["borderColor"], "--datavis--r-cornerActiveColor": this["style"]["cornerActiveColor"], "--datavis--r-thick": this["config"]["thick"] + "px" };
+      this["setStyle"](_0x3f5e30, _0x31dcf6), _0x3a32ee["appendChild"](this["rulerDom"]), this["initRulerCanvas"](), this["initRulerLine"]();
     }
-    initTransform(transform2) {
-      const { thick } = this.config;
-      this.config.startX = -(transform2.e - thick) / transform2.a;
-      this.config.startY = -(transform2.f - thick) / transform2.a;
-      this.config.scale = transform2.a;
+    ["initRulerCanvas"]() {
+      const { classNamePrefix: _0x3424ca } = this, _0x5dc1d4 = document["createElement"]("div");
+      _0x5dc1d4["className"] = _0x3424ca + "-ruler-canvas-container", this["canvasDom"] = _0x5dc1d4, this["rulerDom"]["appendChild"](this["canvasDom"]), this["initRulerConer"](), this["drawRulerDivision"]();
     }
-    initRulerActiveShadow(row) {
-      this.config.select = {
-        x: 0,
-        y: 0,
-        w: 0,
-        h: 0
-      };
-      if (row) {
-        const { x, y, w, h } = editorUtil.getBoundingRect([row]);
-        this.config.select = {
-          x,
-          y,
-          w,
-          h
-        };
-      }
-      this.drawRulerDivision();
+    ["initRulerConer"]() {
+      const { classNamePrefix: _0x10aef2 } = this, _0xa319d9 = document["createElement"]("div");
+      _0xa319d9["className"] = _0x10aef2 + "-ruler-corner", this["rulerDom"]["appendChild"](_0xa319d9);
     }
-    // 切换标尺
-    toggleRuler() {
-      const { editor } = this;
-      const overLayerDom = editor.overLayer;
-      this.config.enable = !this.config.enable;
-      if (this.config.enable) {
-        this.initialize();
+    ["changeRuler"]() {
+      this["drawRulerDivision"](), this["updateRulerLines"]();
+    }
+    ["drawRulerDivision"]() {
+      if (!this["canvasDom"])
+        return;
+      this["canvasDom"]["innerHTML"] = "", this["initRulerDivision"](), this["initRulerDivision"]("vertical");
+    }
+    ["initRulerDivision"](_0x131273) {
+      const { editor: _0x3c8fda, config: _0x5796ec, style: _0x523cf8 } = this, _0x3bdc69 = _0x3c8fda["classNamePrefix"], _0x224866 = document["createElement"]("canvas");
+      _0x224866["className"] = _0x3bdc69 + "-ruler-canvas-division " + (_0x131273 || "");
+      let _0x5a6b16 = _0x5796ec["width"], _0x7c1dde = _0x5796ec["height"], _0x276c5c = _0x224866["getContext"]("2d");
+      if (_0x131273) {
+        let _0x3f93b0 = _0x5796ec["thick"], _0x2d81cd = _0x5796ec["height"] - _0x5796ec["thick"];
+        _0x224866["width"] = _0x3f93b0 * _0x5796ec["ratio"], _0x224866["height"] = _0x2d81cd * _0x5796ec["ratio"], drawVerticalRuler({ "ctx": _0x276c5c, "start": _0x5796ec["startY"], "shadow": { "enable": _0x5796ec["shadowEnable"], "y": _0x5796ec["select"]["y"], "height": _0x5796ec["select"]["h"] }, "config": { "width": _0x5796ec["thick"] * _0x5796ec["ratio"], "height": _0x7c1dde * _0x5796ec["ratio"], "scale": _0x5796ec["scale"], "ratio": _0x5796ec["ratio"] }, "colorConfig": this["style"] });
       } else {
-        overLayerDom.removeChild(this.rulerDom);
+        let _0xc7d612 = _0x5796ec["width"] - _0x5796ec["thick"], _0x408173 = _0x5796ec["thick"];
+        _0x224866["width"] = _0xc7d612 * _0x5796ec["ratio"], _0x224866["height"] = _0x408173 * _0x5796ec["ratio"], drawHorizontalRuler({ "ctx": _0x276c5c, "start": _0x5796ec["startX"], "shadow": { "enable": _0x5796ec["shadowEnable"], "x": _0x5796ec["select"]["x"], "width": _0x5796ec["select"]["w"] }, "config": { "width": _0x5a6b16 * _0x5796ec["ratio"], "height": _0x5796ec["thick"] * _0x5796ec["ratio"], "scale": _0x5796ec["scale"], "ratio": _0x5796ec["ratio"] }, "colorConfig": this["style"] });
       }
-      return this.config.enable;
-    }
-    setStyle(element, style) {
-      if (typeof style === "object") {
-        for (const key in style) {
-          element.style.setProperty(key, style[key]);
-        }
-      }
-    }
-    initRulerDom() {
-      const { editor, classNamePrefix } = this;
-      const overLayerDom = editor.overLayer;
-      const createElement = document.createElement("div");
-      createElement.className = `${classNamePrefix}-ruler`;
-      this.rulerDom = createElement;
-      const varObject = {
-        "--datavis--r-bgColor": this.style.bgColor,
-        "--datavis--r-lineColor": this.style.lineColor,
-        "--datavis--r-lineNormalColor": this.style.lineNormalColor,
-        "--datavis--r-lineActiveColor": this.style.lineActiveColor,
-        "--datavis--r-longfgColor": this.style.longfgColor,
-        "--datavis--r-shortfgColor": this.style.shortfgColor,
-        "--datavis--r-fontColor": this.style.fontColor,
-        "--datavis--r-shadowColor": this.style.shadowColor,
-        "--datavis--r-shadowFontColor": this.style.shadowFontColor,
-        "--datavis--r-borderColor": this.style.borderColor,
-        "--datavis--r-cornerActiveColor": this.style.cornerActiveColor,
-        "--datavis--r-thick": `${this.config.thick}px`
-      };
-      this.setStyle(createElement, varObject);
-      overLayerDom.appendChild(this.rulerDom);
-      this.initRulerCanvas();
-      this.initRulerLine();
-    }
-    // 标尺容器
-    initRulerCanvas() {
-      const { classNamePrefix } = this;
-      const createElement = document.createElement("div");
-      createElement.className = `${classNamePrefix}-ruler-canvas-container`;
-      this.canvasDom = createElement;
-      this.rulerDom.appendChild(this.canvasDom);
-      this.initRulerConer();
-      this.drawRulerDivision();
-    }
-    initRulerConer() {
-      const { classNamePrefix } = this;
-      const createElement = document.createElement("div");
-      createElement.className = `${classNamePrefix}-ruler-corner`;
-      this.rulerDom.appendChild(createElement);
-    }
-    // 修改标尺
-    changeRuler() {
-      this.drawRulerDivision();
-      this.updateRulerLines();
-    }
-    drawRulerDivision() {
-      if (!this.canvasDom)
-        return;
-      this.canvasDom.innerHTML = "";
-      this.initRulerDivision();
-      this.initRulerDivision("vertical");
-    }
-    // 初始化刻度
-    initRulerDivision(vertical) {
-      const { editor, config, style } = this;
-      const classNamePrefix = editor.classNamePrefix;
-      const createElement = document.createElement("canvas");
-      createElement.className = `${classNamePrefix}-ruler-canvas-division ${vertical || ""}`;
-      let width = config.width;
-      let height = config.height;
-      let canvasContext = createElement.getContext("2d");
-      if (vertical) {
-        let canvasWidth = config.thick;
-        let canvasHeight = config.height - config.thick;
-        createElement.width = canvasWidth * config.ratio;
-        createElement.height = canvasHeight * config.ratio;
-        drawVerticalRuler({
-          ctx: canvasContext,
-          start: config.startY,
-          shadow: {
-            enable: config.shadowEnable,
-            y: config.select.y,
-            height: config.select.h
-          },
-          config: {
-            width: config.thick * config.ratio,
-            height: height * config.ratio,
-            scale: config.scale,
-            ratio: config.ratio
-          },
-          colorConfig: this.style
-        });
-      } else {
-        let canvasWidth = config.width - config.thick;
-        let canvasHeight = config.thick;
-        createElement.width = canvasWidth * config.ratio;
-        createElement.height = canvasHeight * config.ratio;
-        drawHorizontalRuler({
-          ctx: canvasContext,
-          start: config.startX,
-          shadow: {
-            enable: config.shadowEnable,
-            x: config.select.x,
-            width: config.select.w
-          },
-          config: {
-            width: width * config.ratio,
-            height: config.thick * config.ratio,
-            scale: config.scale,
-            ratio: config.ratio
-          },
-          colorConfig: this.style
-        });
-      }
-      createElement.addEventListener("mousedown", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        let line = null;
-        const { x, y } = editor.getMouseInnerPosition(e);
-        if (vertical) {
-          line = { x, y: 0 };
-          this.createRulerLine(line, this.lines.v.length, "vertical");
-          this.lines.v.push(line);
-        } else {
-          line = { x: 0, y };
-          this.createRulerLine(line, this.lines.h.length, "");
-          this.lines.h.push(line);
-        }
-        line.refDOM.classList.add("active");
-        const mousemove = (event) => {
-          this.isDragging = true;
-          e.preventDefault();
-          e.stopPropagation();
-          const { x: x2, y: y2 } = editor.getMouseInnerPosition(event);
-          if (vertical) {
-            line.x = x2;
-          } else {
-            line.y = y2;
-          }
-          this.updateRulerLine(line);
-          this.setActiveLineValue(line);
+      _0x224866["addEventListener"]("mousedown", (_0x1722fa) => {
+        _0x1722fa["preventDefault"](), _0x1722fa["stopPropagation"]();
+        let _0x1d239e = null;
+        const { x: _0x125ca7, y: _0x4577d6 } = _0x3c8fda["getMouseInnerPosition"](_0x1722fa);
+        _0x131273 ? (_0x1d239e = { "x": _0x125ca7, "y": 0 }, this["createRulerLine"](_0x1d239e, this["lines"]["v"]["length"], "vertical"), this["lines"]["v"]["push"](_0x1d239e)) : (_0x1d239e = { "x": 0, "y": _0x4577d6 }, this["createRulerLine"](_0x1d239e, this["lines"]["h"]["length"], ""), this["lines"]["h"]["push"](_0x1d239e));
+        _0x1d239e["refDOM"]["classList"]["add"]("active");
+        const _0x37c358 = (_0x4e7a17) => {
+          this["isDragging"] = !![], _0x1722fa["preventDefault"](), _0x1722fa["stopPropagation"]();
+          const { x: _0x4b0ff1, y: _0x3a7ee4 } = _0x3c8fda["getMouseInnerPosition"](_0x4e7a17);
+          _0x131273 ? _0x1d239e["x"] = _0x4b0ff1 : _0x1d239e["y"] = _0x3a7ee4, this["updateRulerLine"](_0x1d239e), this["setActiveLineValue"](_0x1d239e);
+        }, _0x4e31c3 = () => {
+          this["isDragging"] = ![], _0x1d239e["refDOM"]["classList"]["remove"]("active"), this["judgeDeleteRuleLine"]({ "line": _0x1d239e }), document["removeEventListener"]("mousemove", _0x37c358), document["removeEventListener"]("mouseup", _0x4e31c3);
         };
-        const mouseup = () => {
-          this.isDragging = false;
-          line.refDOM.classList.remove("active");
-          this.judgeDeleteRuleLine({ line });
-          document.removeEventListener("mousemove", mousemove);
-          document.removeEventListener("mouseup", mouseup);
-        };
-        document.addEventListener("mousemove", mousemove);
-        document.addEventListener("mouseup", mouseup);
-      });
-      this.canvasDom.appendChild(createElement);
+        document["addEventListener"]("mousemove", _0x37c358), document["addEventListener"]("mouseup", _0x4e31c3);
+      }), this["canvasDom"]["appendChild"](_0x224866);
     }
-    // 标尺对齐线
-    initRulerLine() {
-      const { classNamePrefix } = this;
-      const createElement = document.createElement("div");
-      createElement.className = `${classNamePrefix}-ruler-line-container`;
-      this.lineDom = createElement;
-      this.rulerDom.appendChild(this.lineDom);
-      this.drawRulerLine();
+    ["initRulerLine"]() {
+      const { classNamePrefix: _0x160936 } = this, _0x29c7e3 = document["createElement"]("div");
+      _0x29c7e3["className"] = _0x160936 + "-ruler-line-container", this["lineDom"] = _0x29c7e3, this["rulerDom"]["appendChild"](this["lineDom"]), this["drawRulerLine"]();
     }
-    // 设置激活的辅助线的数值
-    setActiveLineValue(line) {
-      const { type, x, y, refDOM } = line;
-      const value = type === "vertical" ? x : y;
-      refDOM.innerHTML = `<span class="action_value">${Number(value).toFixed(0)}</span>`;
+    ["setActiveLineValue"](_0x491f30) {
+      const { type: _0x26e1d0, x: _0x2649bd, y: _0x38f21e, refDOM: _0x498c84 } = _0x491f30, _0x1c5e35 = _0x26e1d0 === "vertical" ? _0x2649bd : _0x38f21e;
+      _0x498c84["innerHTML"] = '<span class="action_value">' + Number(_0x1c5e35)["toFixed"](0) + "</span>";
     }
-    // 设置激活的辅助线
-    setActiveLine({ line }) {
-      const { type, refDOM } = line;
-      const handleMouseMove = (e) => {
-        this.isDragging = true;
-        const contaienrPos = this.editor.getMousePosition(e);
-        const inverseMatrix = inverse(this.editor.viewportTransform);
-        const editorPos = applyToPoint(inverseMatrix, contaienrPos);
-        if (type === "vertical") {
-          line.x = editorPos.x;
-        } else {
-          line.y = editorPos.y;
-        }
-        this.updateRulerLine(line);
-        this.setActiveLineValue(line);
+    ["setActiveLine"]({ line: _0x153ba3 }) {
+      const { type: _0x331807, refDOM: _0x40d193 } = _0x153ba3, _0x2c7d79 = (_0x2d88db) => {
+        this["isDragging"] = !![];
+        const _0x1be701 = this["editor"]["getMousePosition"](_0x2d88db), _0x5346c0 = inverse(this["editor"]["viewportTransform"]), _0x315136 = applyToPoint(_0x5346c0, _0x1be701);
+        _0x331807 === "vertical" ? _0x153ba3["x"] = _0x315136["x"] : _0x153ba3["y"] = _0x315136["y"], this["updateRulerLine"](_0x153ba3), this["setActiveLineValue"](_0x153ba3);
+      }, _0xa6568f = () => {
+        this["isDragging"] = ![], _0x40d193["classList"]["remove"]("active"), this["judgeDeleteRuleLine"]({ "line": _0x153ba3 }), document["removeEventListener"]("mousemove", _0x2c7d79), document["removeEventListener"]("mouseup", _0xa6568f);
       };
-      const handleMouseUp = () => {
-        this.isDragging = false;
-        refDOM.classList.remove("active");
-        this.judgeDeleteRuleLine({ line });
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-      };
-      refDOM.classList.add("active");
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
+      _0x40d193["classList"]["add"]("active"), document["addEventListener"]("mousemove", _0x2c7d79), document["addEventListener"]("mouseup", _0xa6568f);
     }
-    // 更新辅助线的位置
-    updateRulerLine(line) {
-      const { x, y } = this.transform2ContainerPoint(line);
-      const transform2 = line.type === "vertical" ? `translateX(${x}px)` : `translateY(${y}px)`;
-      line.refDOM.style.transform = transform2;
+    ["updateRulerLine"](_0x31b53c) {
+      const { x: _0x123820, y: _0x215bac } = this["transform2ContainerPoint"](_0x31b53c), _0x41ad2d = _0x31b53c["type"] === "vertical" ? "translateX(" + _0x123820 + "px)" : "translateY(" + _0x215bac + "px)";
+      _0x31b53c["refDOM"]["style"]["transform"] = _0x41ad2d;
     }
-    // 更新所有辅助线的位置
-    updateRulerLines() {
-      if (!this.lineDom)
+    ["updateRulerLines"]() {
+      if (!this["lineDom"])
         return;
-      const { lines } = this;
-      if (lines.v && lines.v.length) {
-        lines.v.forEach((line) => {
-          this.updateRulerLine(line);
-        });
-      }
-      if (lines.h && lines.h.length) {
-        lines.h.forEach((line) => {
-          this.updateRulerLine(line);
-        });
-      }
-    }
-    // 将画布的点转为容器坐标点
-    transform2ContainerPoint(point) {
-      const { editor } = this;
-      return applyToPoint(editor.viewportTransform, point);
-    }
-    createRulerLine(line, index, type = "") {
-      const { classNamePrefix } = this;
-      const refDOM = document.createElement("div");
-      refDOM.className = `${classNamePrefix}-ruler-line ${type}`;
-      line.index = index;
-      line.type = type;
-      line.refDOM = refDOM;
-      this.lineDom.appendChild(refDOM);
-      this.updateRulerLine(line);
-      refDOM.addEventListener("mouseenter", () => {
-        if (!this.isDragging) {
-          refDOM.classList.add("active");
-          this.setActiveLineValue(line);
-        }
+      const { lines: _0xe930d2 } = this;
+      _0xe930d2["v"] && _0xe930d2["v"]["length"] && _0xe930d2["v"]["forEach"]((_0x3ba136) => {
+        this["updateRulerLine"](_0x3ba136);
+      }), _0xe930d2["h"] && _0xe930d2["h"]["length"] && _0xe930d2["h"]["forEach"]((_0x3c4d12) => {
+        this["updateRulerLine"](_0x3c4d12);
       });
-      refDOM.addEventListener("mouseleave", () => {
-        if (!this.isDragging) {
-          refDOM.classList.remove("active");
-        }
-      });
-      refDOM.addEventListener("mousedown", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.setActiveLine({ line });
-      });
-      return line;
     }
-    // 绘制标尺辅助线
-    drawRulerLine() {
-      if (!this.lineDom)
+    ["transform2ContainerPoint"](_0x41828d) {
+      const { editor: _0x4de7ac } = this;
+      return applyToPoint(_0x4de7ac["viewportTransform"], _0x41828d);
+    }
+    ["createRulerLine"](_0x3adaab, _0x515fa1, _0x46e42b = "") {
+      const { classNamePrefix: _0x2670f3 } = this, _0x9c6fbf = document["createElement"]("div");
+      return _0x9c6fbf["className"] = _0x2670f3 + "-ruler-line " + _0x46e42b, _0x3adaab["index"] = _0x515fa1, _0x3adaab["type"] = _0x46e42b, _0x3adaab["refDOM"] = _0x9c6fbf, this["lineDom"]["appendChild"](_0x9c6fbf), this["updateRulerLine"](_0x3adaab), _0x9c6fbf["addEventListener"]("mouseenter", () => {
+        !this["isDragging"] && (_0x9c6fbf["classList"]["add"]("active"), this["setActiveLineValue"](_0x3adaab));
+      }), _0x9c6fbf["addEventListener"]("mouseleave", () => {
+        !this["isDragging"] && _0x9c6fbf["classList"]["remove"]("active");
+      }), _0x9c6fbf["addEventListener"]("mousedown", (_0x3e3597) => {
+        _0x3e3597["preventDefault"](), _0x3e3597["stopPropagation"](), this["setActiveLine"]({ "line": _0x3adaab });
+      }), _0x3adaab;
+    }
+    ["drawRulerLine"]() {
+      if (!this["lineDom"])
         return;
-      const { lines } = this;
-      this.lineDom.innerHTML = "";
-      if (lines.v && lines.v.length) {
-        lines.v.forEach((line, index) => {
-          this.createRulerLine(line, index, "vertical");
-        });
-      }
-      if (lines.h && lines.h.length) {
-        lines.h.forEach((line, index) => {
-          this.createRulerLine(line, index, "");
-        });
-      }
+      const { lines: _0x2d7c2c } = this;
+      this["lineDom"]["innerHTML"] = "", _0x2d7c2c["v"] && _0x2d7c2c["v"]["length"] && _0x2d7c2c["v"]["forEach"]((_0x21d369, _0x5ce3b6) => {
+        this["createRulerLine"](_0x21d369, _0x5ce3b6, "vertical");
+      }), _0x2d7c2c["h"] && _0x2d7c2c["h"]["length"] && _0x2d7c2c["h"]["forEach"]((_0x5b598e, _0x52674b) => {
+        this["createRulerLine"](_0x5b598e, _0x52674b, "");
+      });
     }
-    // 判断标尺线是否需要删除
-    judgeDeleteRuleLine({ line }) {
-      const position = this.transform2ContainerPoint(line);
-      let list = line.type === "vertical" ? this.lines.v : this.lines.h;
-      let index = -1;
-      if (line.type === "vertical") {
-        if (position.x < this.config.thick) {
-          index = list.findIndex((item) => item.index === line.index);
-        }
-      } else {
-        if (position.y < this.config.thick) {
-          index = this.lines.h.findIndex((item) => item.index === line.index);
-        }
-      }
-      if (index > -1) {
-        list.splice(index, 1);
-        for (let i = 0; i < this.lineDom.children.length; i++) {
-          const item = this.lineDom.children[i];
-          if (item === line.refDOM) {
-            this.lineDom.removeChild(item);
+    ["judgeDeleteRuleLine"]({ line: _0x2e0ed6 }) {
+      const _0x52ccdb = this["transform2ContainerPoint"](_0x2e0ed6);
+      let _0x4d2779 = _0x2e0ed6["type"] === "vertical" ? this["lines"]["v"] : this["lines"]["h"], _0x2d28b5 = -1;
+      _0x2e0ed6["type"] === "vertical" ? _0x52ccdb["x"] < this["config"]["thick"] && (_0x2d28b5 = _0x4d2779["findIndex"]((_0x3fb75a) => _0x3fb75a["index"] === _0x2e0ed6["index"])) : _0x52ccdb["y"] < this["config"]["thick"] && (_0x2d28b5 = this["lines"]["h"]["findIndex"]((_0x1c7397) => _0x1c7397["index"] === _0x2e0ed6["index"]));
+      if (_0x2d28b5 > -1) {
+        _0x4d2779["splice"](_0x2d28b5, 1);
+        for (let _0x2f5708 = 0; _0x2f5708 < this["lineDom"]["children"]["length"]; _0x2f5708++) {
+          const _0x58a980 = this["lineDom"]["children"][_0x2f5708];
+          if (_0x58a980 === _0x2e0ed6["refDOM"]) {
+            this["lineDom"]["removeChild"](_0x58a980);
             break;
           }
         }
       }
     }
   }
+  var ModeType = ((_0x45e795) => {
+    return _0x45e795["full"] = "full", _0x45e795["fit"] = "fit", _0x45e795["standard"] = "standard", _0x45e795;
+  })(ModeType || {});
   class RenderHandler {
-    // 内容层
-    constructor(editor) {
-      this.wheelTimer = null;
-      this.backgroundLayerDom = null;
-      this.contentLayerDom = null;
-      this.editor = editor;
-      if (editor.config.type === "render") {
-        this.initContentLayer();
-        this.initBackgroundLayer();
-        this.initEvent();
-      }
+    constructor(_0x3d06b5) {
+      this["wheelTimer"] = null, this["backgroundLayerDom"] = null, this["contentLayerDom"] = null, this["editor"] = _0x3d06b5, _0x3d06b5["config"]["type"] === "render" && (this["initContentLayer"](), this["initBackgroundLayer"](), this["initEvent"]());
     }
-    setRenderMode(modeConfig) {
-      const editor = this.editor;
-      const canvasConfig = editor.config;
-      const { mode } = modeConfig;
-      const editorStyle = this.setEditorStyle(canvasConfig, mode);
-      for (let key in editorStyle) {
-        editor.editorDom.style[key] = editorStyle[key];
+    ["setRenderMode"](_0x52fd1a) {
+      const _0x29a45b = this["editor"], _0x206b33 = _0x29a45b["config"], { mode: _0x3eb9f1 } = _0x52fd1a, _0x69224a = this["setEditorStyle"](_0x206b33, _0x3eb9f1);
+      for (let _0x5946c1 in _0x69224a) {
+        _0x29a45b["editorDom"]["style"][_0x5946c1] = _0x69224a[_0x5946c1];
       }
-      const { canvasStyle, backgroundLayerStyle, contentStyle, viewportTransform } = this.handleStyle(canvasConfig, mode);
-      Object.assign(editor.canvasDom.style, canvasStyle);
-      Object.assign(this.backgroundLayerDom.style, backgroundLayerStyle);
-      Object.assign(this.contentLayerDom.style, contentStyle);
-      editor.viewportTransform = viewportTransform;
+      const { canvasStyle: _0x27016d, backgroundLayerStyle: _0x3d0e5f, contentStyle: _0x378250, viewportTransform: _0x56a0de } = this["handleStyle"](_0x206b33, _0x3eb9f1);
+      Object["assign"](_0x29a45b["canvasDom"]["style"], _0x27016d), Object["assign"](this["backgroundLayerDom"]["style"], _0x3d0e5f), Object["assign"](this["contentLayerDom"]["style"], _0x378250), _0x29a45b["viewportTransform"] = _0x56a0de;
     }
-    // standard 不缩放
-    // 设置编辑器
-    setEditorStyle(canvasConfig, mode) {
-      const { background } = canvasConfig;
-      const style = {
-        backgroundColor: background
-      };
-      switch (mode) {
+    ["setEditorStyle"](_0xc19ff4, _0x37266f) {
+      const { background: _0xd346ff } = _0xc19ff4, _0x4e6722 = { "backgroundColor": _0xd346ff };
+      switch (_0x37266f) {
         case "standard":
-          style.overflow = "auto";
-          style.backgroundImage = "";
+          _0x4e6722["overflow"] = "auto", _0x4e6722["backgroundImage"] = "";
           break;
         case "full":
-          style.overflow = "hidden";
-          style.backgroundImage = "";
+          _0x4e6722["overflow"] = "hidden", _0x4e6722["backgroundImage"] = "";
           break;
         case "fit":
-          style.overflow = "hidden";
+          _0x4e6722["overflow"] = "hidden";
           break;
         default:
-          style.overflow = "auto";
-          style.backgroundImage = "";
+          _0x4e6722["overflow"] = "auto", _0x4e6722["backgroundImage"] = "";
           break;
       }
-      return style;
+      return _0x4e6722;
     }
-    // 设置画布
-    handleStyle(canvasConfig, mode) {
-      const { width, height, filter, background, backgroundImage, backgroundFilter } = canvasConfig;
-      const canvasStyle = {
-        width: `${width}px`,
-        height: `${height}px`
-      };
-      const backgroundLayerStyle = {
-        width: `${width}px`,
-        height: `${height}px`,
-        backgroundColor: background
-      };
-      const contentStyle = {};
-      if (filter) {
-        const { enable, hueRotate, contrast, saturate, brightness, grayscale } = filter;
-        if (enable) {
-          let filterStr = "";
-          if (hueRotate)
-            filterStr += ` hue-rotate(${hueRotate}deg)`;
-          if (contrast)
-            filterStr += ` contrast(${contrast}%)`;
-          if (saturate)
-            filterStr += ` saturate(${saturate}%)`;
-          if (brightness)
-            filterStr += ` brightness(${brightness}%)`;
-          if (grayscale)
-            filterStr += ` grayscale(${grayscale}%)`;
-          contentStyle.filter = filterStr;
+    ["handleStyle"](_0x4eff8a, _0xcdcac) {
+      const { width: _0x3fbf1e, height: _0x4d0de7, filter: _0x537f42, background: _0x31e9af, backgroundImage: _0x1abd2f, backgroundFilter: _0x4e57c3 } = _0x4eff8a, _0x47beec = { "width": _0x3fbf1e + "px", "height": _0x4d0de7 + "px" }, _0x57be64 = { "width": _0x3fbf1e + "px", "height": _0x4d0de7 + "px", "backgroundColor": _0x31e9af }, _0x342508 = {};
+      if (_0x537f42) {
+        const { enable: _0x1dd99f, hueRotate: _0x563854, contrast: _0x4c9b67, saturate: _0x47a714, brightness: _0x30f0de, grayscale: _0x4ebffe } = _0x537f42;
+        if (_0x1dd99f) {
+          let _0x2297e3 = "";
+          if (_0x563854)
+            _0x2297e3 += " hue-rotate(" + _0x563854 + "deg)";
+          if (_0x4c9b67)
+            _0x2297e3 += " contrast(" + _0x4c9b67 + "%)";
+          if (_0x47a714)
+            _0x2297e3 += " saturate(" + _0x47a714 + "%)";
+          if (_0x30f0de)
+            _0x2297e3 += " brightness(" + _0x30f0de + "%)";
+          if (_0x4ebffe)
+            _0x2297e3 += " grayscale(" + _0x4ebffe + "%)";
+          _0x342508["filter"] = _0x2297e3;
         }
       }
-      if (backgroundImage) {
-        backgroundLayerStyle.backgroundImage = `url(${encodeURI(backgroundImage)})`;
-        backgroundLayerStyle.backgroundRepeat = "no-repeat";
-      }
-      if (backgroundFilter) {
-        const { enable, hueRotate, contrast, saturate, brightness, grayscale } = backgroundFilter;
-        if (enable) {
-          let filterStr = "";
-          if (hueRotate)
-            filterStr += ` hue-rotate(${hueRotate}deg)`;
-          if (contrast)
-            filterStr += ` contrast(${contrast}%)`;
-          if (saturate)
-            filterStr += ` saturate(${saturate}%)`;
-          if (brightness)
-            filterStr += ` brightness(${brightness}%)`;
-          if (grayscale)
-            filterStr += ` grayscale(${grayscale}%)`;
-          backgroundLayerStyle.filter = filterStr;
+      _0x1abd2f && (_0x57be64["backgroundImage"] = "url(" + encodeURI(_0x1abd2f) + ")", _0x57be64["backgroundRepeat"] = "no-repeat");
+      if (_0x4e57c3) {
+        const { enable: _0x391980, hueRotate: _0xc6a57, contrast: _0x348425, saturate: _0x596506, brightness: _0x47e93f, grayscale: _0x50ccca } = _0x4e57c3;
+        if (_0x391980) {
+          let _0x145879 = "";
+          if (_0xc6a57)
+            _0x145879 += " hue-rotate(" + _0xc6a57 + "deg)";
+          if (_0x348425)
+            _0x145879 += " contrast(" + _0x348425 + "%)";
+          if (_0x596506)
+            _0x145879 += " saturate(" + _0x596506 + "%)";
+          if (_0x47e93f)
+            _0x145879 += " brightness(" + _0x47e93f + "%)";
+          if (_0x50ccca)
+            _0x145879 += " grayscale(" + _0x50ccca + "%)";
+          _0x57be64["filter"] = _0x145879;
         }
       }
-      const editorDom = this.editor.editorDom;
-      const editorRect = editorDom.getBoundingClientRect();
-      const editorWidth = editorRect.width;
-      const editorHeight = editorRect.height;
-      const scaleX = editorWidth / width;
-      const scaleY = editorHeight / height;
-      let viewportTransform = { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 };
-      switch (mode) {
+      const _0x203b98 = this["editor"]["editorDom"], _0x22389a = _0x203b98["getBoundingClientRect"](), _0xcea42f = _0x22389a["width"], _0x54daf4 = _0x22389a["height"], _0x6106ef = _0xcea42f / _0x3fbf1e, _0x11122f = _0x54daf4 / _0x4d0de7;
+      let _0x421f65 = { "a": 1, "b": 0, "c": 0, "d": 1, "e": 0, "f": 0 };
+      switch (_0xcdcac) {
         case "standard":
-          canvasStyle.backgroundSize = "cover";
-          canvasStyle.backgroundPosition = "center center";
-          canvasStyle.overflow = "hidden";
+          _0x47beec["backgroundSize"] = "cover", _0x47beec["backgroundPosition"] = "center center", _0x47beec["overflow"] = "hidden";
           break;
         case "full":
-          canvasStyle.backgroundSize = "100% 100%";
-          canvasStyle.transformOrigin = "left top";
-          canvasStyle.transform = `scale(${scaleX}, ${scaleY})`;
-          viewportTransform = { a: scaleX, b: 0, c: 0, d: scaleY, e: 0, f: 0 };
+          _0x47beec["backgroundSize"] = "100% 100%", _0x47beec["transformOrigin"] = "left top", _0x47beec["transform"] = "scale(" + _0x6106ef + ", " + _0x11122f + ")", _0x421f65 = { "a": _0x6106ef, "b": 0, "c": 0, "d": _0x11122f, "e": 0, "f": 0 };
           break;
         case "fit":
-          canvasStyle.backgroundSize = "100% 100%";
-          canvasStyle.transformOrigin = "left top";
-          const scaleVar = scaleX > scaleY ? "y" : "x";
-          const minScale = Math.min(scaleX, scaleY);
-          const offsetWidth = editorWidth - width * minScale;
-          const offsetHeight = editorHeight - height * minScale;
-          const offsetX = scaleVar === "x" ? 0 : offsetWidth * 0.5;
-          const offsetY = scaleVar === "y" ? 0 : offsetHeight * 0.5;
-          canvasStyle.transform = `matrix(${minScale}, 0, 0, ${minScale}, ${offsetX}, ${offsetY})`;
-          viewportTransform = { a: minScale, b: 0, c: 0, d: minScale, e: offsetX, f: offsetY };
+          _0x47beec["backgroundSize"] = "100% 100%", _0x47beec["transformOrigin"] = "left top";
+          const _0x28c524 = _0x6106ef > _0x11122f ? "y" : "x", _0x5b1e92 = Math["min"](_0x6106ef, _0x11122f), _0x59d387 = _0xcea42f - _0x3fbf1e * _0x5b1e92, _0x1e08bb = _0x54daf4 - _0x4d0de7 * _0x5b1e92, _0x34e134 = _0x28c524 === "x" ? 0 : _0x59d387 * 0.5, _0x4879a2 = _0x28c524 === "y" ? 0 : _0x1e08bb * 0.5;
+          _0x47beec["transform"] = "matrix(" + _0x5b1e92 + ", 0, 0, " + _0x5b1e92 + ", " + _0x34e134 + ", " + _0x4879a2 + ")", _0x421f65 = { "a": _0x5b1e92, "b": 0, "c": 0, "d": _0x5b1e92, "e": _0x34e134, "f": _0x4879a2 };
           break;
       }
-      return { canvasStyle, backgroundLayerStyle, contentStyle, viewportTransform };
+      return { "canvasStyle": _0x47beec, "backgroundLayerStyle": _0x57be64, "contentStyle": _0x342508, "viewportTransform": _0x421f65 };
     }
-    initEvent() {
-      const { editor } = this;
-      const editorDom = editor.getEditorDom();
-      editorDom.addEventListener("mousewheel", (event) => {
-        if (editor.config.type !== "standard" && editor.config.panzoom && editor.config.panzoom.enable) {
-          clearTimeout(this.wheelTimer);
-          editor.canvasDom.style.willChange = "transform";
-          const isEnlarged = event.wheelDelta > 0;
-          let scaleRatio = isEnlarged ? 0.1 : -0.1;
-          const position = editor.getMouseInnerPosition(event);
-          const diffX = position.x * scaleRatio;
-          const diffY = position.y * scaleRatio;
-          editor.viewportTransform.a += scaleRatio;
-          editor.viewportTransform.d += scaleRatio;
-          editor.viewportTransform.e -= diffX;
-          editor.viewportTransform.f -= diffY;
-          const { a, b, c, d, e, f } = editor.viewportTransform;
-          editor.canvasDom.style.transform = `matrix(${[a, b, c, d, e, f].join(",")})`;
-          this.wheelTimer = setTimeout(() => {
-            clearTimeout(this.wheelTimer);
-            this.wheelTimer = null;
-            delete editor.canvasDom.style.willChange;
+    ["initEvent"]() {
+      const { editor: _0x2ce727 } = this, _0x31bc2d = _0x2ce727["getEditorDom"]();
+      _0x31bc2d["addEventListener"]("mousewheel", (_0x28497b) => {
+        if (_0x2ce727["config"]["type"] !== "standard" && _0x2ce727["config"]["panzoom"] && _0x2ce727["config"]["panzoom"]["enable"]) {
+          clearTimeout(this["wheelTimer"]), _0x2ce727["canvasDom"]["style"]["willChange"] = "transform";
+          const _0x2ae1e5 = _0x28497b["wheelDelta"] > 0;
+          let _0x182c86 = _0x2ae1e5 ? 0.1 : -0.1;
+          const _0x5dcae2 = _0x2ce727["getMouseInnerPosition"](_0x28497b), _0x1667fd = _0x5dcae2["x"] * _0x182c86, _0x45b012 = _0x5dcae2["y"] * _0x182c86;
+          _0x2ce727["viewportTransform"]["a"] += _0x182c86, _0x2ce727["viewportTransform"]["d"] += _0x182c86, _0x2ce727["viewportTransform"]["e"] -= _0x1667fd, _0x2ce727["viewportTransform"]["f"] -= _0x45b012;
+          const { a: _0xe79736, b: _0x1983d8, c: _0x443d50, d: _0x48b253, e: _0xb747f3, f: _0xc92711 } = _0x2ce727["viewportTransform"];
+          _0x2ce727["canvasDom"]["style"]["transform"] = "matrix(" + [_0xe79736, _0x1983d8, _0x443d50, _0x48b253, _0xb747f3, _0xc92711]["join"](",") + ")", this["wheelTimer"] = setTimeout(() => {
+            clearTimeout(this["wheelTimer"]), this["wheelTimer"] = null, delete _0x2ce727["canvasDom"]["style"]["willChange"];
           }, 100);
         }
-      });
-      editor.on("editor:mousedown", (event) => {
-        if (editor.config.type !== "standard" && editor.config.panzoom && editor.config.panzoom.enable) {
-          const { e } = event;
-          const { x: areaStartX, y: areaStartY } = editor.getMousePosition(e);
-          const { e: originX, f: originY } = editor.viewportTransform;
-          editor.canvasDom.style.willChange = "transform";
-          const mousemove = (moveEv) => {
-            const mousePoint = editor.getMousePosition(moveEv);
-            const diffX = mousePoint.x - areaStartX;
-            const diffY = mousePoint.y - areaStartY;
-            editor.viewportTransform.e = originX + diffX;
-            editor.viewportTransform.f = originY + diffY;
-            const { a, b, c, d, e: e2, f } = editor.viewportTransform;
-            editor.canvasDom.style.transform = `matrix(${[a, b, c, d, e2, f].join(",")})`;
+      }), _0x2ce727["on"]("editor:mousedown", (_0x32eb9a) => {
+        if (_0x2ce727["config"]["type"] !== "standard" && _0x2ce727["config"]["panzoom"] && _0x2ce727["config"]["panzoom"]["enable"]) {
+          const { e: _0x9b024 } = _0x32eb9a, { x: _0x58995b, y: _0x2d611f } = _0x2ce727["getMousePosition"](_0x9b024), { e: _0x2c4d13, f: _0xddf9c1 } = _0x2ce727["viewportTransform"];
+          _0x2ce727["canvasDom"]["style"]["willChange"] = "transform";
+          const _0x9d0c63 = (_0x52f843) => {
+            const _0x4876d6 = _0x2ce727["getMousePosition"](_0x52f843), _0xe913f5 = _0x4876d6["x"] - _0x58995b, _0x4a1f46 = _0x4876d6["y"] - _0x2d611f;
+            _0x2ce727["viewportTransform"]["e"] = _0x2c4d13 + _0xe913f5, _0x2ce727["viewportTransform"]["f"] = _0xddf9c1 + _0x4a1f46;
+            const { a: _0x2f188e, b: _0x454e00, c: _0x4eae74, d: _0x1eff54, e: _0x2a891b, f: _0x1c7f26 } = _0x2ce727["viewportTransform"];
+            _0x2ce727["canvasDom"]["style"]["transform"] = "matrix(" + [_0x2f188e, _0x454e00, _0x4eae74, _0x1eff54, _0x2a891b, _0x1c7f26]["join"](",") + ")";
+          }, _0x47ae68 = () => {
+            delete _0x2ce727["canvasDom"]["style"]["willChange"], document["removeEventListener"]("mousemove", _0x9d0c63), document["removeEventListener"]("mouseup", _0x47ae68);
           };
-          const mouseup = () => {
-            delete editor.canvasDom.style.willChange;
-            document.removeEventListener("mousemove", mousemove);
-            document.removeEventListener("mouseup", mouseup);
-          };
-          document.addEventListener("mousemove", mousemove);
-          document.addEventListener("mouseup", mouseup);
+          document["addEventListener"]("mousemove", _0x9d0c63), document["addEventListener"]("mouseup", _0x47ae68);
         }
       });
     }
-    initContentLayer() {
-      const { editor } = this;
-      this.contentLayerDom = editor.canvasDom.querySelector("svg");
+    ["initContentLayer"]() {
+      const { editor: _0x33a090 } = this;
+      this["contentLayerDom"] = _0x33a090["canvasDom"]["querySelector"]("svg");
     }
-    initBackgroundLayer() {
-      const { editor } = this;
-      const element = editorUtil.createSvgElement(
-        "svg",
-        { class: "datavis-render-background-layer" },
-        {
-          position: "absolute",
-          left: "0px",
-          top: "0px",
-          width: "100%",
-          height: "100%",
-          pointerEvents: "none",
-          zIndex: -1
-        }
-      );
-      editor.canvasDom.prepend(element);
-      this.backgroundLayerDom = element;
+    ["initBackgroundLayer"]() {
+      const { editor: _0x1b9556 } = this, _0x538869 = editorUtil["createSvgElement"]("svg", { "class": "datavis-render-background-layer" }, { "position": "absolute", "left": "0px", "top": "0px", "width": "100%", "height": "100%", "pointerEvents": "none", "zIndex": -1 });
+      _0x1b9556["canvasDom"]["prepend"](_0x538869), this["backgroundLayerDom"] = _0x538869;
     }
   }
   class DatavisEngine {
-    constructor(container, config) {
-      this.config = {
-        canvas: "",
-        width: 100,
-        height: 100,
-        copyKey: "datavis-copy-data",
-        sorption: {
-          // 吸附
-          enabled: true,
-          // 是否启用吸附
-          offset: 1
-          // 吸附距离
-        },
-        guideline: {
-          // 对象吸附时显示的辅助线
-          width: 0.5,
-          color: "#f00"
-        },
-        selectionMode: "intersection",
-        //complete 包含,  intersection 相交
-        multiplexOffset: { x: 30, y: 30 },
-        // 复用对象时添加一个偏移量
-        pasteOffset: { x: 30, y: 30 },
-        // 粘贴对象时添加一个偏移量
-        groupAttrs: { component: { name: "visWidgetGroup", title: "组合" } }
-        // 组合的默认属性，触发组合操作时这部分属性会被合并到组合中
-      };
-      this.viewportTransform = { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 };
-      this.id = editorUtil.nanoid(8);
-      this.objects = [];
-      this._activeObject = null;
-      this._activeObjects = [];
-      this.selection = true;
-      this.grabing = false;
-      this.editorDom = null;
-      this.canvasDom = null;
-      this.classNamePrefix = "DATAVIS";
-      this.mode = "select";
-      this.overLayer = null;
-      this.drawLayer = null;
-      this.controlLayer = null;
-      this.group = null;
-      this.extraProps = [];
-      this.pasteCount = 0;
-      this.util = editorUtil;
-      this.controlConfig = {
-        // 控制点配置
-        circle: {
-          r: 5,
-          // 控制点半径
-          fill: "#ffffff",
-          // 控制点填充色
-          stroke: "#2c83fb",
-          // 控制点描边色
-          strokeWidth: 1
-          // 控制点描边宽度
-        },
-        // 激活的控制点配置
-        activeCircle: {
-          r: 5,
-          // 激活的控制点半径
-          fill: "#00ff00",
-          // 激活的控制点填充色
-          stroke: "#2c83fb",
-          // 激活的控制点描边色
-          strokeWidth: 1
-          // 激活的控制点描边宽度
-        },
-        // 控制线配置
-        line: {
-          stroke: "#2c83fb",
-          // 控制线描边色
-          strokeWidth: 1
-          // 控制线描边宽度
-        }
-      };
-      this.typeCounts = {};
-      this.containerId = container;
-      Object.assign(this.config, config);
-      this.emitter = mitt();
-      this.elementHandler = new ElementHandler(this);
-      this.elementHandler.initLayers();
-      this.initRenderMode();
+    constructor(_0x4cda0a, _0x2ab88e) {
+      this["config"] = { "canvas": "", "width": 100, "height": 100, "copyKey": "datavis-copy-data", "sorption": { "enabled": !![], "offset": 1 }, "guideline": { "width": 0.5, "color": "#f00" }, "selectionMode": "intersection", "groupAttrs": { "component": { "name": "visWidgetGroup", "title": "组合" } } }, this["viewportTransform"] = { "a": 1, "b": 0, "c": 0, "d": 1, "e": 0, "f": 0 }, this["id"] = editorUtil["nanoid"](8), this["objects"] = [], this["_activeObject"] = null, this["_activeObjects"] = [], this["selection"] = !![], this["grabing"] = ![], this["editorDom"] = null, this["canvasDom"] = null, this["classNamePrefix"] = "DATAVIS", this["mode"] = "select", this["overLayer"] = null, this["drawLayer"] = null, this["controlLayer"] = null, this["group"] = null, this["extraProps"] = [], this["pasteCount"] = 0, this["enableCustomPaste"] = ![], this["util"] = editorUtil, this["controlConfig"] = { "circle": { "r": 5, "fill": "#ffffff", "stroke": "#2c83fb", "strokeWidth": 1 }, "activeCircle": { "r": 5, "fill": "#00ff00", "stroke": "#2c83fb", "strokeWidth": 1 }, "line": { "stroke": "#2c83fb", "strokeWidth": 1 } }, this["typeCounts"] = {}, this["containerId"] = _0x4cda0a, Object["assign"](this["config"], _0x2ab88e), this["emitter"] = _0x39ca4c(), this["elementHandler"] = new ElementHandler(this), this["elementHandler"]["initLayers"](), this["initRenderMode"]();
     }
-    // 设置config
-    setConfig(config) {
-      Object.assign(this.config, config);
+    ["setConfig"](_0x101349) {
+      Object["assign"](this["config"], _0x101349);
     }
-    // 切换吸附模式
-    changeSorption(option) {
-      this.config.sorption = option;
+    ["changeSorption"](_0x51c939) {
+      this["config"]["sorption"] = _0x51c939;
     }
-    // 切换框选模式
-    changeSelectionMode(mode) {
-      this.config.selectionMode = mode;
+    ["changeSelectionMode"](_0x179f32) {
+      this["config"]["selectionMode"] = _0x179f32;
     }
-    // 渲染模式
-    initRenderMode() {
-      this.renderHandler = new RenderHandler(this);
+    ["initRenderMode"]() {
+      this["renderHandler"] = new RenderHandler(this);
     }
-    // 设置渲染模式
-    setRenderMode(row) {
-      if (this.renderHandler) {
-        this.renderHandler.setRenderMode(row);
-      }
+    ["setRenderMode"](_0x34054b) {
+      this["renderHandler"] && this["renderHandler"]["setRenderMode"](_0x34054b);
     }
-    enableSelection() {
-      this.selection = true;
-      this.grabing = false;
+    ["enableSelection"]() {
+      this["selection"] = !![], this["grabing"] = ![];
     }
-    disableSelection() {
-      this.selection = false;
-      this.grabing = true;
+    ["disableSelection"]() {
+      this["selection"] = ![], this["grabing"] = !![];
     }
-    setDimensions({ width, height }) {
-      this.config.width = Number(width);
-      this.config.height = Number(height);
+    ["setDimensions"]({ width: _0x3e4db8, height: _0x1f7144 }) {
+      this["config"]["width"] = Number(_0x3e4db8), this["config"]["height"] = Number(_0x1f7144);
     }
-    initializeHandler() {
-      this.alignHandler = new AlignHandler(this);
-      this.historyHandler = new HistoryHandler(this);
-      this.objectHandler = new ObjectHandler(this);
-      this.rulerAdsorbHandler = new RulerAdsorbHandler(this);
-      this.guidelineHandler = new GuidelineHandler(this);
-      this.zoomHandler = new ZoomHandler(this);
-      this.selectionHandler = new SelectionHandler(this);
-      this.shortcutHandler = new ShortcutHandler(this);
-      this.drawHandler = new DrawHandler(this);
-      this.rulerHandler = new RulerHandler(this);
+    ["initializeHandler"]() {
+      this["alignHandler"] = new AlignHandler(this), this["historyHandler"] = new HistoryHandler(this), this["objectHandler"] = new ObjectHandler(this), this["rulerAdsorbHandler"] = new RulerAdsorbHandler(this), this["guidelineHandler"] = new GuidelineHandler(this), this["zoomHandler"] = new ZoomHandler(this), this["selectionHandler"] = new SelectionHandler(this), this["shortcutHandler"] = new ShortcutHandler(this), this["drawHandler"] = new DrawHandler(this), this["rulerHandler"] = new RulerHandler(this);
     }
-    getEditorDom() {
-      return document.querySelector(this.containerId);
+    ["getEditorDom"]() {
+      return document["querySelector"](this["containerId"]);
     }
-    getEditorBoundingClientRect() {
-      const dom = this.editorDom;
-      return dom.getBoundingClientRect();
+    ["getEditorBoundingClientRect"]() {
+      const _0x1b9fed = this["editorDom"];
+      return _0x1b9fed["getBoundingClientRect"]();
     }
-    setObjects(data) {
-      this.objects = data;
-      this.layerChange();
+    ["setObjects"](_0x83c863) {
+      this["objects"] = _0x83c863, this["layerChange"]();
     }
-    getObjects() {
-      return this.objects;
+    ["getObjects"]() {
+      return this["objects"];
     }
-    getActiveObject() {
-      return this._activeObject;
+    ["getActiveObject"]() {
+      return this["_activeObject"];
     }
-    /**
-     * 获取activeSelection多选对象位置
-     * @returns
-     */
-    getActiveSelectionPosition() {
-      const activeObj = this.getActiveObject();
-      return activeObj && activeObj.type === "activeSelection" ? activeObj.getPosition() : null;
+    ["getActiveSelectionPosition"]() {
+      const _0x4118e7 = this["getActiveObject"]();
+      return _0x4118e7 && _0x4118e7["type"] === "activeSelection" ? _0x4118e7["getPosition"]() : null;
     }
-    /**
-     * 设置选中的对象，设置选中对象时自动设置 _activeObject。_activeObject应作为只读使用，不应该直接修改
-     * @param {*} objs 选中对象
-     */
-    setActiveObjects(objs) {
-      if (document.activeElement instanceof HTMLInputElement) {
-        document.activeElement.blur();
-      }
-      this._activeObjects = objs;
-      if (this._activeObject) {
-        this._activeObject.disposeControls();
-      }
-      if (this.group && objs.some((a) => {
+    ["setActiveObjects"](_0x48a602) {
+      document["activeElement"] instanceof HTMLInputElement && document["activeElement"]["blur"]();
+      this["_activeObjects"] = _0x48a602;
+      this["_activeObject"] && this["_activeObject"]["disposeControls"]();
+      this["group"] && _0x48a602["some"]((_0x489f69) => {
         var _a;
-        return ((_a = a.group) == null ? void 0 : _a.id) !== this.group.id;
-      })) {
-        this.objectHandler.exitGroup();
-      }
-      if (!objs.length) {
-        this.discardActiveObject();
-      } else {
-        if (objs.length === 1) {
-          this._activeObject = objs[0];
-          this.group = this._activeObject.group || null;
-        } else {
-          objs.sort((a, b) => {
-            const aIndex = this.objects.findIndex((item) => item.id === a.id);
-            const bIndex = this.objects.findIndex((item) => item.id === b.id);
-            return aIndex - bIndex;
+        return ((_a = _0x489f69["group"]) == null ? void 0 : _a["id"]) !== this["group"]["id"];
+      }) && this["objectHandler"]["exitGroup"]();
+      if (!_0x48a602["length"])
+        this["discardActiveObject"]();
+      else {
+        if (_0x48a602["length"] === 1)
+          this["_activeObject"] = _0x48a602[0], this["group"] = this["_activeObject"]["group"] || null;
+        else {
+          _0x48a602["sort"]((_0x35fc12, _0x49f9e9) => {
+            const _0x24a3b6 = this["objects"]["findIndex"]((_0x1dbc8d) => _0x1dbc8d["id"] === _0x35fc12["id"]), _0x20629a = this["objects"]["findIndex"]((_0x25b267) => _0x25b267["id"] === _0x49f9e9["id"]);
+            return _0x24a3b6 - _0x20629a;
           });
-          const { x, y, w, h } = editorUtil.getBoundingRect(objs);
-          this._activeObject = Factory$1.getInstance(this, {
-            type: "activeSelection",
-            x,
-            y,
-            w,
-            h,
-            objects: objs
-          });
+          const { x: _0x7e4b72, y: _0x1a656e, w: _0x307318, h: _0x1b2b5b } = editorUtil["getBoundingRect"](_0x48a602);
+          this["_activeObject"] = _0x1deaa8["getInstance"](this, { "type": "activeSelection", "x": _0x7e4b72, "y": _0x1a656e, "w": _0x307318, "h": _0x1b2b5b, "objects": _0x48a602 });
         }
-        this._activeObject.createControls();
-        this.selectionUpdated();
+        this["_activeObject"]["createControls"](), this["selectionUpdated"]();
       }
     }
-    /**
-     * 设置选中的对象。为了和 setActiveObjects 区分，此方法多传入一个 position 参数
-     * @param objs
-     * @param position
-     */
-    setActiveObjectsWithPosition(objs, position) {
-      if (this._activeObject) {
-        this._activeObject.disposeControls();
-      }
-      this._activeObjects = objs;
-      if (objs.length) {
-        if (objs.length > 1) {
-          let pos = position;
-          if (!position) {
-            pos = editorUtil.getBoundingRect(objs);
-          }
-          const { x, y, w, h, angle } = pos;
-          this._activeObject = Factory$1.getInstance(this, {
-            type: "activeSelection",
-            x,
-            y,
-            w,
-            h,
-            angle,
-            objects: objs
-          });
-        } else {
-          this._activeObject = objs[0];
-        }
-        this._activeObject.createControls();
-        this.selectionUpdated();
-      } else {
-        this.discardActiveObject();
-      }
+    ["setActiveObjectsWithPosition"](_0x105d4e, _0x38345f) {
+      this["_activeObject"] && this["_activeObject"]["disposeControls"]();
+      this["_activeObjects"] = _0x105d4e;
+      if (_0x105d4e["length"]) {
+        if (_0x105d4e["length"] > 1) {
+          let _0x193663 = _0x38345f;
+          !_0x38345f && (_0x193663 = editorUtil["getBoundingRect"](_0x105d4e));
+          const { x: _0x1e68b8, y: _0x2130b5, w: _0x3f48fe, h: _0x437cdd, angle: _0x2d3869 } = _0x193663;
+          this["_activeObject"] = _0x1deaa8["getInstance"](this, { "type": "activeSelection", "x": _0x1e68b8, "y": _0x2130b5, "w": _0x3f48fe, "h": _0x437cdd, "angle": _0x2d3869, "objects": _0x105d4e });
+        } else
+          this["_activeObject"] = _0x105d4e[0];
+        this["_activeObject"]["createControls"](), this["selectionUpdated"]();
+      } else
+        this["discardActiveObject"]();
     }
-    getPositionMap() {
-      const positionMap = /* @__PURE__ */ new Map();
-      const recurssionParent = (item) => {
-        const { x, y, w, h, angle, id, group } = item;
-        positionMap.set(id, { x, y, w, h, angle, id, groupId: group ? group.id : "" });
-        if (group) {
-          recurssionParent(group);
-        }
-      };
-      const recurssionChildren = (arr) => {
-        arr.forEach((item) => {
-          const { x, y, w, h, angle, id, group, points, path } = item;
-          positionMap.set(item.id, { x, y, w, h, angle, id, groupId: group ? group.id : "", points: cloneDeep(points), path: cloneDeep(path) });
-          if (item.objects && item.objects.length) {
-            recurssionChildren(item.objects);
-          }
+    ["getPositionMap"]() {
+      const _0x3d3ff3 = /* @__PURE__ */ new Map(), _0xf831f6 = (_0x58da2d) => {
+        const { x: _0x3cab9a, y: _0x4b858e, w: _0x51d905, h: _0x36b1c3, angle: _0x347f33, id: _0xfd3701, group: _0x2b9749 } = _0x58da2d;
+        _0x3d3ff3["set"](_0xfd3701, { "x": _0x3cab9a, "y": _0x4b858e, "w": _0x51d905, "h": _0x36b1c3, "angle": _0x347f33, "id": _0xfd3701, "groupId": _0x2b9749 ? _0x2b9749["id"] : "" }), _0x2b9749 && _0xf831f6(_0x2b9749);
+      }, _0x5804df = (_0x2bc524) => {
+        _0x2bc524["forEach"]((_0x1f8be3) => {
+          const { x: _0x530fd7, y: _0x2d15b6, w: _0x335b54, h: _0xfc4e88, angle: _0x507273, id: _0x476000, group: _0x3d8083, points: _0x4f86a1, path: _0x3b3fff } = _0x1f8be3;
+          _0x3d3ff3["set"](_0x1f8be3["id"], { "x": _0x530fd7, "y": _0x2d15b6, "w": _0x335b54, "h": _0xfc4e88, "angle": _0x507273, "id": _0x476000, "groupId": _0x3d8083 ? _0x3d8083["id"] : "", "points": cloneDeep(_0x4f86a1), "path": cloneDeep(_0x3b3fff) }), _0x1f8be3["objects"] && _0x1f8be3["objects"]["length"] && _0x5804df(_0x1f8be3["objects"]);
         });
-      };
-      const activeObj = this.getActiveObject();
-      const objs = [];
-      if (activeObj) {
-        if (activeObj.group) {
-          objs.push(...activeObj.group.objects);
-          recurssionParent(activeObj.group);
-        } else if (activeObj.type === "activeSelection") {
-          objs.push(...activeObj.objects);
-          const { id, x, y, w, h, angle } = activeObj;
-          positionMap.set(id, { x, y, w, h, angle, id, groupId: "" });
-        } else {
-          objs.push(activeObj);
+      }, _0x160805 = this["getActiveObject"](), _0x1ac355 = [];
+      if (_0x160805) {
+        if (_0x160805["group"])
+          _0x1ac355["push"](..._0x160805["group"]["objects"]), _0xf831f6(_0x160805["group"]);
+        else {
+          if (_0x160805["type"] === "activeSelection") {
+            _0x1ac355["push"](..._0x160805["objects"]);
+            const { id: _0x462b86, x: _0x16d1fb, y: _0xef9abb, w: _0x3a2deb, h: _0x5cdba6, angle: _0x20e2ba } = _0x160805;
+            _0x3d3ff3["set"](_0x462b86, { "x": _0x16d1fb, "y": _0xef9abb, "w": _0x3a2deb, "h": _0x5cdba6, "angle": _0x20e2ba, "id": _0x462b86, "groupId": "" });
+          } else
+            _0x1ac355["push"](_0x160805);
         }
       }
-      recurssionChildren(objs);
-      return positionMap;
+      return _0x5804df(_0x1ac355), _0x3d3ff3;
     }
-    getActiveObjects() {
-      return this._activeObjects;
+    ["getActiveObjects"]() {
+      return this["_activeObjects"];
     }
-    /**
-     * 通过id获取对象
-     * @param {*} id
-     * @returns
-     */
-    getObjectById(id) {
-      const objs = this.getObjects();
-      let findObj;
-      const recurssion = (arr) => {
-        for (let i = 0; i < arr.length; i++) {
-          if (findObj) {
+    ["getObjectById"](_0x45239f) {
+      const _0x34e4c9 = this["getObjects"]();
+      let _0x1c655f;
+      const _0x46b2db = (_0x28c9b8) => {
+        for (let _0x574969 = 0; _0x574969 < _0x28c9b8["length"]; _0x574969++) {
+          if (_0x1c655f)
             return;
-          }
-          const item = arr[i];
-          if (item.id === id) {
-            findObj = item;
-          }
-          if (item.objects && item.objects.length) {
-            recurssion(item.objects);
-          }
+          const _0x54a9b9 = _0x28c9b8[_0x574969];
+          _0x54a9b9["id"] === _0x45239f && (_0x1c655f = _0x54a9b9), _0x54a9b9["objects"] && _0x54a9b9["objects"]["length"] && _0x46b2db(_0x54a9b9["objects"]);
         }
       };
-      recurssion(objs);
-      return findObj;
+      return _0x46b2db(_0x34e4c9), _0x1c655f;
     }
-    /**
-     * 根据条件获取对象
-     * @param {Function} callback 递归对象回调函数
-     * @returns
-     */
-    getObjectsByCondition(callback) {
-      const objects = this.getObjects();
-      const objs = [];
-      const recurssion = (arr) => {
-        for (let i = 0; i < arr.length; i++) {
-          const item = arr[i];
-          if (callback(item)) {
-            objs.push(item);
-          }
-          if (item.objects && item.objects.length) {
-            recurssion(item.objects);
-          }
+    ["getObjectsByCondition"](_0x44185f) {
+      const _0x59f8cf = this["getObjects"](), _0x235120 = [], _0x3f5f38 = (_0x413d95) => {
+        for (let _0x4fbb65 = 0; _0x4fbb65 < _0x413d95["length"]; _0x4fbb65++) {
+          const _0x5b8fcd = _0x413d95[_0x4fbb65];
+          _0x44185f(_0x5b8fcd) && _0x235120["push"](_0x5b8fcd), _0x5b8fcd["objects"] && _0x5b8fcd["objects"]["length"] && _0x3f5f38(_0x5b8fcd["objects"]);
         }
       };
-      recurssion(objects);
-      return objs;
+      return _0x3f5f38(_0x59f8cf), _0x235120;
     }
-    discardActiveObject() {
-      this._activeObject && this._activeObject.disposeControls();
-      this._activeObject = null;
-      this._activeObjects = [];
-      this.group && this.objectHandler.exitGroup();
-      this.selectionUpdated();
+    ["discardActiveObject"]() {
+      this["_activeObject"] && this["_activeObject"]["disposeControls"](), this["_activeObject"] = null, this["_activeObjects"] = [], this["group"] && this["objectHandler"]["exitGroup"](), this["selectionUpdated"]();
     }
-    selectionUpdated() {
-      const objects = this.getActiveObjects();
-      this.fire("selection:updated", objects);
+    ["selectionUpdated"]() {
+      const _0x1e9ffa = this["getActiveObjects"]();
+      this["fire"]("selection:updated", _0x1e9ffa);
     }
-    // 初始化计数
-    initTypeCount() {
-      this.typeCounts = {};
-      const recursion = (arr) => {
-        arr.forEach((item) => {
-          const type = item.component.name;
-          this.typeCounts[type] = (this.typeCounts[type] || 0) + 1;
-          if (item.objects && item.objects.length)
-            recursion(item.objects);
+    ["initTypeCount"]() {
+      this["typeCounts"] = {};
+      const _0x557e42 = (_0x5b2816) => {
+        _0x5b2816["forEach"]((_0x307f94) => {
+          const _0x5df16e = _0x307f94["component"]["name"];
+          this["typeCounts"][_0x5df16e] = (this["typeCounts"][_0x5df16e] || 0) + 1;
+          if (_0x307f94["objects"] && _0x307f94["objects"]["length"])
+            _0x557e42(_0x307f94["objects"]);
         });
       };
-      recursion(this.objects);
+      _0x557e42(this["objects"]);
     }
-    getTypeCountName(item) {
-      this.updateTypeCount(item);
-      const component = item.component;
-      const type = component.name;
-      const title = component.title;
-      const name = `${title}_${this.typeCounts[type]}`;
-      return name;
+    ["getTypeCountName"](_0x23c327) {
+      this["updateTypeCount"](_0x23c327);
+      const _0x52eb9a = _0x23c327["component"], _0x144506 = _0x52eb9a["name"], _0x31738a = _0x52eb9a["title"], _0x85fa5f = _0x31738a + "_" + this["typeCounts"][_0x144506];
+      return _0x85fa5f;
     }
-    // 删除计数
-    updateTypeCount(item) {
-      const component = item.component;
-      const type = component.name;
-      this.typeCounts[type] = (this.typeCounts[type] || 0) + 1;
+    ["updateTypeCount"](_0x269a48) {
+      const _0x17589b = _0x269a48["component"], _0x30cc52 = _0x17589b["name"];
+      this["typeCounts"][_0x30cc52] = (this["typeCounts"][_0x30cc52] || 0) + 1;
     }
-    // 删除计数
-    deleteTypeCount(item) {
-      const component = item.component;
-      const type = component.name;
-      if (this.typeCounts[type]) {
-        if (this.typeCounts[type] === 0) {
-          delete this.typeCounts[type];
+    ["deleteTypeCount"](_0x58757e) {
+      const _0x2141f2 = _0x58757e["component"], _0x37c300 = _0x2141f2["name"];
+      this["typeCounts"][_0x37c300] && (this["typeCounts"][_0x37c300] === 0 && delete this["typeCounts"][_0x37c300]);
+    }
+    ["add"](_0x16d92c) {
+      for (let _0x1f0cb7 = 0; _0x1f0cb7 < _0x16d92c["length"]; _0x1f0cb7++) {
+        const _0xedd5cc = _0x16d92c[_0x1f0cb7];
+        if (!_0xedd5cc["name"]) {
+          const _0x41f129 = this["getTypeCountName"](_0xedd5cc);
+          _0xedd5cc["name"] = _0x41f129;
         }
+        this["objects"]["push"](_0xedd5cc);
       }
+      return Promise["resolve"]("ok");
     }
-    add(objs) {
-      for (let i = 0; i < objs.length; i++) {
-        const item = objs[i];
-        if (!item.name) {
-          const name = this.getTypeCountName(item);
-          item.name = name;
-        }
-        this.objects.push(item);
-      }
-      return Promise.resolve("ok");
-    }
-    /**
-     * 根据子对象的位置重新计算组合的包围盒位置信息
-     * @param group 组合对象
-     * @returns
-     */
-    calcGroupPositionBySubs(group) {
-      const points = [];
-      const groupCenter = editorUtil.getObjectCenter(group);
-      group.objects.forEach((item) => {
-        let objCenter = editorUtil.getObjectCenter(item);
-        objCenter.x += group.x;
-        objCenter.y += group.y;
-        objCenter = editorUtil.rotatePoint(objCenter, groupCenter, group.angle);
-        const obj = {
-          x: objCenter.x - item.w / 2,
-          y: objCenter.y - item.h / 2,
-          w: item.w,
-          h: item.h,
-          angle: item.angle + group.angle
-        };
-        const { tl, tr, bl, br } = editorUtil.getCoords(obj);
-        points.push(tl, tr, bl, br);
+    ["calcGroupPositionBySubs"](_0x327842) {
+      const _0x7e79aa = [], _0x1f344f = editorUtil["getObjectCenter"](_0x327842);
+      _0x327842["objects"]["forEach"]((_0x1df8e4) => {
+        let _0x436c1e = editorUtil["getObjectCenter"](_0x1df8e4);
+        _0x436c1e["x"] += _0x327842["x"], _0x436c1e["y"] += _0x327842["y"], _0x436c1e = editorUtil["rotatePoint"](_0x436c1e, _0x1f344f, _0x327842["angle"]);
+        const _0x23b85f = { "x": _0x436c1e["x"] - _0x1df8e4["w"] / 2, "y": _0x436c1e["y"] - _0x1df8e4["h"] / 2, "w": _0x1df8e4["w"], "h": _0x1df8e4["h"], "angle": _0x1df8e4["angle"] + _0x327842["angle"] }, { tl: _0x407818, tr: _0x390330, bl: _0x35eb63, br: _0x263265 } = editorUtil["getCoords"](_0x23b85f);
+        _0x7e79aa["push"](_0x407818, _0x390330, _0x35eb63, _0x263265);
       });
-      const coords = editorUtil.computeOBB(points, group.angle);
-      return coords;
+      const _0x304260 = editorUtil["computeOBB"](_0x7e79aa, _0x327842["angle"]);
+      return _0x304260;
     }
-    /**
-     * 通过子元素的位置重新计算获取组合的包围盒
-     * @param group
-     * @returns
-     */
-    calcGroupContainerPositionBySubs(group) {
-      const position = this.calcGroupPositionBySubs(group);
-      const mtx = editorUtil.composeMatrix({ tx: position.x, ty: position.y, angle: position.angle });
-      const matrixList = [];
-      const recursion = (obj) => {
-        if (obj.group) {
-          const matrix = editorUtil.getObjMatrix(obj.group);
-          matrixList.push(matrix);
-          recursion(obj.group);
+    ["calcGroupContainerPositionBySubs"](_0x285224) {
+      const _0x242404 = this["calcGroupPositionBySubs"](_0x285224), _0x1f71e8 = editorUtil["composeMatrix"]({ "tx": _0x242404["x"], "ty": _0x242404["y"], "angle": _0x242404["angle"] }), _0x239227 = [], _0x41014c = (_0x2f627d) => {
+        if (_0x2f627d["group"]) {
+          const _0x2a5c44 = editorUtil["getObjMatrix"](_0x2f627d["group"]);
+          _0x239227["push"](_0x2a5c44), _0x41014c(_0x2f627d["group"]);
         }
       };
-      recursion(group);
-      const finalMatrix = editorUtil.multiplyMatrix([group.editor.viewportTransform, ...matrixList, mtx]);
-      const { tx, ty, sx, sy, angle } = editorUtil.decomposeMatrix(finalMatrix);
-      const finalPosition = {
-        x: tx,
-        y: ty,
-        w: position.w * sx,
-        h: position.h * sy,
-        angle
-      };
-      return finalPosition;
+      _0x41014c(_0x285224);
+      const _0x5c085f = editorUtil["multiplyMatrix"]([_0x285224["editor"]["viewportTransform"], ..._0x239227, _0x1f71e8]), { tx: _0x24ca84, ty: _0x83c1f7, sx: _0x49c3b8, sy: _0x4b89ae, angle: _0x26377b } = editorUtil["decomposeMatrix"](_0x5c085f), _0x2bffb0 = { "x": _0x24ca84, "y": _0x83c1f7, "w": _0x242404["w"] * _0x49c3b8, "h": _0x242404["h"] * _0x4b89ae, "angle": _0x26377b };
+      return _0x2bffb0;
     }
-    emit(event, callback) {
-      this.emitter.emit(event, callback || this);
+    ["emit"](_0xa2f32d, _0x12bc1c) {
+      this["emitter"]["emit"](_0xa2f32d, _0x12bc1c || this);
     }
-    fire(event, callback) {
-      this.emitter.emit(event, callback || this);
+    ["fire"](_0x1336ea, _0x201713) {
+      this["emitter"]["emit"](_0x1336ea, _0x201713 || this);
     }
-    off(event, callback) {
-      if (typeof event === "object") {
-        Object.keys(event).forEach((k) => {
-          this.emitter.off(k, event[k]);
-        });
-      } else {
-        this.emitter.off(event, callback);
-      }
+    ["off"](_0x29f0fc, _0x445ebc) {
+      typeof _0x29f0fc === "object" ? Object["keys"](_0x29f0fc)["forEach"]((_0xd26d85) => {
+        this["emitter"]["off"](_0xd26d85, _0x29f0fc[_0xd26d85]);
+      }) : this["emitter"]["off"](_0x29f0fc, _0x445ebc);
     }
-    on(event, callback) {
-      if (typeof event === "object") {
-        Object.keys(event).forEach((k) => {
-          this.emitter.on(k, event[k]);
-        });
-      } else {
-        this.emitter.on(event, callback);
-      }
+    ["on"](_0x15bd53, _0x20b007) {
+      typeof _0x15bd53 === "object" ? Object["keys"](_0x15bd53)["forEach"]((_0x303373) => {
+        this["emitter"]["on"](_0x303373, _0x15bd53[_0x303373]);
+      }) : this["emitter"]["on"](_0x15bd53, _0x20b007);
     }
-    importData(data) {
-      const { objects, viewportTransform } = data;
-      const objs = this.dataEnlivenObjects(objects);
-      this.viewportTransform = viewportTransform;
-      this.zoomHandler.setRightBar();
-      this.zoomHandler.setBottomBar();
-      this.zoomHandler.handleViewportTransform();
-      this.setObjects(objs);
-      if (this.group) {
-        this.group = this.getObjectById(this.group.id);
-      }
-      this.discardActiveObject();
-      this.initTypeCount();
-      return Promise.resolve("");
+    ["importData"](_0x30d91f) {
+      const { objects: _0x3e8d3d, viewportTransform: _0x589a4c } = _0x30d91f, _0x50ce8b = this["dataEnlivenObjects"](_0x3e8d3d);
+      return this["viewportTransform"] = _0x589a4c, this["zoomHandler"]["setRightBar"](), this["zoomHandler"]["setBottomBar"](), this["zoomHandler"]["handleViewportTransform"](), this["setObjects"](_0x50ce8b), this["group"] && (this["group"] = this["getObjectById"](this["group"]["id"])), this["discardActiveObject"](), this["initTypeCount"](), Promise["resolve"]("");
     }
-    setLines(lines) {
-      this.rulerAdsorbHandler.setLines(lines);
+    ["setLines"](_0x36e9c9) {
+      this["rulerAdsorbHandler"]["setLines"](_0x36e9c9);
     }
-    layerChange() {
-      this.fire("layer:change", this.objects);
+    ["layerChange"]() {
+      this["fire"]("layer:change", this["objects"]);
     }
-    editorPanzoom(row) {
-      this.fire("editor:panzoom", row);
-      const activeObj = this.getActiveObject();
-      if (activeObj) {
-        activeObj.updateControlsPosition();
-      }
-      if (this.mode === "draw")
+    ["editorPanzoom"](_0x3b150f) {
+      this["fire"]("editor:panzoom", _0x3b150f);
+      const _0x155f97 = this["getActiveObject"]();
+      _0x155f97 && _0x155f97["updateControlsPosition"]();
+      if (this["mode"] === "draw")
         ;
     }
-    /**
-     * 获取鼠标在容器中的位置
-     * @param {MouseEvent} e 鼠标事件
-     * @returns
-     */
-    getMousePosition(e) {
-      const container = document.querySelector(this.containerId);
-      const { left, top } = container.getBoundingClientRect();
-      const { scrollLeft, scrollTop } = container;
-      let mousePoint = { x: e.clientX - left + scrollLeft, y: e.clientY - top + scrollTop };
-      return mousePoint;
+    ["getMousePosition"](_0x2e65ce) {
+      const _0x65fc42 = document["querySelector"](this["containerId"]), { left: _0x531115, top: _0x5eda97 } = _0x65fc42["getBoundingClientRect"](), { scrollLeft: _0x2a602c, scrollTop: _0x9a0e8 } = _0x65fc42;
+      let _0xe31672 = { "x": _0x2e65ce["clientX"] - _0x531115 + _0x2a602c, "y": _0x2e65ce["clientY"] - _0x5eda97 + _0x9a0e8 };
+      return _0xe31672;
     }
-    /**
-     * 获取鼠标在画布中的位置
-     * @param {*} e
-     * @returns
-     */
-    getMouseInnerPosition(e) {
-      const inverseMatrix = inverse(this.viewportTransform);
-      let mousePoint = this.getMousePosition(e);
-      mousePoint = applyToPoint(inverseMatrix, mousePoint);
-      return mousePoint;
+    ["getMouseInnerPosition"](_0x114bd6) {
+      const _0x7d0af4 = inverse(this["viewportTransform"]);
+      let _0x446c71 = this["getMousePosition"](_0x114bd6);
+      return _0x446c71 = applyToPoint(_0x7d0af4, _0x446c71), _0x446c71;
     }
-    /**
-     * 获取鼠标在对象内的位置
-     * @param e
-     * @param obj
-     */
-    getMousePositionInObject(e, obj) {
-      const totalMatrix = editorUtil.getTotalMatrix(obj, true, true);
-      const inverseMatrix = inverse(totalMatrix);
-      let mousePoint = this.getMousePosition(e);
-      mousePoint = applyToPoint(inverseMatrix, mousePoint);
-      return mousePoint;
+    ["getMousePositionInObject"](_0x5222e9, _0x404c0a) {
+      const _0xce6c22 = editorUtil["getTotalMatrix"](_0x404c0a, !![], !![]), _0x4ac2e1 = inverse(_0xce6c22);
+      let _0x3cf127 = this["getMousePosition"](_0x5222e9);
+      return _0x3cf127 = applyToPoint(_0x4ac2e1, _0x3cf127), _0x3cf127;
     }
-    /**
-     * 获取画布的中心点位置
-     * @returns
-     */
-    getEditorCenter() {
-      const { width, height } = this.config;
-      return {
-        x: width / 2,
-        y: height / 2
-      };
+    ["getEditorBounding"]() {
+      const { offsetWidth: _0x58b7d8, offsetHeight: _0x11fe0c } = this["editorDom"], { viewportTransform: { a: _0x3baaaa, e: _0x1fedbf, f: _0x29b230 } } = this, _0x19dc19 = _0x58b7d8 / _0x3baaaa, _0x56a0e4 = _0x11fe0c / _0x3baaaa, _0x9be727 = -_0x1fedbf / _0x3baaaa, _0x239c3d = -_0x29b230 / _0x3baaaa;
+      return { "startX": _0x9be727, "startY": _0x239c3d, "centerX": _0x9be727 + _0x19dc19 / 2, "centerY": _0x239c3d + _0x56a0e4 / 2, "width": _0x19dc19, "height": _0x56a0e4 };
     }
-    /**
-     * 查找鼠标点中的对象
-     * @param {MouseEvent} e 鼠标对象
-     * @param {Boolean} includeLocked 锁定的对象是否也可以选中
-     * @returns
-     */
-    findTarget(e, includeLocked = false) {
-      const point = this.getMouseInnerPosition(e);
-      const activeObject = this.getActiveObject();
-      if (activeObject && activeObject.type === "activeSelection" && !(e.ctrlKey || e.metaKey || e.shiftKey)) {
-        const isInside = editorUtil.isPointInside(point, activeObject);
-        if (isInside) {
-          return activeObject;
-        }
+    ["findTarget"](_0x323ff5, _0x218348 = ![]) {
+      const _0x3a3d8d = this["getMouseInnerPosition"](_0x323ff5), _0x224100 = this["getActiveObject"]();
+      if (_0x224100 && _0x224100["type"] === "activeSelection" && !(_0x323ff5["ctrlKey"] || _0x323ff5["metaKey"] || _0x323ff5["shiftKey"])) {
+        const _0x3c92ee = editorUtil["isPointInside"](_0x3a3d8d, _0x224100);
+        if (_0x3c92ee)
+          return _0x224100;
       }
-      const objects = this.group ? this.group.objects : this.objects;
-      for (let i = objects.length - 1; i >= 0; i--) {
-        const item = objects[i];
-        const lockedFlag = includeLocked ? true : !item.locked;
-        if (item.visible && lockedFlag && editorUtil.isPointInside(point, item.getGlobalPosition())) {
-          return item;
-        }
+      const _0x5dd544 = this["group"] ? this["group"]["objects"] : this["objects"];
+      for (let _0x4f2b31 = _0x5dd544["length"] - 1; _0x4f2b31 >= 0; _0x4f2b31--) {
+        const _0x371309 = _0x5dd544[_0x4f2b31], _0x40b30b = _0x218348 ? !![] : !_0x371309["locked"];
+        if (_0x371309["visible"] && _0x40b30b && editorUtil["isPointInside"](_0x3a3d8d, _0x371309["getGlobalPosition"]()))
+          return _0x371309;
       }
       return null;
     }
-    /**
-     * 将画布序列化
-     * @returns
-     */
-    toJSON() {
-      const cloneData = this.objects.map((item) => item.toJSON());
-      const { viewportTransform } = this;
-      return {
-        viewportTransform,
-        objects: cloneData
-      };
+    ["toJSON"]() {
+      const _0x4c29a1 = this["objects"]["map"]((_0x187184) => _0x187184["toJSON"]()), { viewportTransform: _0x1fcd14 } = this;
+      return { "viewportTransform": _0x1fcd14, "objects": _0x4c29a1 };
     }
-    /**
-     * 获取和矩形选区相交的对象
-     * @param rect 矩形选区
-     * @param objs 比较对象列表
-     */
-    getIntersectObjs(rect, objs) {
-      const arr = [];
-      const isComplete = this.config.selectionMode == "complete";
-      objs.forEach((item) => {
-        let isSelected = false;
-        if (!item.locked && item.visible) {
-          const itemWorldPos = item.getGlobalPosition();
-          const itemBBox = editorUtil.getBBox(itemWorldPos);
-          if (!editorUtil.isRectIntersect(rect, itemBBox, isComplete)) {
-            isSelected = false;
-          } else {
-            if (itemWorldPos.angle % 90 === 0) {
-              isSelected = true;
-            } else {
-              const itemCenter = editorUtil.getPositionCenter(itemWorldPos);
-              const { x, y, w, h } = rect;
-              const { angle } = itemWorldPos;
-              const s1 = editorUtil.rotatePoint({ x, y }, itemCenter, -angle);
-              const s2 = editorUtil.rotatePoint({ x: x + w, y }, itemCenter, -angle);
-              const s3 = editorUtil.rotatePoint({ x, y: y + h }, itemCenter, -angle);
-              const s4 = editorUtil.rotatePoint({ x: x + w, y: y + h }, itemCenter, -angle);
-              const minX = Math.min(s1.x, s2.x, s3.x, s4.x);
-              const minY = Math.min(s1.y, s2.y, s3.y, s4.y);
-              const width = Math.max(s1.x, s2.x, s3.x, s4.x) - minX;
-              const height = Math.max(s1.y, s2.y, s3.y, s4.y) - minY;
-              const newAABB = { x: minX, y: minY, w: width, h: height };
-              isSelected = editorUtil.isRectIntersect(newAABB, itemWorldPos, isComplete);
+    ["getIntersectObjs"](_0x498fdd, _0x10dd7f) {
+      const _0x3bb712 = [], _0x59489a = this["config"]["selectionMode"] == "complete";
+      return _0x10dd7f["forEach"]((_0x33d062) => {
+        let _0x35995c = ![];
+        if (!_0x33d062["locked"] && _0x33d062["visible"]) {
+          const _0x26fe09 = _0x33d062["getGlobalPosition"](), _0x242bd7 = editorUtil["getBBox"](_0x26fe09);
+          if (!editorUtil["isRectIntersect"](_0x498fdd, _0x242bd7, _0x59489a))
+            _0x35995c = ![];
+          else {
+            if (_0x26fe09["angle"] % 90 === 0)
+              _0x35995c = !![];
+            else {
+              const _0x1561fc = editorUtil["getPositionCenter"](_0x26fe09), { x: _0x8dafa7, y: _0xb62f76, w: _0x84db75, h: _0x57ab9c } = _0x498fdd, { angle: _0x4bf2ad } = _0x26fe09, _0x25de94 = editorUtil["rotatePoint"]({ "x": _0x8dafa7, "y": _0xb62f76 }, _0x1561fc, -_0x4bf2ad), _0x4a6485 = editorUtil["rotatePoint"]({ "x": _0x8dafa7 + _0x84db75, "y": _0xb62f76 }, _0x1561fc, -_0x4bf2ad), _0x22d31a = editorUtil["rotatePoint"]({ "x": _0x8dafa7, "y": _0xb62f76 + _0x57ab9c }, _0x1561fc, -_0x4bf2ad), _0x351e70 = editorUtil["rotatePoint"]({ "x": _0x8dafa7 + _0x84db75, "y": _0xb62f76 + _0x57ab9c }, _0x1561fc, -_0x4bf2ad), _0x37058d = Math["min"](_0x25de94["x"], _0x4a6485["x"], _0x22d31a["x"], _0x351e70["x"]), _0x312812 = Math["min"](_0x25de94["y"], _0x4a6485["y"], _0x22d31a["y"], _0x351e70["y"]), _0x2fb00e = Math["max"](_0x25de94["x"], _0x4a6485["x"], _0x22d31a["x"], _0x351e70["x"]) - _0x37058d, _0x1c18ea = Math["max"](_0x25de94["y"], _0x4a6485["y"], _0x22d31a["y"], _0x351e70["y"]) - _0x312812, _0x4d3fcf = { "x": _0x37058d, "y": _0x312812, "w": _0x2fb00e, "h": _0x1c18ea };
+              _0x35995c = editorUtil["isRectIntersect"](_0x4d3fcf, _0x26fe09, _0x59489a);
             }
           }
         }
-        if (isSelected) {
-          arr.push(item);
-        }
-      });
-      return arr;
+        _0x35995c && _0x3bb712["push"](_0x33d062);
+      }), _0x3bb712;
     }
-    /**
-     * 单个对象转换成editor 对象
-     * @param data
-     * @returns
-     */
-    plainObjectToClass(data) {
-      return Factory$1.getInstance(this, data);
+    ["plainObjectToClass"](_0x2d5fc4) {
+      return _0x1deaa8["getInstance"](this, _0x2d5fc4);
     }
-    /**
-     * 转换成editor数据对象
-     * @param data
-     * @returns
-     */
-    dataEnlivenObjects(data) {
-      let parseObjects = [];
-      if (data == null ? void 0 : data.length) {
-        data.forEach((item) => {
-          const parseData = this.plainObjectToClass(item);
-          parseObjects.push(parseData);
+    ["parseObjects"](_0x42c8ac) {
+      const _0x8f15bd = _0x42c8ac ? Array["isArray"](_0x42c8ac) ? _0x42c8ac : [_0x42c8ac] : [];
+      return _0x8f15bd["map"]((_0x2c635e) => this["plainObjectToClass"](_0x2c635e));
+    }
+    ["dataEnlivenObjects"](_0x35bbfe) {
+      let _0x2db280 = [];
+      return (_0x35bbfe == null ? void 0 : _0x35bbfe["length"]) && _0x35bbfe["forEach"]((_0x3f8cec) => {
+        const _0x17a9ab = this["plainObjectToClass"](_0x3f8cec);
+        _0x2db280["push"](_0x17a9ab);
+      }), _0x2db280;
+    }
+    ["jsonObjectsToGroup"](_0x40fa26 = []) {
+      const _0x353554 = (_0x39ecaf) => {
+        _0x39ecaf["forEach"]((_0x3f3732) => {
+          _0x3f3732["id"] = editorUtil["nanoid"](8), _0x3f3732["objects"] && _0x3f3732["objects"]["length"] && _0x353554(_0x3f3732["objects"]);
         });
-      }
-      return parseObjects;
+      }, _0x5a115e = this["dataEnlivenObjects"](_0x40fa26);
+      _0x353554(_0x5a115e);
+      const { groupAttrs: _0x3d98eb } = this["config"], { x: _0x53e754, y: _0x4db412, w: _0x3c6ff0, h: _0x507925 } = editorUtil["getBoundingRect"](_0x5a115e), _0x3c4b75 = _0x1deaa8["getInstance"](this, __spreadProps(__spreadValues({ "type": "group" }, cloneDeep(_0x3d98eb)), { "x": _0x53e754, "y": _0x4db412, "w": _0x3c6ff0, "h": _0x507925, "angle": 0 }));
+      return _0x5a115e["forEach"]((_0x7d3a5a) => {
+        _0x7d3a5a["id"] = editorUtil["nanoid"](8), _0x7d3a5a["x"] -= _0x53e754, _0x7d3a5a["y"] -= _0x4db412, _0x7d3a5a["group"] = _0x3c4b75, _0x3c4b75["objects"]["push"](_0x7d3a5a);
+      }), _0x3c4b75;
     }
-    /**
-     * 将json格式的对象列表组合
-     * @param jsonObjects
-     * @returns
-     */
-    jsonObjectsToGroup(jsonObjects = []) {
-      const recurssion = (arr) => {
-        arr.forEach((obj) => {
-          obj.id = editorUtil.nanoid(8);
-          if (obj.objects && obj.objects.length) {
-            recurssion(obj.objects);
-          }
-        });
-      };
-      const objs = this.dataEnlivenObjects(jsonObjects);
-      recurssion(objs);
-      const { groupAttrs } = this.config;
-      const { x, y, w, h } = editorUtil.getBoundingRect(objs);
-      const groupItem = Factory$1.getInstance(this, __spreadProps(__spreadValues({
-        type: "group"
-      }, cloneDeep(groupAttrs)), {
-        x,
-        y,
-        w,
-        h,
-        angle: 0
-      }));
-      objs.forEach((item) => {
-        item.id = editorUtil.nanoid(8);
-        item.x -= x;
-        item.y -= y;
-        item.group = groupItem;
-        groupItem.objects.push(item);
-      });
-      return groupItem;
+    ["getActiveObjectJSON"]() {
+      const _0x1d3c1c = this["getActiveObject"]();
+      return _0x1d3c1c ? _0x1d3c1c["toJSON"]() : null;
     }
-    /**
-     * 获取当前选中对象的json结构数据
-     * @returns
-     */
-    getActiveObjectJSON() {
-      const activeObj = this.getActiveObject();
-      return activeObj ? activeObj.toJSON() : null;
+    ["getActiveObjectPositionState"](_0x174999 = ObjectAttrsEnum["position"]) {
+      const _0x3e4d11 = this["getActiveObjects"](), _0x594026 = [], _0x3070a8 = [];
+      return _0x3e4d11["forEach"]((_0xbb2c43) => {
+        const _0x3edcf1 = _0xbb2c43["group"] || this, _0x595e45 = _0x3edcf1["objects"]["findIndex"]((_0x1ddc3b) => _0x1ddc3b["id"] === _0xbb2c43["id"]), _0x456955 = _0xbb2c43["group"] ? _0xbb2c43["group"]["id"] : null;
+        _0x3070a8["push"]({ "data": _0x174999 === ObjectAttrsEnum["position"] ? _0xbb2c43["getPosition"]() : _0xbb2c43["toJSON"](), "index": _0x595e45, "parentId": _0x456955 }), _0x456955 && _0x594026["push"](_0x3edcf1["getPosition"]());
+      }), { "activeSelection": this["getActiveSelectionPosition"](), "data": _0x3070a8, "groupPositions": _0x594026 };
     }
-    /**
-     * 获取选中对象的位置信息
-     * @param type 信息类型
-     * @returns
-     */
-    getActiveObjectPositionState(type = ObjectAttrsEnum.position) {
-      const objs = this.getActiveObjects();
-      const groupPositions = [];
-      const data = [];
-      objs.forEach((item) => {
-        const parent = item.group || this;
-        const index = parent.objects.findIndex((a) => a.id === item.id);
-        const parentId = item.group ? item.group.id : null;
-        data.push({
-          data: type === ObjectAttrsEnum.position ? item.getPosition() : item.toJSON(),
-          index,
-          parentId
-        });
-        if (parentId) {
-          groupPositions.push(parent.getPosition());
-        }
-      });
-      return {
-        activeSelection: this.getActiveSelectionPosition(),
-        data,
-        groupPositions
-      };
+    ["getZoom"]() {
+      const { viewportTransform: _0x4a1f22 } = this;
+      return _0x4a1f22["a"];
     }
-    /**
-     * 获取编辑器缩放倍数
-     * @returns
-     */
-    getZoom() {
-      const { viewportTransform } = this;
-      return viewportTransform.a;
-    }
-    /**
-     * 获取对象的父节点id、所在索引、所在路径等
-     * @param objs
-     * @returns
-     */
-    getObjectsParentRelationship(objs) {
-      const list = [];
-      const getObjInfo = (obj) => {
-        let path = "";
-        let parentIdList = [];
-        const recursion = (item) => {
-          const parent = item.group || item.editor;
-          const index = parent.objects.findIndex((a) => a.id === item.id);
-          path = `${index}${path}`;
-          if (parent && parent.type === "group") {
-            parentIdList.push(parent.id);
-            recursion(parent);
-          }
+    ["getObjectsParentRelationship"](_0x94c975) {
+      const _0x5c63ce = [], _0x322b84 = (_0x541a8d) => {
+        let _0x3456ea = "", _0x48ea25 = [];
+        const _0x597a23 = (_0x15c94c) => {
+          const _0x27dce9 = _0x15c94c["group"] || _0x15c94c["editor"], _0x2a97a8 = _0x27dce9["objects"]["findIndex"]((_0x33396b) => _0x33396b["id"] === _0x15c94c["id"]);
+          _0x3456ea = "" + _0x2a97a8 + _0x3456ea, _0x27dce9 && _0x27dce9["type"] === "group" && (_0x48ea25["push"](_0x27dce9["id"]), _0x597a23(_0x27dce9));
         };
-        recursion(obj);
-        return { path, parentIdList };
+        return _0x597a23(_0x541a8d), { "path": _0x3456ea, "parentIdList": _0x48ea25 };
       };
-      objs = objs || [];
-      objs.forEach((item) => {
-        const parent = item.group || item.editor;
-        list.push(__spreadValues({
-          parentId: item.group ? item.group.id : "",
-          index: parent.objects.findIndex((a) => a.id === item.id),
-          target: item
-        }, getObjInfo(item)));
-      });
-      return list;
+      return _0x94c975 = _0x94c975 || [], _0x94c975["forEach"]((_0x2f1ab2) => {
+        const _0x54a6da = _0x2f1ab2["group"] || _0x2f1ab2["editor"];
+        _0x5c63ce["push"](__spreadValues({ "parentId": _0x2f1ab2["group"] ? _0x2f1ab2["group"]["id"] : "", "index": _0x54a6da["objects"]["findIndex"]((_0x5032d7) => _0x5032d7["id"] === _0x2f1ab2["id"]), "target": _0x2f1ab2 }, _0x322b84(_0x2f1ab2)));
+      }), _0x5c63ce;
     }
-    /**
-     * 销毁事件
-     *
-     */
-    destroy() {
-      if (this.watermarkHandler) {
-        this.watermarkHandler.destroy();
-      }
+    ["analysisName"](_0x838221) {
+      _0x838221 = _0x838221 || "";
+      let _0x2d3f8d = "", _0xdeb6ad = 0;
+      const _0x250d58 = _0x838221["split"]("_"), _0x2a34d3 = _0x250d58[_0x250d58["length"] - 1];
+      return isNaN(+_0x2a34d3) ? _0x2d3f8d = _0x838221 : (_0x2d3f8d = _0x250d58["slice"](0, _0x250d58["length"] - 1)["join"]("_"), _0xdeb6ad = +_0x2a34d3), { "prefix": _0x2d3f8d, "index": _0xdeb6ad };
+    }
+    ["getNamesMap"]() {
+      const _0x4d7d96 = {};
+      return editorUtil["traverse"](this["getObjects"](), "objects", (_0x5942ca) => {
+        const _0x46f597 = _0x5942ca["name"] || "", { prefix: _0x5dce7d, index: _0x349076 } = this["analysisName"](_0x46f597);
+        _0x4d7d96[_0x5dce7d] ? _0x4d7d96[_0x5dce7d] = Math["max"](_0x4d7d96[_0x5dce7d], _0x349076) : _0x4d7d96[_0x5dce7d] = _0x349076;
+      }), _0x4d7d96;
+    }
+    ["generateUniqueName"](_0x79aaf8) {
+      _0x79aaf8 = _0x79aaf8 || "";
+      const _0x18bbb1 = {};
+      editorUtil["traverse"](this["getObjects"](), "objects", (_0x33c873) => {
+        const _0xc6abcb = _0x33c873["name"] || "";
+        if (_0xc6abcb["startsWith"](_0x79aaf8)) {
+          const { prefix: _0x5c1f30, index: _0x4f56d0 } = this["analysisName"](_0xc6abcb);
+          _0x18bbb1[_0x5c1f30] ? _0x18bbb1[_0x5c1f30] = Math["max"](_0x18bbb1[_0x5c1f30], _0x4f56d0) : _0x18bbb1[_0x5c1f30] = _0x4f56d0;
+        }
+      });
+      const { prefix: _0x3cabe3 } = this["analysisName"](_0x79aaf8);
+      return _0x18bbb1[_0x3cabe3] ? _0x3cabe3 + "_" + (_0x18bbb1[_0x3cabe3] + 1) : _0x79aaf8;
+    }
+    ["destroy"]() {
+      this["watermarkHandler"] && this["watermarkHandler"]["destroy"]();
     }
   }
-  const appConfig = {
-    version: "core-v0.0.1",
-    name: "datavis-core",
-    description: "核心库"
-  };
-  const version = appConfig.version;
+  const appConfig = { "version": "core-v0.0.1", "name": "datavis-core", "description": "核心库" };
+  const version = appConfig["version"];
   exports2.datavisCore = DatavisEngine;
   exports2.default = DatavisEngine;
   exports2.editorUtil = editorUtil;
