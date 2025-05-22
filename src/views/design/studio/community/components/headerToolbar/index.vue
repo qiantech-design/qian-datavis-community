@@ -34,39 +34,6 @@
     </div>
 
     <div class="toolbar-right">
-      <div class="save-time-box"></div>
-
-      <visui-tooltip
-        placement="bottom-start"
-        popper-class="datavis-editor-toolbar-popover-contentmenu"
-        :show-arrow="false"
-        :offset="0"
-        trigger="hover"
-      >
-        <template #content>
-          <ul class="popover-contentmenu-list">
-            <li class="popover-contentmenu-item" @click="handleExternal(pageOperationTypes.importJSON)">
-              <span>导入图纸</span>
-            </li>
-            <li class="popover-contentmenu-item" @click="handleExternal(pageOperationTypes.importDraft)">
-              <span>导入本地草稿</span>
-            </li>
-            <li class="popover-contentmenu-item-divider"></li>
-            <li class="popover-contentmenu-item" @click="handleExternal(pageOperationTypes.saveDraft)">
-              <span>保存为草稿</span>
-            </li>
-            <li class="popover-contentmenu-item-divider"></li>
-            <li class="popover-contentmenu-item" @click="handleExternal(pageOperationTypes.downloadJSON)">
-              <span>导出图纸</span>
-            </li>
-          </ul>
-        </template>
-        <topAction title="文件" overClass="vis-icon-wrap">
-          <visui-icon name="vis-wenjian" :size="18"></visui-icon>
-          <div class="triangle"></div>
-        </topAction>
-      </visui-tooltip>
-
       <topAction @click="handleExternal(pageOperationTypes.preview)" title="预览">
         <visui-icon name="vis-yulan" :size="18"></visui-icon>
       </topAction>
