@@ -10,12 +10,12 @@
 
 - 账号: test
 - 密码: Qian@1234
-- 地址: (https://www.qiantech.com.cn/frame/)
+- 地址: (https://www.qiantech.com.cn/qianping/)
 
 ![模板](./readme/screen_gif_005.gif)
 
 ## 2. 可视化平台说明
-qian-datavis-community(千行千屏-社区版) 是一个Vue3搭建的低代码数据可视化开发平台，将图表或页面元素封装为基础组件，无需编写代码即可完成业务需求。 它的技术栈为：Vue3 + TypeScript4 + Vite5 + Element-Plus + ECharts5  + Axios
+qian-datavis-community(千行千屏-社区版) 是一个Vue3搭建的低代码数据可视化开发平台，将图表或页面元素封装为基础组件，无需编写代码即可完成业务需求。 它的技术栈为：Vue3 + TypeScript5 + Vite5 + Element-Plus + ECharts5  + Axios
 
 ### 2.1  主要特点
 
