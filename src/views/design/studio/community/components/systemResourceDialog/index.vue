@@ -33,25 +33,19 @@
         <div class="btn" v-for="item in state.lv1Tabs" :key="item.id" :class="{ active: state.lv1Key === item.id }" @click="handleLv1Change(item)">
           {{ item.name }}
         </div>
-        <div class="plus-action-icon" v-if="isRootUser" @click="handleOpenFolderDialog(null)">
-          <visui-icon name="ele-plus" :size="12"></visui-icon>
-        </div>
       </div>
     </div>
 
-    <div class="tabs-scroll-wrapper" :class="{ 'none-shadow': !(state.lv3Key || isRootUser) }" v-if="state.lv1Key">
+    <div class="tabs-scroll-wrapper" :class="{ 'none-shadow': !state.lv3Key }" v-if="state.lv1Key">
       <el-scrollbar max-height="85px">
         <div class="text-wrap">
           <div class="text" v-for="item in state.lv2Tabs" :key="item.id" :class="{ active: state.lv2Key === item.id }" @click="handleLv2Change(item)">
             {{ item.name }}
           </div>
-          <div class="plus-action-icon" v-if="isRootUser" @click="handleOpenFolderDialog(lv1Obj)">
-            <visui-icon name="ele-plus" :size="12"></visui-icon>
-          </div>
         </div>
       </el-scrollbar>
     </div>
-    <div class="tabs-scroll-wrapper none-shadow" v-if="state.lv2Key && (isRootUser || state.lv3Tabs.length)">
+    <div class="tabs-scroll-wrapper none-shadow" v-if="state.lv2Key && state.lv3Tabs.length">
       <el-scrollbar max-height="85px">
         <div class="text-wrap">
           <div
@@ -63,21 +57,10 @@
           >
             {{ item.name }}
           </div>
-          <div class="plus-action-icon" v-if="isRootUser" @click="handleOpenFolderDialog(lv2Obj)">
-            <visui-icon name="ele-plus" :size="12"></visui-icon>
-          </div>
         </div>
       </el-scrollbar>
     </div>
-    <div
-      class="scrollbar-wrap"
-      :class="{ 'is-dragover': state.isDraggingFile }"
-      @drop="handleDrop"
-      @dragover.prevent="handleDragOver"
-      @dragleave.prevent="handleDragLeave"
-      v-loading="!!state.loadingText"
-      :element-loading-text="state.loadingText"
-    >
+    <div class="scrollbar-wrap">
       <el-scrollbar>
         <div class="list" ref="listRef">
           <div
@@ -86,7 +69,6 @@
             :key="item.id"
             :draggable="canDropToCanvas"
             @dragstart="handleDragStart($event, item)"
-            @dragend="handleDragend"
             @click="handleAddCom(item)"
           >
             <div class="item-image-box">
@@ -107,45 +89,21 @@
       </el-scrollbar>
     </div>
   </el-dialog>
-  <el-dialog modal-append-to-body title="创建文件夹" v-model="state.folderDialogVisible" width="360px" :close-on-click-modal="false">
-    <el-form ref="formRef" :model="state.form" :rules="state.rules" label-width="auto">
-      <el-form-item label="类型" prop="type">
-        <visui-select v-model="state.form.type" placeholder="请选择">
-          <visui-option v-for="item in state.typeList" :key="item.value" :label="item.label" :value="item.value" />
-        </visui-select>
-      </el-form-item>
-      <el-form-item label="名称" prop="name">
-        <el-input ref="nameInputRef" v-model="state.form.name" placeholder="请输入名称" clearable />
-      </el-form-item>
-      <el-form-item label="序号">
-        <el-input-number v-model="state.form.sort" controls-position="right" class="full-width" />
-      </el-form-item>
-    </el-form>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="state.folderDialogVisible = false">关 闭</el-button>
-        <el-button type="primary" :loading="state.confirmLoading" @click="createFolder">确 定</el-button>
-      </span>
-    </template>
-  </el-dialog>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted, useAttrs, computed } from 'vue'
-import { eventTypes, pageOperationTypes, errorImgUrl, isValidDatavisFile } from '../../utils/index'
+import { reactive, ref, onMounted, useAttrs, computed, inject } from 'vue'
+import { eventTypes, pageOperationTypes, errorImgUrl } from '../../utils/index'
 import datavisApi from '@/api/datavisApi'
 import { useEventListener } from '@vueuse/core'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 import { debounce } from 'lodash-es'
 import useEditor from '../../hooks/useEditor'
 const { editor } = useEditor()
 const componentName = 'systemResourceDialog'
 defineOptions({ name: componentName })
 const attrs = useAttrs()
-
-const isRootUser = localStorage.getItem('DATAVIS_USER') === 'root' // 是否是root用户，可以管理素材
-// const isRootUser = false
-
+const popupEl = inject('popupEl')
 const state = reactive({
   visible: false,
   loadingText: '',
@@ -160,26 +118,12 @@ const state = reactive({
   lv2Key: '', // 二级分类当前key
   lv3Key: '', // 三级分类当前key
   dataList: [] as any,
-  form: { id: '', name: '', type: 310 } as any,
-  rules: {
-    name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-    type: [{ required: true, message: '请选择类型', trigger: 'change' }]
-  },
-  confirmLoading: false,
-  tooltipVisible: false,
-  folderDialogVisible: false,
-  isDraggingFile: false, // 是否正在拖拽文件
-  isDraggingItem: false, // 是否正在元素
-
-  dragTimer: null as any,
   typeList: [
-    // { value: 100, label: '大屏' },
     { value: 200, label: '模块' },
     { value: 310, label: '素材' },
     { value: 600, label: '模板' }
   ]
 })
-const formRef = ref()
 
 const lv1Obj = computed<any>(() => {
   return state.lv1Tabs.find((item: any) => item.id === state.lv1Key)
@@ -197,11 +141,6 @@ const resourceMap: any = {
     type: 'addImage',
     acceptFiles: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif', 'image/svg+xml']
   },
-  // 100: {
-  //   description: '大屏',
-  //   type: 'addScreen',
-  //   acceptFiles: ['application/json']
-  // },
   600: {
     description: '模板',
     type: 'addScreen',
@@ -215,39 +154,6 @@ const resourceMap: any = {
 }
 
 const emit = defineEmits(['finish'])
-
-const nameInputRef = ref() // 名称名称输入框ref
-
-// 打开创建文件夹弹窗
-const handleOpenFolderDialog = (e: any) => {
-  if (!e) {
-    state.form = { id: '', name: '', type: 310, parent_id: '', sort: 0 }
-  } else {
-    state.form = { id: '', name: '', type: e.type, parent_id: e.id, sort: 0 }
-  }
-  state.folderDialogVisible = true
-  setTimeout(() => {
-    formRef.value.clearValidate()
-    // 自动获取焦点
-    nameInputRef.value.focus()
-  }, 16)
-}
-
-// 创建文件夹
-const createFolder = async () => {
-  formRef.value.validate(async (valid: boolean) => {
-    if (valid) {
-      state.confirmLoading = true
-      const [err] = await datavisApi.folders.save(state.form)
-      state.confirmLoading = false
-      if (!err) {
-        state.folderDialogVisible = false
-        fireEvent()
-        initTabsData()
-      }
-    }
-  })
-}
 
 const handleOpenDialog = () => {
   state.visible = true
@@ -381,15 +287,10 @@ const handleDragStart = (e: DragEvent, row: any) => {
     type: resourceMap[lv1Obj.value.type].type,
     params: row
   }
-  state.isDraggingItem = true
   const content = JSON.stringify(data)
   if (e.dataTransfer) {
     e.dataTransfer.setData('datavisData', content)
   }
-}
-// 拖拽结束
-const handleDragend = () => {
-  state.isDraggingItem = false
 }
 
 // 图片、模块才可以直接加入画布
@@ -417,91 +318,12 @@ const handleWindowResize = () => {
   }
 }
 
-const handleDrop = async (e: any) => {
-  const { files } = e.dataTransfer
-  e.preventDefault()
-  e.stopPropagation()
-  state.isDraggingFile = false
-  const transferData = e.dataTransfer.getData('datavisData')
-  if (transferData || !isRootUser) {
-    return
-  }
-  let refuseReason = ''
-  const resourceObj = resourceMap[lv1Obj.value.type]
-  if (resourceObj) {
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i]
-      if (!resourceObj.acceptFiles.includes(file.type)) {
-        refuseReason = '文件类型不符合要求'
-        break
-      }
-      if (file.type === 'application/json') {
-        const { isValid } = (await isValidDatavisFile(file)) as any
-        if (!isValid) {
-          refuseReason = '文件内容格式不正确'
-          break
-        }
-      }
-    }
-  }
-  if (refuseReason) {
-    return ElMessage.error(refuseReason)
-  }
-  const item = lv3Obj.value || lv2Obj.value || lv1Obj.value
-  state.loadingText = '上传中，请稍候...'
-  const [err, res] = await datavisApi.file.uploadFiles(files, { folder: item.url, isCover: 0 })
-  const data = err ? {} : res || {}
-  if (data.urls) {
-    const models = data.urls.map((url: any) => {
-      const fileName = url.substring(url.lastIndexOf('/') + 1)
-      const name = fileName.substring(0, fileName.lastIndexOf('.'))
-      return {
-        id: '',
-        name,
-        parent_id: item.id,
-        type: item.type,
-        url
-      }
-    })
-    const [saveErr] = await datavisApi.resource.save(models)
-    if (!saveErr) {
-      ElMessage.success('上传成功')
-      fireEvent()
-      getDataList()
-    }
-  }
-  state.loadingText = ''
-}
-
-const fireEvent = () => {
-  if (lv1Obj.value) {
-    if (lv1Obj.value.type === 310) {
-      editor.fire(eventTypes.pageOperation, { type: pageOperationTypes.materialUpdate, source: componentName })
-    } else if (lv1Obj.value.type === 200) {
-      editor.fire(eventTypes.pageOperation, { type: pageOperationTypes.moduleUpdate, source: componentName })
-    }
-  }
-}
-
-const handleDragOver = (e: any) => {
-  if (!state.isDraggingItem && isRootUser) {
-    state.isDraggingFile = true
-    e.dataTransfer.dropEffect = 'copy'
-    clearTimeout(state.dragTimer)
-  }
-}
-
-const handleDragLeave = () => {
-  state.dragTimer = setTimeout(() => {
-    state.isDraggingFile = false
-  }, 16)
-}
-
 // 覆盖大屏，会清空原大屏再导入大屏数据
 
 const handleCoverScreen = (row: any) => {
   ElMessageBox.confirm('新建大屏将会覆盖当前大屏，是否继续？', '警告', {
-    type: 'warning'
+    type: 'warning',
+    appendTo: popupEl as any
   })
     .then(() => {
       fireAddScreen(row, true)
