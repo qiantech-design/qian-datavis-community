@@ -1,0 +1,202 @@
+.datavis-editor-header-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+
+  .toolbar-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 12px;
+
+    .top-action.back-action {
+      width: 34px;
+    }
+  }
+
+  .top-action {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--ui-secondary-font-color);
+    cursor: pointer;
+    width: 62px;
+
+    &.panel-wrap {
+      width: 86px; // 62 + 24
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      color: var(--ui-disabled-color);
+
+      .vis-icon-wrap {
+        color: var(--ui-disabled-color);
+      }
+
+      .vis-icon-outline {
+        color: var(--ui-disabled-color);
+      }
+
+      .top-action-title {
+        color: var(--ui-disabled-color);
+      }
+
+      >* {
+        pointer-events: none;
+      }
+    }
+
+    >span {
+      font-size: 12px;
+      margin-top: 2px;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    &:hover .vis-icon-wrap .triangle {
+      transform: rotate(-180deg);
+    }
+
+    &.active {
+      .vis-icon-outline {
+        background-color: var(--toolbar-icon-active-background) !important;
+        color: var(--toolbar-icon-active-color);
+      }
+
+      .top-action-title {
+        color: var(--ui-font-color);
+        font-weight: 600;
+      }
+    }
+
+    .vis-icon-outline {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 26px;
+      height: 26px;
+      padding: 0;
+      border-radius: 0;
+      cursor: pointer;
+      color: var(--toolbar-icon-color);
+      border: 1px solid var(--toolbar-icon-border);
+      background-color: var(--toolbar-icon-background);
+
+      &:hover {
+        background-color: var(--toolbar-icon-hover-background);
+      }
+
+      &.active {
+        background-color: var(--toolbar-icon-active-background);
+        color: var(--toolbar-icon-active-color);
+      }
+    }
+
+    .vis-icon-wrap {
+      width: auto;
+      display: flex;
+      align-items: center;
+      padding: 0 4px;
+
+      &.no-hover:hover {
+        background-color: var(--toolbar-icon-background);
+      }
+
+      .triangle {
+        transition: all 0.3s;
+        margin-left: 2px;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid var(--toolbar-icon-color);
+
+        &::after {
+          content: '';
+          width: 8px;
+        }
+      }
+
+      .icon {
+        color: var(--toolbar-svgicon-color);
+        opacity: 0.3;
+
+        &+.icon {
+          margin-left: 4px;
+        }
+
+        &.active {
+          color: var(--toolbar-svgicon-active-color);
+          opacity: 1;
+        }
+      }
+    }
+
+    .top-action-title {
+      color: var(--toolbar-action-color);
+    }
+  }
+
+  .toolbar-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  .hover-active-input {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: var(--ui-font-color);
+    line-height: 30px;
+    padding: 0 6px;
+    margin: 0 6px;
+    border-radius: 2px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 140px;
+
+    &:hover {
+      border-color: var(--ui-reset-border);
+    }
+
+    &:focus {
+      border-color: var(--el-color-primary);
+    }
+  }
+}
+
+.datavis-editor-toolbar-popover-contentmenu {
+  --el-popover-padding: 6px;
+  padding: 6px;
+
+  .popover-contentmenu-list {
+    width: 160px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .popover-contentmenu-item {
+      height: 32px;
+      line-height: 32px;
+      padding: 0 12px;
+      font-size: 12px;
+      color: var(--toolbar-contentmenu-color);
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background: var(--toolbar-contentmenu-item-background);
+      }
+    }
+
+    .popover-contentmenu-item-divider {
+      width: 100%;
+      height: 1px;
+      background-color: var(--toolbar-contentmenu-divider-background);
+      margin: 3px 0;
+    }
+  }
+}

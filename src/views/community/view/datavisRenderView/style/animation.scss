@@ -1,0 +1,134 @@
+.datavis-animation {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 0.8s;
+}
+
+// 闪烁动画
+@keyframes datavis-keyframes-twinkle {
+  0% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: .1
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+.datavis-animation-twinkle {
+  animation-name: datavis-keyframes-twinkle;
+}
+
+// 正向旋转
+@keyframes datavis-keyframes-rotateForward {
+  0% {
+    transform: rotate(0)
+  }
+
+  to {
+    transform: rotate(1turn)
+  }
+}
+
+.datavis-animation-rotateForward {
+  animation-name: datavis-keyframes-rotateForward;
+}
+
+// 反向旋转
+@keyframes datavis-keyframes-rotateReversed {
+  0% {
+    transform: rotate(1turn)
+  }
+
+  to {
+    transform: rotate(0)
+  }
+}
+
+.datavis-animation-rotateReversed {
+  animation-name: datavis-keyframes-rotateReversed;
+}
+
+
+// 正向流动
+@keyframes datavis-keyframes-flowForward {
+  0% {
+    stroke-dashoffset: 30;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.datavis-animation-flowForward {
+  .datavis-animation-flow-line {
+    stroke-dasharray: 10;
+    animation: datavis-keyframes-flowForward 0.8s linear;
+    animation-iteration-count: infinite;
+  }
+}
+
+// 反向流动
+@keyframes datavis-frames-flowReversed {
+  0% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: 30;
+  }
+}
+
+.datavis-animation-flowReversed {
+  .datavis-animation-flow-line {
+    stroke-dasharray: 10;
+    animation: datavis-frames-flowReversed 0.8s linear;
+    animation-iteration-count: infinite;
+
+  }
+}
+
+// 缩放
+@keyframes datavis-frames-scaleForward {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.datavis-animation-scaleForward {
+  animation: datavis-frames-scaleForward 1s linear;
+  animation-iteration-count: infinite;
+}
+
+// 缩放
+@keyframes datavis-frames-scaleReversed {
+  0% {
+    transform: scale(0.8);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.8);
+  }
+}
+
+.datavis-animation-scaleReversed {
+  animation: datavis-frames-scaleReversed 1s linear;
+  animation-iteration-count: infinite;
+}

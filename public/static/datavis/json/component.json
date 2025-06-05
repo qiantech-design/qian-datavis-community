@@ -1,0 +1,475 @@
+{
+  "result": 0,
+  "data": {
+    "pageData": [
+      {
+        "name": "Charts",
+        "title": "图表",
+        "children": [
+          {
+            "title": "折线图",
+            "name": "lineChart",
+            "children": [
+              {
+                "name": "visWidgetChartLine",
+                "title": "双折线图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartline.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartLineArea",
+                "title": "折线面积图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartlineArea.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartLineAreaBar",
+                "title": "折线柱状图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartlineBar.png",
+                "isAuth": true
+              }
+            ]
+          },
+          {
+            "title": "柱状图",
+            "name": "barChart",
+            "children": [
+              {
+                "name": "visWidgetChartbar",
+                "title": "柱状图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartbar.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartbarStack",
+                "title": "堆叠柱状图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartbarStack.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartbarHorizontal",
+                "title": "条形图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartbarHorizontal.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartBarHorizontalStack",
+                "title": "双向水平条形图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartbarHorizontalStack.png",
+                "isAuth": true
+              }
+            ]
+          },
+          {
+            "title": "饼图",
+            "name": "pieChart",
+            "children": [
+              {
+                "name": "visWidgetChartpie",
+                "title": "饼图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartpie.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartpieCircle",
+                "title": "环形图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartpieCircle.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartpieNightingale",
+                "title": "玫瑰图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartpieNightingale.png",
+                "isAuth": true
+              }
+            ]
+          },
+          {
+            "title": "仪表盘",
+            "name": "gaugeChart",
+            "children": [
+              {
+                "name": "visWidgetChartGaugeProgress",
+                "title": "进度仪表盘",
+                "url": "/static/datavis/img/component/charts/visWidgetGaugeProgress.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartGaugePointer",
+                "title": "指针仪表盘",
+                "url": "/static/datavis/img/component/charts/visWidgetGaugeProgressPoint.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartGaugeSpeed",
+                "title": "速度仪表盘",
+                "url": "/static/datavis/img/component/charts/visWidgetGaugeProgressSpeed.png",
+                "isAuth": true
+              }
+            ]
+          },
+          {
+            "title": "散点图",
+            "name": "scatterChart",
+            "children": [
+              {
+                "name": "visWidgetChartScatter",
+                "title": "散点图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartScatter.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartScatterBubble",
+                "title": "气泡图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartBubble.png",
+                "isAuth": true
+              }
+            ]
+          },
+          {
+            "title": "水波图",
+            "name": "LiquidFillChart",
+            "children": [
+              {
+                "name": "visWidgetChartLiquidFill",
+                "title": "水波图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartLiquidFill.png",
+                "isAuth": true
+              }
+            ]
+          },
+          {
+            "title": "地图",
+            "name": "MapChart",
+            "children": [
+              {
+                "name": "visWidgetChartmap",
+                "title": "渐变地图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartmap.png",
+                "isAuth": false
+              },
+              {
+                "name": "visWidgetChartmapCustom",
+                "title": "自定义地图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartmapCustom.png",
+                "isAuth": false
+              }
+            ]
+          },
+          {
+            "title": "更多",
+            "name": "other",
+            "children": [
+              {
+                "name": "visWidgetGridProgressBar",
+                "title": "栅格进度条",
+                "url": "/static/datavis/img/component/charts/visWidgetGridProgress.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartRadar",
+                "title": "雷达图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartRadar.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartFunnel",
+                "title": "漏斗图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartFunnel.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetChartSankey",
+                "title": "桑基图",
+                "url": "/static/datavis/img/component/charts/visWidgetChartSankey.png",
+                "isAuth": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Tables",
+        "title": "表格",
+        "children": [
+          {
+            "title": "表格",
+            "name": "table",
+            "children": [
+              {
+                "name": "visWidgetTableBorder",
+                "title": "滚动排名列表(有框)",
+                "url": "/static/datavis/img/component/tables/BorderTableList.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetTableScroll",
+                "title": "轮播表",
+                "url": "/static/datavis/img/component/tables/tables_list.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetTable",
+                "title": "滚动排名列表(无框)",
+                "url": "/static/datavis/img/component/tables/table_scrollboard.png",
+                "isAuth": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Text",
+        "title": "文本",
+        "children": [
+          {
+            "title": "文本",
+            "name": "Text",
+            "children": [
+              {
+                "name": "visWidgetText",
+                "title": "文本",
+                "url": "/static/datavis/img/component/text/visWidgetText.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetTextRunLight",
+                "title": "弹幕文字",
+                "url": "/static/datavis/img/component/text/visWidgetRunLight.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetTextVertivalTitle",
+                "title": "垂直标题",
+                "url": "/static/datavis/img/component/text/visWidgetVertivalTitle.jpg",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetTextTitleNum",
+                "title": "翻牌器",
+                "url": "/static/datavis/img/component/text/visWidgetTitleNum.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetIcon",
+                "title": "图标",
+                "url": "/static/datavis/img/component/text/visWidgetIcon.png",
+                "isAuth": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "decorate",
+        "title": "控件",
+        "children": [
+          {
+            "title": "背景",
+            "name": "background",
+            "children": [
+              {
+                "name": "visWidgeturl",
+                "title": "图片",
+                "url": "/static/datavis/img/photo/source1.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetGlass",
+                "title": "毛玻璃",
+                "url": "/static/datavis/img/component/decorates/glass.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetColorBlock",
+                "title": "颜色块",
+                "url": "/static/datavis/img/component/decorates/color-block.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetIframe",
+                "title": "Iframe页面",
+                "url": "/static/datavis/img/component/interactive/iframe.png",
+                "isAuth": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Interactive",
+        "title": "交互",
+        "children": [
+          {
+            "title": "交互",
+            "name": "Interactive",
+            "children": [
+              {
+                "name": "visWidgetButton",
+                "title": "按钮",
+                "url": "/static/datavis/img/component/interactive/visWidgetButton.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetFullScreen",
+                "title": "全屏组件",
+                "url": "/static/datavis/img/component/interactive/visWidgetFullScreen.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetSwitch",
+                "title": "开关",
+                "url": "/static/datavis/img/component/interactive/visWidgetSwitch.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetTabs",
+                "title": "选项卡",
+                "url": "/static/datavis/img/component/interactive/visWidgetTabs.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetTabsText",
+                "title": "文本选项卡",
+                "url": "/static/datavis/img/component/interactive/visWidgetTabsText.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetSelect",
+                "title": "选择框",
+                "url": "/static/datavis/img/component/interactive/visWidgetSelect.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetRadio",
+                "title": "单选框",
+                "url": "/static/datavis/img/component/interactive/visWidgetRadio.png",
+                "isAuth": false
+              },
+              {
+                "name": "visWidgetCheckbox",
+                "title": "复选框",
+                "url": "/static/datavis/img/component/interactive/visWidgetCheckbox.png",
+                "isAuth": false
+              }
+            ]
+          },
+          {
+            "title": "轮播",
+            "name": "swiper",
+            "children": [
+              {
+                "name": "visWidgetCarousel",
+                "title": "轮播图",
+                "url": "/static/datavis/img/component/interactive/visWidgetSwiper.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetSwiperIframe",
+                "title": "Iframe轮播",
+                "url": "/static/datavis/img/component/interactive/visWidgetSwiper.png",
+                "isAuth": false
+              },
+              {
+                "name": "visWidgetSwiperNumBox",
+                "title": "swiper盒子",
+                "url": "/static/datavis/img/component/interactive/visWidgetSwiperNumBox.png",
+                "isAuth": false
+              }
+            ]
+          },
+          {
+            "title": "视频播放",
+            "name": "Video",
+            "children": [
+              {
+                "name": "visWidgetXgplayer",
+                "title": "西瓜播放器",
+                "url": "/static/datavis/img/component/interactive/video.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetVideoBackground",
+                "title": "mp4视频背景",
+                "url": "/static/datavis/img/component/interactive/video.png",
+                "isAuth": true
+              }
+            ]
+          },
+          {
+            "title": "步骤条",
+            "name": "Step",
+            "children": [
+              {
+                "name": "visWidgetSteps",
+                "title": "普通步骤条",
+                "url": "/static/datavis/img/component/interactive/steps.png",
+                "isAuth": false
+              },
+              {
+                "name": "visWidgetStepsSimple",
+                "title": "简单步骤条",
+                "url": "/static/datavis/img/component/interactive/stepsSimple.png",
+                "isAuth": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Layout",
+        "title": "布局组件",
+        "children": [
+          {
+            "name": "loopCom",
+            "title": "列表",
+            "children": [
+              {
+                "name": "visWidgetLayoutGrid",
+                "title": "列表",
+                "url": "/static/datavis/img/component/layout/visWidgetLayoutGrid.png",
+                "isAuth": false
+              },
+              {
+                "name": "visWidgetLayoutCarousel",
+                "title": "走马灯列表",
+                "url": "/static/datavis/img/component/layout/visWidgetLayoutSwiper.png",
+                "isAuth": false
+              },
+              {
+                "name": "visWidgetLayoutSwiper",
+                "title": "轮播列表",
+                "url": "/static/datavis/img/component/layout/visWidgetLayoutSwiper.png",
+                "isAuth": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "ThirdParty",
+        "title": "第三方",
+        "children": [
+          {
+            "title": "常用",
+            "name": "commonParty",
+            "children": [
+              {
+                "name": "visWidgetEchart",
+                "title": "Echarts组件",
+                "url": "/static/datavis/img/component/thirdParty/Echart.png",
+                "isAuth": true
+              },
+              {
+                "name": "visWidgetDatav",
+                "title": "Datav组件",
+                "url": "/static/datavis/img/component/thirdParty/DataV.png",
+                "isAuth": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

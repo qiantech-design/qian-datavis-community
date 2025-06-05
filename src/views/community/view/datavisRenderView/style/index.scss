@@ -1,0 +1,38 @@
+@use './animation.scss';
+
+.datavis-renderer-container {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.datavis-renderer-editor {
+  position: relative;
+  height: 100%;
+
+  &::-webkit-scrollbar {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #3e454e !important;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-corner {
+    display: none !important;
+  }
+
+}
+
+.datavis-renderer-fullscreen {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+}

@@ -1,0 +1,116 @@
+// 搜索组件图层弹窗
+.datavis-search-dialog {
+  background: #040d18 !important;
+
+  .el-dialog__header {
+    display: none !important;
+    height: 0px !important;
+  }
+
+  .el-dialog__body {
+    box-shadow: 0px 5px 15px 3px rgba(0, 0, 0, 0.45) !important;
+    border-radius: 4px;
+    padding: 0 !important;
+
+    .el-input__inner {
+      border: none;
+      width: 100%;
+      height: 45px;
+      color: #ffffff;
+    }
+  }
+
+  .datavis-search-dialog-body {
+    width: 100%;
+    max-height: 500px;
+    margin-right: -8px;
+
+    .datavis-search-dialog-list {
+      width: 100%;
+      user-select: none;
+      margin: 0;
+      padding: 0;
+
+      &:last-child {
+        padding-bottom: 5px;
+      }
+
+      .datavis-search-dialog-type {
+        height: 28px;
+        background: #373a45;
+        opacity: 0.6;
+        line-height: 28px;
+        padding-left: 30px;
+        font-size: 12px;
+        font-weight: 400;
+        color: #eaf4ff;
+      }
+
+      .datavis-search-dialog-item {
+        position: relative;
+        display: flex;
+        padding-left: 30px;
+        align-items: center;
+        height: 50px;
+        cursor: pointer;
+
+        &:hover {
+          background: #323f50;
+        }
+
+        &.mask {
+          &:hover {
+            background-color: transparent;
+            cursor: not-allowed;
+          }
+
+          .lock-mask {
+            display: inline-block;
+          }
+        }
+
+        &.active {
+          background-color: var(--layer-item-active-background);
+        }
+
+        .datavis-search-item-img {
+          width: 40px;
+          height: 27px;
+          margin-right: 10px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+
+          i {
+            font-size: 26px;
+          }
+        }
+
+        .datavis-search-item-name {
+          font-size: 14px;
+          font-weight: 500;
+          color: #ffffff;
+        }
+
+        .lock-mask {
+          display: none;
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(255, 255, 255, 0.15);
+
+          .mask-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
+  }
+}

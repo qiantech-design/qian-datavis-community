@@ -1,0 +1,327 @@
+.datavis-layer-bar {
+  &--wrap {
+    width: 100%;
+    height: 100%;
+    font-size: var(--layer-font-size);
+    background: var(--layer-background);
+    box-shadow: 0px 5px 15px 3px var(--layer-shadow-color);
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &--header {
+    height: 40px;
+    background: var(--layer-header-background);
+    box-shadow: inset 0px -1px 0px 0px var(--layer-divider-shadow-color);
+    color: var(--layer-header-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+
+    .action {
+      height: 16px;
+
+      .search-icon {
+        cursor: pointer;
+      }
+
+      .search-input {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 0;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        transition: all 0.1s ease-in;
+        background: var(--layer-header-background);
+
+        &.is-active {
+          width: 150px;
+        }
+
+        .close-icon {
+          padding: 0 5px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  &--buttons {
+    height: 44px;
+    box-shadow: inset 0px -1px 0px 0px var(--layer-divider-shadow-color);
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &--action {
+    color: var(--layer-action-color);
+    opacity: 0.4;
+    cursor: not-allowed;
+    padding: 6px;
+
+    * {
+      cursor: not-allowed;
+    }
+
+    &.is-active {
+      opacity: 1;
+      cursor: pointer;
+
+      * {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &--action-divider {
+    height: 16px;
+    margin: 0 10px;
+    border-left: 1px dashed var(--layer-action-divider-color);
+  }
+
+  &--content {
+    flex: 1;
+    overflow: hidden;
+
+    .moving-line {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 2px;
+      background-color: var(--layer-item-active-background);
+      pointer-events: none;
+    }
+  }
+
+  &--tree {
+    position: relative;
+
+
+  }
+
+  &--footer {
+    height: 16px;
+    color: var(--layer-action-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: var(--layer-header-background);
+
+    &:hover {
+      background-color: var(--layer-item-hover-background);
+    }
+  }
+
+  &--groupbar {
+    height: 0px;
+    transition: all 0.3s ease-in;
+
+    .expand-title {
+      height: 16px;
+      color: var(--layer-action-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background-color: var(--layer-item-hover-background);
+    }
+
+    &.is-show {
+      height: 320px;
+    }
+  }
+
+  &--node {
+    cursor: pointer;
+    position: relative;
+  }
+
+  &--node__content {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    color: var(--layer-item-color);
+    // user-select: none;
+
+    cursor: move;
+
+    &:hover {
+      background-color: var(--layer-item-hover-background);
+
+      .action__status {
+        .datavis-icon {
+          display: inline-block;
+        }
+      }
+
+      .el-icon {
+        color: #FFFFFF;
+      }
+
+      .datavis-icon {
+        color: #FFFFFF;
+      }
+
+      .title_ellipsis {
+        color: #FFFFFF !important;
+      }
+    }
+
+    &.is-active {
+      background-color: var(--layer-item-active-background);
+
+      .el-icon {
+        color: #FFFFFF;
+      }
+
+      .datavis-icon {
+        color: #FFFFFF;
+      }
+
+      .title_ellipsis {
+        color: #FFFFFF !important;
+      }
+    }
+
+    &.expand {
+      +div {
+        display: block;
+      }
+    }
+
+    .icon {
+      height: 100%;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 27px;
+
+      .icon-expand {
+        margin-right: 5px;
+        transform: rotate(0);
+        transition: transform var(--el-transition-duration) ease-in-out;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &.expand {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    .el-icon {
+      color: #BFBFBF;
+    }
+
+    .datavis-icon {
+      color: #ADADAD;
+    }
+
+    .image {
+      width: 40px;
+      height: 27px;
+      background: var(--layer-item-image-background);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        pointer-events: none;
+      }
+    }
+
+    .title {
+      flex: 1;
+      padding-left: 6px;
+      font-size: 12px;
+      min-width: 0;
+      white-space: nowrap;
+      user-select: none;
+      height: 100%;
+      display: flex;
+      align-items: center;
+
+      .title_ellipsis {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: normal;
+        color: #BFBFBF;
+      }
+    }
+
+    .action__status {
+      width: 40px;
+      display: flex;
+      align-items: center;
+      font-size: 17px;
+
+      .is-show {
+        .datavis-icon {
+          display: inline-block;
+        }
+      }
+
+      .action__status_lock {
+        flex: 1;
+      }
+
+      .action__status_hide {
+        flex: 1;
+      }
+
+      .datavis-icon {
+        display: none;
+      }
+    }
+
+  }
+
+  &--node__children {
+    display: none;
+  }
+
+  &--divider {
+    width: 100%;
+    height: 4px;
+    margin-bottom: 3px;
+    border-bottom: 1px solid var(--layer-border-color);
+  }
+}
+
+.drag-ghost {
+  opacity: 0.7 !important;
+  position: absolute !important;
+  z-index: 9999;
+  pointer-events: none;
+  user-select: none;
+  background-color: var(--layer-item-active-background) !important;
+
+  .title_ellipsis {
+    color: #FFFFFF !important;
+  }
+}

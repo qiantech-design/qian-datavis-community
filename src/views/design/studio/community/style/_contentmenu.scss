@@ -1,0 +1,58 @@
+.datavis-contextmenu-bar {
+  z-index: 9;
+
+  &--wrap {
+    width: var(--contentmenu-width);
+    background: var(--contentmenu-background);
+    list-style: none;
+    padding: 7px 6px;
+    font-size: 12px;
+    box-shadow: 0px 5px 15px 3px var(--contentmenu-shadow-color);
+    border-radius: 4px;
+    border: 1px solid var(--contentmenu-border-color);
+    user-select: none;
+    overflow: hidden;
+  }
+
+  &--item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--contentmenu-item-height);
+    color: var(--contentmenu-item-color);
+    z-index: 10000;
+    list-style: none;
+    padding-left: 12px;
+    cursor: pointer;
+    position: relative;
+    border-radius: 4px;
+
+    .content {
+      display: flex;
+      align-items: center;
+    }
+
+    .icon {
+      margin-right: 5px;
+    }
+
+    .title {
+      line-height: 12px;
+    }
+
+    .key-tips {
+      padding-right: 10px;
+    }
+
+    &:hover {
+      background-color: var(--contentmenu-item-hover-background);
+    }
+  }
+
+  &--divider {
+    width: 100%;
+    height: 4px;
+    margin-bottom: 3px;
+    border-bottom: 1px solid var(--contentmenu-border-color);
+  }
+}
