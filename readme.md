@@ -63,11 +63,11 @@ npm run dev
 
 微信：QianHangService
 
-<img src="./readme/qrcode_vx2.jpg" width="200" />
+<img src="https://www.qiantech.com.cn/static/website/img/web/qrcode_vx2.jpg" width="200" />
 
-QQ：3766696365
+QQ：3908700638
 
-<img src="./readme/qrcode_qq.png" width="200" />
+<img src="https://www.qiantech.com.cn/static/website/img/web/qrcode_qq.png" width="200" />
 
 ## 6. 企业版 部分功能展示
 
